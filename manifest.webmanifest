@@ -1,0 +1,12 @@
+{
+  "name": "Casa, côté vous",
+  "short_name": "Casa",
+  "description": "Votre guide personnel de Casablanca",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#091215",
+  "theme_color": "#091215",
+  "icons": [
+    { "src": "assets/img/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
