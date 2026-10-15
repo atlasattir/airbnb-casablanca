@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Jost:wght@300;400;500&family=Amiri:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200..600&family=Tajawal:wght@400;500&display=swap">
   <style>
     /* Printable A6 card for the apartment entrance: guide QR code + Wi-Fi. */
     :root {
@@ -22,9 +22,9 @@
       --ink-dim: #56615E;
       --rule: rgba(19, 33, 31, .16);
       --gilt: #8E6E3A;
-      --f-display: "Bodoni Moda", "Bodoni 72", Didot, "Times New Roman", serif;
-      --f-sans: "Jost", "Futura", "Avenir Next", system-ui, sans-serif;
-      --f-ar: "Amiri", "Noto Naskh Arabic", serif;
+      --f-display: "Outfit", "Avenir Next", system-ui, sans-serif;
+      --f-sans: "Outfit", "Avenir Next", system-ui, sans-serif;
+      --f-ar: "Tajawal", "Noto Sans Arabic", sans-serif;
       color-scheme: dark;
     }
 
@@ -137,13 +137,13 @@
     .card__brand {
       margin: 2cqw 0 0;
       font-family: var(--f-display);
-      font-weight: 400;
+      font-weight: 300;
       font-size: 9.4cqw;
       line-height: 1;
-      letter-spacing: -.02em;
+      letter-spacing: -.045em;
     }
 
-    .card__brand em { font-style: italic; }
+    .card__brand em { font-style: normal; font-weight: 200; }
     .card__brand .comma { color: var(--gilt); }
 
     .card__place {
@@ -187,7 +187,7 @@
       color: var(--ink);
     }
 
-    .card__scan li:first-child { font-family: var(--f-display); font-style: italic; font-size: 4cqw; }
+    .card__scan li:first-child { font-family: var(--f-display); font-weight: 300; font-size: 4cqw; letter-spacing: -.02em; }
     .card__scan [lang="ar"] { font-family: var(--f-ar); font-size: 3.6cqw; line-height: 1.3; }
     .card__scan li:not(:first-child) { color: var(--ink-dim); }
 
@@ -217,12 +217,13 @@
       display: block;
       margin-top: .5cqw;
       font-family: var(--f-display);
+      font-weight: 300;
       font-size: 4.4cqw;
       line-height: 1.15;
       overflow-wrap: anywhere;
     }
 
-    .card__value.is-empty { color: var(--ink-dim); font-size: 3.2cqw; font-style: italic; }
+    .card__value.is-empty { color: var(--ink-dim); font-size: 3.2cqw; font-weight: 300; }
 
     .card__wifi-qr { flex: none; width: 19cqw; margin: 0; }
     .card__wifi-qr svg { display: block; width: 100%; height: 100%; color: var(--ink); }

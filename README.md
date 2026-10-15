@@ -22,7 +22,7 @@ docs/messages.md        les messages Airbnb, dans les 4 langues
 assets/css/style.css    le design
 assets/js/app.js        le fonctionnement
 assets/js/icons.js      les icônes
-assets/video/           le film de fond (à ajouter)
+assets/video/           le film de fond (vertical et horizontal)
 assets/vendor/qrcode.js générateur de QR code (licence MIT, Kazuhiko Arase)
 content/apartment.js    tout ce qui concerne l’appartement Bourgogne
 content/city.js         Casablanca : lieux, restaurants, itinéraires, infos pratiques
@@ -40,25 +40,26 @@ Le contenu se modifie uniquement dans `content/`. Chaque texte existe en `fr`, `
 - **Vos photos** : ajoutez `image: 'assets/img/places/hassan2.jpg'` à une adresse, et la photo remplace l’illustration (format paysage, environ 1200 px de large, moins de 300 Ko). Utilisez vos propres photos ou des photos sous licence libre, jamais des images trouvées sur Google ou Instagram.
 - Étapes d’itinéraire : `rel: -20` veut dire « 20 minutes avant le coucher du soleil du jour » ; l’heure affichée s’adapte toute l’année.
 
-## Ajouter le film de Casablanca
+## Le film de Casablanca
 
-Déposez les fichiers dans `assets/video/` avec ces noms exacts :
+Le film de fond vient de la vidéo de @mr_enissay (Instagram), utilisée avec son accord. Le montage garde six plans de nuit : la ville vue d’en haut avec la mosquée Hassan II, les tours de Casablanca Finance City, l’avenue, le boulevard et le taxi rouge. Le titre, les visages et la carte de fin ont été retirés. Chaque plan est recadré pour que le pseudo affiché à l’écran n’apparaisse jamais. Les plans sont ralentis à 0,75× avec des fondus, et la fin se raccorde au début.
 
 | Fichier | Format | Utilisé sur |
 |---|---|---|
-| `casablanca-portrait.mp4` | vertical 9:16, 1080 × 1920 | téléphones |
-| `casablanca.mp4` | horizontal 16:9, 1920 × 1080 | ordinateurs et tablettes |
+| `casablanca-portrait.mp4` / `.webm` / `.jpg` | vertical 720 × 1280, 12 s | téléphones |
+| `casablanca.mp4` / `.webm` / `.jpg` | horizontal 1280 × 720, 12 s | ordinateurs et tablettes |
 
-Recommandations :
+- Le MP4 (H.264) sert aux iPhone et à la plupart des navigateurs ; le WebM (VP9) sert à ceux qui ne lisent pas le H.264. Le `.jpg` est la première image du film : il s’affiche tout de suite, puis le film prend le relais sans saut.
+- Le crédit « Film @mr_enissay » apparaît en bas de l’accueil. Pour le retirer, mettez `credit: null` dans `content/apartment.js` → `hero`.
+- Pour les voyageurs en mode économie de données ou avec les animations réduites, seule l’image fixe s’affiche.
 
-- 10 à 20 secondes, en boucle (la fin doit se raccorder au début), **sans son** : les navigateurs ne lancent automatiquement que les vidéos muettes.
-- MP4 H.264, moins de 6 Mo par fichier. Exemple de compression :
-  `ffmpeg -i source.mov -vf scale=1080:-2 -an -c:v libx264 -crf 26 -preset slow -movflags +faststart casablanca-portrait.mp4`
-- Plans lents et sombres de préférence : le titre est posé dessus, en bas de l’écran. Gardez le sujet principal au centre ou en haut de l’image.
-- Si vous n’avez qu’une version horizontale, déposez seulement `casablanca.mp4` : elle sera recadrée automatiquement sur téléphone.
-- Facultatif : une image fixe `assets/video/poster.jpg` (première image du film), à déclarer dans `content/apartment.js` → `hero.poster`.
+Pour remplacer le film : mêmes noms de fichiers, 10 à 20 secondes, **sans son** (les navigateurs ne lancent automatiquement que les vidéos muettes), moins de 6 Mo par fichier, plans sombres (le titre est posé dessus). Exemple :
+`ffmpeg -i source.mov -vf scale=720:-2 -an -c:v libx264 -crf 26 -preset slow -movflags +faststart casablanca-portrait.mp4`
+puis `ffmpeg -i casablanca-portrait.mp4 -c:v libvpx-vp9 -b:v 0 -crf 37 casablanca-portrait.webm` et `ffmpeg -i casablanca-portrait.mp4 -frames:v 1 -q:v 5 casablanca-portrait.jpg`.
 
-Tant qu’aucun film n’est présent, une scène dessinée (coucher de soleil, minaret de la mosquée Hassan II) s’affiche à la place. Pour les voyageurs en mode économie de données ou avec les animations réduites, le film ne se lance pas.
+## Typographie
+
+Outfit (sans-serif géométrique, graisses fines) pour les titres et le texte ; Tajawal pour la page en arabe. Les deux viennent de Google Fonts et se changent en haut de `assets/css/style.css` (`--f-latin`, `--f-arabic`) et dans le lien Google Fonts de `index.html` et `card.html`.
 
 ## Avant de publier : ce qu’il reste à compléter
 

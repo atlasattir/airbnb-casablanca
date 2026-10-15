@@ -38,10 +38,14 @@ CASA.apartment = {
   },
 
   hero: {
-    // Drop the files in assets/video/ with these names. See README.md for the specs.
-    video: 'assets/video/casablanca.mp4',
-    videoPortrait: 'assets/video/casablanca-portrait.mp4',
-    poster: ''
+    // The film behind the first screen, in two cuts: vertical for phones, wide for
+    // tablets and computers. Each cut comes as MP4 (H.264, for iPhone) and WebM (VP9);
+    // the browser plays the first it supports. The poster is the film's first frame.
+    // See README.md for how they were made.
+    video: { mp4: 'assets/video/casablanca.mp4', webm: 'assets/video/casablanca.webm', poster: 'assets/video/casablanca.jpg' },
+    videoPortrait: { mp4: 'assets/video/casablanca-portrait.mp4', webm: 'assets/video/casablanca-portrait.webm', poster: 'assets/video/casablanca-portrait.jpg' },
+    // Credit shown at the bottom of the home screen. Set to null to hide it.
+    credit: { name: '@mr_enissay', url: 'https://www.instagram.com/mr_enissay/' }
   },
 
   // One or two sentences, shown under "Votre appartement" on the home screen.

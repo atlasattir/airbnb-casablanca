@@ -1,14 +1,14 @@
 /*
  * Casa, côté vous — offline mode.
  * Once a guest has opened the guide (on the apartment Wi-Fi, for example),
- * it keeps working without mobile data. The film is not stored: offline,
- * the drawn scene shows instead.
+ * it keeps working without mobile data. The film itself is not stored:
+ * offline, its still frame shows instead.
  *
  * Content is fetched fresh whenever there is a connection, so edits to
  * content/*.js reach guests straight away. Change VERSION after renaming
  * or removing files.
  */
-var VERSION = 'casa-v2';
+var VERSION = 'casa-v3';
 var CORE = [
   './',
   'index.html',

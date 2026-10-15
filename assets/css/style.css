@@ -51,11 +51,13 @@
   --dock-shadow: 0 16px 36px -18px rgba(19, 33, 31, .45);
   color-scheme: light;
 
-  /* Type: a Didone for the voice, a 1920s geometric sans (the era of
-     Casablanca's Art Deco) for everything else */
-  --f-brand: "Bodoni Moda", "Bodoni 72", Didot, "Times New Roman", serif;
-  --f-display: var(--f-brand);
-  --f-sans: "Jost", "Futura", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  /* Type: one modern geometric sans (Outfit) in light weights for the voice and
+     the text; Tajawal, its Arabic counterpart, on the Arabic page */
+  --f-latin: "Outfit", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-arabic: "Tajawal", "Noto Sans Arabic", "Geeza Pro", system-ui, sans-serif;
+  --f-brand: var(--f-latin);
+  --f-display: var(--f-latin);
+  --f-sans: var(--f-latin);
   --track: .26em;
 
   --ease: cubic-bezier(.16, .84, .24, 1);
@@ -158,8 +160,8 @@
 }
 
 :root[lang="ar"] {
-  --f-display: "Amiri", "Noto Naskh Arabic", "Geeza Pro", serif;
-  --f-sans: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Geeza Pro", system-ui, sans-serif;
+  --f-display: var(--f-arabic);
+  --f-sans: var(--f-arabic);
   --track: 0;
 }
 
@@ -268,8 +270,20 @@ img, video { max-width: 100%; }
   transition: opacity 1.8s ease;
 }
 
+.stage__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.stage.has-poster .stage__poster,
 .stage.has-video .stage__video { opacity: 1; }
-.stage.has-video .scene { opacity: 0; transition: opacity 1.8s ease; }
+.stage.has-poster .scene,
+.stage.has-video .scene { opacity: 0; transition: opacity 1.2s ease; }
 
 .stage__veil {
   position: absolute;
@@ -406,8 +420,9 @@ img, video { max-width: 100%; }
 
 .brand__word {
   font-family: var(--f-brand);
-  font-style: italic;
+  font-weight: 300;
   font-size: 18px;
+  letter-spacing: -.01em;
   opacity: 0;
   transform: translate3d(0, 6px, 0);
   transition: opacity .6s var(--ease), transform .6s var(--ease);
@@ -450,7 +465,7 @@ img, video { max-width: 100%; }
   border: 0;
   background: none;
   color: var(--on-stage-dim);
-  font-family: "Jost", "Futura", system-ui, sans-serif;
+  font-family: var(--f-latin);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: .16em;
@@ -458,7 +473,7 @@ img, video { max-width: 100%; }
 }
 
 .langs button[lang="ar"] {
-  font-family: "IBM Plex Sans Arabic", "Noto Sans Arabic", system-ui, sans-serif;
+  font-family: var(--f-arabic);
   font-size: 15px;
   letter-spacing: 0;
 }
@@ -514,15 +529,15 @@ main { position: relative; z-index: 1; }
 .hero__title {
   margin: 22px 0 0;
   font-family: var(--f-brand);
-  font-weight: 400;
+  font-weight: 300;
   font-size: clamp(66px, 19.5vw, 188px);
   line-height: .88;
-  letter-spacing: -.028em;
+  letter-spacing: -.045em;
   color: var(--on-stage);
 }
 
 .hero__title > span { display: block; }
-.hero__title .l2 { font-style: italic; padding-inline-start: .52em; }
+.hero__title .l2 { font-weight: 200; padding-inline-start: .52em; }
 .hero__title .comma { color: var(--brass); }
 [dir="rtl"] .hero__title > span { text-align: right; }
 [dir="rtl"] .hero__title .l2 { padding-inline-start: 0; padding-inline-end: .52em; }
@@ -544,7 +559,7 @@ main { position: relative; z-index: 1; }
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px 20px;
-  font-family: "Jost", "Futura", system-ui, sans-serif;
+  font-family: var(--f-latin);
   font-size: 11.5px;
   font-weight: 500;
   letter-spacing: .18em;
@@ -661,7 +676,7 @@ main { position: relative; z-index: 1; }
   font-weight: 400;
   font-size: clamp(34px, 8.6vw, 60px);
   line-height: 1.02;
-  letter-spacing: -.018em;
+  letter-spacing: -.03em;
   text-wrap: balance;
 }
 
@@ -688,7 +703,7 @@ main { position: relative; z-index: 1; }
   border-radius: 50%;
   background: var(--brass);
   color: var(--on-brass);
-  font-family: "Bodoni Moda", "Bodoni 72", Didot, serif;
+  font-family: var(--f-latin);
   font-size: 21px;
   line-height: 1;
 }
@@ -804,7 +819,7 @@ main { position: relative; z-index: 1; }
   letter-spacing: .005em;
 }
 
-.tile--wide .tile__label { font-family: var(--f-display); font-weight: 400; font-size: 26px; letter-spacing: -.01em; }
+.tile--wide .tile__label { font-family: var(--f-display); font-weight: 400; font-size: 26px; letter-spacing: -.03em; }
 :root[lang="ar"] .tile--wide .tile__label { font-size: 27px; }
 
 .tile__data {
@@ -836,14 +851,33 @@ main { position: relative; z-index: 1; }
   margin: 0;
   max-width: 30ch;
   font-family: var(--f-display);
-  font-style: italic;
+  font-weight: 300;
   font-size: clamp(20px, 5vw, 26px);
   line-height: 1.35;
 }
 
-:root[lang="ar"] .sign blockquote { font-style: normal; }
 .sign figcaption { color: var(--menu-ink-dim); }
 .sign figcaption b { color: var(--menu-ink); font-weight: 500; }
+
+.credit {
+  width: 100%;
+  max-width: 1080px;
+  margin: 18px auto 0;
+  color: var(--menu-ink-dim);
+}
+
+.credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 4px;
+  color: inherit;
+  text-transform: none;
+  letter-spacing: .04em;
+  text-decoration: underline;
+  text-decoration-color: var(--menu-line);
+  text-underline-offset: 4px;
+}
 
 /* reveal (only when JavaScript runs) */
 
@@ -1066,7 +1100,7 @@ main { position: relative; z-index: 1; }
   font-weight: 400;
   font-size: clamp(42px, 11.5vw, 72px);
   line-height: .98;
-  letter-spacing: -.02em;
+  letter-spacing: -.03em;
   text-wrap: balance;
 }
 
@@ -1103,6 +1137,7 @@ main { position: relative; z-index: 1; }
   font-weight: 400;
   font-size: 26px;
   line-height: 1.15;
+  letter-spacing: -.03em;
 }
 
 /* shared pieces */
@@ -1298,13 +1333,13 @@ main { position: relative; z-index: 1; }
 
 .vcard__name {
   font-family: var(--f-display);
-  font-weight: 500;
-  font-size: 18.5px;
-  line-height: 1.15;
-  letter-spacing: -.005em;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -.01em;
 }
 
-:root[lang="ar"] .vcard__name { font-weight: 700; font-size: 19px; line-height: 1.35; }
+:root[lang="ar"] .vcard__name { font-weight: 700; font-size: 17px; line-height: 1.35; letter-spacing: 0; }
 
 .vcard__short { font-size: 13px; line-height: 1.35; color: var(--ink-dim); }
 
@@ -1420,11 +1455,11 @@ main { position: relative; z-index: 1; }
   font-weight: 400;
   font-size: 33px;
   line-height: 1.05;
-  letter-spacing: -.015em;
+  letter-spacing: -.03em;
   text-wrap: balance;
 }
 
-:root[lang="ar"] .d-title { font-weight: 700; line-height: 1.3; letter-spacing: 0; }
+:root[lang="ar"] .d-title { font-weight: 500; line-height: 1.3; letter-spacing: 0; }
 
 .d-short { margin: 0; font-size: 16px; font-weight: 500; color: var(--tint-ink, var(--atlantic)); }
 .d-desc { margin: 0; font-size: 15.5px; font-weight: 300; line-height: 1.6; }
@@ -1461,8 +1496,7 @@ main { position: relative; z-index: 1; }
 }
 
 .d-list li > .ico { font-size: 18px; margin-top: 1px; color: var(--tint-ink, var(--gilt)); }
-.d-list b { font-family: var(--f-display); font-style: italic; font-weight: 500; font-size: 17px; white-space: nowrap; }
-:root[lang="ar"] .d-list b { font-style: normal; }
+.d-list b { font-family: var(--f-display); font-weight: 500; font-size: 16px; white-space: nowrap; }
 
 /* routes */
 
@@ -1490,6 +1524,7 @@ main { position: relative; z-index: 1; }
   font-family: var(--f-display);
   font-size: 24px;
   line-height: 1.1;
+  letter-spacing: -.025em;
 }
 
 .d-art svg.route-line { width: 86%; height: 62%; overflow: visible; }
@@ -1594,6 +1629,7 @@ main { position: relative; z-index: 1; }
 
 .wifi-row__value {
   font-family: var(--f-display);
+  font-weight: 300;
   font-size: 28px;
   line-height: 1.15;
   overflow-wrap: anywhere;
@@ -1619,9 +1655,11 @@ main { position: relative; z-index: 1; }
 .time-tile .eyebrow { color: var(--ink-dim); }
 
 .time-tile__time {
-  font-family: "Bodoni Moda", "Bodoni 72", Didot, serif;
+  font-family: var(--f-latin);
+  font-weight: 300;
   font-size: 42px;
   line-height: 1;
+  letter-spacing: -.02em;
   font-variant-numeric: tabular-nums lining-nums;
 }
 
@@ -1792,7 +1830,7 @@ main { position: relative; z-index: 1; }
 }
 
 .hostcard__who { display: flex; align-items: center; gap: 14px; }
-.hostcard__name { font-family: var(--f-display); font-size: 26px; line-height: 1.1; }
+.hostcard__name { font-family: var(--f-display); font-size: 26px; line-height: 1.1; letter-spacing: -.02em; }
 .hostcard__role { font-size: 13px; opacity: .78; }
 .hostcard .btn { background: #fff; color: #13211F; }
 
@@ -1812,7 +1850,8 @@ main { position: relative; z-index: 1; }
 }
 
 .sos__num {
-  font-family: "Bodoni Moda", "Bodoni 72", Didot, serif;
+  font-family: var(--f-latin);
+  font-weight: 300;
   font-size: 40px;
   line-height: 1;
   color: #A1423A;
@@ -1847,8 +1886,8 @@ main { position: relative; z-index: 1; }
   box-shadow: var(--shadow-soft);
 }
 
-.flash__latin { font-family: "Bodoni Moda", "Bodoni 72", Didot, serif; font-style: italic; font-size: 27px; line-height: 1.1; }
-.flash__ar { font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: 26px; line-height: 1.4; color: var(--gilt); }
+.flash__latin { font-family: var(--f-latin); font-weight: 300; font-size: 27px; line-height: 1.1; letter-spacing: -.02em; }
+.flash__ar { font-family: var(--f-arabic); font-size: 26px; line-height: 1.4; color: var(--gilt); }
 .flash__meaning { font-size: 14px; color: var(--ink-dim); }
 
 /* location */
@@ -1863,8 +1902,8 @@ main { position: relative; z-index: 1; }
 }
 
 .address .eyebrow { color: var(--atlantic); }
-.address__line { margin: 0; font-family: "Bodoni Moda", "Bodoni 72", Didot, serif; font-size: 25px; line-height: 1.25; }
-.address__ar { margin: 0; font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: 26px; line-height: 1.6; text-align: right; }
+.address__line { margin: 0; font-family: var(--f-latin); font-size: 25px; line-height: 1.25; }
+.address__ar { margin: 0; font-family: var(--f-arabic); font-size: 26px; line-height: 1.6; text-align: right; }
 
 .address__note {
   margin: 4px 0 0;
@@ -1899,10 +1938,10 @@ main { position: relative; z-index: 1; }
 }
 
 .taxi.is-on { opacity: 1; }
-.taxi__hint { margin: 0; font-family: "Jost", system-ui, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--brass); }
+.taxi__hint { margin: 0; font-family: var(--f-latin); font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--brass); }
 :root[lang="ar"] .taxi__hint { font-family: var(--f-sans); letter-spacing: 0; font-size: 14px; }
-.taxi__ar { margin: 0; font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: clamp(40px, 11vw, 72px); line-height: 1.5; text-align: right; }
-.taxi__fr { margin: 0; font-family: "Bodoni Moda", Didot, serif; font-size: clamp(26px, 7vw, 44px); line-height: 1.25; }
+.taxi__ar { margin: 0; font-family: var(--f-arabic); font-size: clamp(40px, 11vw, 72px); line-height: 1.5; text-align: right; }
+.taxi__fr { margin: 0; font-family: var(--f-latin); font-size: clamp(26px, 7vw, 44px); line-height: 1.25; }
 .taxi__close { margin: 0; font-size: 13px; color: var(--on-stage-dim); }
 .taxi .todo { color: var(--brass); border-color: var(--brass); font-size: 14px; }
 

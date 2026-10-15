@@ -29,6 +29,7 @@
   var els = {
     stage: byId('stage'),
     video: byId('hero-video'),
+    poster: byId('hero-poster'),
     topbar: byId('topbar'),
     clock: byId('clock'),
     sunset: byId('sunset-time'),
@@ -395,14 +396,29 @@
   function initVideo() {
     var v = els.video, hero = APT.hero || {};
     if (!v) return;
-    if (navigator.connection && navigator.connection.saveData) return;
-    // With reduced motion, keep the still scene (or the poster) instead of a frozen frame
-    if (reducedMotion() && !hero.poster) return;
+    // Phones held upright get the vertical cut, anything wider the landscape one
+    var cut = (window.innerHeight > window.innerWidth && hero.videoPortrait) || hero.video;
+    if (!cut) return;
+    if (typeof cut === 'string') cut = { mp4: cut };
+    var credit = hero.credit, creditEl = byId('film-credit');
+    if (credit && credit.name && creditEl) {
+      var link = byId('film-credit-link');
+      link.textContent = credit.name;
+      if (credit.url) link.href = credit.url; else link.removeAttribute('href');
+      creditEl.hidden = false;
+    }
+    // The still (the film's first frame) replaces the drawn scene as soon as it loads,
+    // and stays on its own with reduced motion, Data Saver, or when autoplay is refused
+    if (cut.poster && els.poster) {
+      els.poster.addEventListener('load', function () { els.stage.classList.add('has-poster'); });
+      els.poster.src = cut.poster;
+    }
+    if (reducedMotion() || (navigator.connection && navigator.connection.saveData)) return;
+    // H.264 first (iPhones decode it in hardware), VP9 where H.264 is missing
     var sources = [];
-    if (window.innerHeight > window.innerWidth && hero.videoPortrait) sources.push(hero.videoPortrait);
-    if (hero.video) sources.push(hero.video);
+    if (cut.mp4 && v.canPlayType('video/mp4; codecs="avc1.640028"')) sources.push(cut.mp4);
+    if (cut.webm && v.canPlayType('video/webm; codecs="vp9"')) sources.push(cut.webm);
     if (!sources.length) return;
-    if (hero.poster) v.poster = hero.poster;
     v.muted = true;
     v.defaultMuted = true;
     v.playsInline = true;
@@ -415,10 +431,7 @@
     v.addEventListener('error', next);
     // Show the film only once it really plays (iPhone Low Power Mode refuses autoplay)
     v.addEventListener('playing', function () { els.stage.classList.add('has-video'); });
-    v.addEventListener('loadeddata', function () {
-      if (reducedMotion()) els.stage.classList.add('has-video');
-      else if (!state.current) playVideo();
-    });
+    v.addEventListener('loadeddata', function () { if (!state.current) playVideo(); });
     next();
   }
 
