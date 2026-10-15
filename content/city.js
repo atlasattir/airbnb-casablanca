@@ -68,7 +68,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     visit: {
-      icon: 'arch', tint: '#94764A',
+      icon: 'arch', tint: '#876A41',
       type: 'places',
       title: { fr: 'À visiter', en: 'Places to visit', ar: 'أماكن للزيارة', es: 'Qué visitar' },
       intro: {
