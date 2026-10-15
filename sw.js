@@ -8,7 +8,7 @@
  * content/*.js reach guests straight away. Change VERSION after renaming
  * or removing files.
  */
-var VERSION = 'casa-v1';
+var VERSION = 'casa-v2';
 var CORE = [
   './',
   'index.html',
@@ -17,6 +17,7 @@ var CORE = [
   'assets/js/app.js',
   'assets/js/icons.js',
   'assets/img/icon.svg',
+  'assets/img/icon-192.png',
   'content/ui.js',
   'content/city.js',
   'content/apartment.js'

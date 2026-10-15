@@ -13,6 +13,9 @@
  * kind: 'note' for an explainer card, 'placeholder' for a slot the host still has
  * to fill, 'request' for something the host can organise (opens WhatsApp).
  *
+ * Itinerary stops may carry rel: minutes before (negative) or after today's
+ * sunset; the app then shows the real time for the day instead of 'time'.
+ *
  * Prices and opening hours change: check each place before publishing,
  * then update the "checked" date. Last full check: 2026-10.
  */
@@ -20,19 +23,52 @@ window.CASA = window.CASA || {};
 
 CASA.city = {
   checked: '2026-10',
+
+  /* The home screen: two groups of buttons. 'wide' buttons take a full row. */
+  groups: [
+    {
+      id: 'home',
+      kicker: { fr: 'Bourgogne', en: 'Bourgogne', ar: 'بورغون', es: 'Bourgogne' },
+      title: { fr: 'Votre appartement', en: 'Your apartment', ar: 'شقتك', es: 'Tu apartamento' },
+      items: ['wifi', 'stay', 'house', 'nearby', 'services', 'assistance']
+    },
+    {
+      id: 'city',
+      kicker: { fr: 'Casablanca', en: 'Casablanca', ar: 'الدار البيضاء', es: 'Casablanca' },
+      title: { fr: 'Que souhaitez-vous faire aujourd’hui ?', en: 'What would you like to do today?', ar: 'ماذا تودّ أن تفعل اليوم؟', es: '¿Qué te apetece hacer hoy?' },
+      items: ['visit', 'restaurants', 'cafes', 'nightlife', 'shopping', 'beaches', 'family', 'experiences', 'transport', 'itineraries'],
+      wide: ['visit', 'itineraries']
+    }
+  ],
+
   sections: {
 
     /* ------------------------------------------------------------------ */
-    apartment: {
-      icon: 'house',
-      type: 'apartment',
-      title: { fr: 'Mon appartement', en: 'My apartment', ar: 'شقتي', es: 'Mi apartamento' },
-      sub: { fr: 'Wi-Fi · Arrivée · Départ', en: 'Wi-Fi · Check-in · Check-out', ar: 'واي فاي · الوصول · المغادرة', es: 'Wi-Fi · Llegada · Salida' }
+    /* The apartment pages read their content from content/apartment.js */
+    wifi: {
+      icon: 'wifi', tint: '#2C5A6B', type: 'wifi',
+      title: { fr: 'Wi-Fi', en: 'Wi-Fi', ar: 'واي فاي', es: 'Wi-Fi' }
+    },
+    stay: {
+      icon: 'key', tint: '#8A6A3A', type: 'stay',
+      title: { fr: 'Arrivée & départ', en: 'Check-in & out', ar: 'الوصول والمغادرة', es: 'Llegada y salida' }
+    },
+    house: {
+      icon: 'house', tint: '#4F6650', type: 'house',
+      title: { fr: 'Mode d’emploi', en: 'How it works', ar: 'دليل الاستعمال', es: 'Cómo funciona' }
+    },
+    nearby: {
+      icon: 'walk', tint: '#8C553C', type: 'nearby',
+      title: { fr: 'Autour de vous', en: 'Around you', ar: 'حولك', es: 'A tu alrededor' }
+    },
+    services: {
+      icon: 'sparkle', tint: '#5E4A6E', type: 'services',
+      title: { fr: 'Services', en: 'Services', ar: 'خدمات', es: 'Servicios' }
     },
 
     /* ------------------------------------------------------------------ */
     visit: {
-      icon: 'arch',
+      icon: 'arch', tint: '#94764A',
       type: 'places',
       title: { fr: 'À visiter', en: 'Places to visit', ar: 'أماكن للزيارة', es: 'Qué visitar' },
       intro: {
@@ -44,6 +80,8 @@ CASA.city = {
       items: [
         {
           id: 'hassan2',
+          icon: 'minaret',
+          short: { fr: 'Ouverte aux non-musulmans, visite guidée', en: 'Open to non-Muslims, guided tours', ar: 'زيارات بمرشد لغير المسلمين', es: 'Visitas guiadas para no musulmanes' },
           name: { fr: 'Mosquée Hassan II', en: 'Hassan II Mosque', ar: 'مسجد الحسن الثاني', es: 'Mezquita Hassan II' },
           area: { fr: 'Front de mer', en: 'Seafront', ar: 'الواجهة البحرية', es: 'Frente al mar' },
           desc: {
@@ -63,6 +101,8 @@ CASA.city = {
         },
         {
           id: 'elhank',
+          icon: 'lighthouse',
+          short: { fr: 'Le couchant depuis les rochers', en: 'Sunset from the rocks', ar: 'الغروب من فوق الصخور', es: 'Atardecer desde las rocas' },
           name: { fr: 'Phare d’El Hank', en: 'El Hank Lighthouse', ar: 'منارة العنق', es: 'Faro de El Hank' },
           area: { fr: 'El Hank', ar: 'العنق' },
           desc: {
@@ -77,11 +117,13 @@ CASA.city = {
             ar: 'تعال قبل الغروب بنصف ساعة، ثم واصل المشي على طول الكورنيش.',
             es: 'Llega 30 minutos antes del atardecer y sigue a pie por la Corniche.'
           },
-          duration: 30, price: 0, near: true,
+          duration: 30, price: 0, near: true, sunset: true,
           maps: 'Phare d\'El Hank, Casablanca'
         },
         {
           id: 'medina',
+          icon: 'gate',
+          short: { fr: 'Vie de quartier, sans foule', en: 'Neighbourhood life, no tourist crowds', ar: 'حياة الحيّ بلا زحام سياحي', es: 'Vida de barrio, sin multitudes' },
           name: { fr: 'Ancienne Médina', en: 'Old Medina', ar: 'المدينة القديمة', es: 'Antigua medina' },
           area: { fr: 'Port', en: 'Port', ar: 'الميناء', es: 'Puerto' },
           desc: {
@@ -101,6 +143,8 @@ CASA.city = {
         },
         {
           id: 'habous',
+          icon: 'arch',
+          short: { fr: 'Arcades blanches et souvenirs', en: 'White arcades and souvenirs', ar: 'أقواس بيضاء وهدايا تذكارية', es: 'Arcadas blancas y recuerdos' },
           name: { fr: 'Quartier des Habous', en: 'Habous Quarter', ar: 'حي الأحباس', es: 'Barrio de los Habous' },
           area: { fr: 'Habous', ar: 'الأحباس' },
           desc: {
@@ -120,6 +164,8 @@ CASA.city = {
         },
         {
           id: 'artdeco',
+          icon: 'building',
+          short: { fr: 'Façades Art déco et ferronneries', en: 'Art Deco façades and ironwork', ar: 'واجهات الآرت ديكو والحديد المشغول', es: 'Fachadas art déco y forja' },
           name: { fr: 'Place Mohammed V et centre Art déco', en: 'Mohammed V Square and the Art Deco centre', ar: 'ساحة محمد الخامس ووسط المدينة', es: 'Plaza Mohammed V y centro art déco' },
           area: { fr: 'Centre-ville', en: 'City centre', ar: 'وسط المدينة', es: 'Centro' },
           desc: {
@@ -139,6 +185,8 @@ CASA.city = {
         },
         {
           id: 'sacrecoeur',
+          icon: 'cathedral',
+          short: { fr: 'Néo-gothique et Art déco', en: 'Gothic Revival meets Art Deco', ar: 'بين القوطي الجديد والآرت ديكو', es: 'Neogótico y art déco' },
           name: { fr: 'Cathédrale du Sacré-Cœur', en: 'Sacred Heart Cathedral', ar: 'كاتدرائية القلب المقدس', es: 'Catedral del Sagrado Corazón' },
           area: { fr: 'Centre-ville', en: 'City centre', ar: 'وسط المدينة', es: 'Centro' },
           desc: {
@@ -158,6 +206,8 @@ CASA.city = {
         },
         {
           id: 'slaoui',
+          icon: 'museum',
+          short: { fr: 'Villa Art déco, bijoux anciens', en: 'Art Deco villa, antique jewellery', ar: 'فيلا آرت ديكو وحُليّ قديمة', es: 'Villa art déco, joyas antiguas' },
           name: { fr: 'Musée Abderrahman Slaoui', ar: 'متحف عبد الرحمن السلاوي' },
           area: { fr: 'Centre-ville', en: 'City centre', ar: 'وسط المدينة', es: 'Centro' },
           desc: {
@@ -177,6 +227,8 @@ CASA.city = {
         },
         {
           id: 'ligue',
+          icon: 'palm',
+          short: { fr: 'Palmiers, cafés, jeux d’enfants', en: 'Palm-lined paths, cafés, playgrounds', ar: 'نخيل ومقاهٍ وألعاب للأطفال', es: 'Palmeras, cafés y zonas infantiles' },
           name: { fr: 'Parc de la Ligue Arabe', en: 'Arab League Park', ar: 'حديقة الجامعة العربية', es: 'Parque de la Liga Árabe' },
           area: { fr: 'Centre-ville', en: 'City centre', ar: 'وسط المدينة', es: 'Centro' },
           desc: {
@@ -199,7 +251,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     restaurants: {
-      icon: 'tagine',
+      icon: 'tagine', tint: '#8C4A3B',
       type: 'places',
       title: { fr: 'Restaurants', en: 'Restaurants', ar: 'مطاعم', es: 'Restaurantes' },
       intro: {
@@ -218,6 +270,8 @@ CASA.city = {
       items: [
         {
           id: 'sqala',
+          icon: 'tagine',
+          short: { fr: 'Tajines au pied des remparts', en: 'Tagines beneath the ramparts', ar: 'طواجن بجوار الأسوار', es: 'Tajines junto a las murallas' },
           name: { fr: 'La Sqala' },
           area: { fr: 'Remparts · Port', en: 'Ramparts · Port', ar: 'الأسوار · الميناء', es: 'Murallas · Puerto' },
           tags: ['moroccan'],
@@ -238,6 +292,8 @@ CASA.city = {
         },
         {
           id: 'portpeche',
+          icon: 'fish',
+          short: { fr: 'Poisson du jour, très frais', en: 'The day’s catch, very fresh', ar: 'سمك اليوم، طازج جداً', es: 'Pescado del día, muy fresco' },
           name: { fr: 'Restaurant du Port de Pêche', ar: 'مطعم ميناء الصيد' },
           area: { fr: 'Port', en: 'Port', ar: 'الميناء', es: 'Puerto' },
           tags: ['seafood'],
@@ -258,6 +314,8 @@ CASA.city = {
         },
         {
           id: 'cabestan',
+          icon: 'waves',
+          short: { fr: 'Élégant, face à l’océan', en: 'Elegant, facing the ocean', ar: 'أنيق في مواجهة المحيط', es: 'Elegante, frente al océano' },
           name: { fr: 'Le Cabestan' },
           area: { fr: 'El Hank · Corniche', ar: 'العنق · الكورنيش' },
           tags: ['sea', 'chic', 'seafood'],
@@ -278,6 +336,8 @@ CASA.city = {
         },
         {
           id: 'ricks',
+          icon: 'music',
+          short: { fr: 'Inspiré du film Casablanca', en: 'Inspired by the film Casablanca', ar: 'مستوحى من فيلم «كازابلانكا»', es: 'Inspirado en la película Casablanca' },
           name: { fr: 'Rick’s Café' },
           area: { fr: 'Ancienne Médina', en: 'Old Medina', ar: 'المدينة القديمة', es: 'Antigua medina' },
           tags: ['chic'],
@@ -298,6 +358,8 @@ CASA.city = {
         },
         {
           id: 'dauphin',
+          icon: 'fish',
+          short: { fr: 'Fritures et prix raisonnables', en: 'Fried fish, fair prices', ar: 'سمك مقلي بأسعار معقولة', es: 'Frituras a precios razonables' },
           name: { fr: 'La Taverne du Dauphin' },
           area: { fr: 'Centre · Port', en: 'Centre · Port', ar: 'الوسط · الميناء', es: 'Centro · Puerto' },
           tags: ['seafood', 'budget'],
@@ -318,6 +380,8 @@ CASA.city = {
         },
         {
           id: 'marchecentral',
+          icon: 'chef',
+          short: { fr: 'Poisson grillé, très local', en: 'Grilled fish, very local', ar: 'سمك مشوي، محلّي جداً', es: 'Pescado asado, muy local' },
           name: { fr: 'Marché Central', en: 'Central Market', ar: 'السوق المركزي', es: 'Mercado Central' },
           area: { fr: 'Centre-ville', en: 'City centre', ar: 'وسط المدينة', es: 'Centro' },
           tags: ['seafood', 'budget'],
@@ -338,6 +402,8 @@ CASA.city = {
         },
         {
           id: 'host-table',
+          icon: 'star',
+          short: { fr: 'L’adresse personnelle de {host}', en: '{host}’s personal pick', ar: 'اختيار {host} الشخصي', es: 'La elección personal de {host}' },
           kind: 'placeholder',
           name: { fr: 'La table préférée de {host}', en: '{host}’s favourite table', ar: 'المطعم المفضّل لدى {host}', es: 'La mesa favorita de {host}' },
           desc: {
@@ -352,7 +418,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     cafes: {
-      icon: 'cup',
+      icon: 'cup', tint: '#6B4F3A',
       type: 'places',
       title: { fr: 'Cafés', en: 'Cafés', ar: 'المقاهي', es: 'Cafés' },
       intro: {
@@ -365,6 +431,8 @@ CASA.city = {
         {
           kind: 'note',
           id: 'note-breakfast',
+          icon: 'steam',
+          short: { fr: 'Msemen, baghrir, amlou et atay', en: 'Msemen, baghrir, amlou and atay', ar: 'مسمن وبغرير وأملو وأتاي', es: 'Msemen, baghrir, amlou y atay' },
           name: { fr: 'Le petit-déjeuner marocain', en: 'The Moroccan breakfast', ar: 'الفطور المغربي', es: 'El desayuno marroquí' },
           desc: {
             fr: 'Dans la plupart des cafés, demandez le « petit-déjeuner marocain ». Voici ce qui arrive sur la table :',
@@ -382,6 +450,8 @@ CASA.city = {
         },
         {
           id: 'sqala-breakfast',
+          icon: 'mint',
+          short: { fr: 'Petit-déjeuner complet au jardin', en: 'Full breakfast in the garden', ar: 'فطور كامل في الحديقة', es: 'Desayuno completo en el jardín' },
           name: { fr: 'La Sqala, le matin', en: 'La Sqala, in the morning', ar: 'الصقالة صباحاً', es: 'La Sqala, por la mañana' },
           area: { fr: 'Remparts · Port', en: 'Ramparts · Port', ar: 'الأسوار · الميناء', es: 'Murallas · Puerto' },
           desc: {
@@ -401,6 +471,8 @@ CASA.city = {
         },
         {
           id: 'bennis',
+          icon: 'bag',
+          short: { fr: 'Cornes de gazelle à emporter', en: 'Cornes de gazelle to go', ar: 'كعب الغزال لتأخذه معك', es: 'Cuernos de gacela para llevar' },
           name: { fr: 'Pâtisserie Bennis', ar: 'حلويات بنيس' },
           area: { fr: 'Habous', ar: 'الأحباس' },
           desc: {
@@ -420,6 +492,8 @@ CASA.city = {
         },
         {
           id: 'bondi',
+          icon: 'cup',
+          short: { fr: 'Café de spécialité et brunch', en: 'Specialty coffee and brunch', ar: 'قهوة مختصة وبرانش', es: 'Café de especialidad y brunch' },
           name: { fr: 'Bondi Coffee Kitchen' },
           desc: {
             fr: 'Café de spécialité à l’australienne : espresso soigné, avocado toast et brunch. Une valeur sûre pour les amateurs de café.',
@@ -432,6 +506,8 @@ CASA.city = {
         },
         {
           id: 'holybrunch',
+          icon: 'sun',
+          short: { fr: 'Brunch tranquille, cadre lumineux', en: 'Unhurried brunch, bright room', ar: 'برانش هادئ في فضاء مشرق', es: 'Brunch sin prisas, local luminoso' },
           name: { fr: 'Holy Brunch' },
           desc: {
             fr: 'Une adresse entièrement dédiée au brunch, dans un cadre moderne et lumineux. Pour une fin de matinée sans se presser.',
@@ -450,6 +526,8 @@ CASA.city = {
         },
         {
           id: 'host-cafe',
+          icon: 'cup',
+          short: { fr: 'Café du quartier, tout près', en: 'Local café, steps away', ar: 'مقهى الحيّ، على بُعد خطوات', es: 'Café de barrio, muy cerca' },
           kind: 'placeholder',
           name: { fr: 'Le café de {host} à Bourgogne', en: '{host}’s café in Bourgogne', ar: 'مقهى {host} في بورغون', es: 'El café de {host} en Bourgogne' },
           desc: {
@@ -464,7 +542,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     nightlife: {
-      icon: 'moon',
+      icon: 'moon', tint: '#353A63',
       type: 'places',
       title: { fr: 'Sorties', en: 'Going out', ar: 'سهرات', es: 'Salir' },
       intro: {
@@ -476,6 +554,8 @@ CASA.city = {
       items: [
         {
           id: 'sunset-elhank',
+          icon: 'sunset',
+          short: { fr: 'Soleil couchant derrière le phare', en: 'Sunset behind the lighthouse', ar: 'الغروب خلف المنارة', es: 'Atardecer tras el faro' },
           name: { fr: 'Coucher de soleil à El Hank', en: 'Sunset at El Hank', ar: 'الغروب في العنق', es: 'Atardecer en El Hank' },
           area: { fr: 'El Hank', ar: 'العنق' },
           desc: {
@@ -490,11 +570,13 @@ CASA.city = {
             ar: 'أكمل السهرة بمشروب أو عشاء في «لو كابيستان» المجاور.',
             es: 'Alárgalo con una copa o una cena en Le Cabestan, justo al lado.'
           },
-          duration: 60, price: 0, near: true,
+          duration: 60, price: 0, near: true, sunset: true,
           maps: 'Phare d\'El Hank, Casablanca'
         },
         {
           id: 'corniche-night',
+          icon: 'moon',
+          short: { fr: 'Là où sort Casablanca', en: 'Where Casablanca goes out', ar: 'حيث تسهر الدار البيضاء', es: 'Donde Casablanca sale de noche' },
           name: { fr: 'La Corniche le soir', en: 'The Corniche at night', ar: 'الكورنيش ليلاً', es: 'La Corniche de noche' },
           area: { fr: 'Aïn Diab', ar: 'عين الذئاب' },
           desc: {
@@ -514,6 +596,8 @@ CASA.city = {
         },
         {
           id: 'skybar',
+          icon: 'glass',
+          short: { fr: 'Rooftop avec vue sur l’océan', en: 'Rooftop with ocean views', ar: 'سطح فندق بإطلالة على المحيط', es: 'Azotea con vistas al océano' },
           name: { fr: 'Sky Bar, Villa Blanca' },
           area: { fr: 'Corniche', ar: 'الكورنيش' },
           desc: {
@@ -533,6 +617,8 @@ CASA.city = {
         },
         {
           id: 'james',
+          icon: 'music',
+          short: { fr: 'Mosquée en vue, ambiance club', en: 'Mosque views, club atmosphere', ar: 'إطلالة على المسجد وأجواء سهر', es: 'Mezquita al fondo, ambiente club' },
           name: { fr: 'The James Rooftop' },
           area: { fr: 'Centre Art déco', en: 'Art Deco centre', ar: 'وسط المدينة', es: 'Centro art déco' },
           desc: {
@@ -555,7 +641,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     shopping: {
-      icon: 'bag',
+      icon: 'bag', tint: '#7A4E62',
       type: 'places',
       title: { fr: 'Shopping', en: 'Shopping', ar: 'تسوّق', es: 'Compras' },
       intro: {
@@ -567,6 +653,8 @@ CASA.city = {
       items: [
         {
           id: 'habous-crafts',
+          icon: 'bag',
+          short: { fr: 'Babouches, lanternes, cuir, céramique', en: 'Babouches, lanterns, leather, ceramics', ar: 'بلاغي وفوانيس وجلديات وخزف', es: 'Babuchas, faroles, cuero, cerámica' },
           name: { fr: 'Artisanat des Habous', en: 'Habous crafts', ar: 'الصناعة التقليدية في الأحباس', es: 'Artesanía de los Habous' },
           area: { fr: 'Habous', ar: 'الأحباس' },
           desc: {
@@ -586,6 +674,8 @@ CASA.city = {
         },
         {
           id: 'moroccomall',
+          icon: 'building',
+          short: { fr: 'Aquarium géant, face à l’océan', en: 'Giant aquarium, facing the ocean', ar: 'حوض أسماك ضخم أمام المحيط', es: 'Acuario gigante frente al océano' },
           name: { fr: 'Morocco Mall' },
           area: { fr: 'Corniche · Aïn Diab', ar: 'الكورنيش · عين الذئاب' },
           desc: {
@@ -605,6 +695,8 @@ CASA.city = {
         },
         {
           id: 'anfaplace',
+          icon: 'cup',
+          short: { fr: 'Calme, cafés tournés vers l’océan', en: 'Calm, cafés facing the ocean', ar: 'هادئ، بمقاهٍ تطلّ على المحيط', es: 'Tranquilo, cafés frente al océano' },
           name: { fr: 'Anfa Place' },
           area: { fr: 'Corniche', ar: 'الكورنيش' },
           desc: {
@@ -618,6 +710,8 @@ CASA.city = {
         },
         {
           id: 'medina-souks',
+          icon: 'coins',
+          short: { fr: 'Populaire et moins cher', en: 'Everyday shopping, lower prices', ar: 'أكثر شعبية وأرخص ثمناً', es: 'Popular y más barato' },
           name: { fr: 'Souks de l’ancienne Médina', en: 'Old Medina souks', ar: 'أسواق المدينة القديمة', es: 'Zocos de la antigua medina' },
           area: { fr: 'Port', en: 'Port', ar: 'الميناء', es: 'Puerto' },
           desc: {
@@ -631,6 +725,8 @@ CASA.city = {
         },
         {
           id: 'maarif',
+          icon: 'hanger',
+          short: { fr: 'Créateurs marocains et prêt-à-porter', en: 'Moroccan designers and fashion', ar: 'مصمّمون مغاربة وملابس جاهزة', es: 'Diseñadores marroquíes y moda' },
           name: { fr: 'Maârif', ar: 'المعاريف' },
           area: { fr: 'Maârif', ar: 'المعاريف' },
           desc: {
@@ -645,6 +741,8 @@ CASA.city = {
         {
           kind: 'note',
           id: 'note-bargain',
+          icon: 'chat',
+          short: { fr: 'Souriez, proposez environ la moitié', en: 'Smile, offer about half', ar: 'ابتسم واقترح نحو النصف', es: 'Sonríe, ofrece la mitad' },
           name: { fr: 'L’art de négocier', en: 'The art of bargaining', ar: 'فن المساومة', es: 'El arte de regatear' },
           list: [
             { text: { fr: 'Demandez le prix avec le sourire, proposez environ la moitié, puis trouvez un terrain d’entente.', en: 'Ask the price with a smile, offer about half, then meet in the middle.', ar: 'اسأل عن الثمن بابتسامة، واقترح نحو النصف، ثم اتفقا على سعر وسط.', es: 'Pregunta el precio con una sonrisa, ofrece la mitad y acercaos a un punto medio.' } },
@@ -658,7 +756,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     beaches: {
-      icon: 'waves',
+      icon: 'waves', tint: '#2F6170',
       type: 'places',
       title: { fr: 'Plages', en: 'Beaches', ar: 'شواطئ', es: 'Playas' },
       intro: {
@@ -670,6 +768,8 @@ CASA.city = {
       items: [
         {
           id: 'corniche',
+          icon: 'walk',
+          short: { fr: 'Balade face à l’océan', en: 'A walk facing the ocean', ar: 'ممشى مطلّ على المحيط', es: 'Paseo frente al océano' },
           name: { fr: 'Corniche d’Aïn Diab', en: 'Aïn Diab Corniche', ar: 'كورنيش عين الذئاب', es: 'Corniche de Aïn Diab' },
           area: { fr: 'El Hank → Aïn Diab', ar: 'العنق ← عين الذئاب' },
           desc: {
@@ -683,6 +783,8 @@ CASA.city = {
         },
         {
           id: 'aindiab',
+          icon: 'umbrella',
+          short: { fr: 'Grande plage, accès tram T2', en: 'Big sandy beach, tram T2', ar: 'شاطئ رملي كبير، ترامواي T2', es: 'Gran playa, tranvía T2' },
           name: { fr: 'Plage d’Aïn Diab', en: 'Aïn Diab Beach', ar: 'شاطئ عين الذئاب', es: 'Playa de Aïn Diab' },
           area: { fr: 'Aïn Diab', ar: 'عين الذئاب' },
           desc: {
@@ -702,6 +804,8 @@ CASA.city = {
         },
         {
           id: 'beachclubs',
+          icon: 'sun',
+          short: { fr: 'Piscines, transats et restaurant', en: 'Pools, sunbeds and a restaurant', ar: 'مسابح وكراسي استلقاء ومطعم', es: 'Piscinas, tumbonas y restaurante' },
           name: { fr: 'Les beach clubs', en: 'The beach clubs', ar: 'النوادي الشاطئية', es: 'Los beach clubs' },
           area: { fr: 'Aïn Diab', ar: 'عين الذئاب' },
           desc: {
@@ -721,6 +825,8 @@ CASA.city = {
         },
         {
           id: 'sidiabderrahmane',
+          icon: 'shrine',
+          short: { fr: 'Sanctuaire blanc sur un rocher', en: 'White shrine on a rock', ar: 'ضريح أبيض فوق صخرة', es: 'Santuario blanco sobre una roca' },
           name: { fr: 'Marabout de Sidi Abderrahmane', en: 'Sidi Abderrahmane shrine', ar: 'ضريح سيدي عبد الرحمن', es: 'Santuario de Sidi Abderrahmane' },
           area: { fr: 'Bout de la Corniche', en: 'End of the Corniche', ar: 'نهاية الكورنيش', es: 'Final de la Corniche' },
           desc: {
@@ -730,16 +836,18 @@ CASA.city = {
             es: 'Un pequeño santuario blanco sobre una roca al final de la Corniche. Una imagen sorprendente, sobre todo al atardecer.'
           },
           tip: {
-            fr: 'C’est un lieu de pèlerinage : on l’admire depuis la côte, avec respect.',
-            en: 'It is a place of pilgrimage: admire it from the shore, with respect.',
-            ar: 'إنه مكان زيارة وتبرّك، فتأمّله من الشاطئ باحترام.',
-            es: 'Es un lugar de peregrinación: admíralo desde la costa, con respeto.'
+            fr: 'Rouvert en 2024 après travaux, l’îlot se visite (vérifiez les horaires). Cela reste un lieu de pèlerinage : tenue correcte et respect.',
+            en: 'Reopened in 2024 after works, the islet can be visited (check the opening hours). It is still a place of pilgrimage: dress modestly and be respectful.',
+            ar: 'أُعيد فتح الجزيرة الصغيرة للزوار سنة 2024 بعد أشغال التأهيل (تحقّق من مواعيد الزيارة). يبقى مكان زيارة وتبرّك: لباس محتشم واحترام.',
+            es: 'Reabierto en 2024 tras las obras, el islote se puede visitar (consulta el horario). Sigue siendo un lugar de peregrinación: ropa discreta y respeto.'
           },
           price: 0,
           maps: 'Sidi Abderrahmane, Casablanca'
         },
         {
           id: 'darbouazza',
+          icon: 'surf',
+          short: { fr: 'Plages sauvages et surf', en: 'Wilder beaches, surf spots', ar: 'شواطئ برّية وركوب الأمواج', es: 'Playas salvajes y surf' },
           name: { fr: 'Dar Bouazza', ar: 'دار بوعزة' },
           area: { fr: 'Sud de Casablanca', en: 'South of Casablanca', ar: 'جنوب الدار البيضاء', es: 'Sur de Casablanca' },
           desc: {
@@ -761,7 +869,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     family: {
-      icon: 'family',
+      icon: 'family', tint: '#4E6B4A',
       type: 'places',
       title: { fr: 'Famille', en: 'Family', ar: 'العائلة', es: 'En familia' },
       intro: {
@@ -773,6 +881,8 @@ CASA.city = {
       items: [
         {
           id: 'mall-family',
+          icon: 'fish',
+          short: { fr: 'Aquarium gratuit, jeux en intérieur', en: 'Free aquarium, indoor play park', ar: 'حوض أسماك مجاني وألعاب داخلية', es: 'Acuario gratis y parque cubierto' },
           name: { fr: 'Aquarium et jeux du Morocco Mall', en: 'Morocco Mall aquarium and play area', ar: 'حوض الأسماك وألعاب موروكو مول', es: 'Acuario y juegos del Morocco Mall' },
           area: { fr: 'Corniche · Aïn Diab', ar: 'الكورنيش · عين الذئاب' },
           desc: {
@@ -786,6 +896,8 @@ CASA.city = {
         },
         {
           id: 'sindibad',
+          icon: 'wheel',
+          short: { fr: 'Manèges et petit zoo', en: 'Rides and a small zoo', ar: 'ألعاب ملاهٍ وحديقة حيوانات صغيرة', es: 'Atracciones y pequeño zoo' },
           name: { fr: 'Parc Sindibad', en: 'Sindibad Park', ar: 'حديقة سندباد', es: 'Parque Sindibad' },
           area: { fr: 'Aïn Diab', ar: 'عين الذئاب' },
           desc: {
@@ -805,6 +917,8 @@ CASA.city = {
         },
         {
           id: 'tamaris',
+          icon: 'waves',
+          short: { fr: 'Toboggans et piscine à vagues', en: 'Slides and a wave pool', ar: 'زلّاقات مائية ومسبح أمواج', es: 'Toboganes y piscina de olas' },
           name: { fr: 'Tamaris Aquaparc' },
           area: { fr: 'Sud de Casablanca', en: 'South of Casablanca', ar: 'جنوب الدار البيضاء', es: 'Sur de Casablanca' },
           desc: {
@@ -824,6 +938,8 @@ CASA.city = {
         },
         {
           id: 'ligue-family',
+          icon: 'palm',
+          short: { fr: 'Jeux, pelouses et cafés', en: 'Playgrounds, lawns and cafés', ar: 'ألعاب ومساحات خضراء ومقاهٍ', es: 'Juegos, césped y cafés' },
           name: { fr: 'Parc de la Ligue Arabe', en: 'Arab League Park', ar: 'حديقة الجامعة العربية', es: 'Parque de la Liga Árabe' },
           area: { fr: 'Centre-ville', en: 'City centre', ar: 'وسط المدينة', es: 'Centro' },
           desc: {
@@ -837,6 +953,8 @@ CASA.city = {
         },
         {
           id: 'corniche-family',
+          icon: 'icecream',
+          short: { fr: 'Glaces et coucher de soleil', en: 'Ice cream at sunset', ar: 'مثلّجات مع غروب الشمس', es: 'Helados al atardecer' },
           name: { fr: 'Glaces sur la Corniche', en: 'Ice cream on the Corniche', ar: 'مثلّجات على الكورنيش', es: 'Helados en la Corniche' },
           area: { fr: 'El Hank → Aïn Diab', ar: 'العنق ← عين الذئاب' },
           desc: {
@@ -853,7 +971,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     itineraries: {
-      icon: 'map',
+      icon: 'map', tint: '#2C5A55',
       type: 'routes',
       title: { fr: 'Itinéraires', en: 'Itineraries', ar: 'مسارات', es: 'Itinerarios' },
       intro: {
@@ -875,10 +993,10 @@ CASA.city = {
           },
           mode: 'walking', fromHome: true,
           stops: [
-            { time: '16:30', title: { fr: 'Mosquée Hassan II', en: 'Hassan II Mosque', ar: 'مسجد الحسن الثاني', es: 'Mezquita Hassan II' }, text: { fr: 'L’esplanade et la façade face à l’océan.', en: 'The esplanade and the façade over the ocean.', ar: 'الساحة والواجهة المطلّة على المحيط.', es: 'La explanada y la fachada sobre el océano.' }, maps: 'Mosquée Hassan II, Casablanca' },
-            { time: '17:45', title: { fr: 'Le long de l’océan', en: 'Along the ocean', ar: 'على طول المحيط', es: 'Junto al océano' }, text: { fr: 'Revenez vers l’ouest par le bord de mer, en direction du phare.', en: 'Head back west along the seafront, towards the lighthouse.', ar: 'عُد غرباً على طول البحر في اتجاه المنارة.', es: 'Vuelve hacia el oeste por la costa, en dirección al faro.' } },
-            { time: '18:30', title: { fr: 'Phare d’El Hank', en: 'El Hank Lighthouse', ar: 'منارة العنق', es: 'Faro de El Hank' }, text: { fr: 'Installez-vous sur les rochers pour le coucher du soleil.', en: 'Settle on the rocks for the sunset.', ar: 'اجلس على الصخور لمشاهدة الغروب.', es: 'Acomódate en las rocas para ver la puesta de sol.' }, maps: 'Phare d\'El Hank, Casablanca' },
-            { time: '19:30', title: { fr: 'Dîner face à la mer', en: 'Dinner by the sea', ar: 'عشاء أمام البحر', es: 'Cena frente al mar' }, text: { fr: 'Le Cabestan, au pied du phare, ou l’une des adresses de la Corniche.', en: 'Le Cabestan at the foot of the lighthouse, or one of the Corniche addresses.', ar: '«لو كابيستان» عند سفح المنارة، أو أحد عناوين الكورنيش.', es: 'Le Cabestan, al pie del faro, o una de las direcciones de la Corniche.' }, maps: 'Le Cabestan, Casablanca' }
+            { time: '16:30', rel: -135, title: { fr: 'Mosquée Hassan II', en: 'Hassan II Mosque', ar: 'مسجد الحسن الثاني', es: 'Mezquita Hassan II' }, text: { fr: 'L’esplanade et la façade face à l’océan.', en: 'The esplanade and the façade over the ocean.', ar: 'الساحة والواجهة المطلّة على المحيط.', es: 'La explanada y la fachada sobre el océano.' }, maps: 'Mosquée Hassan II, Casablanca' },
+            { time: '17:45', rel: -60, title: { fr: 'Le long de l’océan', en: 'Along the ocean', ar: 'على طول المحيط', es: 'Junto al océano' }, text: { fr: 'Revenez vers l’ouest par le bord de mer, en direction du phare.', en: 'Head back west along the seafront, towards the lighthouse.', ar: 'عُد غرباً على طول البحر في اتجاه المنارة.', es: 'Vuelve hacia el oeste por la costa, en dirección al faro.' } },
+            { time: '18:30', rel: -20, title: { fr: 'Phare d’El Hank', en: 'El Hank Lighthouse', ar: 'منارة العنق', es: 'Faro de El Hank' }, text: { fr: 'Installez-vous sur les rochers pour le coucher du soleil.', en: 'Settle on the rocks for the sunset.', ar: 'اجلس على الصخور لمشاهدة الغروب.', es: 'Acomódate en las rocas para ver la puesta de sol.' }, maps: 'Phare d\'El Hank, Casablanca' },
+            { time: '19:30', rel: 40, title: { fr: 'Dîner face à la mer', en: 'Dinner by the sea', ar: 'عشاء أمام البحر', es: 'Cena frente al mar' }, text: { fr: 'Le Cabestan, au pied du phare, ou l’une des adresses de la Corniche.', en: 'Le Cabestan at the foot of the lighthouse, or one of the Corniche addresses.', ar: '«لو كابيستان» عند سفح المنارة، أو أحد عناوين الكورنيش.', es: 'Le Cabestan, al pie del faro, o una de las direcciones de la Corniche.' }, maps: 'Le Cabestan, Casablanca' }
           ]
         },
         {
@@ -898,8 +1016,8 @@ CASA.city = {
             { time: '12:30', title: { fr: 'Ancienne Médina', en: 'Old Medina', ar: 'المدينة القديمة', es: 'Antigua medina' }, maps: 'Ancienne Médina, Casablanca' },
             { time: '13:30', title: { fr: 'Déjeuner au Port de Pêche', en: 'Lunch at the Port de Pêche', ar: 'الغداء في ميناء الصيد', es: 'Almuerzo en el Port de Pêche' }, maps: 'Restaurant du Port de Pêche, Casablanca' },
             { time: '15:30', title: { fr: 'Quartier des Habous', en: 'Habous Quarter', ar: 'حي الأحباس', es: 'Barrio de los Habous' }, text: { fr: 'Souks d’artisans et pâtisseries Bennis.', en: 'Craft souks and Bennis pastries.', ar: 'أسواق الحرفيين وحلويات بنيس.', es: 'Zocos de artesanos y pasteles de Bennis.' }, maps: 'Quartier Habous, Casablanca' },
-            { time: '18:30', title: { fr: 'Coucher de soleil à El Hank', en: 'Sunset at El Hank', ar: 'الغروب في العنق', es: 'Atardecer en El Hank' }, maps: 'Phare d\'El Hank, Casablanca' },
-            { time: '20:00', title: { fr: 'Dîner au Cabestan', en: 'Dinner at Le Cabestan', ar: 'العشاء في لو كابيستان', es: 'Cena en Le Cabestan' }, maps: 'Le Cabestan, Casablanca' }
+            { time: '18:30', rel: -20, title: { fr: 'Coucher de soleil à El Hank', en: 'Sunset at El Hank', ar: 'الغروب في العنق', es: 'Atardecer en El Hank' }, maps: 'Phare d\'El Hank, Casablanca' },
+            { time: '20:00', rel: 45, title: { fr: 'Dîner au Cabestan', en: 'Dinner at Le Cabestan', ar: 'العشاء في لو كابيستان', es: 'Cena en Le Cabestan' }, maps: 'Le Cabestan, Casablanca' }
           ]
         },
         {
@@ -945,7 +1063,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     transport: {
-      icon: 'car',
+      icon: 'car', tint: '#A1423A',
       type: 'info',
       title: { fr: 'Transport', en: 'Getting around', ar: 'التنقّل', es: 'Transporte' },
       sub: { fr: 'Taxi · Tram · Aéroport', en: 'Taxi · Tram · Airport', ar: 'طاكسي · ترامواي · مطار', es: 'Taxi · Tranvía · Aeropuerto' },
@@ -958,6 +1076,8 @@ CASA.city = {
       blocks: [
         {
           title: { fr: 'Petits taxis rouges', en: 'Red petits taxis', ar: 'الطاكسيات الصغيرة الحمراء', es: 'Petits taxis rojos' },
+          icon: 'car',
+          key: { fr: 'Demandez le compteur', en: 'Ask for the meter', ar: 'اطلب تشغيل العدّاد', es: 'Pide el taxímetro' },
           list: [
             { fr: 'Ils circulent partout en ville. Demandez « le compteur » au départ.', en: 'They run everywhere in town. Ask for “le compteur” (the meter) when you get in.', ar: 'تجوب المدينة كلها. اطلب تشغيل «العدّاد» عند الانطلاق.', es: 'Circulan por toda la ciudad. Pide «le compteur» (el taxímetro) al subir.' },
             { fr: 'Trois passagers maximum. Le chauffeur peut prendre d’autres clients en route : c’est normal.', en: 'Three passengers maximum. The driver may pick up other passengers on the way: this is normal.', ar: 'ثلاثة ركاب كحدّ أقصى، وقد يقلّ السائق ركاباً آخرين في الطريق، وهذا أمر عادي.', es: 'Tres pasajeros como máximo. El conductor puede recoger a otros clientes por el camino: es normal.' },
@@ -966,15 +1086,19 @@ CASA.city = {
         },
         {
           title: { fr: 'Applications de VTC', en: 'Ride-hailing apps', ar: 'تطبيقات النقل', es: 'Apps de VTC' },
+          icon: 'phone',
+          key: { fr: 'Uber ou inDrive', en: 'Uber or inDrive', ar: 'Uber أو inDrive', es: 'Uber o inDrive' },
           body: {
-            fr: 'Des applications comme Careem ou inDrive fonctionnent à Casablanca et affichent le prix à l’avance. Uber n’est pas disponible au Maroc.',
-            en: 'Apps such as Careem or inDrive work in Casablanca and show the price upfront. Uber is not available in Morocco.',
-            ar: 'تطبيقات مثل Careem وinDrive تعمل في الدار البيضاء وتعرض الثمن مسبقاً. أوبر غير متوفّر في المغرب.',
-            es: 'Apps como Careem o inDrive funcionan en Casablanca y muestran el precio por adelantado. Uber no está disponible en Marruecos.'
+            fr: 'Des applications comme Uber (de retour depuis fin 2025) ou inDrive fonctionnent à Casablanca et indiquent le prix avant la course.',
+            en: 'Apps such as Uber (back since late 2025) or inDrive work in Casablanca and show the price before the ride.',
+            ar: 'تطبيقات مثل Uber (عاد منذ أواخر 2025) وinDrive تعمل في الدار البيضاء وتعرض الثمن قبل الرحلة.',
+            es: 'Apps como Uber (de vuelta desde finales de 2025) o inDrive funcionan en Casablanca y muestran el precio antes del viaje.'
           }
         },
         {
           title: { fr: 'Tramway et busway', en: 'Tram and busway', ar: 'الترامواي والباصواي', es: 'Tranvía y busway' },
+          icon: 'tram',
+          key: { fr: '≈ 8 MAD le ticket', en: '≈ 8 MAD a ticket', ar: '≈ 8 دراهم للتذكرة', es: '≈ 8 MAD el billete' },
           body: {
             fr: 'Quatre lignes de tramway (T1 à T4) et deux lignes de busway. Un ticket coûte environ 8 MAD, avec correspondances pendant 2 heures. Service d’environ 6 h à 22 h 30.',
             en: 'Four tram lines (T1 to T4) and two busway lines. A ticket costs about 8 MAD, with transfers for 2 hours. Service runs roughly 6 am to 10:30 pm.',
@@ -989,6 +1113,8 @@ CASA.city = {
         },
         {
           title: { fr: 'Aéroport Mohammed V', en: 'Mohammed V Airport', ar: 'مطار محمد الخامس', es: 'Aeropuerto Mohammed V' },
+          icon: 'plane',
+          key: { fr: 'Train ONCF, 35–50 min', en: 'ONCF train, 35–50 min', ar: 'قطار ONCF، 35–50 دقيقة', es: 'Tren ONCF, 35–50 min' },
           body: {
             fr: 'L’aéroport se trouve à environ 30 km au sud de la ville.',
             en: 'The airport is about 30 km south of the city.',
@@ -1004,13 +1130,17 @@ CASA.city = {
         },
         {
           title: { fr: 'Gares', en: 'Train stations', ar: 'محطات القطار', es: 'Estaciones de tren' },
+          icon: 'train',
+          key: { fr: 'Casa Voyageurs · Casa Port', en: 'Casa Voyageurs · Casa Port', ar: 'محطتا المسافرين والميناء', es: 'Casa Voyageurs · Casa Port' },
           list: [
-            { fr: 'Casa Voyageurs : la gare principale, avec le TGV Al Boraq vers Rabat et Tanger, et les trains pour Marrakech et Fès.', en: 'Casa Voyageurs: the main station, with the Al Boraq high-speed train to Rabat and Tangier, and trains to Marrakech and Fez.', ar: 'الدار البيضاء المسافرين: المحطة الرئيسية، ومنها قطار البراق فائق السرعة نحو الرباط وطنجة، وقطارات مراكش وفاس.', es: 'Casa Voyageurs: la estación principal, con el AVE Al Boraq a Rabat y Tánger, y trenes a Marrakech y Fez.' },
+            { fr: 'Casa Voyageurs : la gare principale, avec le TGV Al Boraq vers Rabat et Tanger, et les trains pour Marrakech et Fès.', en: 'Casa Voyageurs: the main station, with the Al Boraq high-speed train to Rabat and Tangier, and trains to Marrakech and Fez.', ar: 'الدار البيضاء المسافرين: المحطة الرئيسية، ومنها قطار البراق فائق السرعة نحو الرباط وطنجة، وقطارات مراكش وفاس.', es: 'Casa Voyageurs: la estación principal, con el tren de alta velocidad Al Boraq a Rabat y Tánger, y trenes a Marrakech y Fez.' },
             { fr: 'Casa Port : la gare du centre, près de la médina.', en: 'Casa Port: the central station, near the medina.', ar: 'الدار البيضاء الميناء: محطة وسط المدينة قرب المدينة القديمة.', es: 'Casa Port: la estación del centro, cerca de la medina.' }
           ]
         },
         {
           title: { fr: 'Voiture et stationnement', en: 'Car and parking', ar: 'السيارة والوقوف', es: 'Coche y aparcamiento' },
+          icon: 'car',
+          key: { fr: 'Quelques dirhams au gardien', en: 'Tip the street attendant', ar: 'بضعة دراهم للحارس', es: 'Unos dírhams al vigilante' },
           body: {
             fr: 'La circulation est dense aux heures de pointe. Dans la rue, des gardiens en gilet surveillent les voitures : laissez-leur quelques dirhams en partant.',
             en: 'Traffic is heavy at rush hour. On the street, attendants in vests watch the cars: give them a few dirhams when you leave.',
@@ -1026,7 +1156,7 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     experiences: {
-      icon: 'lantern',
+      icon: 'lantern', tint: '#8A6A2F',
       type: 'places',
       title: { fr: 'Expériences', en: 'Experiences', ar: 'تجارب', es: 'Experiencias' },
       intro: {
@@ -1038,6 +1168,8 @@ CASA.city = {
       items: [
         {
           id: 'hammam-ziani',
+          icon: 'steam',
+          short: { fr: 'Vapeur, gommage au savon noir', en: 'Steam and black-soap scrub', ar: 'بخار وتقشير بالصابون البلدي', es: 'Vapor y exfoliación, jabón negro' },
           name: { fr: 'Hammam Ziani', ar: 'حمّام الزياني' },
           area: { fr: 'Hammam traditionnel', en: 'Traditional hammam', ar: 'حمّام تقليدي', es: 'Hammam tradicional' },
           desc: {
@@ -1057,6 +1189,8 @@ CASA.city = {
         },
         {
           id: 'mosque-night',
+          icon: 'moon',
+          short: { fr: 'Illuminée, tout près à pied', en: 'Lit up, a short walk', ar: 'مضاء، على بُعد دقائق مشياً', es: 'Iluminada, cerca a pie' },
           name: { fr: 'La mosquée Hassan II la nuit', en: 'Hassan II Mosque at night', ar: 'مسجد الحسن الثاني ليلاً', es: 'La mezquita Hassan II de noche' },
           area: { fr: 'Front de mer', en: 'Seafront', ar: 'الواجهة البحرية', es: 'Frente al mar' },
           desc: {
@@ -1076,6 +1210,8 @@ CASA.city = {
         },
         {
           id: 'tea-habous',
+          icon: 'mint',
+          short: { fr: 'Thé et pâtisseries en terrasse', en: 'Terrace tea and pastries', ar: 'شاي وحلويات على شرفة مقهى', es: 'Té y pasteles en terraza' },
           name: { fr: 'Thé à la menthe aux Habous', en: 'Mint tea in the Habous', ar: 'شاي بالنعناع في الأحباس', es: 'Té a la menta en los Habous' },
           area: { fr: 'Habous', ar: 'الأحباس' },
           desc: {
@@ -1089,6 +1225,8 @@ CASA.city = {
         },
         {
           id: 'cooking',
+          icon: 'chef',
+          short: { fr: 'Tajine, salades et thé', en: 'Tagine, salads and mint tea', ar: 'طاجين وسلطات وشاي', es: 'Tajín, ensaladas y té' },
           kind: 'request',
           name: { fr: 'Cours de cuisine marocaine', en: 'Moroccan cooking class', ar: 'درس في الطبخ المغربي', es: 'Clase de cocina marroquí' },
           area: { fr: 'Sur demande', en: 'On request', ar: 'عند الطلب', es: 'Bajo petición' },
@@ -1102,6 +1240,8 @@ CASA.city = {
         },
         {
           id: 'guide',
+          icon: 'map',
+          short: { fr: 'Guide local, à votre rythme', en: 'Local guide, at your pace', ar: 'مرشد محلي، على راحتك', es: 'Guía local, a tu ritmo' },
           kind: 'request',
           name: { fr: 'Guide privé', en: 'Private guide', ar: 'مرشد خاص', es: 'Guía privado' },
           area: { fr: 'Sur demande', en: 'On request', ar: 'عند الطلب', es: 'Bajo petición' },
@@ -1118,8 +1258,8 @@ CASA.city = {
 
     /* ------------------------------------------------------------------ */
     assistance: {
-      icon: 'buoy',
-      type: 'info',
+      icon: 'buoy', tint: '#3D5560',
+      type: 'help',
       title: { fr: 'Assistance', en: 'Help', ar: 'مساعدة', es: 'Asistencia' },
       sub: { fr: 'Urgences · Santé · Infos', en: 'Emergency · Health · Tips', ar: 'طوارئ · صحة · معلومات', es: 'Urgencias · Salud · Consejos' },
       intro: {
@@ -1131,6 +1271,8 @@ CASA.city = {
       blocks: [
         {
           title: { fr: '{host}, votre hôte', en: '{host}, your host', ar: '{host}، المضيف', es: '{host}, tu anfitrión' },
+          icon: 'chat',
+          key: { fr: 'WhatsApp, à tout moment', en: 'WhatsApp, any time', ar: 'واتساب، في أي وقت', es: 'WhatsApp, cuando quieras' },
           body: {
             fr: 'Une question sur l’appartement, un problème, une envie : écrivez-moi sur WhatsApp à tout moment.',
             en: 'A question about the apartment, a problem, a wish: message me on WhatsApp at any time.',
@@ -1141,6 +1283,8 @@ CASA.city = {
         },
         {
           title: { fr: 'Urgences', en: 'Emergency', ar: 'الطوارئ', es: 'Urgencias' },
+          icon: 'phone',
+          key: { fr: '19 · 15 · 177', en: '19 · 15 · 177', ar: '19 · 15 · 177', es: '19 · 15 · 177' },
           phones: [
             { number: '19', label: { fr: 'Police', en: 'Police', ar: 'الشرطة', es: 'Policía' } },
             { number: '15', label: { fr: 'Pompiers · Ambulance', en: 'Fire · Ambulance', ar: 'الوقاية المدنية · الإسعاف', es: 'Bomberos · Ambulancia' } },
@@ -1149,6 +1293,8 @@ CASA.city = {
         },
         {
           title: { fr: 'Pharmacies et santé', en: 'Pharmacies and health', ar: 'الصيدليات والصحة', es: 'Farmacias y salud' },
+          icon: 'cross',
+          key: { fr: 'Croix verte = ouverte', en: 'Green cross = open', ar: 'الصليب الأخضر = مفتوحة', es: 'Cruz verde = abierta' },
           list: [
             { fr: 'Une croix verte allumée signale une pharmacie ouverte.', en: 'A lit green cross means the pharmacy is open.', ar: 'الصليب الأخضر المضاء يعني أن الصيدلية مفتوحة.', es: 'Una cruz verde encendida indica una farmacia abierta.' },
             { fr: 'La nuit et le dimanche, chaque pharmacie affiche sur sa porte la pharmacie de garde la plus proche.', en: 'At night and on Sundays, every pharmacy posts the nearest on-duty pharmacy on its door.', ar: 'ليلاً ويوم الأحد، تعلّق كل صيدلية على بابها عنوان أقرب صيدلية حراسة.', es: 'Por la noche y los domingos, cada farmacia indica en su puerta la farmacia de guardia más cercana.' },
@@ -1160,6 +1306,8 @@ CASA.city = {
         },
         {
           title: { fr: 'Argent et pourboires', en: 'Money and tipping', ar: 'المال والبقشيش', es: 'Dinero y propinas' },
+          icon: 'coins',
+          key: { fr: 'Espèces · pourboire ≈ 10 %', en: 'Cash · tip ≈ 10%', ar: 'نقداً · بقشيش ≈ 10٪', es: 'Efectivo · propina ≈ 10 %' },
           list: [
             { fr: 'La monnaie est le dirham (MAD). Gardez des espèces pour les taxis, les marchés et les petits cafés.', en: 'The currency is the dirham (MAD). Keep cash for taxis, markets and small cafés.', ar: 'العملة هي الدرهم. احتفظ بالنقود للطاكسي والأسواق والمقاهي الصغيرة.', es: 'La moneda es el dírham (MAD). Lleva efectivo para taxis, mercados y cafés pequeños.' },
             { fr: 'Les distributeurs sont nombreux ; la carte est acceptée dans les malls, les hôtels et la plupart des restaurants.', en: 'Cash machines are everywhere; cards work in malls, hotels and most restaurants.', ar: 'الشبابيك الأوتوماتيكية منتشرة، والبطاقات مقبولة في المراكز التجارية والفنادق ومعظم المطاعم.', es: 'Hay cajeros por todas partes; la tarjeta se acepta en centros comerciales, hoteles y la mayoría de restaurantes.' },
@@ -1168,6 +1316,8 @@ CASA.city = {
         },
         {
           title: { fr: 'Bon à savoir', en: 'Good to know', ar: 'معلومات مفيدة', es: 'Conviene saber' },
+          icon: 'bulb',
+          key: { fr: 'Tenue couvrante : médina, mosquée', en: 'Cover up: medina, mosque', ar: 'لباس محتشم: المدينة والمسجد', es: 'Ropa discreta: medina, mezquita' },
           list: [
             { fr: 'Tenue couvrante pour la médina et la mosquée.', en: 'Wear covering clothes in the medina and at the mosque.', ar: 'البس ملابس محتشمة في المدينة القديمة والمسجد.', es: 'Ropa que cubra para la medina y la mezquita.' },
             { fr: 'Demandez avant de photographier quelqu’un.', en: 'Ask before taking someone’s photo.', ar: 'استأذن قبل تصوير أي شخص.', es: 'Pregunta antes de fotografiar a alguien.' },
@@ -1178,6 +1328,8 @@ CASA.city = {
         },
         {
           title: { fr: 'Quelques mots de darija', en: 'A few words of Darija', ar: 'كلمات من الدارجة', es: 'Algunas palabras de dariya' },
+          icon: 'star',
+          key: { fr: 'Salam · Choukran', en: 'Salam · Choukran', ar: 'سلام · شكراً', es: 'Salam · Choukran' },
           body: {
             fr: 'L’arabe marocain. Un mot en darija fait toujours sourire.',
             en: 'Moroccan Arabic. A word of Darija always brings a smile.',
