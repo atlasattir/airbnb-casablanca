@@ -28,6 +28,29 @@
   --gilt: #8E6E3A;
   --sheet-scheme: light;
 
+  /* Home menu, top bar and dock (light values; dark below). The first screen,
+     over the film, stays dark in both themes. */
+  --menu-bg: #F7F6F2;
+  --menu-ink: #13211F;
+  --menu-ink-dim: #56615E;
+  --menu-line: rgba(19, 33, 31, .14);
+  --menu-accent: #8E6E3A;
+  --veil-max: .97;
+  --tile-home-bg: #FFFFFF;
+  --tile-home-shadow: 0 1px 2px rgba(19, 33, 31, .06), 0 14px 30px -18px rgba(19, 33, 31, .38);
+  --city-shadow: 0 14px 30px -18px rgba(19, 33, 31, .5);
+  --bar-solid: rgba(247, 246, 242, .84);
+  --bar-ink: #13211F;
+  --bar-ink-dim: #56615E;
+  --bar-line: rgba(19, 33, 31, .12);
+  --dock-bg: rgba(255, 255, 255, .86);
+  --dock-bg-solid: rgba(255, 255, 255, .96);
+  --dock-ink: #13211F;
+  --dock-line: rgba(19, 33, 31, .1);
+  --dock-hover: rgba(19, 33, 31, .06);
+  --dock-shadow: 0 16px 36px -18px rgba(19, 33, 31, .45);
+  color-scheme: light;
+
   /* Type: a Didone for the voice, a 1920s geometric sans (the era of
      Casablanca's Art Deco) for everything else */
   --f-brand: "Bodoni Moda", "Bodoni 72", Didot, "Times New Roman", serif;
@@ -75,6 +98,26 @@
     --shadow-card: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 10px 28px -16px rgba(0, 0, 0, .7);
     --shadow-soft: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 6px 18px -12px rgba(0, 0, 0, .6);
     --sheet-scheme: dark;
+    --menu-bg: #091215;
+    --menu-ink: #EEEAE1;
+    --menu-ink-dim: rgba(238, 234, 225, .68);
+    --menu-line: rgba(238, 234, 225, .17);
+    --menu-accent: #C9AB78;
+    --veil-max: .6;
+    --tile-home-bg: #F4F0E8;
+    --tile-home-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 18px 36px -22px rgba(0, 0, 0, .75);
+    --city-shadow: 0 18px 36px -22px rgba(0, 0, 0, .8);
+    --bar-solid: rgba(9, 18, 21, .58);
+    --bar-ink: #EEEAE1;
+    --bar-ink-dim: rgba(238, 234, 225, .68);
+    --bar-line: rgba(238, 234, 225, .17);
+    --dock-bg: rgba(9, 18, 21, .7);
+    --dock-bg-solid: rgba(9, 18, 21, .92);
+    --dock-ink: #EEEAE1;
+    --dock-line: rgba(238, 234, 225, .17);
+    --dock-hover: rgba(238, 234, 225, .08);
+    --dock-shadow: 0 20px 44px -20px rgba(0, 0, 0, .7);
+    color-scheme: dark;
   }
 }
 
@@ -92,6 +135,26 @@
   --shadow-card: 0 1px 0 rgba(255, 255, 255, .04) inset, 0 10px 28px -16px rgba(0, 0, 0, .7);
   --shadow-soft: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 6px 18px -12px rgba(0, 0, 0, .6);
   --sheet-scheme: dark;
+  --menu-bg: #091215;
+  --menu-ink: #EEEAE1;
+  --menu-ink-dim: rgba(238, 234, 225, .68);
+  --menu-line: rgba(238, 234, 225, .17);
+  --menu-accent: #C9AB78;
+  --veil-max: .6;
+  --tile-home-bg: #F4F0E8;
+  --tile-home-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 18px 36px -22px rgba(0, 0, 0, .75);
+  --city-shadow: 0 18px 36px -22px rgba(0, 0, 0, .8);
+  --bar-solid: rgba(9, 18, 21, .58);
+  --bar-ink: #EEEAE1;
+  --bar-ink-dim: rgba(238, 234, 225, .68);
+  --bar-line: rgba(238, 234, 225, .17);
+  --dock-bg: rgba(9, 18, 21, .7);
+  --dock-bg-solid: rgba(9, 18, 21, .92);
+  --dock-ink: #EEEAE1;
+  --dock-line: rgba(238, 234, 225, .17);
+  --dock-hover: rgba(238, 234, 225, .08);
+  --dock-shadow: 0 20px 44px -20px rgba(0, 0, 0, .7);
+  color-scheme: dark;
 }
 
 :root[lang="ar"] {
@@ -118,7 +181,7 @@ html {
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--stage);
+  background: var(--menu-bg);
   color: var(--on-stage);
   font-family: var(--f-sans);
   font-size: 16px;
@@ -197,8 +260,8 @@ img, video { max-width: 100%; }
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--stage);
-  opacity: calc(var(--p) * .6);
+  background: var(--menu-bg);
+  opacity: calc(var(--p) * var(--veil-max));
 }
 
 .stage__grain {
@@ -302,8 +365,8 @@ img, video { max-width: 100%; }
 }
 
 .topbar.is-solid {
-  background: rgba(9, 18, 21, .58);
-  border-bottom-color: var(--stage-line);
+  background: var(--bar-solid);
+  border-bottom-color: var(--bar-line);
   -webkit-backdrop-filter: blur(16px) saturate(1.1);
   backdrop-filter: blur(16px) saturate(1.1);
 }
@@ -329,12 +392,37 @@ img, video { max-width: 100%; }
 }
 
 .topbar.is-solid .brand__word { opacity: 1; transform: none; }
+.topbar.is-solid .brand { color: var(--bar-ink); }
+.topbar.is-solid .brand__mark { color: var(--menu-accent); }
+.topbar.is-solid .langs button { color: var(--bar-ink-dim); }
+.topbar.is-solid .langs button[aria-pressed="true"] { color: var(--bar-ink); }
+.topbar.is-solid .theme-btn { color: var(--bar-ink); border-color: var(--bar-line); }
+
+/* On phones the name would crowd the language and theme buttons */
+@media (max-width: 440px) { .brand__word { display: none; } }
+
+.topbar__tools { display: flex; align-items: center; gap: 6px; }
+
+.theme-btn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--stage-line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--on-stage);
+  font-size: 18px;
+  transition: color .3s ease, border-color .3s ease, background-color .3s ease;
+}
+
+.theme-btn:hover { background: rgba(238, 234, 225, .08); }
 
 .langs { display: flex; align-items: center; }
 
 .langs button {
   position: relative;
-  min-width: 40px;
+  min-width: 38px;
   min-height: 44px;
   padding: 0 6px;
   border: 0;
@@ -525,6 +613,7 @@ main { position: relative; z-index: 1; }
 
 .menu {
   position: relative;
+  color: var(--menu-ink);
   padding-block: 12vh var(--dock-space);
   padding-left: var(--gutter-l);
   padding-right: var(--gutter-r);
@@ -540,7 +629,7 @@ main { position: relative; z-index: 1; }
 .groups { display: grid; gap: 64px; }
 
 .group__head { display: grid; gap: 12px; margin-bottom: 22px; }
-.group__head .eyebrow { color: var(--brass); }
+.group__head .eyebrow { color: var(--menu-accent); }
 
 .group__title {
   margin: 0;
@@ -564,7 +653,7 @@ main { position: relative; z-index: 1; }
   font-size: 15.5px;
   font-weight: 300;
   line-height: 1.5;
-  color: var(--on-stage-dim);
+  color: var(--menu-ink-dim);
 }
 
 .avatar {
@@ -618,9 +707,9 @@ main { position: relative; z-index: 1; }
 /* apartment: light buttons */
 
 .tile--home {
-  background: var(--ivory);
+  background: var(--tile-home-bg);
   color: var(--ink-fixed);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .6) inset, 0 18px 36px -22px rgba(0, 0, 0, .75);
+  box-shadow: var(--tile-home-shadow);
 }
 
 .tile--home .tile__icon {
@@ -639,7 +728,7 @@ main { position: relative; z-index: 1; }
 .tile--city {
   color: #fff;
   background: var(--tint-fill);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, .14) inset, 0 18px 36px -22px rgba(0, 0, 0, .8);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .14) inset, var(--city-shadow);
 }
 
 .tile--city::before {
@@ -710,7 +799,7 @@ main { position: relative; z-index: 1; }
 .sign {
   margin-top: 72px;
   padding-top: 26px;
-  border-top: 1px solid var(--stage-line);
+  border-top: 1px solid var(--menu-line);
   display: grid;
   gap: 12px;
 }
@@ -725,8 +814,8 @@ main { position: relative; z-index: 1; }
 }
 
 :root[lang="ar"] .sign blockquote { font-style: normal; }
-.sign figcaption { color: var(--on-stage-dim); }
-.sign figcaption b { color: var(--on-stage); font-weight: 500; }
+.sign figcaption { color: var(--menu-ink-dim); }
+.sign figcaption b { color: var(--menu-ink); font-weight: 500; }
 
 /* reveal (only when JavaScript runs) */
 
@@ -756,15 +845,15 @@ main { position: relative; z-index: 1; }
   align-items: stretch;
   gap: 4px;
   padding: 6px;
-  background: rgba(9, 18, 21, .7);
-  border: 1px solid var(--stage-line);
+  background: var(--dock-bg);
+  border: 1px solid var(--dock-line);
   border-radius: 999px;
   -webkit-backdrop-filter: blur(20px) saturate(1.2);
   backdrop-filter: blur(20px) saturate(1.2);
-  box-shadow: 0 20px 44px -20px rgba(0, 0, 0, .7);
+  box-shadow: var(--dock-shadow);
 }
 
-.is-locked .dock { background: rgba(9, 18, 21, .92); }
+.is-locked .dock { background: var(--dock-bg-solid); }
 .has-modal .dock { visibility: hidden; }
 
 .dock__btn {
@@ -778,7 +867,7 @@ main { position: relative; z-index: 1; }
   gap: 4px;
   padding: 6px 14px;
   border-radius: 999px;
-  color: var(--on-stage);
+  color: var(--dock-ink);
   text-decoration: none;
   font-size: 11.5px;
   font-weight: 400;
@@ -789,7 +878,7 @@ main { position: relative; z-index: 1; }
 }
 
 .dock__btn .ico { font-size: 21px; }
-.dock__btn:hover { background: rgba(238, 234, 225, .08); }
+.dock__btn:hover { background: var(--dock-hover); }
 
 .dock__btn--main {
   background: var(--brass);

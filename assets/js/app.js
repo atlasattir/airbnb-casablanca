@@ -72,15 +72,17 @@
     howto: -1
   };
 
+  // The guest's own choice wins; otherwise the phone's main language if the
+  // guide has it (fr, en, ar, es, any region), otherwise English.
+  function deviceLang() {
+    var main = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
+    var code = String(main).slice(0, 2).toLowerCase();
+    return LANGS.indexOf(code) > -1 ? code : 'en';
+  }
+
   function initialLang() {
     var saved = load('casa.lang');
-    if (saved && LANGS.indexOf(saved) > -1) return saved;
-    var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
-    for (var i = 0; i < list.length; i++) {
-      var code = String(list[i]).slice(0, 2).toLowerCase();
-      if (LANGS.indexOf(code) > -1) return code;
-    }
-    return 'en';
+    return saved && LANGS.indexOf(saved) > -1 ? saved : deviceLang();
   }
 
   /* ---------- text ---------- */
@@ -288,6 +290,7 @@
     document.querySelectorAll('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === state.lang)); });
     document.querySelectorAll('[data-host]').forEach(function (el) { el.textContent = APT.host.name; });
     els.wa.href = waLink(ui('waHello'));
+    updateThemeButton();
     renderGroups();
     updateClock();
     updateFavCount();
@@ -300,6 +303,40 @@
     state.lang = lang;
     save('casa.lang', lang);
     applyLang();
+  }
+
+  /* ---------- light and dark mode ---------- */
+
+  // Follows the phone's setting until the guest picks one with the sun/moon button.
+  var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function currentTheme() {
+    var set = root.getAttribute('data-theme');
+    if (set === 'light' || set === 'dark') return set;
+    return darkQuery && darkQuery.matches ? 'dark' : 'light';
+  }
+
+  function updateThemeButton() {
+    var btn = byId('theme-btn');
+    if (!btn) return;
+    var dark = currentTheme() === 'dark';
+    btn.innerHTML = icon(dark ? 'sun' : 'moon');
+    btn.setAttribute('aria-pressed', String(dark));
+    btn.setAttribute('aria-label', ui(dark ? 'themeLight' : 'themeDark'));
+  }
+
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    save('casa.theme', theme);
+    updateThemeButton();
+  }
+
+  var savedTheme = load('casa.theme');
+  if (savedTheme === 'light' || savedTheme === 'dark') root.setAttribute('data-theme', savedTheme);
+  if (darkQuery) {
+    var onSystemTheme = function () { updateThemeButton(); };
+    if (darkQuery.addEventListener) darkQuery.addEventListener('change', onSystemTheme);
+    else if (darkQuery.addListener) darkQuery.addListener(onSystemTheme);
   }
 
   function updateClock() {
@@ -951,6 +988,18 @@
   });
 
   els.back.addEventListener('click', goBack);
+
+  byId('theme-btn').addEventListener('click', function () {
+    setTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+  });
+
+  // If the guest has not picked a language, follow a change of the phone's language
+  window.addEventListener('languagechange', function () {
+    if (!load('casa.lang')) {
+      var l = deviceLang();
+      if (l !== state.lang) { state.lang = l; applyLang(); }
+    }
+  });
 
   els.cue.addEventListener('click', function (e) {
     e.preventDefault();

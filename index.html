@@ -25,6 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Jost:wght@300;400;500&family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
+  <script>try { var t = localStorage.getItem('casa.theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
 </head>
 <body>
 
@@ -83,12 +84,15 @@
       <svg class="ico brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true" focusable="false"><rect x="6.75" y="6.75" width="10.5" height="10.5"/><rect x="6.75" y="6.75" width="10.5" height="10.5" transform="rotate(45 12 12)"/></svg>
       <span class="brand__word" dir="ltr">Casa, côté vous</span>
     </a>
-    <nav class="langs" data-i18n-label="languages" aria-label="Langue">
-      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      <button type="button" data-lang="ar" lang="ar" aria-pressed="false" aria-label="العربية">ع</button>
-      <button type="button" data-lang="es" aria-pressed="false">ES</button>
-    </nav>
+    <div class="topbar__tools">
+      <nav class="langs" data-i18n-label="languages" aria-label="Langue">
+        <button type="button" data-lang="fr" lang="fr" aria-pressed="false" aria-label="Français">FR</button>
+        <button type="button" data-lang="en" lang="en" aria-pressed="false" aria-label="English">EN</button>
+        <button type="button" data-lang="ar" lang="ar" aria-pressed="false" aria-label="العربية">ع</button>
+        <button type="button" data-lang="es" lang="es" aria-pressed="false" aria-label="Español">ES</button>
+      </nav>
+      <button class="theme-btn" id="theme-btn" type="button" aria-pressed="false" aria-label="Mode sombre"></button>
+    </div>
   </header>
 
   <main>
