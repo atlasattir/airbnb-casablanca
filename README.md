@@ -5,16 +5,22 @@ Guide digital de l’appartement Bourgogne, Casablanca. Les voyageurs l’ouvren
 - Film de Casablanca en fond, animation au défilement, 12 rubriques, 3 boutons permanents (Localisation, WhatsApp, Mes favoris)
 - 4 langues : français, anglais, arabe (de droite à gauche), espagnol. La langue du téléphone est choisie automatiquement.
 - Itinéraires et adresses qui s’ouvrent dans Google Maps, demandes de services pré-rédigées sur WhatsApp, favoris gardés sur le téléphone
+- Fonctionne hors connexion une fois ouvert (utile pour les touristes sans carte SIM marocaine)
+- Carte QR + Wi-Fi à imprimer pour l’entrée (`card.html`) et messages Airbnb prêts à copier (`docs/messages.md`)
 - Aucun outil à installer : du HTML, du CSS et du JavaScript simples
 
 ## Structure
 
 ```
 index.html              la page
+card.html               la carte QR + Wi-Fi à imprimer
+sw.js                   le mode hors connexion
+docs/messages.md        les messages Airbnb, dans les 4 langues
 assets/css/style.css    le design
 assets/js/app.js        le fonctionnement
 assets/js/icons.js      les icônes
 assets/video/           le film de fond (à ajouter)
+assets/vendor/qrcode.js générateur de QR code (licence MIT, Kazuhiko Arase)
 content/apartment.js    tout ce qui concerne l’appartement Bourgogne
 content/city.js         Casablanca : lieux, restaurants, itinéraires, infos pratiques
 content/ui.js           les textes de l’interface dans les 4 langues
@@ -72,15 +78,27 @@ Mieux vaut 30 adresses que vous recommandez vraiment que 100 adresses non vérif
 
 Cette page est publique. N’y mettez jamais le code de la porte, le code de la boîte à clés, l’étage ou le numéro de l’appartement : envoyez-les par message Airbnb. La page demande aussi aux moteurs de recherche de ne pas l’indexer.
 
-## Mettre en ligne
+## Mettre en ligne (GitHub Pages, gratuit)
 
-Le site est un simple dossier de fichiers. Trois options gratuites :
+Le dépôt est public : GitHub l’héberge gratuitement. Une seule fois :
 
-- **Netlify** : glissez le dossier du projet sur [app.netlify.com/drop](https://app.netlify.com/drop).
-- **GitHub Pages** : Settings → Pages → « Deploy from a branch », branche principale, dossier `/`.
-- **Vercel** ou **Cloudflare Pages** : importez le dépôt, sans commande de build.
+1. Sur GitHub, ouvrez le dépôt `atlasattir/airbnb-casablanca` → **Settings** → **Pages**.
+2. Dans **Build and deployment** → **Source**, choisissez **Deploy from a branch**.
+3. Branche **`claude/great-newton-e86pup`**, dossier **`/ (root)`**, puis **Save**.
+4. Une à deux minutes plus tard, le guide est en ligne à l’adresse :
+   **https://atlasattir.github.io/airbnb-casablanca/**
 
-Ensuite, reliez un nom de domaine si vous le souhaitez, générez un QR code vers l’adresse du site, et ajoutez le lien dans votre message Airbnb envoyé 2 à 3 jours avant l’arrivée. Le QR code dans l’appartement sert de rappel.
+Ensuite, chaque modification envoyée sur cette branche met le site à jour automatiquement.
+
+Autres options gratuites : Netlify (glissez le dossier sur [app.netlify.com/drop](https://app.netlify.com/drop)), Vercel ou Cloudflare Pages (importez le dépôt, sans commande de build).
+
+Plus tard, vous pourrez relier votre propre nom de domaine (Settings → Pages → Custom domain).
+
+## Une fois en ligne
+
+1. **Carte de l’entrée** : ouvrez `https://atlasattir.github.io/airbnb-casablanca/card.html`, tapez le mot de passe Wi-Fi, puis imprimez au format A6. La carte porte le QR code du guide et, si le Wi-Fi est rempli, un second QR code qui connecte le téléphone au Wi-Fi en un geste. Le mot de passe n’est enregistré nulle part.
+2. **Messages Airbnb** : copiez les textes de `docs/messages.md` dans vos messages programmés. Le lien du guide part 3 jours avant l’arrivée ; la carte dans l’appartement sert de rappel.
+3. **Hors connexion** : dès qu’un voyageur a ouvert le guide une fois, il reste consultable sans données mobiles. Après avoir renommé ou supprimé des fichiers, changez `VERSION` dans `sw.js`.
 
 ## Essayer en local
 

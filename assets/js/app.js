@@ -737,6 +737,15 @@
   route();
   window.setInterval(updateClock, 20000);
 
+  // Offline mode, on the published site (and localhost for testing)
+  try {
+    if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () { /* not allowed here */ });
+      });
+    }
+  } catch (e) { /* sandboxed frame */ }
+
   function ready() { root.classList.add('is-ready'); }
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(ready, ready);
