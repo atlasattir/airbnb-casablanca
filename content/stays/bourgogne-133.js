@@ -57,17 +57,17 @@ CASA.stays['bourgogne-133'] = {
       icon: 'lift',
       title: { fr: 'Ascenseurs', en: 'Lifts', ar: 'المصاعد', es: 'Ascensores' },
       body: {
-        fr: 'L’immeuble a deux ascenseurs. Les enfants n’y montent jamais seuls. En cas de panne ou de coupure, prenez l’escalier.',
-        en: 'The building has two lifts. Children never ride in them alone. In a breakdown or power cut, take the stairs.',
-        ar: 'في العمارة مصعدان، ولا يركبهما الأطفال وحدهم أبداً. عند العطل أو انقطاع الكهرباء، استعمل الدرج.',
-        es: 'El edificio tiene dos ascensores. Los niños nunca suben solos. Si hay avería o corte de luz, usa la escalera.'
+        fr: 'L’immeuble a deux ascenseurs. Ne laissez pas les enfants y monter seuls. En cas de panne ou de coupure de courant, prenez l’escalier.',
+        en: 'The building has two lifts. Do not let children ride in them alone. If they break down or the power goes off, take the stairs.',
+        ar: 'في العمارة مصعدان، فلا تدع الأطفال يركبونهما وحدهم. عند حدوث عطل أو انقطاع الكهرباء، استعمل الدرج.',
+        es: 'El edificio tiene dos ascensores. No dejes que los niños suban solos. Si hay avería o corte de luz, usa la escalera.'
       }
     },
     {
       icon: 'balcony',
       title: { fr: 'Balcon', en: 'Balcony', ar: 'الشرفة', es: 'Balcón' },
       body: {
-        fr: 'Gardez un œil sur les enfants et ne mettez rien contre la rambarde. Par vent fort ou pluie, fermez la porte du balcon.',
+        fr: 'Gardez un œil sur les enfants et ne posez rien contre la rambarde. Par vent fort ou pluie, fermez la porte du balcon.',
         en: 'Keep an eye on children and put nothing against the railing. In strong wind or rain, close the balcony door.',
         ar: 'راقب الأطفال ولا تضع شيئاً بجانب الدرابزين. عند الرياح القوية أو المطر، أغلق باب الشرفة.',
         es: 'Vigila a los niños y no pongas nada junto a la barandilla. Con viento fuerte o lluvia, cierra la puerta del balcón.'
@@ -88,24 +88,31 @@ CASA.stays['bourgogne-133'] = {
   nearby: [
     // source: https://carrefourmarket.ma/nos-magasins/casablanca/carrefour-market-casablanca-bourgogne/
     // source: https://promotheus.ma/casablanca/carrefour-market/rue-ain-sidi-ali-immeuble-e-quartier-bourgogne
-    // Rue Aïn Sidi Ali, Immeuble E. Official page: 09:00–23:00, 7 days a week.
+    // source: https://www.goafricaonline.com/ma/823112-carrefour-market
+    // Rue Aïn Sidi Ali, Immeuble E. Hours differ between sources (official page 09:00–23:00,
+    // GoAfrica 09:00–22:00), so none are shown to guests.
     { icon: 'cart', label: { fr: 'Supermarché', en: 'Supermarket', ar: 'متجر كبير', es: 'Supermercado' }, name: 'Carrefour Market Bourgogne', walk: 0, maps: 'Carrefour Market Bourgogne, Casablanca' },
     // source: https://www.med.ma/pharmacie/casablanca/pharmacie-des-generations--46548
     // 53 rue Jaber Ben Hayane (ex-Verlet-Hanus), Bourgogne.
     { icon: 'cross', label: { fr: 'Pharmacie', en: 'Pharmacy', ar: 'صيدلية', es: 'Farmacia' }, name: 'Pharmacie des Générations', walk: 0, maps: 'Pharmacie des Générations, Bourgogne, Casablanca' },
-    // source: https://www.telecontact.ma/annonceur/boulangerie-abou-marouane/3149586/casablanca.php
-    // 172 bd de Bourgogne. One directory listing only: TODO (host) confirm it is still open,
-    // or put your own favourite bakery here.
-    { icon: 'bread', label: { fr: 'Boulangerie', en: 'Bakery', ar: 'مخبزة', es: 'Panadería' }, name: 'Boulangerie Abou Marouane', walk: 0, maps: 'Boulangerie Abou Marouane, Bourgogne, Casablanca' },
+    // TODO (host): your favourite bakery. A lead, not shown until confirmed: Boulangerie
+    // Abou Marouane, 172 bd de Bourgogne, found in one old directory listing only
+    // (https://www.telecontact.ma/annonceur/boulangerie-abou-marouane/3149586/casablanca.php)
+    // and nowhere else. If it is still open, put its name here and
+    // maps: 'Boulangerie Abou Marouane, Bourgogne, Casablanca'.
+    { icon: 'bread', label: { fr: 'Boulangerie', en: 'Bakery', ar: 'مخبزة', es: 'Panadería' }, name: 'TODO', walk: 0, maps: '' },
     // source: https://www.annuaire-gratuit.ma/banques-maroc/attijariwafa-bank/attijariwafa-bank-casa-bourgogne-expansion-s186710.html
     // source: https://www.telecontact.ma/liens/attijariwafa-bank-ag-casa-bourgogne/casablanca.php
     // Agence Casa Bourgogne Expansion, corner of rue Ibnou Jarir and rue Abou El Wakt Ibno Khalaf.
-    // A bank branch; the sources do not mention the cash machine itself.
-    { icon: 'card', label: { fr: 'Distributeur', en: 'Cash machine', ar: 'شبّاك بنكي', es: 'Cajero' }, name: 'Attijariwafa bank', walk: 0, maps: 'Attijariwafa bank Casa Bourgogne Expansion, Casablanca' },
+    // A bank branch; no source mentions a cash machine there, so the tile says "Banque".
+    // TODO (host): if it has one, change the label back to
+    // { fr: 'Distributeur', en: 'Cash machine', ar: 'شبّاك بنكي', es: 'Cajero' }.
+    { icon: 'card', label: { fr: 'Banque', en: 'Bank', ar: 'بنك', es: 'Banco' }, name: 'Attijariwafa bank', walk: 0, maps: 'Attijariwafa bank Casa Bourgogne Expansion, Casablanca' },
     // TODO (host): no café in Bourgogne could be confirmed online. Your own favourite?
     { icon: 'cup', label: { fr: 'Café', en: 'Café', ar: 'مقهى', es: 'Café' }, name: 'TODO', walk: 0, maps: '' },
     // source: https://www.smartertravel.com/local-taxis-casablanca-transportation/
     // source: https://telquel.ma/2025/11/27/uber-annonce-officiellement-son-retour-au-maroc-a-la-veille-de-la-can-2025_1962895
+    // source: https://medias24.com/2026/07/01/mobilite-huit-ans-apres-son-depart-uber-parie-de-nouveau-sur-le-maroc-1713243/
     // No tram stop inside Bourgogne could be confirmed. TODO (host): if you send guests
     // to a tram stop, add it as its own line (icon 'tram').
     { icon: 'car', label: { fr: 'Taxi', en: 'Taxi', ar: 'طاكسي', es: 'Taxi' }, name: { fr: 'Petit taxi rouge ou Uber', en: 'Red petit taxi or Uber', ar: 'طاكسي صغير أحمر أو Uber', es: 'Petit taxi rojo o Uber' }, walk: 0, maps: '' },

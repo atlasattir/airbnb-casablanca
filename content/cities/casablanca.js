@@ -398,6 +398,30 @@ CASA.cities.casablanca = {
             ar: 'عنوان شخصي يختاره مضيفك.',
             es: 'Una dirección personal, elegida por tu anfitrión.'
           }
+        },
+        // source: https://fr.le360.ma/societe/plages-privees-de-dar-bouazza-sept-etablissements-sous-le-coup-dune-demolition_4XVBT4G5HZARPG7RCNESB3RIRM/
+        // (seven private-beach venues listed for demolition: Sunny Beach, Baya Beach (Les 3 Mâts), Seven Beach Balboa 1,
+        //  Malibu Beach (Nomade Beach), Atlantic Boulevard, Taloche, Babaloo Beach)
+        // source: https://medias24.com/2025/05/15/dar-bouazza-debut-de-la-liberation-du-domaine-public-maritime-demolition-de-deux-restaurants-de-luxe/
+        // (operation started on 15 May 2025; Atlantic and Beach House demolished first)
+        {
+          kind: 'note',
+          id: 'note-darbouazza-food',
+          icon: 'info',
+          areas: ['dar-bouazza'],
+          short: { fr: 'Vérifiez avant d’y aller', en: 'Check before you go', ar: 'تحقّق قبل الذهاب', es: 'Compruébalo antes de ir' },
+          name: { fr: 'Manger à Dar Bouazza', en: 'Eating out in Dar Bouazza', ar: 'المطاعم في دار بوعزة', es: 'Comer fuera en Dar Bouazza' },
+          desc: {
+            fr: 'En mai 2025, plusieurs restaurants de plage connus de Dar Bouazza ont été démolis : des adresses encore en ligne n’existent plus. Avant d’y aller :',
+            en: 'In May 2025, several well-known beach restaurants in Dar Bouazza were demolished: some addresses still online no longer exist. Before you go:',
+            ar: 'في ماي 2025، هُدمت عدة مطاعم شاطئية معروفة في دار بوعزة، فبعض العناوين التي لا تزال على الإنترنت لم تعد موجودة. قبل الذهاب:',
+            es: 'En mayo de 2025 se demolieron varios restaurantes de playa conocidos de Dar Bouazza: algunas direcciones que siguen en internet ya no existen. Antes de ir:'
+          },
+          list: [
+            { text: { fr: 'Regardez les avis récents sur Google Maps.', en: 'Look at recent reviews on Google Maps.', ar: 'اطّلع على أحدث التقييمات في خرائط Google.', es: 'Mira las reseñas recientes en Google Maps.' } },
+            { text: { fr: 'Le week-end, appelez ou réservez.', en: 'At weekends, call or book ahead.', ar: 'في نهاية الأسبوع، اتصل أو احجز مسبقاً.', es: 'El fin de semana, llama o reserva.' } },
+            { text: { fr: 'Demandez à {host} ses adresses du moment.', en: 'Ask {host} for their current favourites.', ar: 'اسأل {host} عن عناوينه المفضّلة حالياً.', es: 'Pregunta a {host} por sus sitios favoritos del momento.' } }
+          ]
         }
       ]
     },
@@ -537,6 +561,21 @@ CASA.cities.casablanca = {
             en: 'The café where your host has their own coffee, near Anfa Place.',
             ar: 'المقهى الذي يرتاده مضيفك، قرب أنفا بلاس.',
             es: 'El café donde tu anfitrión toma el suyo, cerca de Anfa Place.'
+          }
+        },
+        // source: none needed: a placeholder for the host's own pick (shows "Bientôt")
+        {
+          id: 'host-cafe-darbouazza',
+          icon: 'cup',
+          areas: ['dar-bouazza'],
+          short: { fr: 'Café du coin, près de chez vous', en: 'Local café, close by', ar: 'مقهى قريب منك', es: 'Café cercano' },
+          kind: 'placeholder',
+          name: { fr: 'Le café de {host} à Dar Bouazza', en: '{host}’s café in Dar Bouazza', ar: 'مقهى {host} في دار بوعزة', es: 'El café de {host} en Dar Bouazza' },
+          desc: {
+            fr: 'Le café où votre hôte prend le sien, à Dar Bouazza.',
+            en: 'The café where your host has their own coffee, in Dar Bouazza.',
+            ar: 'المقهى الذي يرتاده مضيفك في دار بوعزة.',
+            es: 'El café donde tu anfitrión toma el suyo, en Dar Bouazza.'
           }
         }
       ]
@@ -849,6 +888,8 @@ CASA.cities.casablanca = {
         {
           id: 'darbouazza',
           icon: 'surf',
+          // DarB Inn's guests see its own beaches (tamaris2, jackbeach) instead
+          areas: ['bourgogne', 'ain-diab'],
           short: { fr: 'Plages sauvages et surf', en: 'Wilder beaches, surf spots', ar: 'شواطئ برّية وركوب الأمواج', es: 'Playas salvajes y surf' },
           name: { fr: 'Dar Bouazza', ar: 'دار بوعزة' },
           area: { fr: 'Sud-ouest de Casablanca', en: 'South-west of Casablanca', ar: 'جنوب غرب الدار البيضاء', es: 'Suroeste de Casablanca' },
@@ -870,27 +911,91 @@ CASA.cities.casablanca = {
         // ("the Anfa Place Living Resort complex … a promenade with direct beach access"; pestana.com says the same)
         // source: https://snrtnews.com/fr/article/prevention-des-noyades-sur-la-plage-dain-diab-quelles-mesures-de-sauvetage-78687
         // (lifeguards on the Aïn Diab beaches from 1 May to 30 September)
+        // source: https://lematin.ma/regions/surveillance-et-prevention-des-noyades-a-ain-diab-casablanca/297269
+        // (Aug. 2025: a 153-day season, 1 May to 30 September)
+        // The promenade belongs to the residence: the text does not tell guests to use it.
+        // TODO (host): if Ocean 21's guests may use it, say so in ocean-21.js (howto 'Piscine, sport, plage').
         {
           id: 'anfaplace-beach',
           icon: 'waves',
           areas: ['ain-diab'],
-          short: { fr: 'Plage et couchant, au bout de la promenade', en: 'Beach and sunset past the promenade', ar: 'شاطئ وغروب في آخر الممشى', es: 'Playa y atardecer al final del paseo' },
-          name: { fr: 'La plage au pied d’Anfa Place', en: 'The beach below Anfa Place', ar: 'الشاطئ أسفل أنفا بلاس', es: 'La playa junto a Anfa Place' },
+          short: { fr: 'Plage et couchant, au pied d’Anfa Place', en: 'Beach and sunset below Anfa Place', ar: 'شاطئ وغروب أمام أنفا بلاس', es: 'Playa y atardecer junto a Anfa Place' },
+          name: { fr: 'La plage au pied d’Anfa Place', en: 'The beach below Anfa Place', ar: 'الشاطئ أمام أنفا بلاس', es: 'La playa junto a Anfa Place' },
           area: { fr: 'Anfa Place · Corniche', ar: 'أنفا بلاس · الكورنيش' },
           desc: {
-            fr: 'La promenade d’Anfa Place, côté mer, mène directement à la plage. Parfait pour marcher pieds nus le matin ou regarder le soleil se coucher.',
-            en: 'The seaward promenade of Anfa Place leads straight onto the beach. Perfect for a barefoot morning walk or for watching the sunset.',
-            ar: 'يقود ممشى أنفا بلاس المطلّ على البحر مباشرة إلى الشاطئ. مثالي لنزهة حافي القدمين صباحاً أو لمشاهدة الغروب.',
-            es: 'El paseo de Anfa Place, del lado del mar, lleva directamente a la playa. Perfecto para caminar descalzo por la mañana o ver la puesta de sol.'
+            fr: 'La plage s’étend au pied du complexe d’Anfa Place, sur la Corniche. Parfaite pour marcher pieds nus le matin ou regarder le soleil se coucher.',
+            en: 'The beach runs right below the Anfa Place complex, on the Corniche. Perfect for a barefoot morning walk or for watching the sunset.',
+            ar: 'يمتدّ الشاطئ أمام مجمّع أنفا بلاس على الكورنيش، وهو مثالي لنزهة حافي القدمين صباحاً أو لمشاهدة الغروب.',
+            es: 'La playa se extiende al pie del complejo de Anfa Place, en la Corniche. Perfecta para caminar descalzo por la mañana o ver la puesta de sol.'
           },
           tip: {
-            fr: 'Baignade seulement près d’un poste de secours, du 1er mai au 30 septembre, en respectant les drapeaux.',
-            en: 'Only swim near a lifeguard post, from 1 May to 30 September, and follow the flags.',
-            ar: 'لا تسبح إلا قرب مركز للإنقاذ، من فاتح ماي إلى 30 شتنبر، واحترم الأعلام.',
-            es: 'Báñate solo cerca de un puesto de socorrismo, del 1 de mayo al 30 de septiembre, y respeta las banderas.'
+            fr: 'Les postes de secours sont tenus du 1er mai au 30 septembre : baignez-vous près de l’un d’eux et respectez les drapeaux.',
+            en: 'Lifeguard posts are staffed from 1 May to 30 September: swim near one and follow the flags.',
+            ar: 'تعمل مراكز الإنقاذ من فاتح ماي إلى 30 شتنبر، فاسبح قرب أحدها والتزم بإشارات الأعلام.',
+            es: 'Los puestos de socorrismo funcionan del 1 de mayo al 30 de septiembre: báñate cerca de uno y respeta las banderas.'
           },
           price: 0, sunset: true,
           maps: 'Anfa Place, Casablanca'
+        },
+        // source: https://fr.hespress.com/481822-dar-bouazza-la-plage-tamaris-2-decroche-son-premier-pavillon-bleu.html
+        // source: https://lematin.ma/regions/la-plage-tamaris-2-a-dar-bouazza-decroche-son-premier-pavillon-bleu/356538/amp
+        // (first Blue Flag, raised on Friday 17 July 2026 with the governor of Nouaceur province)
+        // source: https://fr.le360.ma/societe/a-tamaris-les-plages-se-reinventent-avec-wi-fi-gratuit-piscine-et-nouveaux-services_NOWOR7XNP5CTVE3M2MALV7Q3BE/
+        // (summer 2026: Tamaris 1, 2 and 3 refurbished, free Wi-Fi, a learn-to-swim pool for children,
+        //  Civil Protection lifeguard towers from the corniche to Tamaris 3)
+        // source: https://fnh.ma/article/opinions-libres/dar-bouazza-la-route-infernale (weekend beach traffic)
+        // The pool and Wi-Fi were set up for summer 2026; whether they return each summer is not confirmed,
+        // so the text dates them.
+        {
+          id: 'tamaris2',
+          icon: 'umbrella',
+          areas: ['dar-bouazza'],
+          short: { fr: 'Pavillon Bleu 2026, idéale en famille', en: 'Blue Flag 2026, great for families', ar: 'اللواء الأزرق 2026، مثالي للعائلات', es: 'Bandera Azul 2026, ideal en familia' },
+          name: { fr: 'Plage Tamaris 2', en: 'Tamaris 2 Beach', ar: 'شاطئ تماريس 2', es: 'Playa Tamaris 2' },
+          area: { fr: 'Tamaris · Dar Bouazza', ar: 'تماريس · دار بوعزة' },
+          desc: {
+            fr: 'Une plage de sable labellisée Pavillon Bleu en 2026. Pour l’été 2026, elle a reçu le Wi-Fi gratuit et une piscine d’initiation à la nage pour les enfants.',
+            en: 'A sandy beach awarded the Blue Flag in 2026. For summer 2026 it gained free Wi-Fi and a learn-to-swim pool for children.',
+            ar: 'شاطئ رملي نال اللواء الأزرق سنة 2026، وزُوّد في صيف 2026 بشبكة واي فاي مجانية ومسبح لتعليم الأطفال السباحة.',
+            es: 'Una playa de arena con Bandera Azul en 2026. Para el verano de 2026 recibió Wi-Fi gratis y una piscina para que los niños aprendan a nadar.'
+          },
+          tip: {
+            fr: 'En saison, baignez-vous près d’un poste de secours, et venez tôt les week-ends d’été.',
+            en: 'In season, swim near a lifeguard post, and come early on summer weekends.',
+            ar: 'في موسم الاصطياف، اسبح قرب مركز للإنقاذ، واحضر باكراً في عطلات نهاية الأسبوع صيفاً.',
+            es: 'En temporada, báñate cerca de un puesto de socorristas, y ven temprano los fines de semana de verano.'
+          },
+          price: 0,
+          maps: 'Plage Tamaris 2, Dar Bouazza'
+        },
+        // source: https://fr.surf-forecast.com/breaks/Jackbeach (exposed beach break that works all year round)
+        // source: https://www.surf-report.com/surf-info/jack-beach-s2707.html (left and right beach break, intermediate level)
+        // source: https://assets.medias24.com/images/cartes/plages-2019/assets/pdf/plages/FR/Casablanca/24-%20Jacques%20Beach.pdf
+        // (2019 beach sheet: a small beach, about 0.5 km, partly rocky)
+        // No surf school is named: the Jack Beach schools were demolished in March 2021
+        // (https://ledesk.ma/encontinu/apres-le-deplacement-des-clubs-nautiques-rabat-demolition-des-ecoles-de-surf-de-dar-bouazza/)
+        // and no 2026 source confirms which ones teach there now.
+        {
+          id: 'jackbeach',
+          icon: 'surf',
+          areas: ['dar-bouazza'],
+          short: { fr: 'Un spot de surf toute l’année', en: 'A year-round surf spot', ar: 'مكان لركوب الأمواج طوال السنة', es: 'Un spot de surf todo el año' },
+          name: { fr: 'Jack Beach', ar: 'جاك بيتش' },
+          area: { fr: 'Dar Bouazza', ar: 'دار بوعزة' },
+          desc: {
+            fr: 'Une petite plage en partie rocheuse, appréciée des surfeurs : il y a des vagues toute l’année. Plutôt pour un niveau intermédiaire.',
+            en: 'A small, partly rocky beach, popular with surfers: there are waves all year round. Best for intermediate surfers.',
+            ar: 'شاطئ صغير صخري في جزء منه، يقصده راكبو الأمواج لأمواجه المتاحة طوال السنة، ويناسب أكثر أصحاب المستوى المتوسط.',
+            es: 'Una pequeña playa en parte rocosa, apreciada por los surfistas: hay olas todo el año. Mejor para nivel intermedio.'
+          },
+          tip: {
+            fr: 'Débutant ? Surfez avec un moniteur et repérez les rochers avant d’entrer dans l’eau.',
+            en: 'A beginner? Surf with an instructor and spot the rocks before you go in.',
+            ar: 'مبتدئ؟ اركب الأمواج مع مدرّب، وحدّد مكان الصخور قبل دخول الماء.',
+            es: '¿Principiante? Surfea con un monitor y localiza las rocas antes de entrar al agua.'
+          },
+          price: 0,
+          maps: 'Jack Beach, Dar Bouazza'
         }
       ]
     },
@@ -1008,7 +1113,7 @@ CASA.cities.casablanca = {
           desc: {
             fr: 'Ouvert en juillet 2025 sur une ancienne carrière riche en traces préhistoriques : un sentier de 1,2 km, des ateliers pratiques et un centre d’interprétation.',
             en: 'Opened in July 2025 on a former quarry rich in prehistoric finds: a 1.2 km trail, hands-on workshops and an interpretation centre.',
-            ar: 'افتُتحت في يوليوز 2025 على مقلع قديم غنيّ بآثار ما قبل التاريخ: مسار طوله 1,2 كيلومتر وورشات تطبيقية ومركز للتعريف بالموقع.',
+            ar: 'افتُتحت في يوليوز 2025 على أرض مقلع قديم غنيّ بآثار ما قبل التاريخ: مسار طوله 1,2 كيلومتر، وورشات تطبيقية، ومركز للتعريف بالموقع.',
             es: 'Abrió en julio de 2025 en una antigua cantera llena de huellas prehistóricas: un sendero de 1,2 km, talleres prácticos y un centro de interpretación.'
           },
           tip: {
@@ -1019,6 +1124,34 @@ CASA.cities.casablanca = {
           },
           duration: 90,
           maps: 'Parc archéologique de Sidi Abderrahmane, Casablanca'
+        },
+        // source: https://visitcasablanca.ma/pois/la-ferme-equestre-de-dar-bouazza
+        // (dressage, jumping, endurance and trail rides; also a pool, tennis and mountain biking)
+        // source: https://lepetitjournal.com/casablanca/actualites/vacances-scolaires-six-centres-de-loisirs-pour-vos-enfants-5301
+        // (July 2023: on the coastal road to Azemmour, about 20 min from the centre; pony courses for children,
+        //  a small educational farm. Its 2023 price is not used.)
+        // source: https://www.telecontact.ma/annonceur/ferme-equestre-dar-bouazza/2121915/dar-bouazza.php
+        // (route d'Azemmour; also listed at https://www.kerix.net/en/annuaire-entreprise/ferme-equestre)
+        // The pony courses rest on the 2023 Petit Journal article only: hence the tip "call ahead".
+        {
+          id: 'ferme-equestre',
+          icon: 'family',
+          short: { fr: 'Poneys, balades et petite ferme', en: 'Ponies, rides and a small farm', ar: 'مهور ونزهات ومزرعة صغيرة', es: 'Ponis, paseos y granja' },
+          name: { fr: 'Ferme équestre de Dar Bouazza', en: 'Dar Bouazza riding farm', ar: 'ضيعة الفروسية بدار بوعزة', es: 'Granja ecuestre Dar Bouazza' },
+          area: { fr: 'Dar Bouazza · route d’Azemmour', en: 'Dar Bouazza · Azemmour road', ar: 'دار بوعزة · طريق أزمور', es: 'Dar Bouazza · carretera de Azemmour' },
+          desc: {
+            fr: 'Un centre équestre familial : stages de poney pour les enfants, randonnées à cheval et petite ferme pédagogique.',
+            en: 'A family riding centre: pony courses for children, horse rides and a small educational farm.',
+            ar: 'مركز فروسية عائلي: دورات لركوب المهور للأطفال، ونزهات على الخيل، ومزرعة تعليمية صغيرة.',
+            es: 'Un centro ecuestre familiar: cursos de poni para niños, rutas a caballo y una pequeña granja educativa.'
+          },
+          tip: {
+            fr: 'Appelez avant pour les horaires, les tarifs et les places en stage.',
+            en: 'Call ahead for opening hours, prices and places on courses.',
+            ar: 'اتصل مسبقاً لمعرفة الأوقات والأسعار والأماكن المتاحة في الدورات.',
+            es: 'Llama antes para el horario, los precios y las plazas en los cursos.'
+          },
+          maps: 'Ferme Equestre Dar Bouazza'
         }
       ]
     },
@@ -1119,6 +1252,9 @@ CASA.cities.casablanca = {
         // https://www.sembo.com/d/hotel-30995_pestana_casablanca_casablanca (2.9 km); hence "about 2 to 3 km"
         // source: https://uk.trip.com/travel-guide/foods/Casablanca-1693-restaurant/Le%20Cabestan-17312109
         // (Le Cabestan, 90 Bd de la Corniche, Phare d'El Hank)
+        // Since April 2026 the 6.7 km from El Hank to Morocco Mall have been under demolition
+        // (https://telquel.ma/2026/04/22/six-choses-a-savoir-sur-ain-diab-la-corniche-sous-le-bulldozer_1985714).
+        // No report of Le Cabestan closing was found (Oct. 2026), but the stop says to check it is open.
         {
           id: 'door-aindiab',
           areas: ['ain-diab'],
@@ -1132,10 +1268,33 @@ CASA.cities.casablanca = {
           },
           mode: 'walking', fromHome: true,
           stops: [
-            { time: '17:00', rel: -90, title: { fr: 'La promenade d’Anfa Place', en: 'The Anfa Place promenade', ar: 'ممشى أنفا بلاس', es: 'El paseo de Anfa Place' }, text: { fr: 'Rejoignez le bord de mer et partez vers l’est, en direction du phare.', en: 'Reach the seafront and head east, towards the lighthouse.', ar: 'انزل إلى الواجهة البحرية واتجه شرقاً نحو المنارة.', es: 'Baja al paseo marítimo y ve hacia el este, en dirección al faro.' } },
-            { time: '17:30', rel: -60, title: { fr: 'Le long de la Corniche', en: 'Along the Corniche', ar: 'على طول الكورنيش', es: 'Por la Corniche' }, text: { fr: 'Environ 2 à 3 km face aux vagues, à votre rythme.', en: 'About 2 to 3 km facing the waves, at your own pace.', ar: 'نحو 2 إلى 3 كيلومترات أمام الأمواج، على راحتك.', es: 'Unos 2 a 3 km frente a las olas, a tu ritmo.' } },
+            { time: '17:20', rel: -90, title: { fr: 'Départ d’Anfa Place', en: 'Leaving Anfa Place', ar: 'الانطلاق من أنفا بلاس', es: 'Salida desde Anfa Place' }, text: { fr: 'Rejoignez le bord de mer et partez vers l’est, en direction du phare.', en: 'Reach the seafront and head east, towards the lighthouse.', ar: 'انزل إلى الواجهة البحرية واتجه شرقاً نحو المنارة.', es: 'Baja al paseo marítimo y ve hacia el este, en dirección al faro.' } },
+            { time: '17:50', rel: -60, title: { fr: 'Le long de la Corniche', en: 'Along the Corniche', ar: 'على طول الكورنيش', es: 'Por la Corniche' }, text: { fr: 'Environ 2 à 3 km face aux vagues, à votre rythme.', en: 'About 2 to 3 km facing the waves, at your own pace.', ar: 'نحو 2 إلى 3 كيلومترات أمام الأمواج، على راحتك.', es: 'Unos 2 a 3 km frente a las olas, a tu ritmo.' } },
             { time: '18:30', rel: -20, title: { fr: 'Phare d’El Hank', en: 'El Hank Lighthouse', ar: 'منارة العنق', es: 'Faro de El Hank' }, text: { fr: 'Installez-vous sur les rochers pour le coucher du soleil.', en: 'Settle on the rocks for the sunset.', ar: 'اجلس على الصخور لمشاهدة الغروب.', es: 'Acomódate en las rocas para ver la puesta de sol.' }, maps: 'Phare d\'El Hank, Casablanca' },
-            { time: '19:30', rel: 40, title: { fr: 'Dîner face à la mer', en: 'Dinner by the sea', ar: 'عشاء أمام البحر', es: 'Cena frente al mar' }, text: { fr: 'Le Cabestan, au pied du phare. Pour rentrer, un petit taxi suffit.', en: 'Le Cabestan, at the foot of the lighthouse. A petit taxi brings you back.', ar: '«لو كابيستان» عند سفح المنارة، وللعودة يكفي طاكسي صغير.', es: 'Le Cabestan, al pie del faro. Para volver, basta un petit taxi.' }, maps: 'Le Cabestan, Casablanca' }
+            { time: '19:30', rel: 40, title: { fr: 'Dîner face à la mer', en: 'Dinner by the sea', ar: 'عشاء أمام البحر', es: 'Cena frente al mar' }, text: { fr: 'Le Cabestan, au pied du phare (vérifiez qu’il est ouvert), ou une autre table de la Corniche. Pour rentrer, un petit taxi suffit.', en: 'Le Cabestan, at the foot of the lighthouse (check it is open), or another Corniche table. A petit taxi brings you back.', ar: '«لو كابيستان» بجوار المنارة (تأكّد من أنه مفتوح)، أو مطعم آخر على الكورنيش. وللعودة يكفي طاكسي صغير.', es: 'Le Cabestan, al pie del faro (comprueba que esté abierto), u otra mesa de la Corniche. Para volver, basta un petit taxi.' }, maps: 'Le Cabestan, Casablanca' }
+          ]
+        },
+        // source: https://fr.hespress.com/481822-dar-bouazza-la-plage-tamaris-2-decroche-son-premier-pavillon-bleu.html (Tamaris 2)
+        // source: https://fr.surf-forecast.com/breaks/Jackbeach (Jack Beach, beach break that works all year)
+        // source: https://carrefourmarket.ma/nos-magasins/casablanca/carrefour-market-casablanca-dar-bouazza/ (free car park)
+        // The coast faces the Atlantic to the north-west: the sun sets over the ocean.
+        {
+          id: 'door-darbouazza',
+          areas: ['dar-bouazza'],
+          title: { fr: 'Depuis votre porte', en: 'From your door', ar: 'من باب شقتك', es: 'Desde tu puerta' },
+          duration: { fr: '3 h · en voiture', en: '3 h · by car', ar: '3 ساعات · بالسيارة', es: '3 h · en coche' },
+          intro: {
+            fr: 'Une fin de journée sur la côte de Dar Bouazza : la plage, les surfeurs, le coucher du soleil sur l’océan, puis les courses du dîner.',
+            en: 'An evening on the Dar Bouazza coast: the beach, the surfers, the sunset over the ocean, then shopping for dinner.',
+            ar: 'نهاية يوم على ساحل دار بوعزة: الشاطئ وراكبو الأمواج وغروب الشمس على المحيط، ثم التسوّق للعشاء.',
+            es: 'Una tarde en la costa de Dar Bouazza: la playa, los surfistas, la puesta de sol sobre el océano y luego la compra para la cena.'
+          },
+          mode: 'driving', fromHome: true,
+          stops: [
+            { time: '16:20', rel: -150, title: { fr: 'Plage Tamaris 2', en: 'Tamaris 2 Beach', ar: 'شاطئ تماريس 2', es: 'Playa Tamaris 2' }, text: { fr: 'Baignade en saison près des sauveteurs, ou balade sur le sable.', en: 'A swim near the lifeguards in season, or a walk on the sand.', ar: 'سباحة قرب المنقذين في موسم الاصطياف، أو نزهة على الرمال.', es: 'Un baño cerca de los socorristas en temporada, o un paseo por la arena.' }, maps: 'Plage Tamaris 2, Dar Bouazza' },
+            { time: '17:50', rel: -60, title: { fr: 'Jack Beach', en: 'Jack Beach', ar: 'جاك بيتش', es: 'Jack Beach' }, text: { fr: 'Regardez les surfeurs dans les vagues.', en: 'Watch the surfers in the waves.', ar: 'تأمّل راكبي الأمواج وسط الموج.', es: 'Mira a los surfistas en las olas.' }, maps: 'Jack Beach, Dar Bouazza' },
+            { time: '18:30', rel: -20, title: { fr: 'Coucher de soleil', en: 'Sunset', ar: 'غروب الشمس', es: 'Puesta de sol' }, text: { fr: 'Restez sur la plage : le soleil se couche sur l’océan.', en: 'Stay on the beach: the sun sets over the ocean.', ar: 'ابقَ على الشاطئ، فالشمس تغرب على المحيط.', es: 'Quédate en la playa: el sol se pone sobre el océano.' } },
+            { time: '19:10', rel: 20, title: { fr: 'Courses pour le dîner', en: 'Shopping for dinner', ar: 'التسوّق للعشاء', es: 'Compra para la cena' }, text: { fr: 'Carrefour Market, avec parking gratuit, avant de rentrer.', en: 'Carrefour Market, with free parking, before heading home.', ar: 'كارفور ماركت، وبه موقف مجاني، قبل العودة إلى البيت.', es: 'Carrefour Market, con parking gratuito, antes de volver.' }, maps: 'Carrefour Market Dar Bouazza' }
           ]
         }
       ]
@@ -1230,6 +1389,8 @@ CASA.cities.casablanca = {
         },
         // source: https://en.wikipedia.org/wiki/Casablanca_Tramway
         // (T2: Aïn Diab Plage to Sidi Bernoussi; changes with T1 at Abdelmoumen-Anoual and Ibn Tachfine)
+        // source: https://fr.hespress.com/57343-la-deuxieme-ligne-du-tramway-casablancais-critiquee-ratp-dev-sexplique.html
+        // (2019: from Aïn Diab to the centre, change at Anoual-Abdelmoumen; re-check on casatramway.ma)
         // source: https://www.smartertravel.com/local-taxis-casablanca-transportation/ (red petits taxis)
         // source: https://fourseasons.com/casablanca/getting-here (same Anfa Place complex: airport about 38 km, 45 min)
         {
@@ -1238,9 +1399,36 @@ CASA.cities.casablanca = {
           key: { fr: 'Taxis de la Corniche · tram T2', en: 'Corniche taxis · tram T2', ar: 'طاكسيات الكورنيش · ترامواي T2', es: 'Taxis de la Corniche · tranvía T2' },
           list: [
             { fr: 'Les petits taxis rouges circulent sur le boulevard de la Corniche : faites signe au bord de la route.', en: 'Red petits taxis run along the Boulevard de la Corniche: wave one down from the roadside.', ar: 'تجوب الطاكسيات الصغيرة الحمراء شارع الكورنيش، فأشِر إلى إحداها من جانب الطريق.', es: 'Los petits taxis rojos circulan por el bulevar de la Corniche: haz una seña desde la acera.' },
-            { fr: 'Le tram T2 part du terminus Aïn Diab Plage. Pour la gare Casa Voyageurs, changez pour le T1 à Abdelmoumen-Anoual.', en: 'Tram T2 starts at the Aïn Diab Plage terminus. For Casa Voyageurs station, change to T1 at Abdelmoumen-Anoual.', ar: 'ينطلق الترامواي T2 من محطته النهائية «عين الذئاب الشاطئ». للوصول إلى محطة الدار البيضاء المسافرين، غيّر إلى T1 في محطة عبد المومن-أنوال.', es: 'El tranvía T2 sale de la terminal Aïn Diab Plage. Para la estación Casa Voyageurs, cambia al T1 en Abdelmoumen-Anoual.' },
+            { fr: 'Le tram T2 part du terminus Aïn Diab Plage. Pour la gare Casa Voyageurs, changez pour le T1 à Abdelmoumen-Anoual.', en: 'Tram T2 starts at the Aïn Diab Plage terminus. For Casa Voyageurs station, change to T1 at Abdelmoumen-Anoual.', ar: 'ينطلق الترامواي T2 من محطته النهائية «عين الذئاب الشاطئ». وللوصول إلى محطة الدار البيضاء المسافرين، انتقل إلى الخط T1 في محطة عبد المومن-أنوال.', es: 'El tranvía T2 sale de la terminal Aïn Diab Plage. Para la estación Casa Voyageurs, cambia al T1 en Abdelmoumen-Anoual.' },
             { fr: 'Aéroport : environ 45 minutes en voiture, davantage aux heures de pointe et l’été.', en: 'Airport: about 45 minutes by car, longer at rush hour and in summer.', ar: 'المطار: نحو 45 دقيقة بالسيارة، وأكثر في أوقات الذروة وفي الصيف.', es: 'Aeropuerto: unos 45 minutos en coche, más en hora punta y en verano.' }
           ]
+        },
+        // source: https://www.smartertravel.com/local-taxis-casablanca-transportation/
+        // (red petits taxis stay within the city; grands taxis go beyond it). No source says outright
+        // that a petit taxi refuses Dar Bouazza, hence "en principe".
+        // source: https://www.lavieeco.com/?p=60812 (grand-taxi stations in Dar Bouazza)
+        // source: https://telquel.ma/2025/11/27/uber-annonce-officiellement-son-retour-au-maroc-a-la-veille-de-la-can-2025_1962895
+        // source: https://www.uber.com/ma/fr/newsroom/uber-in-morocco (Casablanca; no source confirms coverage of Dar Bouazza)
+        // source: https://bento.travel/morocco/ride-hailing (inDrive in Casablanca)
+        // source: https://medias24.com/2021/10/14/circulation-dar-bouazza-casablanca-les-habitants-obtiennent-quelques-ameliorations/
+        // (R320: jams about 7:00–9:30 and 16:30–20:30; 2021 figures, hence "en général")
+        // source: https://www.airporttransferportal.com/en/airport-guides/cmn and research-darbouazza.json
+        // (airport about 45–50 min by car; Dar Bouazza has no train station)
+        // source: https://www.casabus.ma/en/casabus-operated-by-alsa/ (Dar Bouazza is one of the communes served)
+        // source: https://fr.hespress.com/271136-ete-casabus-renforce-12-lignes-de-bus-vers-les-plages.html
+        // (summer 2022: Casabus beach lines, Tamaris among the beaches served; line numbers not given to guests)
+        {
+          title: { fr: 'Si vous logez à Dar Bouazza', en: 'If you stay in Dar Bouazza', ar: 'إن كنت تقيم في دار بوعزة', es: 'Si te alojas en Dar Bouazza' },
+          icon: 'car',
+          key: { fr: 'Voiture conseillée', en: 'A car is best', ar: 'يُنصح بالسيارة', es: 'Mejor en coche' },
+          list: [
+            { fr: 'Les petits taxis rouges circulent en principe dans Casablanca seulement. Pour Dar Bouazza, prévoyez une voiture, un grand taxi ou une application.', en: 'Red petits taxis are meant to stay within Casablanca. For Dar Bouazza, plan on a car, a grand taxi or an app.', ar: 'الطاكسيات الصغيرة الحمراء مخصّصة مبدئياً للتنقّل داخل الدار البيضاء، فاعتمد للوصول إلى دار بوعزة على سيارة أو طاكسي كبير أو تطبيق.', es: 'En principio, los petits taxis rojos solo circulan por Casablanca. Para Dar Bouazza, cuenta con un coche, un grand taxi o una app.' },
+            { fr: 'Uber et inDrive fonctionnent à Casablanca : vérifiez dans l’application qu’ils viennent jusqu’à votre adresse.', en: 'Uber and inDrive work in Casablanca: check in the app that they come out to your address.', ar: 'يعمل Uber وinDrive في الدار البيضاء، فتحقّق في التطبيق من أنهما يصلان إلى عنوانك.', es: 'Uber e inDrive funcionan en Casablanca: comprueba en la app que llegan hasta tu dirección.' },
+            { fr: 'La route vers Casablanca est souvent bouchée aux heures de pointe, en général de 7 h à 9 h 30 et de 16 h 30 à 20 h 30.', en: 'The road into Casablanca is often jammed at rush hour, usually 7 to 9:30 am and 4:30 to 8:30 pm.', ar: 'الطريق نحو الدار البيضاء مزدحمة غالباً في أوقات الذروة، عادةً من 7:00 إلى 9:30 ومن 16:30 إلى 20:30.', es: 'La carretera hacia Casablanca suele atascarse en hora punta, en general de 7:00 a 9:30 y de 16:30 a 20:30.' },
+            { fr: 'Aéroport : environ 45 à 50 minutes en voiture sans embouteillages, et pas de train jusqu’à Dar Bouazza. {host} peut organiser un transfert.', en: 'Airport: about 45 to 50 minutes by car without traffic, and no train to Dar Bouazza. {host} can arrange a transfer.', ar: 'المطار: نحو 45 إلى 50 دقيقة بالسيارة دون ازدحام، ولا يوجد قطار إلى دار بوعزة. يمكن لـ{host} تنظيم نقلك.', es: 'Aeropuerto: unos 45 a 50 minutos en coche sin atascos, y no hay tren hasta Dar Bouazza. {host} puede organizar un traslado.' },
+            { fr: 'Des bus Casabus desservent Dar Bouazza : lignes et horaires sur casabus.ma.', en: 'Casabus buses serve Dar Bouazza: routes and times on casabus.ma.', ar: 'تخدم حافلات Casabus دار بوعزة، وتجد الخطوط والمواعيد على casabus.ma.', es: 'Los autobuses Casabus llegan a Dar Bouazza: líneas y horarios en casabus.ma.' }
+          ],
+          request: { fr: 'un transfert aéroport', en: 'an airport transfer', ar: 'نقلاً من/إلى المطار', es: 'un traslado al aeropuerto' }
         }
       ]
     },

@@ -115,9 +115,9 @@ window.CASA = window.CASA || {};
     // What every place's guide starts from; a place's file can replace any of these.
     defaults: {
       welcome: {
-        fr: 'Bienvenue chez vous. Tout est ici, et je reste à un message près.',
-        en: 'Welcome home. Everything is here, and I am one message away.',
-        ar: 'مرحباً بك في بيتك. كل شيء هنا، وأنا على بُعد رسالة.',
+        fr: 'Bienvenue chez vous. Tout est prêt, et je ne suis qu’à un message de vous.',
+        en: 'Welcome home. Everything is ready, and I am one message away.',
+        ar: 'مرحباً بك في بيتك. كل شيء جاهز، وأنا رهن إشارتك برسالة واحدة.',
         es: 'Te doy la bienvenida a casa. Todo está aquí, y estoy a un mensaje de distancia.'
       },
       checkin: {

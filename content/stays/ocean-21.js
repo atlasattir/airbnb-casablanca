@@ -37,9 +37,9 @@ CASA.stays['ocean-21'] = {
   },
 
   welcome: {
-    fr: 'Bienvenue face à l’océan. Tout est ici, et je reste à un message près.',
+    fr: 'Bienvenue face à l’océan. Tout est prêt, et je ne suis qu’à un message de vous.',
     en: 'Welcome to your place by the ocean. Everything is here, and I am one message away.',
-    ar: 'مرحباً بك أمام المحيط. كل شيء هنا، وأنا على بُعد رسالة.',
+    ar: 'مرحباً بك في شقتك المطلّة على المحيط. كل شيء هنا، وأنا على بُعد رسالة منك.',
     es: 'Te doy la bienvenida frente al océano. Todo está aquí, y estoy a un mensaje de distancia.'
   },
 
@@ -105,6 +105,8 @@ CASA.stays['ocean-21'] = {
     { icon: 'cross', label: { fr: 'Pharmacie', en: 'Pharmacy', ar: 'صيدلية', es: 'Farmacia' }, name: 'Pharmacie Anfaplace', walk: 0, maps: 'Pharmacie Anfaplace, Casablanca' },
     // source: https://wanderlog.com/place/details/89712/paul-anfaplace
     // source: https://fodors.com/world/africa-and-middle-east/morocco/the-northern-atlantic-coast/places/casablanca/restaurants
+    // TODO (host): only a listing site names this branch; the mall's tenant lists checked in Oct. 2026
+    // (grit.group) do not. Confirm it is still open, or set name: 'TODO' and maps: ''.
     { icon: 'bread', label: { fr: 'Boulangerie', en: 'Bakery', ar: 'مخبزة', es: 'Panadería' }, name: 'Paul Anfaplace', walk: 0, maps: 'Paul Anfaplace, Casablanca' },
     // source: https://locations.alshaya.com/starbucks/ma/casablanca/anfaplace-mall
     // (listed 09:00–22:00, 23:00 on Friday and Saturday)
@@ -114,7 +116,10 @@ CASA.stays['ocean-21'] = {
     { icon: 'card', label: { fr: 'Distributeur', en: 'Cash machine', ar: 'شبّاك بنكي', es: 'Cajero' }, name: 'TODO', walk: 0, maps: '' },
     // source: https://vacations.aircanada.com/en/accommodation-details/CMNPES/Pestana%20Casablanca%20Seaside%20Suites
     // ("a promenade with direct beach access"; the official pestana.com text says the same)
-    { icon: 'waves', label: { fr: 'Plage', en: 'Beach', ar: 'شاطئ', es: 'Playa' }, name: { fr: 'Par la promenade d’Anfa Place', en: 'Via the Anfa Place promenade', ar: 'عبر ممشى أنفا بلاس', es: 'Por el paseo de Anfa Place' }, walk: 0, maps: '' },
+    // TODO (host): the promenade belongs to the residence. Once you confirm guests may use it,
+    // the name can say so: { fr: 'Par la promenade d’Anfa Place', en: 'Via the Anfa Place promenade',
+    // ar: 'عبر ممشى أنفا بلاس', es: 'Por el paseo de Anfa Place' }.
+    { icon: 'waves', label: { fr: 'Plage', en: 'Beach', ar: 'شاطئ', es: 'Playa' }, name: { fr: 'Au pied d’Anfa Place', en: 'Right below Anfa Place', ar: 'أمام أنفا بلاس', es: 'Junto a Anfa Place' }, walk: 0, maps: '' },
     // source: https://www.smartertravel.com/local-taxis-casablanca-transportation/
     // (red petits taxis serve the Casablanca prefecture, the Corniche included)
     { icon: 'car', label: { fr: 'Taxi', en: 'Taxi', ar: 'طاكسي', es: 'Taxi' }, name: { fr: 'Petits taxis, bd de la Corniche', en: 'Petits taxis, Bd de la Corniche', ar: 'طاكسيات صغيرة، شارع الكورنيش', es: 'Petits taxis, bd de la Corniche' }, walk: 0, maps: '' },

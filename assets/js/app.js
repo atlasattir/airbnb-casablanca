@@ -979,7 +979,9 @@
         '<span class="itile__key">' + txt(n.name) + '</span></span>' +
         (n.walk ? '<span class="near-tile__walk">' + icon('walk') + '<span>' + n.walk + ' min</span></span>' :
           n.drive ? '<span class="near-tile__walk">' + icon('car') + '<span>' + n.drive + ' min</span></span>' : '');
-      return n.maps ? '<a class="itile near-tile rise"' + d(i) + ext(mapsDir(n.maps, n.drive ? 'driving' : 'walking')) + '>' + inner + '</a>' :
+      // Directions on foot, unless the tile gives a drive time or the place is reached by car (travel: 'driving')
+      var mode = n.walk ? 'walking' : n.drive ? 'driving' : (APT.travel || 'walking');
+      return n.maps ? '<a class="itile near-tile rise"' + d(i) + ext(mapsDir(n.maps, mode)) + '>' + inner + '</a>' :
         '<div class="itile near-tile rise"' + d(i) + '>' + inner + '</div>';
     }).join('') + '</div>';
   }
@@ -1350,7 +1352,7 @@
       Object.keys(s).forEach(function (f) { copy[f] = s[f]; });
       if (s.items) {
         // Items meant for this neighbourhood only come first (its own beach, its walk from the door)
-        var mine = function (it) { return it.areas && it.kind !== 'placeholder'; };
+        var mine = function (it) { return it.areas && it.areas.length === 1 && it.kind !== 'placeholder'; };
         var kept = s.items.filter(function (it) { return !it.areas || it.areas.indexOf(st.area) > -1; });
         copy.items = kept.filter(mine).concat(kept.filter(function (it) { return !mine(it); }));
       }
