@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Carte QR · Casa, côté vous</title>
+  <title>Carte QR · Atlas Stays</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200..600&family=Tajawal:wght@400;500&display=swap">
   <style>
-    /* Printable A6 card for the apartment entrance: guide QR code + Wi-Fi. */
+    /* Printable A6 card for each place: guide QR code + Wi-Fi. Goes inside the place, never on a shared door. */
     :root {
       --desk: #091215;
       --on-desk: #EEEAE1;
@@ -89,7 +89,8 @@
       font: 400 15px/1.2 var(--f-sans);
     }
 
-    .controls input:focus { outline: none; border-color: var(--brass); }
+    .controls input:focus, .controls select:focus { outline: none; border-color: var(--brass); }
+    .controls select { min-height: 50px; padding: 0 14px; border: 1px solid var(--desk-line); border-radius: 2px; background: #10191A; color: var(--on-desk); font: 400 15px/1.2 var(--f-sans); }
 
     .controls button {
       margin-top: 18px;
@@ -145,6 +146,7 @@
 
     .card__brand em { font-style: normal; font-weight: 200; }
     .card__brand .comma { color: var(--gilt); }
+    .card__by { margin: 1.4cqw 0 0; font-size: 2.3cqw; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; color: var(--gilt); }
 
     .card__place {
       margin: 2.2cqw 0 0;
@@ -242,8 +244,11 @@
 <body>
   <main class="desk">
     <section class="controls" aria-labelledby="controls-title">
-      <h1 id="controls-title">Carte de l’appartement</h1>
-      <p>À imprimer au format A6 (105 × 148 mm), sur papier épais, et à poser à l’entrée. Le mot de passe Wi-Fi n’est enregistré nulle part : tapez-le ici juste avant d’imprimer.</p>
+      <h1 id="controls-title">Carte du logement</h1>
+      <p>À imprimer au format A6 (105 × 148 mm), sur papier épais, et à poser dans le logement (jamais sur une porte commune). Une carte par studio ou appartement. Le mot de passe Wi-Fi n’est enregistré nulle part : tapez-le ici juste avant d’imprimer.</p>
+
+      <label for="f-stay">Logement</label>
+      <select id="f-stay"></select>
 
       <label for="f-url">Adresse du guide</label>
       <input id="f-url" type="url" inputmode="url" spellcheck="false">
@@ -261,8 +266,9 @@
     <article class="card" aria-label="Aperçu de la carte">
       <div class="card__inner">
         <svg class="card__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><rect x="6.75" y="6.75" width="10.5" height="10.5"/><rect x="6.75" y="6.75" width="10.5" height="10.5" transform="rotate(45 12 12)"/></svg>
-        <p class="card__brand">Casa<span class="comma">,</span> <em>côté vous</em></p>
-        <p class="card__place">Bourgogne · Casablanca</p>
+        <p class="card__brand" id="v-name" dir="ltr">Atlas <em>Stays</em></p>
+        <p class="card__by" id="v-by" hidden>Atlas Stays</p>
+        <p class="card__place" id="v-place">Casablanca · Marrakech · Martil</p>
 
         <div class="card__qr" id="qr-guide"></div>
 
@@ -287,26 +293,56 @@
     </article>
   </main>
 
-  <script src="content/apartment.js"></script>
+  <script src="content/brand.js"></script>
   <script src="assets/vendor/qrcode.js"></script>
   <script>
     (function () {
       'use strict';
-      var A = (window.CASA && window.CASA.apartment) || {};
-      var wifi = A.wifi || {};
+      var B = (window.CASA && window.CASA.brand) || {};
+      var stays = B.stays || [];
       function byId(id) { return document.getElementById(id); }
       function isTodo(s) { return !s || /^\s*TODO/.test(s); }
+      function fr(v) { return v && typeof v === 'object' ? (v.fr || v.en || '') : (v || ''); }
 
       if (window.qrcode && qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
         qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
       }
 
-      // The guide lives in the same folder as this card.
-      var here = /^https?:/.test(window.location.protocol) ? new URL('./', window.location.href).href : '';
-      var fields = { url: byId('f-url'), net: byId('f-net'), pass: byId('f-pass') };
-      fields.url.value = here;
-      fields.net.value = isTodo(wifi.network) ? '' : wifi.network;
-      fields.pass.value = wifi.password || '';
+      // The guide lives in the same folder as this card; each place has its short link <id>/
+      var base = /^https?:/.test(window.location.protocol) ? new URL('./', window.location.href).href : '';
+      var fields = { stay: byId('f-stay'), url: byId('f-url'), net: byId('f-net'), pass: byId('f-pass') };
+      var pre = (/[?&]stay=([a-z0-9-]+)/.exec(window.location.search) || [])[1];
+      fields.stay.innerHTML = stays.map(function (s) {
+        return '<option value="' + s.id + '"' + (s.id === pre ? ' selected' : '') + '>' + s.name + '</option>';
+      }).join('');
+
+      function placeLine(s) {
+        var city = (B.cities || []).filter(function (c) { return c.id === s.city; })[0];
+        var a = fr((B.areas || {})[s.area]), c = fr(city && city.name);
+        return a && a !== c ? a + ' · ' + c : c;
+      }
+
+      // Load the place's file to prefill its Wi-Fi network
+      function chooseStay() {
+        var s = stays.filter(function (x) { return x.id === fields.stay.value; })[0];
+        if (!s) return;
+        fields.url.value = base ? base + s.id + '/' : '';
+        byId('v-name').textContent = s.name;
+        byId('v-by').hidden = false;
+        byId('v-place').textContent = placeLine(s);
+        fields.net.value = '';
+        fields.pass.value = '';
+        var tag = document.createElement('script');
+        tag.src = 'content/stays/' + s.id + '.js';
+        tag.onload = function () {
+          var w = ((window.CASA.stays || {})[s.id] || {}).wifi || {};
+          fields.net.value = isTodo(w.network) ? '' : w.network;
+          fields.pass.value = w.password || '';
+          render();
+        };
+        document.body.appendChild(tag);
+        render();
+      }
 
       function qrSvg(text) {
         var qr = qrcode(0, 'M');
@@ -345,11 +381,12 @@
         byId('qr-wifi').innerHTML = net && pass ? qrSvg(wifiCode(net, pass)) : '';
       }
 
+      fields.stay.addEventListener('change', chooseStay);
       fields.url.addEventListener('input', render);
       fields.net.addEventListener('input', render);
       fields.pass.addEventListener('input', render);
       byId('print').addEventListener('click', function () { window.print(); });
-      render();
+      chooseStay();
     })();
   </script>
 </body>
