@@ -94,7 +94,7 @@ CASA.stays['casa-azul'] = {
     },
     // TODO (host): which months the pool is open, its daily hours, whether there is a lifeguard,
     // the swimwear rule, and whether pool towels are provided. Say if it is closed off-season.
-    { icon: 'clock', title: { fr: 'Piscine : saison et horaires', en: 'Pool: season and hours', ar: 'المسبح: الموسم والأوقات', es: 'Piscina: temporada y horario' }, body: 'TODO' },
+    { icon: 'clock', title: { fr: 'Horaires de la piscine', en: 'Pool hours', ar: 'أوقات المسبح', es: 'Horario de la piscina' }, body: 'TODO' },
     // TODO (host): the client's description does not list air conditioning: fill it (which rooms,
     // where the remotes are), or replace it with fans if there is none.
     { icon: 'snow', title: { fr: 'Climatisation', en: 'Air conditioning', ar: 'المكيّف', es: 'Aire acondicionado' }, body: 'TODO' },
