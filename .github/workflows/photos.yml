@@ -1,9 +1,10 @@
 # Downloads the guides' photos from Wikimedia Commons (tools/photos.json).
 # Runs only when started by hand: GitHub → Actions → Photos → Run workflow.
 # Nothing goes live from here: the result is pushed to the branch "photos-review",
-# with a contact sheet (tools/photos-sheet.jpg) of every photo, its place, author
-# and licence. Look at it; if every photo shows exactly its place, with no
-# recognisable face, merge "photos-review" into the site's branch (a pull request).
+# and a contact sheet of every photo, its place, author and licence to the branch
+# "photos-sheet" (tools/photos-sheet.jpg). Look at it; if every photo shows exactly
+# its place, with no recognisable face, merge "photos-review" into the site's branch
+# (a pull request).
 name: Photos
 
 on:
@@ -49,9 +50,15 @@ jobs:
           git switch -c photos-review
           git add -A -- content/photos.js tools/photos.lock.json
           if [ -d assets/img/photos ]; then git add -A -- assets/img/photos; fi
-          if [ -f tools/photos-sheet.jpg ]; then git add -f -- tools/photos-sheet.jpg; fi
           if git diff --cached --quiet; then echo 'No change.'; exit 0; fi
           git commit -m 'Photos: download from Wikimedia Commons (to review)'
           git push --force origin photos-review
-          echo "Review: https://github.com/${GITHUB_REPOSITORY}/blob/photos-review/tools/photos-sheet.jpg" >> "$GITHUB_STEP_SUMMARY"
+          # The contact sheet goes on a branch of its own, so merging photos-review never publishes it
+          if [ -f tools/photos-sheet.jpg ]; then
+            git switch -c photos-sheet
+            git add -f -- tools/photos-sheet.jpg
+            git commit -m 'Contact sheet of the photos to review'
+            git push --force origin photos-sheet
+            echo "Review: https://github.com/${GITHUB_REPOSITORY}/blob/photos-sheet/tools/photos-sheet.jpg" >> "$GITHUB_STEP_SUMMARY"
+          fi
           echo "Then: https://github.com/${GITHUB_REPOSITORY}/compare/${GITHUB_REF_NAME}...photos-review" >> "$GITHUB_STEP_SUMMARY"

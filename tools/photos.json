@@ -1,24 +1,16 @@
 {
   "casablanca": {
-    "_city": "hassan2",
+    "_city": "elhank",
     "_covers": {
-      "visit": "hassan2",
-      "restaurants": "portpeche",
-      "cafes": "tea-habous",
-      "nightlife": "corniche-night",
+      "visit": "artdeco",
+      "restaurants": "sqala",
+      "cafes": "bondi",
+      "nightlife": "james",
       "shopping": "habous-crafts",
-      "beaches": "aindiab",
+      "beaches": "sidiabderrahmane",
       "family": "ligue-family",
-      "experiences": "mosque-night",
+      "experiences": "tea-habous",
       "itineraries": "medina"
-    },
-    "hassan2": {
-      "files": [
-        "File:Hassan_II_Mosque_Plaza.jpg",
-        "File:Mezquita_Hassan_II_(reflejo_en_agua_difuso).jpg",
-        "File:Sunshine_on_mosque_Hassan_II_in_Casablanca,_Morocco_-_Flickr_-_Milamber's_portfolio.jpg"
-      ],
-      "category": "Category:Hassan_II_Mosque"
     },
     "elhank": {
       "files": [
@@ -49,9 +41,6 @@
       ],
       "category": "Category:Place_Mohammed_V,_Casablanca"
     },
-    "sacrecoeur": {
-      "category": "Category:Casablanca_Cathedral_Sacré-Cœur"
-    },
     "slaoui": {
       "category": "Category:Abderrahman_Slaoui_Museum"
     },
@@ -67,20 +56,8 @@
         "File:Canon_à_la_Sqala_Casablanca.jpg"
       ]
     },
-    "portpeche": {
-      "files": [
-        "File:Port_de_peche_casablanca.jpg"
-      ],
-      "category": "Category:Port_of_Casablanca"
-    },
     "cabestan": {
       "search": "Cabestan Casablanca"
-    },
-    "ricks": {
-      "files": [
-        "File:Rickscafe_casablanca.jpg"
-      ],
-      "search": "Rick's Café Casablanca"
     },
     "dauphin": {
       "search": "fried fish platter",
@@ -91,10 +68,6 @@
     },
     "sqala-breakfast": {
       "search": "Moroccan breakfast msemen",
-      "illustr": true
-    },
-    "bennis": {
-      "category": "Category:Pastries_of_Morocco",
       "illustr": true
     },
     "bondi": {
@@ -111,11 +84,6 @@
         "File:Le_phare_d'El_Hank,_Casablanca,_Maroc.jpg"
       ],
       "category": "Category:El_Hank_Lighthouse"
-    },
-    "corniche-night": {
-      "files": [
-        "File:Ain_Diab,_Casablanca_20052,_Morocco_-_panoramio.jpg"
-      ]
     },
     "james": {
       "files": [
@@ -136,17 +104,6 @@
       ],
       "category": "Category:Morocco_Mall"
     },
-    "anfaplace": {
-      "search": "Anfa Place Casablanca"
-    },
-    "medina-souks": {
-      "files": [
-        "File:Street_Scene_-_Medina_(Old_City)_-_Casablanca_-_Morocco_-_02.jpg",
-        "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(2).jpg",
-        "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(5).jpg"
-      ],
-      "category": "Category:Medina_of_Casablanca"
-    },
     "maarif": {
       "files": [
         "File:Twin_Center,_Boulevard_Mohamed_Zerktouni,_Casablanca.JPG"
@@ -158,13 +115,6 @@
         "File:Boulevard_de_la_Corniche,_Dar-el-Beida,_Morocco_-_panoramio_(11).jpg"
       ]
     },
-    "aindiab": {
-      "files": [
-        "File:Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio.jpg",
-        "File:Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio_(1).jpg"
-      ],
-      "search": "Ain Diab beach Casablanca"
-    },
     "beachclubs": {
       "search": "Tahiti Beach Casablanca"
     },
@@ -175,15 +125,6 @@
         "File:Sidi_Abderrahmane_1.JPG"
       ],
       "category": "Category:Islet_of_Sidi_Abderrahmane"
-    },
-    "darbouazza": {
-      "category": "Category:Dar_Bouazza"
-    },
-    "anfaplace-beach": {
-      "files": [
-        "File:Ebb_Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio.jpg"
-      ],
-      "illustr": true
     },
     "tamaris2": {
       "files": [
@@ -199,9 +140,6 @@
         "File:Le_Morocco_Mall_ouvre_ses_portes_à_Casablanca_(6555301965).jpg"
       ],
       "category": "Category:Morocco_Mall"
-    },
-    "sindibad": {
-      "search": "Sindibad Casablanca"
     },
     "tamaris": {
       "search": "Tamaris Aquaparc"
@@ -220,17 +158,6 @@
     },
     "prehistory-park": {
       "search": "Thomas Quarry Casablanca prehistoric"
-    },
-    "hammam-ziani": {
-      "search": "hammam Morocco interior",
-      "illustr": true
-    },
-    "mosque-night": {
-      "files": [
-        "File:Night_of_the_Hassan_II.jpg",
-        "File:Mezquita_Hassan_II_(reflejo_en_agua_difuso).jpg"
-      ],
-      "category": "Category:Hassan_II_Mosque"
     },
     "tea-habous": {
       "files": [
@@ -403,9 +330,6 @@
       ],
       "search": "Ensemble Artisanal Marrakech"
     },
-    "hammam-mouassine": {
-      "search": "Hammam Mouassine Marrakech"
-    },
     "bains-marrakech": {
       "search": "hammam Morocco zellige",
       "illustr": true
@@ -467,7 +391,7 @@
       "restaurants": "cabo-corner",
       "cafes": "goya",
       "family": "corniche-family",
-      "itineraries": "chefchaouen"
+      "itineraries": "feddan"
     },
     "martil-beach": {
       "files": [
@@ -524,14 +448,6 @@
     "mdiq-port": {
       "search": "port M'diq"
     },
-    "chefchaouen": {
-      "files": [
-        "File:Chefchaouen_Morocco.jpg",
-        "File:Chefchaouen_-_blue_city_in_Morocco.jpg",
-        "File:Blue_Town_Chefchaouen.jpg"
-      ],
-      "category": "Category:Chefchaouen"
-    },
     "cabo-corner": {
       "files": [
         "File:Plated_grilled_fish.jpg"
@@ -575,10 +491,6 @@
       "category": "Category:M'diq",
       "illustr": true
     },
-    "rayan": {
-      "category": "Category:Pastries_of_Morocco",
-      "illustr": true
-    },
     "rise-dine": {
       "files": [
         "File:Moroccan_tea_1.jpg"
@@ -606,13 +518,6 @@
       ],
       "category": "Category:Pastries_of_Morocco",
       "illustr": true
-    },
-    "beach-rides": {
-      "files": [
-        "File:Martil_beach.jpg",
-        "File:Martil_1.jpg"
-      ],
-      "category": "Category:Martil"
     },
     "oued-family": {
       "files": [

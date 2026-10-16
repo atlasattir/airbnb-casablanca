@@ -320,8 +320,13 @@ def main():
 
     titles = sorted({t for *_, item, _, _, keep in todo for t in ([keep] if keep else []) + item.get('files', [])})
     print('%d places to fetch, %d files to look up' % (len(todo), len(titles)))
-    pages = info(titles) if titles else {}
     by_file, errors = {}, []  # one download per file, even when two places share it
+    try:
+        pages = info(titles) if titles else {}
+    except Exception as e:  # Commons out of reach: change nothing, only tidy up (removed places)
+        print('Commons could not be reached (%s): every photo stays as it is.' % e)
+        errors.append('lookup: %s' % e)
+        todo = []
 
     for key, city, iid, item, sel, prev, keep in todo:
         chosen, notes, auto = None, [], prev.get('auto', False) if keep else False
