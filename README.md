@@ -60,10 +60,18 @@ Chaque adresse des guides peut avoir une photo **de cette adresse précise** (la
    - `files` : les fichiers Commons voulus, le meilleur d’abord (`"File:Hassan_II_Mosque_Plaza.jpg"`) ;
    - `category` ou `search` : où chercher si aucun fichier ne convient (la meilleure photo libre est alors prise, marquée `[auto]` sur la planche de contrôle) ;
    - `pos` (facultatif) : le cadrage, par exemple `"50% 30%"` pour garder le haut ;
-   - `illustr: true` quand la photo montre le genre de chose et non l’adresse elle-même (un plat pour un restaurant) : elle est alors légendée « Illustration ».
+   - `illustr: true` quand la photo montre le genre de chose et non l’adresse elle-même (un plat pour un restaurant) : elle est alors marquée « Illustration » sur la carte et dans la fiche.
    - `_city` : l’adresse dont la photo illustre la ville sur l’accueil ; `_covers` : la photo de chaque rubrique (`"visit": "hassan2"`).
-2. Lancez `python3 tools/fetch-photos.py --sheet planche.jpg` (Python 3 et `pip install pillow` ; il faut accès à commons.wikimedia.org et upload.wikimedia.org). Le script vérifie chaque fichier auprès de Commons et **refuse** toute licence non libre (NC, ND, droits réservés) ainsi que les photos signalées comme montrant des personnes identifiables. Il enregistre l’auteur et la licence, prépare deux tailles (1280 et 640 px, sans métadonnées EXIF) et écrit `content/photos.js`. Les relances ne téléchargent que ce qui a changé ; `--force` retélécharge tout.
-3. **Regardez la planche** (`planche.jpg`) avant de publier : chaque photo doit montrer exactement l’adresse, sans visage reconnaissable au premier plan. Pour en changer, modifiez `files` et relancez.
+2. **Télécharger les photos**, au choix :
+   - **depuis GitHub, sans rien installer** : onglet *Actions* → *Photos* → *Run workflow*. Laissez « auto » décoché pour ne prendre que les fichiers nommés. Rien n’est mis en ligne : le résultat arrive sur la branche `photos-review`, avec la planche `tools/photos-sheet.jpg` (le lien s’affiche dans le résumé de l’exécution) ;
+   - **sur votre ordinateur** : `python3 tools/fetch-photos.py --sheet /tmp/planche.jpg` (Python 3 et `pip install pillow`, accès à commons.wikimedia.org et upload.wikimedia.org). Ajoutez `--exact-only` pour ne prendre que les fichiers nommés.
+3. **Regardez la planche avant de publier** : chaque photo doit montrer exactement son adresse, sans visage reconnaissable au premier plan ; les choix `[auto]` demandent une attention particulière. Si tout va bien, fusionnez `photos-review` dans la branche du site (une *pull request*) ; sinon, changez `files` et relancez.
+
+Le script vérifie chaque fichier auprès de Commons et **refuse** : les licences non libres (NC, ND, droits réservés), les photos signalées comme montrant des personnes identifiables, les fichiers proposés à la suppression, ceux que Commons signale pour l’absence de liberté de panorama au Maroc (bâtiments récents : un bâtiment récent ne doit pas être le sujet principal d’une photo utilisée commercialement), et les photos CC BY sans auteur à créditer. Il garde l’auteur, la licence et le lien, prépare deux tailles (1280 et 640 px, sans métadonnées EXIF) et écrit `content/photos.js`. Ses choix sont gardés dans `tools/photos.lock.json` (à garder avec les photos) : une relance ne télécharge que ce qui a changé ; `--force` retélécharge les mêmes photos, `--repick` refait les choix.
+
+**Retirer une photo** : supprimez l’adresse de `tools/photos.json` (ou videz ses `files`) et relancez : la photo disparaît du guide et ses fichiers sont effacés.
+
+Hors connexion, le guide montre les photos déjà vues (et celles de la ville qu’il a gardées pour plus tard) ; une photo jamais chargée laisse place à l’illustration dessinée.
 
 Pas de photos trouvées sur Google, Instagram ou les sites des restaurants : seulement les vôtres, celles que l’établissement vous autorise à publier (ajoutez alors `image: 'assets/img/places/<id>.jpg'` à l’adresse dans le fichier de la ville), ou des photos sous licence libre.
 

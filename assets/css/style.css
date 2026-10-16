@@ -717,7 +717,7 @@ main { position: relative; z-index: 1; }
   text-transform: uppercase;
   color: var(--brass);
 }
-[dir="rtl"] .wordmark .l2 { padding-inline-end: 0; }
+[dir="rtl"] .wordmark .l2 { padding-inline-start: .62em; padding-inline-end: 0; }
 
 .chooser__chips { display: grid; gap: 10px; }
 
@@ -727,7 +727,8 @@ main { position: relative; z-index: 1; }
   align-items: center;
   gap: 14px;
   min-height: 72px;
-  padding: 10px 18px 10px 12px;
+  padding-block: 10px;
+  padding-inline: 12px 18px;
   border-radius: 22px;
   background: rgba(250, 248, 243, .96);
   color: #10191A;
@@ -737,7 +738,6 @@ main { position: relative; z-index: 1; }
   transition: transform .35s var(--ease), box-shadow .35s var(--ease);
 }
 
-[dir="rtl"] .city-chip { padding: 10px 12px 10px 18px; }
 .city-chip:hover { transform: translate3d(0, -2px, 0); }
 .city-chip:active { transform: scale(.98); }
 .city-chip:focus-visible { outline: 3px solid var(--brass); outline-offset: 3px; }
@@ -775,7 +775,8 @@ main { position: relative; z-index: 1; }
   box-shadow: 0 14px 34px -12px rgba(0, 0, 0, .75);
 }
 
-.resume b { font-weight: 600; }
+.resume { flex-wrap: wrap; row-gap: 0; padding-block: 6px; text-align: center; }
+.resume b { font-weight: 600; white-space: nowrap; }
 .resume .ico { font-size: 19px; }
 
 /* Find my place: a clear outlined button, below the cities */
@@ -822,7 +823,8 @@ main { position: relative; z-index: 1; }
 .locate.locate--sheet .ico { color: #fff; }
 .locate-box__note { margin: 0; font-size: 13px; color: var(--ink-dim); }
 
-/* On the home, the content sits in the middle of the screen */
+/* On the home, the content sits in the middle of the screen, and stays fully visible while scrolling */
+.mode-home .hero__inner--home { opacity: 1; transform: none; }
 .mode-home .hero { justify-content: center; padding-block: calc(76px + env(safe-area-inset-top, 0px)) calc(var(--dock-space) + 20px); }
 .mode-home .hero .scroll-cue { display: none; }
 
@@ -838,6 +840,52 @@ main { position: relative; z-index: 1; }
   .city-chip__name { font-size: 20px; }
   .locate, .resume { min-height: 54px; }
   .hero__inner--home .hero__meta { display: none; }
+}
+
+/* Very short screens (iPhone SE with its toolbars, small Android phones) */
+@media (max-height: 680px) {
+  .mode-home .hero { padding-top: calc(60px + env(safe-area-inset-top, 0px)); }
+  .wordmark { font-size: clamp(48px, min(22vw, 10.5vh), 200px); }
+  .chooser { margin-top: 10px; gap: 7px; }
+  .chooser .hero__tagline { display: none; }
+  .chooser__label { font-size: 17px; }
+  .chooser__chips { gap: 7px; }
+  .city-chip { min-height: 54px; padding-block: 5px; gap: 12px; }
+  .city-chip__icon { width: 40px; height: 40px; border-radius: 12px; font-size: 21px; }
+  .city-chip__name { font-size: 19px; }
+  .city-chip__n { font-size: 12.5px; }
+  .city-chip__go { width: 32px; height: 32px; }
+  .locate, .resume { min-height: 48px; font-size: 16px; }
+  .locate__note { font-size: 12px; }
+}
+
+/* A returning guest has one more button: the clock line gives way */
+@media (max-height: 900px) {
+  .has-resume .hero__inner--home .hero__meta { display: none; }
+}
+@media (max-height: 760px) {
+  .has-resume .chooser .hero__tagline, .has-resume .locate__note { display: none; }
+}
+
+/* Phones held sideways: the three cities side by side, the brand smaller */
+@media (max-height: 500px) and (orientation: landscape) {
+  .mode-home .hero { padding-top: calc(58px + env(safe-area-inset-top, 0px)); }
+  .wordmark { font-size: clamp(40px, 13vh, 72px); }
+  .chooser { width: min(100%, 720px); margin-top: 8px; gap: 8px; }
+  .chooser .hero__tagline, .locate__note, .hero__inner--home .hero__meta { display: none; }
+  .chooser__chips { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .city-chip { min-height: 56px; padding-inline: 8px 10px; gap: 8px; }
+  .city-chip__icon { width: 38px; height: 38px; border-radius: 12px; font-size: 20px; }
+  .city-chip__go { display: none; }
+  .city-chip__name { font-size: 17px; }
+  .locate, .resume { min-height: 48px; font-size: 16px; }
+  .has-resume .chooser { grid-template-columns: 1fr 1fr; }
+  .has-resume .chooser > * { grid-column: 1 / -1; }
+  .has-resume .chooser > .resume, .has-resume .chooser > .locate { grid-column: auto; margin-top: 0; }
+}
+
+@media (max-width: 340px) {
+  .resume .ico { display: none; }
 }
 
 /* On a place, "Découvrir" is a real button: a pill with an arrow down */
@@ -857,6 +905,10 @@ main { position: relative; z-index: 1; }
   bottom: calc(var(--dock-space) + 4px);
 }
 .mode-stay .scroll-cue__line { display: none; }
+.js.mode-stay .scroll-cue { filter: opacity(0); }
+.is-ready.mode-stay .scroll-cue { animation: cue-in 1s var(--ease) 1.5s both; }
+.js.mode-stay .scroll-cue span:last-child { opacity: 1; animation: none; }
+@keyframes cue-in { from { filter: opacity(0); translate: 0 14px; } to { filter: opacity(1); translate: 0 0; } }
 .mode-stay .scroll-cue::before {
   content: "";
   width: 9px;
@@ -896,8 +948,8 @@ main { position: relative; z-index: 1; }
 .look-a .city-chip__name { font-size: 18px; }
 .look-a .hero { justify-content: center; }
 .look-a .chooser__chips { order: 1; }
-.look-a .chooser__label { order: 2; margin: 0; padding: 5px 12px; border-radius: 6px; background: rgba(255, 255, 255, .9); color: #10191A; font-size: 13px; font-weight: 500; text-shadow: none; }
-.look-a .chooser .hero__tagline { order: 3; margin: 2px 0 0; color: #fff; }
+.look-a .chooser__label { order: 2; justify-self: center; margin: 0; padding: 5px 12px; border-radius: 6px; background: rgba(255, 255, 255, .9); color: #10191A; font-size: 13px; font-weight: 500; text-shadow: none; }
+.look-a .chooser .hero__tagline { order: 3; justify-self: center; margin: 2px 0 0; color: #fff; }
 .look-a .resume { order: 4; }
 .look-a .locate { order: 5; }
 .look-a .locate__note { order: 6; }
@@ -1679,6 +1731,22 @@ main { position: relative; z-index: 1; }
 }
 
 .vcard__badge .ico { font-size: 13px; stroke-width: 1.6; }
+.art--photo .vcard__badge { background: rgba(0, 0, 0, .62); text-shadow: 0 1px 2px rgba(0, 0, 0, .5); }
+
+/* A stand-in photo (a dish for a restaurant) says so on the card */
+.ph-tag {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  inset-inline-start: 10px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .62);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .02em;
+}
 
 .vcard__body { display: grid; gap: 4px; padding: 12px 14px 16px; }
 
@@ -1809,22 +1877,25 @@ figure.art { margin: 0; }
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 10px 12px 0;
-  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .55));
-  font-size: 10.5px;
+  padding: 0 12px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .5) 45%, rgba(0, 0, 0, .74));
+  font-size: 11.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .7);
   line-height: 1.3;
   text-align: end;
-  color: rgba(255, 255, 255, .9);
+  color: #fff;
 }
-.ph-credit a, .ph-credit > span { display: inline-flex; align-items: flex-end; min-height: 44px; padding-bottom: 7px; color: inherit; text-decoration: none; }
+/* One line on the photo (the credits page shows it in full), a 44 px tap area */
+.ph-credit a, .ph-credit > span { display: inline-block; max-width: 100%; min-height: 44px; padding: 24px 0 6px; line-height: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; color: inherit; text-decoration: none; }
 .ph-credit a:hover { text-decoration: underline; }
 
 /* A section's tile on a place's home: the photo under a veil of the section's colour */
 .tile__photo { position: absolute; inset: 0; z-index: -2; background: var(--tint); }
 .tile__photo img { width: 100%; height: 100%; object-fit: cover; }
-.tile--photo::before {
+.tile--city.tile--photo::before,
+[dir="rtl"] .tile--city.tile--photo::before {
   z-index: -1;
-  background-image: linear-gradient(180deg, color-mix(in srgb, var(--tint) 18%, transparent) 0%, color-mix(in srgb, var(--tint) 45%, transparent) 42%, color-mix(in srgb, var(--tint) 92%, #000) 100%);
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--tint) 18%, transparent) 0%, color-mix(in srgb, var(--tint) 50%, transparent) 30%, color-mix(in srgb, var(--tint) 86%, transparent) 52%, color-mix(in srgb, var(--tint) 94%, #000) 100%);
   background-size: auto;
   opacity: 1;
   -webkit-mask-image: none;
@@ -1838,17 +1909,20 @@ figure.art { margin: 0; }
 .band__photo img { width: 100%; height: 100%; object-fit: cover; }
 .band--photo { min-height: calc(var(--band-top) + 230px); }
 .band--photo::before {
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, color-mix(in srgb, var(--tint) 25%, transparent) 40%, color-mix(in srgb, var(--tint) 92%, #000) 100%);
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, color-mix(in srgb, var(--tint) 30%, transparent) 32%, color-mix(in srgb, var(--tint) 86%, transparent) 55%, color-mix(in srgb, var(--tint) 94%, #000) 100%);
   background-size: auto;
   opacity: 1;
   -webkit-mask-image: none;
   mask-image: none;
 }
 .band--photo .band__title { text-shadow: 0 2px 18px rgba(0, 0, 0, .4); }
+.band--photo .eyebrow { color: #fff; }
 
 /* A city's button on the home: its picture in the rounded square */
+.city-chip__icon { position: relative; }
 .city-chip__icon.has-photo { overflow: hidden; background: var(--tint); box-shadow: 0 0 0 1px rgba(16, 25, 26, .08) inset; }
-.city-chip__icon.has-photo img { width: 100%; height: 100%; object-fit: cover; }
+.city-chip__icon.has-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tile--photo .tile__art, .band--photo .band__art { display: none; }
 
 /* The photo credits page */
 .credits__note { margin: 0 0 18px; max-width: 46ch; color: var(--ink-dim); line-height: 1.55; }

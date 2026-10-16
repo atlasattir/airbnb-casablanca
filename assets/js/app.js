@@ -216,8 +216,10 @@
     return ref && all[ref] && all[ref].src ? all[ref] : null;
   }
   function photoImg(p, sizes, eager) {
+    // The real widths: a portrait or a small original is narrower than 1280 / 640
+    var lw = p.w || 1280, sw = p.smw || (p.w && p.h ? Math.round(p.w * Math.min(1, 640 / Math.max(p.w, p.h))) : 640);
     return '<img src="' + esc(p.sm || p.src) + '"' +
-      (p.sm ? ' srcset="' + esc(p.sm) + ' 640w, ' + esc(p.src) + ' 1280w" sizes="' + esc(sizes || '50vw') + '"' : '') +
+      (p.sm ? ' srcset="' + esc(p.sm) + ' ' + sw + 'w, ' + esc(p.src) + ' ' + lw + 'w" sizes="' + esc(sizes || '50vw') + '"' : '') +
       ' alt=""' + (eager ? '' : ' loading="lazy"') + ' decoding="async"' +
       (p.pos ? ' style="object-position:' + esc(p.pos) + '"' : '') + '>';
   }
@@ -406,7 +408,7 @@
     els.chips.innerHTML = CITIES.map(function (c) {
       var n = staysIn(c.id).length, ph = coverFor(c.id);
       return '<a class="city-chip" href="#' + esc(c.id) + '" data-open="' + esc(c.id) + '"' + tintStyle(c.tint) + '>' +
-        '<span class="city-chip__icon' + (ph ? ' has-photo' : '') + '" aria-hidden="true">' + (ph ? photoImg(ph, '120px', true) : icon(CITY_ICONS[c.id] || 'pin')) + '</span>' +
+        '<span class="city-chip__icon' + (ph ? ' has-photo' : '') + '" aria-hidden="true">' + icon(CITY_ICONS[c.id] || 'pin') + (ph ? photoImg(ph, '120px', true) : '') + '</span>' +
         '<span class="city-chip__text"><span class="city-chip__name">' + esc(tr(c.name)) + '</span>' +
         '<span class="city-chip__n">' + n + ' ' + esc(ui(n > 1 ? 'stayMany' : 'stayOne')) + '</span></span>' +
         '<span class="city-chip__go" aria-hidden="true">' + icon('next', 'flip-rtl') + '</span></a>';
@@ -416,6 +418,7 @@
     // Back to the last place opened on this phone
     var last = loadJSON('atlas.stay', null);
     var lastStay = last && last.id ? stayById(last.id) : null;
+    root.classList.toggle('has-resume', !!lastStay);
     if (lastStay) {
       els.resume.hidden = false;
       els.resume.href = stayHref(lastStay);
@@ -521,7 +524,7 @@
         return '<a class="tile tile--' + g.id + (wide ? ' tile--wide' : '') + (ph ? ' tile--photo' : '') + rv + '"' + tintStyle(s.tint, i) + ' href="#' + id + '" data-open="' + id + '">' +
           (ph ? '<span class="tile__photo" aria-hidden="true">' + photoImg(ph, wide ? '(min-width: 760px) 50vw, 100vw' : '(min-width: 760px) 25vw, 50vw') + '</span>' : '') +
           '<span class="tile__icon">' + icon(s.icon) + '</span>' +
-          (g.id === 'city' && !ph ? '<span class="tile__art" aria-hidden="true">' + icon(s.icon) + '</span>' : '') +
+          (g.id === 'city' ? '<span class="tile__art" aria-hidden="true">' + icon(s.icon) + '</span>' : '') +
           '<span class="tile__text"><span class="tile__label">' + esc(tr(s.title)) + '</span>' +
           (data ? '<span class="tile__data">' + data + '</span>' : '') + '</span></a>';
       }).join('');
@@ -805,7 +808,8 @@
     }
     var cover = meta.type === 'city' ? coverFor(id) : STAY && SECTIONS[id] ? coverFor(STAY.city, id) : null;
     els.band.innerHTML = '<header class="band' + (cover ? ' band--photo' : '') + '"' + tintStyle(meta.tint) + '>' +
-      (cover ? '<span class="band__photo" aria-hidden="true">' + photoImg(cover, '100vw', true) + '</span>' : '<span class="band__art" aria-hidden="true">' + icon(meta.icon) + '</span>') +
+      '<span class="band__art" aria-hidden="true">' + icon(meta.icon) + '</span>' +
+      (cover ? '<span class="band__photo" aria-hidden="true">' + photoImg(cover, '100vw', true) + '</span>' : '') +
       '<div class="band__text"><p class="eyebrow">' + esc(kicker) + '</p>' +
       '<h1 class="band__title" id="sheet-title">' + esc(title) + '</h1>' + extra + '</div></header>';
     els.barTitle.textContent = title;
@@ -820,14 +824,26 @@
 
   function art(it, iconName, sizes) {
     var ph = photoFor(it);
-    return '<span class="art' + (ph ? ' art--photo' : '') + '">' + (ph ? photoImg(ph, sizes) : icon(it.icon || iconName));
+    return '<span class="art' + (ph ? ' art--photo' : '') + '">' + icon(it.icon || iconName) +
+      (ph ? photoImg(ph, sizes) + (ph.illustr ? '<span class="ph-tag">' + esc(ui('illustration')) + '</span>' : '') : '');
   }
 
   function detailArt(it, iconName) {
     var ph = photoFor(it);
     if (!ph) return '<div class="art d-art">' + icon(it.icon || iconName) + '</div>';
-    return '<figure class="art d-art art--photo">' + photoImg(ph, '(min-width: 700px) 640px, 100vw', true) + photoCredit(ph) + '</figure>';
+    return '<figure class="art d-art art--photo">' + icon(it.icon || iconName) + photoImg(ph, '(min-width: 700px) 640px, 100vw', true) + photoCredit(ph) + '</figure>';
   }
+
+  // A photo that cannot load (offline and never seen, or gone): back to the drawn icon
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG') return;
+    var box = img.closest('.art--photo, .tile--photo, .band--photo, .has-photo, .credit-row__img');
+    if (!box) return;
+    ['art--photo', 'tile--photo', 'band--photo', 'has-photo'].forEach(function (c) { box.classList.remove(c); });
+    box.querySelectorAll('.tile__photo, .band__photo, .ph-credit, .ph-tag').forEach(function (el) { el.parentNode.removeChild(el); });
+    if (img.parentNode) img.parentNode.removeChild(img);
+  }, true);
 
   function chip(id, label, on) {
     return '<button class="chip" type="button" data-chip="' + esc(id) + '" aria-pressed="' + on + '">' + esc(label) + '</button>';
@@ -1502,6 +1518,21 @@
     var film = CITY.film === 'brand' ? BRAND.film : (CITY.film || null);
     initVideo(film, CITY.scene || 'plain');
     finish();
+    window.setTimeout(function () { warmPhotos(st.city); }, 6000);
+  }
+
+  // For later, offline: once the guide works offline (its service worker in charge), store the
+  // city's small photos, one after the other, unless the phone saves data or the network is slow
+  function warmPhotos(cityId) {
+    var net = navigator.connection || {};
+    if (net.saveData || /2g/.test(net.effectiveType || '')) return;
+    if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return;
+    var all = photosOf(cityId), seen = {}, list = [];
+    Object.keys(all).forEach(function (k) { var p = all[k]; if (p && p.sm && !seen[p.sm]) { seen[p.sm] = true; list.push(p.sm); } });
+    (function next(i) {
+      if (i >= list.length) return;
+      fetch(list[i]).catch(function () { /* offline: try another time */ }).then(function () { window.setTimeout(function () { next(i + 1); }, 200); });
+    })(0);
   }
 
   function start() {

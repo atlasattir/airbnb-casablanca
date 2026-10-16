@@ -64,10 +64,14 @@ self.addEventListener('fetch', function (event) {
   if (request.destination === 'video' || /\.(mp4|webm|mov)$/i.test(url.pathname)) return;
 
   if (url.origin === self.location.origin && url.pathname.indexOf('/assets/img/photos/') > -1) {
-    // Photos: the stored copy first.
+    // Photos: the stored copy first. Offline, a large photo never stored falls back to
+    // its small version when that one is stored (the guide stores them for later).
     event.respondWith(
       caches.match(request).then(function (hit) {
-        return hit || fetch(request).then(function (response) { return store(request, response); });
+        return hit || fetch(request).then(function (response) { return store(request, response); }).catch(function () {
+          var small = request.url.replace(/(-sm)?\.jpg(\?|$)/, '-sm.jpg$2');
+          return caches.match(small).then(function (alt) { return alt || Response.error(); });
+        });
       })
     );
     return;
