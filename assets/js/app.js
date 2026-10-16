@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — guest guide.
+ * Darna Collection — guest guide.
  * Plain JavaScript, no build step.
  *
  * Two modes on the same page:
@@ -489,7 +489,8 @@
   }
 
   function renderStayHero() {
-    byId('stay-kicker').textContent = (BRAND.name || '') + ' · ' + cityName(STAY.city);
+    // Above the name: the brand ("Darna Collection" over "Bourgogne"); the city is in the clock line
+    byId('stay-kicker').textContent = BRAND.name || '';
     var words = String(STAY.name).split(' ');
     var lines = STAY.title || (words.length > 1 ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [STAY.name, '']);
     var title = byId('stay-title');
@@ -1415,6 +1416,9 @@
 
   function start() {
     var id = params.stay;
+    // Links made before the final names still open the right place
+    var moved = id && (BRAND.aliases || {})[id];
+    if (moved) { window.location.replace('./?stay=' + moved + window.location.hash); return; }
     if (!id) { bootHome(); return; }
     var st = stayById(id);
     if (!st) { bootHome(ui('stayUnknown')); return; }

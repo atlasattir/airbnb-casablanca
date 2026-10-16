@@ -1,8 +1,8 @@
 {
-  "name": "Ocean 21 · Atlas Stays",
-  "short_name": "Ocean 21",
-  "description": "Votre guide personnel · Aïn Diab · Casablanca",
-  "start_url": "../?stay=ocean-21",
+  "name": "Darna Marrakech · Darna Collection",
+  "short_name": "Darna Marrakech",
+  "description": "Votre guide personnel · Daoudiate · Marrakech",
+  "start_url": "../?stay=marrakech",
   "scope": "../",
   "display": "standalone",
   "background_color": "#091215",

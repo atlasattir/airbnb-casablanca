@@ -8,14 +8,14 @@ Remplacez les mots entre crochets. Dans les messages programmés, Airbnb propose
 
 | Logement | Lien du guide | `[LOGEMENT]` · `[VILLE]` |
 |---|---|---|
-| Bourgogne 133 | `https://atlasattir.github.io/airbnb-casablanca/bourgogne-133/` | Bourgogne 133 · Casablanca |
-| Casa B Suites (8 studios) | `https://atlasattir.github.io/airbnb-casablanca/casa-b-suites/` | Casa B Suites · Casablanca |
-| Ocean 21 | `https://atlasattir.github.io/airbnb-casablanca/ocean-21/` | Ocean 21 · Casablanca |
-| DarB Inn | `https://atlasattir.github.io/airbnb-casablanca/darb-inn/` | DarB Inn · Dar Bouazza |
-| Dar Baba (3 appartements) | `https://atlasattir.github.io/airbnb-casablanca/dar-baba/` | Dar Baba · Marrakech |
-| Casa Azul Martil | `https://atlasattir.github.io/airbnb-casablanca/casa-azul/` | Casa Azul Martil · Martil |
+| Darna Bourgogne | `https://atlasattir.github.io/airbnb-casablanca/bourgogne/` | Darna Bourgogne · Casablanca |
+| Darna B-Suites (8 studios) | `https://atlasattir.github.io/airbnb-casablanca/b-suites/` | Darna B-Suites · Casablanca |
+| Darna Pestana | `https://atlasattir.github.io/airbnb-casablanca/pestana/` | Darna Pestana · Casablanca |
+| Darna Dar Bouazza | `https://atlasattir.github.io/airbnb-casablanca/dar-bouazza/` | Darna Dar Bouazza · Dar Bouazza |
+| Darna Marrakech (3 appartements) | `https://atlasattir.github.io/airbnb-casablanca/marrakech/` | Darna Marrakech · Marrakech |
+| Darna Martil Bay | `https://atlasattir.github.io/airbnb-casablanca/martil-bay/` | Darna Martil Bay · Martil |
 
-Pour Casa B Suites et Dar Baba, le numéro du studio ou de l’appartement et l’étage vont seulement dans le message du jour d’arrivée.
+Pour Darna B-Suites et Darna Marrakech, le numéro du studio ou de l’appartement et l’étage vont seulement dans le message du jour d’arrivée.
 
 Conseillez d’ouvrir le lien dans Safari ou Chrome (pas dans l’application Airbnb) avant de l’ajouter à l’écran d’accueil : le guide garde alors les favoris et fonctionne hors connexion.
 

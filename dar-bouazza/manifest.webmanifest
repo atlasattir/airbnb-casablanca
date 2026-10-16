@@ -1,8 +1,8 @@
 {
-  "name": "Casa Azul Martil · Atlas Stays",
-  "short_name": "Casa Azul Martil",
-  "description": "Votre guide personnel · Martil",
-  "start_url": "../?stay=casa-azul",
+  "name": "Darna Dar Bouazza · Darna Collection",
+  "short_name": "Darna Dar Bouazza",
+  "description": "Votre guide personnel · Dar Bouazza · Casablanca",
+  "start_url": "../?stay=dar-bouazza",
   "scope": "../",
   "display": "standalone",
   "background_color": "#091215",

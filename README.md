@@ -1,10 +1,10 @@
-# Atlas Stays
+# Darna Collection
 
-Le guide digital des logements Atlas Stays : Casablanca (Bourgogne 133, Casa B Suites, Ocean 21, DarB Inn), Marrakech (Dar Baba) et Martil (Casa Azul Martil). Les voyageurs l’ouvrent sur leur téléphone (lien Airbnb ou QR code), sans application à installer.
+Le guide digital des logements Darna Collection : Casablanca (Darna Bourgogne, Darna B-Suites, Darna Pestana, Darna Dar Bouazza), Marrakech (Darna Marrakech) et Martil (Darna Martil Bay). Les voyageurs l’ouvrent sur leur téléphone (lien Airbnb ou QR code), sans application à installer.
 
-- **Accueil Atlas Stays** : la marque sur le film, « Choisissez votre lieu de séjour » et un bouton par ville. Chaque ville ouvre la liste de ses logements (nom, quartier, points forts). Plus bas, tous les logements par ville.
+- **Accueil Darna Collection** : la marque sur le film, « Choisissez votre lieu de séjour » et un bouton par ville. Chaque ville ouvre la liste de ses logements (nom, quartier, points forts). Plus bas, tous les logements par ville.
 - **Trouver mon logement** : sous les villes, un bouton utilise la position du téléphone (avec l’accord du voyageur) pour mettre en avant le logement le plus proche. La position reste sur le téléphone et ne choisit jamais à la place du voyageur.
-- **Un guide par logement**, avec son propre lien court (par exemple `…/ocean-21/`) : c’est ce lien qui part dans les messages Airbnb et sur la carte QR. Le voyageur arrive directement sur le bon guide ; l’accueil sert de secours. Un bouton « Reprendre » ramène au dernier logement ouvert.
+- **Un guide par logement**, avec son propre lien court (par exemple `…/pestana/`) : c’est ce lien qui part dans les messages Airbnb et sur la carte QR. Le voyageur arrive directement sur le bon guide ; l’accueil sert de secours. Un bouton « Reprendre » ramène au dernier logement ouvert.
 - Dans chaque guide : **Votre appartement / Votre studio** (Wi-Fi, Arrivée & départ, Mode d’emploi, Autour de vous, Services, Assistance) et le guide de la ville, avec ses couleurs.
 - Film en fond, 3 boutons permanents (Localisation, WhatsApp, Mes favoris), fiches détaillées qui se ferment d’un geste, itinéraires calés sur le coucher du soleil du jour.
 - 4 langues (français, anglais, arabe de droite à gauche, espagnol), choisies selon le téléphone ; modes clair et sombre.
@@ -17,7 +17,7 @@ Deux présentations de l’accueil sont prêtes pour le client : la version par 
 
 ```
 index.html                  la page (accueil et guide de chaque logement)
-<logement>/                 le lien court de chaque logement (bourgogne-133/, ocean-21/…) :
+<logement>/                 le lien court de chaque logement (bourgogne/, pestana/…) :
                             il ouvre le guide du logement, avec son aperçu de lien et son icône d’écran d’accueil
 card.html                   la carte QR + Wi-Fi à imprimer, pour chaque logement
 sw.js                       le mode hors connexion
@@ -37,7 +37,7 @@ content/ui.js               les textes de l’interface dans les 4 langues
 
 Le contenu se modifie uniquement dans `content/`. Chaque texte existe en `fr`, `en`, `ar` et `es`. Ce qu’un logement ne précise pas (mot d’accueil, étapes d’arrivée et de départ, règles, services) vient de `content/brand.js`.
 
-Adresse d’un logement : `…/ocean-21/` (lien court) ou `…/?stay=ocean-21`. Les rubriques gardent leurs liens : `…/?stay=ocean-21#wifi`.
+Adresse d’un logement : `…/pestana/` (lien court) ou `…/?stay=pestana`. Les rubriques gardent leurs liens : `…/?stay=pestana#wifi`. Les anciens liens (`…/ocean-21/`, `…/bourgogne-133/`…) mènent au bon logement.
 
 ## Écrire le contenu
 
@@ -59,7 +59,7 @@ Le film de fond vient de la vidéo de @mr_enissay (Instagram), utilisée avec so
 
 - Le MP4 (H.264) sert aux iPhone et à la plupart des navigateurs ; le WebM (VP9) sert à ceux qui ne lisent pas le H.264. Le `.jpg` est la première image du film : il s’affiche tout de suite, puis le film prend le relais sans saut.
 - Le film passe sur l’accueil et sur les guides de Casablanca (`film: 'brand'` dans `content/cities/casablanca.js`). Marrakech et Martil n’ont pas encore de film (`film: null`) : un décor dessiné s’affiche (`scene: 'plain'` ou `'sea'`). Ne mettez jamais le film de Casablanca sur une autre ville.
-- Le crédit « Film @mr_enissay » apparaît en bas de la page. Pour le retirer, mettez `credit: null` dans `content/brand.js` → `film`. Le créateur a donné son accord pour un guide de Casablanca : confirmez avec lui qu’il accepte aussi l’accueil Atlas Stays.
+- Le crédit « Film @mr_enissay » apparaît en bas de la page. Pour le retirer, mettez `credit: null` dans `content/brand.js` → `film`. Le créateur a donné son accord pour un guide de Casablanca : confirmez avec lui qu’il accepte aussi l’accueil Darna Collection.
 - Pour les voyageurs en mode économie de données ou avec les animations réduites, seule l’image fixe s’affiche.
 
 Pour remplacer le film : mêmes noms de fichiers, 10 à 20 secondes, **sans son** (les navigateurs ne lancent automatiquement que les vidéos muettes), moins de 6 Mo par fichier, plans sombres (le titre est posé dessus). Exemple :
@@ -72,7 +72,7 @@ Outfit (sans-serif géométrique, graisses fines) pour les titres et le texte ; 
 
 ## Avant de publier : ce qu’il reste à compléter
 
-Les champs marqués `TODO` ne sont pas montrés aux voyageurs (Wi-Fi : « Sur la carte dans votre logement »). Pour voir ce qu’il reste à compléter, ajoutez `&draft` à l’adresse d’un logement, par exemple `…/?stay=ocean-21&draft` : chaque champ manquant y apparaît avec un badge « Bientôt ». Cherchez `TODO` dans `content/`.
+Les champs marqués `TODO` ne sont pas montrés aux voyageurs (Wi-Fi : « Sur la carte dans votre logement »). Pour voir ce qu’il reste à compléter, ajoutez `&draft` à l’adresse d’un logement, par exemple `…/?stay=pestana&draft` : chaque champ manquant y apparaît avec un badge « Bientôt ». Cherchez `TODO` dans `content/`.
 
 Pour toute la marque (`content/brand.js`) :
 - [ ] Numéro WhatsApp (`host.whatsapp`, chiffres seulement, ex. `2126XXXXXXXX`) ; un logement peut avoir le sien (`host` dans son fichier)
@@ -104,7 +104,7 @@ Mieux vaut 30 adresses que vous recommandez vraiment que 100 adresses non vérif
 
 ## Sécurité
 
-Cette page est publique, et le dépôt aussi : tout ce qui est dans `content/` peut être lu par n’importe qui. N’y mettez jamais le code de la porte, le code de la boîte à clés, l’étage, le numéro de l’appartement ou du studio, ni un nom de Wi-Fi qui le contient : envoyez-les par message Airbnb. Pour Casa B Suites et Dar Baba, il y a un seul guide par immeuble ; le numéro du logement part uniquement dans le message du jour d’arrivée. Posez la carte QR dans le logement, jamais sur une porte commune. Les pages demandent aux moteurs de recherche de ne pas les indexer (cela ne les rend pas privées).
+Cette page est publique, et le dépôt aussi : tout ce qui est dans `content/` peut être lu par n’importe qui. N’y mettez jamais le code de la porte, le code de la boîte à clés, l’étage, le numéro de l’appartement ou du studio, ni un nom de Wi-Fi qui le contient : envoyez-les par message Airbnb. Pour Darna B-Suites et Darna Marrakech, il y a un seul guide par immeuble ; le numéro du logement part uniquement dans le message du jour d’arrivée. Posez la carte QR dans le logement, jamais sur une porte commune. Les pages demandent aux moteurs de recherche de ne pas les indexer (cela ne les rend pas privées).
 
 ## Mettre en ligne (GitHub Pages, gratuit)
 
@@ -139,6 +139,6 @@ puis ouvrez <http://localhost:8000>.
 ## Ajouter un logement
 
 1. Dans `content/brand.js`, ajoutez une ligne à `stays` (identifiant, nom, ville, quartier, type, position, points forts). Pour un nouveau quartier, ajoutez son nom dans `areas` ; pour une nouvelle ville, ajoutez-la dans `cities` et créez `content/cities/<ville>.js` sur le modèle des autres.
-2. Copiez un fichier de `content/stays/` sous le nouvel identifiant (par exemple `content/stays/maarif-12.js`) et adaptez-le.
-3. Copiez un dossier de logement à la racine (par exemple `ocean-21/`) sous le nouvel identifiant, et remplacez l’ancien identifiant et l’ancien nom dans ses deux fichiers (`index.html`, `manifest.webmanifest`).
+2. Copiez un fichier de `content/stays/` sous le nouvel identifiant (par exemple `content/stays/maarif.js`) et adaptez-le.
+3. Copiez un dossier de logement à la racine (par exemple `pestana/`) sous le nouvel identifiant, et remplacez l’ancien identifiant et l’ancien nom dans ses deux fichiers (`index.html`, `manifest.webmanifest`).
 4. Ajoutez son lien dans le tableau de `docs/messages.md`.

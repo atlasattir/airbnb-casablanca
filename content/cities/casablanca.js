@@ -1,6 +1,6 @@
 /*
- * Atlas Stays — Casablanca, shared by the four places in and around the city
- * (Bourgogne 133, Casa B Suites, Ocean 21, DarB Inn).
+ * Darna Collection — Casablanca, shared by the four places in and around the city
+ * (Darna Bourgogne, Darna B-Suites, Darna Pestana, Darna Dar Bouazza).
  *
  * Each menu button opens one section. Section types:
  *   places → a list of addresses (items)
@@ -888,7 +888,7 @@ CASA.cities.casablanca = {
         {
           id: 'darbouazza',
           icon: 'surf',
-          // DarB Inn's guests see its own beaches (tamaris2, jackbeach) instead
+          // Darna Dar Bouazza's guests see their own beaches (tamaris2, jackbeach) instead
           areas: ['bourgogne', 'ain-diab'],
           short: { fr: 'Plages sauvages et surf', en: 'Wilder beaches, surf spots', ar: 'شواطئ برّية وركوب الأمواج', es: 'Playas salvajes y surf' },
           name: { fr: 'Dar Bouazza', ar: 'دار بوعزة' },
@@ -914,7 +914,7 @@ CASA.cities.casablanca = {
         // source: https://lematin.ma/regions/surveillance-et-prevention-des-noyades-a-ain-diab-casablanca/297269
         // (Aug. 2025: a 153-day season, 1 May to 30 September)
         // The promenade belongs to the residence: the text does not tell guests to use it.
-        // TODO (host): if Ocean 21's guests may use it, say so in ocean-21.js (howto 'Piscine, sport, plage').
+        // TODO (host): if Darna Pestana's guests may use it, say so in content/stays/pestana.js (add a how-to tile).
         {
           id: 'anfaplace-beach',
           icon: 'waves',

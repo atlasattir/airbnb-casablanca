@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — offline mode.
+ * Darna Collection — offline mode.
  * Once a guest has opened their guide (on the place's Wi-Fi, for example),
  * it keeps working without mobile data. The film itself is not stored:
  * offline, its still frame shows instead.
@@ -9,7 +9,7 @@
  * page) are stored the first time it is opened. Change VERSION, and this
  * list, after renaming or removing files: a missing file stops the update.
  */
-var VERSION = 'atlas-v2';
+var VERSION = 'atlas-v3';
 var CORE = [
   './',
   'index.html',

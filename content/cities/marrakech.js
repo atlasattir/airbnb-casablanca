@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — Marrakech, for Dar Baba (Daoudiate).
+ * Darna Collection — Marrakech, for Darna Marrakech (Daoudiate).
  *
  * Same structure as content/cities/casablanca.js (see the notes at the top of
  * that file for every field). Starter guide: few places, each one confirmed by

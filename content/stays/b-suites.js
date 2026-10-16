@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — Casa B Suites, a building of 8 studios in Bourgogne, Casablanca.
+ * Darna Collection — Darna B-Suites, a building of 8 studios in Bourgogne, Casablanca.
  *
  * One guide for the whole building: every studio's guests read this page.
  * Anything left out (check-in and check-out steps, services, host) comes from
@@ -15,7 +15,7 @@
 window.CASA = window.CASA || {};
 CASA.stays = CASA.stays || {};
 
-CASA.stays['casa-b-suites'] = {
+CASA.stays['b-suites'] = {
   location: {
     // TODO: the building's pin (lat/lng). Until then: the Bourgogne district.
     lat: 33.598,
@@ -130,7 +130,7 @@ CASA.stays['casa-b-suites'] = {
 
   // name: the shop; walk: minutes on foot FROM THE BUILDING (0 = not measured yet);
   // maps: Google Maps search text.
-  // Same list as Bourgogne 133 (same neighbourhood): change both together.
+  // Same list as Darna Bourgogne (same neighbourhood): change both together.
   // Every address below is in the Bourgogne district according to its source; the
   // walking times stay at 0 until the building's pin is known.
   nearby: [

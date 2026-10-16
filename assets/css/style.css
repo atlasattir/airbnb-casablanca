@@ -1,5 +1,5 @@
 /* =====================================================================
-   Atlas Stays — guest guide
+   Darna Collection — guest guide
    ===================================================================== */
 
 :root {
@@ -695,12 +695,21 @@ main { position: relative; z-index: 1; }
 /* A little more shade behind the chooser */
 .mode-home .stage__veil { background: linear-gradient(180deg, rgba(9, 18, 21, .62) 0%, rgba(9, 18, 21, .1) 24%, rgba(9, 18, 21, .4) 46%, rgba(9, 18, 21, .78) 72%, rgba(9, 18, 21, .92) 100%); }
 
-/* The brand fits the screen's height too, and sits on one line on wide screens */
-.wordmark { font-size: clamp(60px, min(19.5vw, 19vh), 188px); }
-@media (min-width: 900px) {
-  .wordmark > span { display: inline; }
-  .wordmark .l2 { padding-inline-start: .18em; }
+/* The brand: "Darna" large and light, "COLLECTION" small and spaced under it.
+   It fits the screen's height too. */
+.wordmark { font-size: clamp(72px, min(27vw, 22vh), 210px); line-height: .9; }
+.wordmark .l2 {
+  margin-top: .32em;
+  padding-inline-start: .06em;
+  font-size: .19em;
+  font-weight: 400;
+  letter-spacing: .62em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--brass);
 }
+[dir="rtl"] .wordmark > span { text-align: right; }
+[dir="rtl"] .wordmark .l2 { padding-inline-end: 0; }
 
 .chooser__chips { display: flex; flex-wrap: wrap; gap: 8px; }
 
@@ -779,14 +788,15 @@ main { position: relative; z-index: 1; }
   border-radius: .3em;
   background: #fff;
   color: #10191A;
-  font-size: clamp(34px, 11vw, 96px);
+  font-size: clamp(22px, 7.2vw, 72px);
   font-weight: 600;
   line-height: 1;
   letter-spacing: .02em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.look-a .wordmark > span { display: inline; padding: 0; font-weight: 600; }
+.look-a .wordmark > span { display: inline; margin: 0; padding: 0; font-size: 1em; font-weight: 600; letter-spacing: .02em; color: inherit; }
 .look-a .city-chip { border-color: #fff; background: #fff; color: #10191A; font-weight: 500; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .look-a .hero { justify-content: center; }
 .look-a .chooser__chips { order: 1; }

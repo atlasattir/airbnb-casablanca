@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — Bourgogne 133, a three-bedroom apartment in Bourgogne, Casablanca.
+ * Darna Collection — Darna Bourgogne, a three-bedroom apartment in Bourgogne, Casablanca.
  *
  * Everything specific to this place lives here. Anything left out (welcome,
  * check-in and check-out steps, rules, services, host) comes from the defaults
@@ -15,7 +15,7 @@
 window.CASA = window.CASA || {};
 CASA.stays = CASA.stays || {};
 
-CASA.stays['bourgogne-133'] = {
+CASA.stays['bourgogne'] = {
   location: {
     // TODO: the building's pin (lat/lng). Until then: the Bourgogne district.
     lat: 33.598,
@@ -82,7 +82,7 @@ CASA.stays['bourgogne-133'] = {
 
   // name: the shop; walk: minutes on foot FROM THE BUILDING (0 = not measured yet);
   // maps: Google Maps search text.
-  // Casa B Suites (same neighbourhood) has the same list: change both together.
+  // Darna B-Suites (same neighbourhood) has the same list: change both together.
   // Every address below is in the Bourgogne district according to its source; the
   // walking times stay at 0 until the building's pin is known.
   nearby: [

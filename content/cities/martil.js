@@ -1,6 +1,6 @@
 /*
- * Atlas Stays — Martil and the Tamuda Bay (Martil, Cabo Negro, M'diq) with
- * Tétouan next door, for Casa Azul Martil.
+ * Darna Collection — Martil and the Tamuda Bay (Martil, Cabo Negro, M'diq) with
+ * Tétouan next door, for Darna Martil Bay.
  *
  * Same structure as content/cities/casablanca.js (see the notes at the top of
  * that file for every field). Starter guide: few places, each one confirmed by

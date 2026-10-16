@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — Dar Baba, a small house of three apartments in Daoudiate, Marrakech.
+ * Darna Collection — Darna Marrakech, a small house of three apartments in Daoudiate, Marrakech.
  * This file serves each of the three apartments (two bedrooms, bathroom, kitchen,
  * living room, fast Wi-Fi each).
  *
@@ -18,7 +18,7 @@
 window.CASA = window.CASA || {};
 CASA.stays = CASA.stays || {};
 
-CASA.stays['dar-baba'] = {
+CASA.stays['marrakech'] = {
   location: {
     // TODO: the house's pin (lat/lng). Until then: the Daoudiate district.
     lat: 31.648,
@@ -35,10 +35,10 @@ CASA.stays['dar-baba'] = {
   // Daoudiate is a residential quarter of the Guéliz arrondissement.
   // source: https://www.mubawab.ma/fr/is/appartement-location_marrakech_daoudiat_pas-cher
   welcome: {
-    fr: 'Bienvenue à Dar Baba, une petite maison de trois appartements dans un quartier résidentiel de Marrakech. Tout est prêt, et je ne suis qu’à un message de vous.',
-    en: 'Welcome to Dar Baba, a small house of three apartments in a residential part of Marrakech. Everything is here, and I am one message away.',
-    ar: 'مرحباً بك في دار بابا، بيت صغير يضمّ ثلاث شقق في حيّ سكني بمراكش. تجد هنا كل ما تحتاجه، وأنا على بُعد رسالة منك.',
-    es: 'Te doy la bienvenida a Dar Baba, una pequeña casa de tres apartamentos en un barrio residencial de Marrakech. Todo está aquí, y estoy a un mensaje de distancia.'
+    fr: 'Bienvenue à Darna Marrakech, une petite maison de trois appartements dans un quartier résidentiel de Marrakech. Tout est prêt, et je ne suis qu’à un message de vous.',
+    en: 'Welcome to Darna Marrakech, a small house of three apartments in a residential part of Marrakech. Everything is ready, and I am one message away.',
+    ar: 'مرحباً بك في دارنا مراكش، بيت صغير يضمّ ثلاث شقق في حيّ سكني بمراكش. تجد هنا كل ما تحتاجه، وأنا على بُعد رسالة منك.',
+    es: 'Te doy la bienvenida a Darna Marrakech, una pequeña casa de tres apartamentos en un barrio residencial de Marrakech. Todo está listo, y estoy a un mensaje de distancia.'
   },
 
   checkin: {

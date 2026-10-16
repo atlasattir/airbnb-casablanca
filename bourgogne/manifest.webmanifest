@@ -1,8 +1,8 @@
 {
-  "name": "Bourgogne 133 · Atlas Stays",
-  "short_name": "Bourgogne 133",
+  "name": "Darna Bourgogne · Darna Collection",
+  "short_name": "Darna Bourgogne",
   "description": "Votre guide personnel · Bourgogne · Casablanca",
-  "start_url": "../?stay=bourgogne-133",
+  "start_url": "../?stay=bourgogne",
   "scope": "../",
   "display": "standalone",
   "background_color": "#091215",

@@ -1,8 +1,8 @@
 {
-  "name": "DarB Inn · Atlas Stays",
-  "short_name": "DarB Inn",
-  "description": "Votre guide personnel · Dar Bouazza · Casablanca",
-  "start_url": "../?stay=darb-inn",
+  "name": "Darna Martil Bay · Darna Collection",
+  "short_name": "Darna Martil Bay",
+  "description": "Votre guide personnel · Martil",
+  "start_url": "../?stay=martil-bay",
   "scope": "../",
   "display": "standalone",
   "background_color": "#091215",

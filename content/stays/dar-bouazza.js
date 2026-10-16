@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — DarB Inn, a two-bedroom apartment in a gated residence with free
+ * Darna Collection — Darna Dar Bouazza, a two-bedroom apartment in a gated residence with free
  * parking, Dar Bouazza (on the coast south-west of Casablanca, Nouaceur province).
  *
  * Everything specific to this place lives here. Anything left out (check-in and
@@ -21,7 +21,7 @@
 window.CASA = window.CASA || {};
 CASA.stays = CASA.stays || {};
 
-CASA.stays['darb-inn'] = {
+CASA.stays['dar-bouazza'] = {
   location: {
     // TODO: the building's pin (lat/lng). Until then: the Dar Bouazza area (approx in brand.js).
     lat: 33.53,

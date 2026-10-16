@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — what is true everywhere in Morocco: emergency numbers,
+ * Darna Collection — what is true everywhere in Morocco: emergency numbers,
  * pharmacies, money, customs, a few words of Darija. Shown in every place's
  * "Assistance" page, whatever the city.
  */

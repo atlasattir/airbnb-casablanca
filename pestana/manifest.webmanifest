@@ -1,8 +1,8 @@
 {
-  "name": "Dar Baba · Atlas Stays",
-  "short_name": "Dar Baba",
-  "description": "Votre guide personnel · Daoudiate · Marrakech",
-  "start_url": "../?stay=dar-baba",
+  "name": "Darna Pestana · Darna Collection",
+  "short_name": "Darna Pestana",
+  "description": "Votre guide personnel · Aïn Diab · Casablanca",
+  "start_url": "../?stay=pestana",
   "scope": "../",
   "display": "standalone",
   "background_color": "#091215",

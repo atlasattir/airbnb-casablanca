@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — the brand, its cities and the list of places.
+ * Darna Collection — the brand, its cities and the list of places.
  *
  * Loaded on every page. The home screen (the chooser) is built from this file
  * alone; each place's guide then loads content/morocco.js, its city file
@@ -7,7 +7,7 @@
  *
  * To add a place: add a line to `stays` below, copy one of the files in
  * content/stays/ under the new id, and copy one of the place folders at the
- * root of the site (e.g. ocean-21/) under the same id. See README.md.
+ * root of the site (e.g. pestana/) under the same id. See README.md.
  *
  * Security: this file is public. Never put a door or key-box code, a floor,
  * a studio or apartment number here; send those in the Airbnb messages.
@@ -37,6 +37,7 @@ window.CASA = window.CASA || {};
     mountain: { icon: 'mountain', label: { fr: 'Vue montagne', en: 'Mountain view', ar: 'إطلالة على الجبال', es: 'Vistas a la montaña' } },
     parking: { icon: 'car', label: { fr: 'Parking gratuit', en: 'Free parking', ar: 'موقف مجاني', es: 'Parking gratuito' } },
     gated: { icon: 'lock', label: { fr: 'Résidence fermée', en: 'Gated residence', ar: 'إقامة محروسة', es: 'Residencia cerrada' } },
+    surface: function (m2) { return { icon: 'house', label: { fr: m2 + ' m²', en: m2 + ' m²', ar: m2 + ' م²', es: m2 + ' m²' } }; },
     fastwifi: { icon: 'wifi', label: { fr: 'Wi-Fi rapide', en: 'Fast Wi-Fi', ar: 'واي فاي سريع', es: 'Wi-Fi rápido' } },
     family: { icon: 'family', label: { fr: 'Idéal en famille', en: 'Great for families', ar: 'مثالي للعائلات', es: 'Ideal en familia' } },
     privacy: { icon: 'sun', label: { fr: 'Sans vis-à-vis', en: 'Not overlooked', ar: 'خصوصية تامة', es: 'Sin vecinos enfrente' } }
@@ -53,7 +54,7 @@ window.CASA = window.CASA || {};
   };
 
   CASA.brand = {
-    name: 'Atlas Stays',
+    name: 'Darna Collection',
 
     host: {
       name: 'Yassine',
@@ -85,30 +86,34 @@ window.CASA = window.CASA || {};
     },
 
     /*
-     * The places. id: the link (…/ocean-21/) and the file name. kind: 'apartment'
+     * The places. id: the link (…/pestana/) and the file name. title: the name's
+     * lines in the place's first screen, where "Darna Collection" is written above it. kind: 'apartment'
      * or 'studio' (titles "Votre appartement" / "Votre studio"). lat/lng: the
      * neighbourhood, used for "Trouver mon logement": two decimals (about 1 km) are
      * enough, and keep the exact building off the home page. The exact pin goes
      * only in the place's own file (content/stays/<id>.js → location).
      * approx: true while the position is only the neighbourhood's.
      */
+    // Links used before the final names (16 October 2026) still open the right place
+    aliases: { 'bourgogne-133': 'bourgogne', 'casa-b-suites': 'b-suites', 'ocean-21': 'pestana', 'darb-inn': 'dar-bouazza', 'dar-baba': 'marrakech', 'casa-azul': 'martil-bay' },
+
     stays: [
-      { id: 'bourgogne-133', name: 'Bourgogne 133', city: 'casablanca', area: 'bourgogne', kind: 'apartment',
+      { id: 'bourgogne', name: 'Darna Bourgogne', title: ['Bourgogne'], city: 'casablanca', area: 'bourgogne', kind: 'apartment',
         icon: 'building', tint: '#2C5A6B', lat: 33.60, lng: -7.64, approx: true,
-        facts: [fact.bedrooms(3), fact.bathrooms(2), fact.balcony, fact.lift] },
-      { id: 'casa-b-suites', name: 'Casa B Suites', city: 'casablanca', area: 'bourgogne', kind: 'studio', units: 8,
+        facts: [fact.surface(133), fact.bedrooms(3), fact.bathrooms(2), fact.balcony, fact.lift] },
+      { id: 'b-suites', name: 'Darna B-Suites', title: ['B-Suites'], city: 'casablanca', area: 'bourgogne', kind: 'studio', units: 8,
         icon: 'key', tint: '#8A6A3A', lat: 33.60, lng: -7.64, approx: true,
         facts: [fact.studios(8), fact.balcony, fact.ac] },
-      { id: 'ocean-21', name: 'Ocean 21', city: 'casablanca', area: 'ain-diab', kind: 'apartment',
+      { id: 'pestana', name: 'Darna Pestana', title: ['Pestana'], city: 'casablanca', area: 'ain-diab', kind: 'apartment',
         icon: 'waves', tint: '#1D4C49', lat: 33.60, lng: -7.67, approx: true,
         facts: [fact.seaview, fact.bedrooms(1), fact.balcony] },
-      { id: 'darb-inn', name: 'DarB Inn', city: 'casablanca', area: 'dar-bouazza', kind: 'apartment',
+      { id: 'dar-bouazza', name: 'Darna Dar Bouazza', title: ['Dar', 'Bouazza'], city: 'casablanca', area: 'dar-bouazza', kind: 'apartment',
         icon: 'palm', tint: '#4F6650', lat: 33.53, lng: -7.82, approx: true,
         facts: [fact.bedrooms(2), fact.gated, fact.parking] },
-      { id: 'dar-baba', name: 'Dar Baba', city: 'marrakech', area: 'daoudiate', kind: 'apartment', units: 3,
+      { id: 'marrakech', name: 'Darna Marrakech', title: ['Marrakech'], city: 'marrakech', area: 'daoudiate', kind: 'apartment', units: 3,
         icon: 'arch', tint: '#8C553C', lat: 31.65, lng: -8.01, approx: true,
         facts: [fact.flats(3), fact.bedrooms(2), fact.fastwifi] },
-      { id: 'casa-azul', name: 'Casa Azul Martil', title: ['Casa', 'Azul'], city: 'martil', area: 'martil', kind: 'apartment',
+      { id: 'martil-bay', name: 'Darna Martil Bay', title: ['Martil', 'Bay'], city: 'martil', area: 'martil', kind: 'apartment',
         icon: 'pool', tint: '#2D5F8A', lat: 35.62, lng: -5.28, approx: true,
         facts: [fact.pool, fact.bedrooms(2), fact.mountain, fact.family] }
     ],

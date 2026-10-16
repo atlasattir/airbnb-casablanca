@@ -1,8 +1,8 @@
 {
-  "name": "Casa B Suites · Atlas Stays",
-  "short_name": "Casa B Suites",
+  "name": "Darna B-Suites · Darna Collection",
+  "short_name": "Darna B-Suites",
   "description": "Votre guide personnel · Bourgogne · Casablanca",
-  "start_url": "../?stay=casa-b-suites",
+  "start_url": "../?stay=b-suites",
   "scope": "../",
   "display": "standalone",
   "background_color": "#091215",

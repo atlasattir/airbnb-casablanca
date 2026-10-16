@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — Casa Azul Martil, a two-bedroom family apartment in a residence
+ * Darna Collection — Darna Martil Bay, a two-bedroom family apartment in a residence
  * with a pool, in Martil (Mediterranean coast, next to Tétouan).
  *
  * Everything specific to this place lives here. Anything left out (check-in and
@@ -23,7 +23,7 @@
 window.CASA = window.CASA || {};
 CASA.stays = CASA.stays || {};
 
-CASA.stays['casa-azul'] = {
+CASA.stays['martil-bay'] = {
   location: {
     // TODO: the building's pin (lat/lng). Until then: Martil (approx in brand.js).
     lat: 35.6178,

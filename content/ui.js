@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — interface texts in the four languages.
+ * Darna Collection — interface texts in the four languages.
  * {host} is replaced by the host's first name, {stay} by the place's name,
  * {city} by its city, {checkin}/{checkout} by the times set in its file
  * (content/stays/<id>.js).

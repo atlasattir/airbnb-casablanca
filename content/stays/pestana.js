@@ -1,5 +1,5 @@
 /*
- * Atlas Stays — Ocean 21, a one-bedroom apartment with a sea-view balcony in the
+ * Darna Collection — Darna Pestana, a one-bedroom apartment with a sea-view balcony in the
  * Pestana residence (Anfa Place Living Resort, Boulevard de la Corniche, Aïn Diab, Casablanca).
  *
  * Everything specific to this place lives here. Anything left out (check-in and
@@ -20,7 +20,7 @@
 window.CASA = window.CASA || {};
 CASA.stays = CASA.stays || {};
 
-CASA.stays['ocean-21'] = {
+CASA.stays['pestana'] = {
   location: {
     // TODO: the building's pin (lat/lng). Until then: the neighbourhood (approx in brand.js).
     lat: 33.5957,
