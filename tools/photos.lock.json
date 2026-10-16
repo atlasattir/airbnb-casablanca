@@ -285,6 +285,23 @@
   "url": "https://commons.wikimedia.org/wiki/File:Old_Medina,_Casablanca,_a_view_from_United_Nations_square.JPG",
   "w": 1280
  },
+ "casablanca/medina-souks": {
+  "auto": false,
+  "by": "karel291",
+  "file": "File:Ancienne Medina, Casablanca 20250, Morocco - panoramio (2).jpg",
+  "h": 720,
+  "lic": "CC BY 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by/3.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(2).jpg\", \"File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(5).jpg\"], \"search\": null}",
+  "sha1": "f011d2f3db80a86df10def0ac8bf24224123b3a1",
+  "sm": "assets/img/photos/casablanca/ancienne-medina-casablanca-20250-morocco-panoram-f011d2-sm.jpg?v=f011d2f3",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/ancienne-medina-casablanca-20250-morocco-panoram-f011d2.jpg?v=f011d2f3",
+  "title": "Ancienne Medina, Casablanca 20250, Morocco - panoramio (2)",
+  "url": "https://commons.wikimedia.org/wiki/File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(2).jpg",
+  "w": 1280
+ },
  "casablanca/moroccomall": {
   "auto": false,
   "by": "Turdyfirst",
@@ -983,6 +1000,23 @@
   "src": "assets/img/photos/martil/cabo-negro-beach-07e142.jpg?v=07e142f0",
   "title": "Cabo Negro beach",
   "url": "https://commons.wikimedia.org/wiki/File:Cabo_Negro_beach.jpg",
+  "w": 1280
+ },
+ "martil/chefchaouen": {
+  "auto": false,
+  "by": "Ekaterina Kvelidze",
+  "file": "File:Chefchaouen - blue city in Morocco.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Chefchaouen_-_blue_city_in_Morocco.jpg\", \"File:Blue_Town_Chefchaouen.jpg\"], \"search\": null}",
+  "sha1": "552529b5de7ccce36ef8f032e4077c1aa4b234e0",
+  "sm": "assets/img/photos/martil/chefchaouen-blue-city-in-morocco-552529-sm.jpg?v=552529b5",
+  "smw": 640,
+  "src": "assets/img/photos/martil/chefchaouen-blue-city-in-morocco-552529.jpg?v=552529b5",
+  "title": "Chefchaouen - blue city in Morocco",
+  "url": "https://commons.wikimedia.org/wiki/File:Chefchaouen_-_blue_city_in_Morocco.jpg",
   "w": 1280
  },
  "martil/corniche-family": {
