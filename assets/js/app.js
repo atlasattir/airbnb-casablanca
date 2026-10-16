@@ -423,7 +423,7 @@
     } else {
       els.resume.hidden = true;
     }
-    els.locate.innerHTML = icon('locate') + '<span>' + esc(ui(state.locating ? 'locating' : 'locateMe')) + '</span>';
+    els.locate.innerHTML = locateLabel();
 
     // Below the first screen: every place, by city
     var seen = !!els.groups.querySelector('.reveal.is-in');
@@ -443,40 +443,53 @@
     watch(els.groups);
   }
 
+  function locateLabel() { return icon('locate') + '<span>' + esc(ui(state.locating ? 'locating' : 'locateMe')) + '</span>'; }
+
   function viewCity(meta, id) {
     var list = sortedStays(staysIn(id));
-    return '<div class="scards scards--sheet">' + list.map(function (s, i) { return stayCard(s, i + 1); }).join('') + '</div>';
+    // Several places in this city: help the guest who does not know the name of theirs
+    var help = list.length > 1 ? '<div class="locate-box rise"' + d(0) + '>' +
+      '<p class="locate-box__q">' + esc(ui('dontKnowName')) + '</p>' +
+      '<button class="locate locate--sheet" type="button" data-locate' + (state.locating ? ' aria-busy="true"' : '') + '>' + locateLabel() + '</button>' +
+      '<p class="locate-box__note">' + esc(ui('locateNote')) + '</p></div>' : '';
+    return help + '<div class="scards scards--sheet">' + list.map(function (s, i) { return stayCard(s, i + 1); }).join('') + '</div>';
   }
 
   /* "Trouver mon logement": the position stays on the phone; it only sorts the places */
   function locate() {
-    if (!navigator.geolocation) { toast(ui('locateFail')); return; }
+    // From the home's button, or from a city's page ("you don't know the name of your place?")
+    var inCity = !!state.current && (sectionMeta(state.current) || {}).type === 'city';
+    if (!navigator.geolocation) { toast(ui(inCity ? 'locateFailList' : 'locateFail')); return; }
     if (state.locating) return;
-    state.locating = true;
-    els.locate.setAttribute('aria-busy', 'true');
-    renderHome();
-    function stop() {
-      state.locating = false;
-      els.locate.removeAttribute('aria-busy');
+    function busy(on) {
+      state.locating = on;
+      document.querySelectorAll('#locate-btn, [data-locate]').forEach(function (b) {
+        if (on) b.setAttribute('aria-busy', 'true'); else b.removeAttribute('aria-busy');
+        b.innerHTML = locateLabel();
+      });
     }
+    busy(true);
+    function stop() { busy(false); }
     navigator.geolocation.getCurrentPosition(function (pos) {
       stop();
       var here = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       var km = {};
       STAYS.forEach(function (s) { if (typeof s.lat === 'number') km[s.id] = distanceKm(here, s); });
       var ids = Object.keys(km).sort(function (a, b) { return km[a] - km[b]; });
-      if (!ids.length || km[ids[0]] > 60) { renderHome(); toast(ui('locateFar')); return; }
+      if (!ids.length || km[ids[0]] > 60) { renderHome(); toast(ui(inCity ? 'locateFarList' : 'locateFar')); return; }
       // Places at the same spot (one building, or positions not set yet) are all "closest"
       var best = ids.filter(function (id) { return km[id] - km[ids[0]] < 0.15; });
       state.geo = { km: km, best: best };
       renderHome();
       var city = stayById(ids[0]).city;
-      state.openedHere = true;
+      if (!inCity) state.openedHere = true;
       if (window.location.hash === '#' + city) route(); else window.location.hash = city;
+      // The closest place is now first in the list: show it
+      if (inCity && state.current === city) els.scroll.scrollTop = 0;
     }, function (err) {
       stop();
       renderHome();
-      toast(ui(err && err.code === 1 ? 'locateDenied' : 'locateFail'));
+      toast(ui((err && err.code === 1 ? 'locateDenied' : 'locateFail') + (inCity ? 'List' : '')));
     }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 120000 });
   }
 
@@ -1300,9 +1313,10 @@
   /* ---------- events ---------- */
 
   document.addEventListener('click', function (e) {
-    var t = e.target.closest && e.target.closest('[data-open],[data-open-detail],[data-modal-close],[data-lang],[data-fav],[data-chip],[data-copy],[data-taxi],[data-tab],[data-check],[data-howto]');
+    var t = e.target.closest && e.target.closest('[data-open],[data-locate],[data-open-detail],[data-modal-close],[data-lang],[data-fav],[data-chip],[data-copy],[data-taxi],[data-tab],[data-check],[data-howto]');
     if (!t) return;
     if (t.hasAttribute('data-open')) { state.openedHere = true; return; }
+    if (t.hasAttribute('data-locate')) { locate(); return; }
     if (t.hasAttribute('data-open-detail')) { state.modalHere = true; return; }
     if (t.hasAttribute('data-modal-close')) { modalBack(); return; }
     if (t.hasAttribute('data-lang')) setLang(t.getAttribute('data-lang'));

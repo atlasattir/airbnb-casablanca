@@ -806,6 +806,22 @@ main { position: relative; z-index: 1; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* In a city's page with several places: "you don't know the name of yours?" and the same button */
+.locate-box { display: grid; gap: 10px; margin: 0 0 18px; padding: 18px 16px 14px; border-radius: var(--radius-md); background: var(--card); box-shadow: var(--shadow-card); text-align: center; }
+.locate-box__q { margin: 0; font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--ink); text-wrap: balance; }
+.locate.locate--sheet {
+  margin: 0;
+  border: 0;
+  background: var(--tint);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  color: #fff;
+  box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--tint) 80%, #000);
+}
+.locate.locate--sheet:hover { background: color-mix(in srgb, var(--tint) 88%, #000); }
+.locate.locate--sheet .ico { color: #fff; }
+.locate-box__note { margin: 0; font-size: 13px; color: var(--ink-dim); }
+
 /* On the home, the content sits in the middle of the screen */
 .mode-home .hero { justify-content: center; padding-block: calc(76px + env(safe-area-inset-top, 0px)) calc(var(--dock-space) + 20px); }
 .mode-home .hero .scroll-cue { display: none; }
@@ -1793,14 +1809,14 @@ figure.art { margin: 0; }
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 26px 12px 6px;
+  padding: 10px 12px 0;
   background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .55));
   font-size: 10.5px;
   line-height: 1.3;
   text-align: end;
   color: rgba(255, 255, 255, .9);
 }
-.ph-credit a { color: inherit; text-decoration: none; display: inline-block; padding: 6px 0 4px; }
+.ph-credit a, .ph-credit > span { display: inline-flex; align-items: flex-end; min-height: 44px; padding-bottom: 7px; color: inherit; text-decoration: none; }
 .ph-credit a:hover { text-decoration: underline; }
 
 /* A section's tile on a place's home: the photo under a veil of the section's colour */
