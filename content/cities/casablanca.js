@@ -1,70 +1,56 @@
 /*
- * Casa, côté vous — Casablanca content, shared by every apartment.
+ * Atlas Stays — Casablanca, shared by the four places in and around the city
+ * (Bourgogne 133, Casa B Suites, Ocean 21, DarB Inn).
  *
  * Each menu button opens one section. Section types:
- *   apartment → built from content/apartment.js
- *   places    → a list of addresses (items)
- *   routes    → ready-made itineraries (items with stops)
- *   info      → practical blocks (blocks)
+ *   places → a list of addresses (items)
+ *   routes → ready-made itineraries (items with stops)
+ *   info   → practical blocks (blocks)
  *
- * Place fields: id (unique, used by favourites), name, area, tags (for filters),
- * desc, tip, duration (minutes), price (MAD; 0 = free), priceFrom, budget (1–3),
- * maps (Google Maps search text), near (walkable from Bourgogne).
+ * Place fields: id (unique in the city, used by favourites), name, area, tags
+ * (for filters), desc, tip, duration (minutes), price (MAD; 0 = free), priceFrom,
+ * budget (1–3), maps (Google Maps search text).
  * kind: 'note' for an explainer card, 'placeholder' for a slot the host still has
  * to fill, 'request' for something the host can organise (opens WhatsApp).
+ * areas: ['bourgogne'] shows an item only to the places of those neighbourhoods.
  *
  * Itinerary stops may carry rel: minutes before (negative) or after today's
  * sunset; the app then shows the real time for the day instead of 'time'.
+ * fromHome: the route starts at the guest's own address.
  *
  * Prices and opening hours change: check each place before publishing,
  * then update the "checked" date. Last full check: 2026-10.
  */
 window.CASA = window.CASA || {};
+CASA.cities = CASA.cities || {};
 
-CASA.city = {
+CASA.cities.casablanca = {
   checked: '2026-10',
+  name: { fr: 'Casablanca', en: 'Casablanca', ar: 'الدار البيضاء', es: 'Casablanca' },
+  // Used by the airport-transfer service: "Un chauffeur depuis {airport}"
+  airport: { fr: 'l’aéroport Mohammed V', en: 'Mohammed V Airport', ar: 'مطار محمد الخامس', es: 'el aeropuerto Mohammed V' },
+  // film: 'brand' plays the film of content/brand.js; null shows the drawing only.
+  // scene: the drawing shown while the film loads or when it cannot play:
+  // 'atlantic' (ocean and minaret), 'sea' (sea only) or 'plain' (sky only).
+  film: 'brand',
+  scene: 'atlantic',
 
-  /* The home screen: two groups of buttons. 'wide' buttons take a full row. */
-  groups: [
-    {
-      id: 'home',
-      kicker: { fr: 'Bourgogne', en: 'Bourgogne', ar: 'بورغون', es: 'Bourgogne' },
-      title: { fr: 'Votre appartement', en: 'Your apartment', ar: 'شقتك', es: 'Tu apartamento' },
-      items: ['wifi', 'stay', 'house', 'nearby', 'services', 'assistance']
-    },
-    {
-      id: 'city',
-      kicker: { fr: 'Casablanca', en: 'Casablanca', ar: 'الدار البيضاء', es: 'Casablanca' },
-      title: { fr: 'Que souhaitez-vous faire aujourd’hui ?', en: 'What would you like to do today?', ar: 'ماذا تودّ أن تفعل اليوم؟', es: '¿Qué te apetece hacer hoy?' },
-      items: ['visit', 'restaurants', 'cafes', 'nightlife', 'shopping', 'beaches', 'family', 'experiences', 'transport', 'itineraries'],
-      wide: ['visit', 'itineraries']
-    }
-  ],
+  /* Per neighbourhood: the addresses within walking distance ("À pied" badge
+     and walking directions). Ids refer to the items below. */
+  areas: {
+    bourgogne: { near: ['hassan2', 'elhank', 'cabestan', 'sunset-elhank', 'corniche', 'corniche-family', 'mosque-night'] },
+    'ain-diab': { near: [] },
+    'dar-bouazza': { near: [] }
+  },
+
+  /* The city's group of buttons on the home screen. 'wide' buttons take a full row. */
+  group: {
+    title: { fr: 'Que souhaitez-vous faire aujourd’hui ?', en: 'What would you like to do today?', ar: 'ماذا تودّ أن تفعل اليوم؟', es: '¿Qué te apetece hacer hoy?' },
+    items: ['visit', 'restaurants', 'cafes', 'nightlife', 'shopping', 'beaches', 'family', 'experiences', 'transport', 'itineraries'],
+    wide: ['visit', 'itineraries']
+  },
 
   sections: {
-
-    /* ------------------------------------------------------------------ */
-    /* The apartment pages read their content from content/apartment.js */
-    wifi: {
-      icon: 'wifi', tint: '#2C5A6B', type: 'wifi',
-      title: { fr: 'Wi-Fi', en: 'Wi-Fi', ar: 'واي فاي', es: 'Wi-Fi' }
-    },
-    stay: {
-      icon: 'key', tint: '#8A6A3A', type: 'stay',
-      title: { fr: 'Arrivée & départ', en: 'Check-in & out', ar: 'الوصول والمغادرة', es: 'Llegada y salida' }
-    },
-    house: {
-      icon: 'house', tint: '#4F6650', type: 'house',
-      title: { fr: 'Mode d’emploi', en: 'How it works', ar: 'دليل الاستعمال', es: 'Cómo funciona' }
-    },
-    nearby: {
-      icon: 'walk', tint: '#8C553C', type: 'nearby',
-      title: { fr: 'Autour de vous', en: 'Around you', ar: 'حولك', es: 'A tu alrededor' }
-    },
-    services: {
-      icon: 'sparkle', tint: '#5E4A6E', type: 'services',
-      title: { fr: 'Services', en: 'Services', ar: 'خدمات', es: 'Servicios' }
-    },
 
     /* ------------------------------------------------------------------ */
     visit: {
@@ -72,10 +58,10 @@ CASA.city = {
       type: 'places',
       title: { fr: 'À visiter', en: 'Places to visit', ar: 'أماكن للزيارة', es: 'Qué visitar' },
       intro: {
-        fr: 'Huit lieux pour comprendre Casablanca, de l’océan à l’Art déco. Plusieurs sont à quelques minutes à pied de Bourgogne.',
-        en: 'Eight places to understand Casablanca, from the ocean to Art Deco. Several are a short walk from Bourgogne.',
-        ar: 'ثمانية أماكن لفهم الدار البيضاء، من المحيط إلى فن الآرت ديكو. بعضها على بُعد دقائق مشياً من حي بورغون.',
-        es: 'Ocho lugares para entender Casablanca, del océano al art déco. Varios están a pocos minutos a pie de Bourgogne.'
+        fr: 'Huit lieux pour comprendre Casablanca, de l’océan à l’Art déco.',
+        en: 'Eight places to understand Casablanca, from the ocean to Art Deco.',
+        ar: 'ثمانية أماكن لفهم الدار البيضاء، من المحيط إلى فن الآرت ديكو.',
+        es: 'Ocho lugares para entender Casablanca, del océano al art déco.'
       },
       items: [
         {
@@ -96,7 +82,7 @@ CASA.city = {
             ar: 'تدوم الزيارة نحو 45 دقيقة وتُنظَّم عدة مرات يومياً (أقل يوم الجمعة). يُرجى ستر الكتفين والركبتين، وتُخلع الأحذية عند المدخل.',
             es: 'Las visitas duran unos 45 minutos y hay varias al día (menos los viernes). Hombros y rodillas cubiertos; los zapatos se quitan en la entrada.'
           },
-          duration: 90, price: 130, near: true,
+          duration: 90, price: 130,
           maps: 'Mosquée Hassan II, Casablanca'
         },
         {
@@ -117,7 +103,7 @@ CASA.city = {
             ar: 'تعال قبل الغروب بنصف ساعة، ثم واصل المشي على طول الكورنيش.',
             es: 'Llega 30 minutos antes del atardecer y sigue a pie por la Corniche.'
           },
-          duration: 30, price: 0, near: true, sunset: true,
+          duration: 30, price: 0, sunset: true,
           maps: 'Phare d\'El Hank, Casablanca'
         },
         {
@@ -331,7 +317,7 @@ CASA.city = {
             ar: 'مزدحم جداً في نهاية الأسبوع: احجز واطلب طاولة مطلّة على البحر.',
             es: 'Muy solicitado el fin de semana: reserva y pide una mesa junto al mar.'
           },
-          budget: 3, near: true,
+          budget: 3,
           maps: 'Le Cabestan, Casablanca'
         },
         {
@@ -527,14 +513,15 @@ CASA.city = {
         {
           id: 'host-cafe',
           icon: 'cup',
+          areas: ['bourgogne'],
           short: { fr: 'Café du quartier, tout près', en: 'Local café, steps away', ar: 'مقهى الحيّ، على بُعد خطوات', es: 'Café de barrio, muy cerca' },
           kind: 'placeholder',
           name: { fr: 'Le café de {host} à Bourgogne', en: '{host}’s café in Bourgogne', ar: 'مقهى {host} في بورغون', es: 'El café de {host} en Bourgogne' },
           desc: {
-            fr: 'Le café du quartier où votre hôte prend le sien, à quelques pas de l’appartement.',
-            en: 'The neighbourhood café where your host has their own coffee, steps from the apartment.',
-            ar: 'مقهى الحي الذي يرتاده مضيفك، على بُعد خطوات من الشقة.',
-            es: 'El café del barrio donde tu anfitrión toma el suyo, a pocos pasos del apartamento.'
+            fr: 'Le café du quartier où votre hôte prend le sien, à quelques pas de chez vous.',
+            en: 'The neighbourhood café where your host has their own coffee, steps from your door.',
+            ar: 'مقهى الحي الذي يرتاده مضيفك، على بُعد خطوات من مسكنك.',
+            es: 'El café del barrio donde tu anfitrión toma el suyo, a pocos pasos de tu alojamiento.'
           }
         }
       ]
@@ -559,10 +546,10 @@ CASA.city = {
           name: { fr: 'Coucher de soleil à El Hank', en: 'Sunset at El Hank', ar: 'الغروب في العنق', es: 'Atardecer en El Hank' },
           area: { fr: 'El Hank', ar: 'العنق' },
           desc: {
-            fr: 'Le plus beau spectacle gratuit de la ville, à quelques minutes de l’appartement : le soleil plonge dans l’Atlantique derrière le phare.',
-            en: 'The best free show in town, minutes from the apartment: the sun sinks into the Atlantic behind the lighthouse.',
-            ar: 'أجمل عرض مجاني في المدينة على بُعد دقائق من الشقة: الشمس تغيب في الأطلسي خلف المنارة.',
-            es: 'El mejor espectáculo gratuito de la ciudad, a minutos del apartamento: el sol se hunde en el Atlántico tras el faro.'
+            fr: 'Le plus beau spectacle gratuit de la ville : le soleil plonge dans l’Atlantique derrière le phare.',
+            en: 'The best free show in town: the sun sinks into the Atlantic behind the lighthouse.',
+            ar: 'أجمل عرض مجاني في المدينة: الشمس تغيب في الأطلسي خلف المنارة.',
+            es: 'El mejor espectáculo gratuito de la ciudad: el sol se hunde en el Atlántico tras el faro.'
           },
           tip: {
             fr: 'Prolongez avec un verre ou un dîner au Cabestan, juste à côté.',
@@ -570,7 +557,7 @@ CASA.city = {
             ar: 'أكمل السهرة بمشروب أو عشاء في «لو كابيستان» المجاور.',
             es: 'Alárgalo con una copa o una cena en Le Cabestan, justo al lado.'
           },
-          duration: 60, price: 0, near: true, sunset: true,
+          duration: 60, price: 0, sunset: true,
           maps: 'Phare d\'El Hank, Casablanca'
         },
         {
@@ -586,10 +573,10 @@ CASA.city = {
             es: 'Restaurantes, lounges y cafés frente al océano, de El Hank a Aïn Diab. Aquí sale Casablanca, sobre todo en verano.'
           },
           tip: {
-            fr: 'Un petit taxi vous ramène facilement à l’appartement, même tard.',
-            en: 'A petit taxi will easily bring you back to the apartment, even late.',
-            ar: 'يعيدك طاكسي صغير إلى الشقة بسهولة، حتى في وقت متأخر.',
-            es: 'Un petit taxi te devuelve fácilmente al apartamento, incluso tarde.'
+            fr: 'Les petits taxis rouges circulent tard le long de la Corniche.',
+            en: 'Red petits taxis run late along the Corniche.',
+            ar: 'تجوب سيارات الطاكسي الصغير الحمراء الكورنيش حتى وقت متأخر.',
+            es: 'Los petits taxis rojos circulan hasta tarde por la Corniche.'
           },
           price: 0,
           maps: 'Corniche Aïn Diab, Casablanca'
@@ -778,7 +765,7 @@ CASA.city = {
             ar: 'نحو 5 كيلومترات من الممشى المطلّ على المحيط، من منارة العنق حتى عين الذئاب. للمشي أو الجري أو قهوة أمام الأمواج.',
             es: 'Unos 5 km de paseo frente al océano, del faro de El Hank a Aïn Diab. Para caminar, correr o tomar un café frente a las olas.'
           },
-          duration: 90, price: 0, near: true,
+          duration: 90, price: 0,
           maps: 'Corniche Aïn Diab, Casablanca'
         },
         {
@@ -849,12 +836,12 @@ CASA.city = {
           icon: 'surf',
           short: { fr: 'Plages sauvages et surf', en: 'Wilder beaches, surf spots', ar: 'شواطئ برّية وركوب الأمواج', es: 'Playas salvajes y surf' },
           name: { fr: 'Dar Bouazza', ar: 'دار بوعزة' },
-          area: { fr: 'Sud de Casablanca', en: 'South of Casablanca', ar: 'جنوب الدار البيضاء', es: 'Sur de Casablanca' },
+          area: { fr: 'Sud-ouest de Casablanca', en: 'South-west of Casablanca', ar: 'جنوب غرب الدار البيضاء', es: 'Suroeste de Casablanca' },
           desc: {
-            fr: 'À environ 30 minutes au sud, des plages plus sauvages et plus calmes, des spots de surf et des restaurants les pieds dans le sable.',
-            en: 'About 30 minutes south: wilder, quieter beaches, surf spots and restaurants right on the sand.',
-            ar: 'على بُعد نحو 30 دقيقة جنوباً: شواطئ أهدأ وأكثر طبيعية، وأماكن لركوب الأمواج ومطاعم على الرمال.',
-            es: 'A unos 30 minutos al sur: playas más salvajes y tranquilas, spots de surf y restaurantes sobre la arena.'
+            fr: 'Au sud-ouest de la ville, à 30–45 minutes en voiture (plus en été) : des plages plus sauvages et plus calmes, et des spots de surf.',
+            en: 'South-west of the city, 30–45 minutes by car (longer in summer): wilder, quieter beaches and surf spots.',
+            ar: 'جنوب غرب المدينة، على بُعد 30 إلى 45 دقيقة بالسيارة (أكثر في الصيف): شواطئ أهدأ وأكثر طبيعية، وأماكن لركوب الأمواج.',
+            es: 'Al suroeste de la ciudad, a 30–45 minutos en coche (más en verano): playas más salvajes y tranquilas, y spots de surf.'
           },
           tip: {
             fr: 'Y aller en voiture ou en taxi ; convenez d’un prix aller-retour avec le chauffeur.',
@@ -920,7 +907,7 @@ CASA.city = {
           icon: 'waves',
           short: { fr: 'Toboggans et piscine à vagues', en: 'Slides and a wave pool', ar: 'زلّاقات مائية ومسبح أمواج', es: 'Toboganes y piscina de olas' },
           name: { fr: 'Tamaris Aquaparc' },
-          area: { fr: 'Sud de Casablanca', en: 'South of Casablanca', ar: 'جنوب الدار البيضاء', es: 'Sur de Casablanca' },
+          area: { fr: 'Sud-ouest de Casablanca', en: 'South-west of Casablanca', ar: 'جنوب غرب الدار البيضاء', es: 'Suroeste de Casablanca' },
           desc: {
             fr: 'Le parc aquatique de Casablanca : toboggans, piscine à vagues, rivière lente et espace pour les tout-petits.',
             en: 'Casablanca’s water park: slides, a wave pool, a lazy river and a splash area for toddlers.',
@@ -963,7 +950,7 @@ CASA.city = {
             ar: 'ممشى واسع أمام البحر ومحلات مثلّجات وغروب الشمس: الختام المفضّل ليوم العائلات البيضاوية.',
             es: 'Un amplio paseo frente al mar, heladerías y la puesta de sol: el final de día favorito de las familias de Casablanca.'
           },
-          price: 0, near: true,
+          price: 0,
           maps: 'Corniche Aïn Diab, Casablanca'
         }
       ]
@@ -983,13 +970,14 @@ CASA.city = {
       items: [
         {
           id: 'door',
+          areas: ['bourgogne'],
           title: { fr: 'Depuis votre porte', en: 'From your door', ar: 'من باب شقتك', es: 'Desde tu puerta' },
           duration: { fr: '3 h · à pied', en: '3 h · on foot', ar: '3 ساعات · مشياً', es: '3 h · a pie' },
           intro: {
-            fr: 'Une fin de journée sans taxi : la mosquée, l’océan et le coucher du soleil, tout à pied depuis l’appartement.',
-            en: 'An evening without a taxi: the mosque, the ocean and the sunset, all on foot from the apartment.',
-            ar: 'نهاية يوم بلا طاكسي: المسجد والمحيط والغروب، كلها مشياً من الشقة.',
-            es: 'Una tarde sin taxi: la mezquita, el océano y la puesta de sol, todo a pie desde el apartamento.'
+            fr: 'Une fin de journée sans taxi : la mosquée, l’océan et le coucher du soleil, tout à pied depuis chez vous.',
+            en: 'An evening without a taxi: the mosque, the ocean and the sunset, all on foot from your door.',
+            ar: 'نهاية يوم بلا طاكسي: المسجد والمحيط والغروب، كلها مشياً من مسكنك.',
+            es: 'Una tarde sin taxi: la mezquita, el océano y la puesta de sol, todo a pie desde tu alojamiento.'
           },
           mode: 'walking', fromHome: true,
           stops: [
@@ -1146,10 +1134,7 @@ CASA.city = {
             en: 'Traffic is heavy at rush hour. On the street, attendants in vests watch the cars: give them a few dirhams when you leave.',
             ar: 'حركة السير كثيفة في أوقات الذروة. في الشارع، يحرس حرّاس بسترات السيارات، فاترك لهم بضعة دراهم عند المغادرة.',
             es: 'El tráfico es denso en horas punta. En la calle, vigilantes con chaleco cuidan los coches: déjales unos dírhams al irte.'
-          },
-          rows: [
-            { label: { fr: 'Stationnement de l’appartement', en: 'Apartment parking', ar: 'موقف الشقة', es: 'Aparcamiento del apartamento' }, value: 'TODO' }
-          ]
+          }
         }
       ]
     },
@@ -1190,14 +1175,14 @@ CASA.city = {
         {
           id: 'mosque-night',
           icon: 'moon',
-          short: { fr: 'Illuminée, tout près à pied', en: 'Lit up, a short walk', ar: 'مضاء، على بُعد دقائق مشياً', es: 'Iluminada, cerca a pie' },
+          short: { fr: 'Illuminée, face à l’océan', en: 'Lit up, over the ocean', ar: 'مضاء، أمام المحيط', es: 'Iluminada, frente al océano' },
           name: { fr: 'La mosquée Hassan II la nuit', en: 'Hassan II Mosque at night', ar: 'مسجد الحسن الثاني ليلاً', es: 'La mezquita Hassan II de noche' },
           area: { fr: 'Front de mer', en: 'Seafront', ar: 'الواجهة البحرية', es: 'Frente al mar' },
           desc: {
-            fr: 'Le soir, la mosquée s’illumine et l’esplanade devient une grande promenade face à l’océan. À quelques minutes à pied de l’appartement.',
-            en: 'In the evening the mosque is lit up and the esplanade becomes a wide promenade over the ocean. A few minutes’ walk from the apartment.',
-            ar: 'في المساء يُضاء المسجد وتتحوّل الساحة إلى ممشى واسع أمام المحيط. على بُعد دقائق مشياً من الشقة.',
-            es: 'Por la noche la mezquita se ilumina y la explanada se convierte en un gran paseo frente al océano. A pocos minutos a pie del apartamento.'
+            fr: 'Le soir, la mosquée s’illumine et l’esplanade devient une grande promenade face à l’océan.',
+            en: 'In the evening the mosque is lit up and the esplanade becomes a wide promenade over the ocean.',
+            ar: 'في المساء يُضاء المسجد وتتحوّل الساحة إلى ممشى واسع أمام المحيط.',
+            es: 'Por la noche la mezquita se ilumina y la explanada se convierte en un gran paseo frente al océano.'
           },
           tip: {
             fr: 'Tenue respectueuse : l’esplanade fait partie d’un lieu de prière.',
@@ -1205,7 +1190,7 @@ CASA.city = {
             ar: 'التزم بلباس محتشم، فالساحة جزء من مكان للصلاة.',
             es: 'Viste con respeto: la explanada forma parte de un lugar de oración.'
           },
-          duration: 60, price: 0, near: true,
+          duration: 60, price: 0,
           maps: 'Mosquée Hassan II, Casablanca'
         },
         {
@@ -1252,100 +1237,6 @@ CASA.city = {
             es: 'Medio día o un día completo con un guía local, en francés, inglés, árabe o español, a tu ritmo.'
           },
           request: { fr: 'un guide privé', en: 'a private guide', ar: 'مرشداً خاصاً', es: 'un guía privado' }
-        }
-      ]
-    },
-
-    /* ------------------------------------------------------------------ */
-    assistance: {
-      icon: 'buoy', tint: '#3D5560',
-      type: 'help',
-      title: { fr: 'Assistance', en: 'Help', ar: 'مساعدة', es: 'Asistencia' },
-      sub: { fr: 'Urgences · Santé · Infos', en: 'Emergency · Health · Tips', ar: 'طوارئ · صحة · معلومات', es: 'Urgencias · Salud · Consejos' },
-      intro: {
-        fr: 'Les numéros et réflexes utiles. Pour tout ce qui concerne l’appartement, écrivez à {host}.',
-        en: 'Useful numbers and tips. For anything about the apartment, message {host}.',
-        ar: 'أرقام ونصائح مفيدة. لكل ما يتعلّق بالشقة، راسل {host}.',
-        es: 'Números y consejos útiles. Para todo lo relacionado con el apartamento, escribe a {host}.'
-      },
-      blocks: [
-        {
-          title: { fr: '{host}, votre hôte', en: '{host}, your host', ar: '{host}، المضيف', es: '{host}, tu anfitrión' },
-          icon: 'chat',
-          key: { fr: 'WhatsApp, à tout moment', en: 'WhatsApp, any time', ar: 'واتساب، في أي وقت', es: 'WhatsApp, cuando quieras' },
-          body: {
-            fr: 'Une question sur l’appartement, un problème, une envie : écrivez-moi sur WhatsApp à tout moment.',
-            en: 'A question about the apartment, a problem, a wish: message me on WhatsApp at any time.',
-            ar: 'سؤال عن الشقة، مشكلة، أو رغبة: راسلني على واتساب في أي وقت.',
-            es: 'Una pregunta sobre el apartamento, un problema, un deseo: escríbeme por WhatsApp cuando quieras.'
-          },
-          action: 'whatsapp'
-        },
-        {
-          title: { fr: 'Urgences', en: 'Emergency', ar: 'الطوارئ', es: 'Urgencias' },
-          icon: 'phone',
-          key: { fr: '19 · 15 · 177', en: '19 · 15 · 177', ar: '19 · 15 · 177', es: '19 · 15 · 177' },
-          phones: [
-            { number: '19', label: { fr: 'Police', en: 'Police', ar: 'الشرطة', es: 'Policía' } },
-            { number: '15', label: { fr: 'Pompiers · Ambulance', en: 'Fire · Ambulance', ar: 'الوقاية المدنية · الإسعاف', es: 'Bomberos · Ambulancia' } },
-            { number: '177', label: { fr: 'Gendarmerie royale', en: 'Royal Gendarmerie', ar: 'الدرك الملكي', es: 'Gendarmería Real' } }
-          ]
-        },
-        {
-          title: { fr: 'Pharmacies et santé', en: 'Pharmacies and health', ar: 'الصيدليات والصحة', es: 'Farmacias y salud' },
-          icon: 'cross',
-          key: { fr: 'Croix verte = ouverte', en: 'Green cross = open', ar: 'الصليب الأخضر = مفتوحة', es: 'Cruz verde = abierta' },
-          list: [
-            { fr: 'Une croix verte allumée signale une pharmacie ouverte.', en: 'A lit green cross means the pharmacy is open.', ar: 'الصليب الأخضر المضاء يعني أن الصيدلية مفتوحة.', es: 'Una cruz verde encendida indica una farmacia abierta.' },
-            { fr: 'La nuit et le dimanche, chaque pharmacie affiche sur sa porte la pharmacie de garde la plus proche.', en: 'At night and on Sundays, every pharmacy posts the nearest on-duty pharmacy on its door.', ar: 'ليلاً ويوم الأحد، تعلّق كل صيدلية على بابها عنوان أقرب صيدلية حراسة.', es: 'Por la noche y los domingos, cada farmacia indica en su puerta la farmacia de guardia más cercana.' },
-            { fr: 'En cas de problème médical, appelez le 15 ou écrivez à {host}, qui vous indiquera la clinique la plus proche.', en: 'For a medical problem, call 15 or message {host}, who will point you to the nearest clinic.', ar: 'في حال مشكلة صحية، اتصل بالرقم 15 أو راسل {host} ليدلّك على أقرب مصحّة.', es: 'Ante un problema médico, llama al 15 o escribe a {host}, que te indicará la clínica más cercana.' }
-          ],
-          rows: [
-            { label: { fr: 'Pharmacie la plus proche', en: 'Nearest pharmacy', ar: 'أقرب صيدلية', es: 'Farmacia más cercana' }, value: 'TODO' }
-          ]
-        },
-        {
-          title: { fr: 'Argent et pourboires', en: 'Money and tipping', ar: 'المال والبقشيش', es: 'Dinero y propinas' },
-          icon: 'coins',
-          key: { fr: 'Espèces · pourboire ≈ 10 %', en: 'Cash · tip ≈ 10%', ar: 'نقداً · بقشيش ≈ 10٪', es: 'Efectivo · propina ≈ 10 %' },
-          list: [
-            { fr: 'La monnaie est le dirham (MAD). Gardez des espèces pour les taxis, les marchés et les petits cafés.', en: 'The currency is the dirham (MAD). Keep cash for taxis, markets and small cafés.', ar: 'العملة هي الدرهم. احتفظ بالنقود للطاكسي والأسواق والمقاهي الصغيرة.', es: 'La moneda es el dírham (MAD). Lleva efectivo para taxis, mercados y cafés pequeños.' },
-            { fr: 'Les distributeurs sont nombreux ; la carte est acceptée dans les malls, les hôtels et la plupart des restaurants.', en: 'Cash machines are everywhere; cards work in malls, hotels and most restaurants.', ar: 'الشبابيك الأوتوماتيكية منتشرة، والبطاقات مقبولة في المراكز التجارية والفنادق ومعظم المطاعم.', es: 'Hay cajeros por todas partes; la tarjeta se acepta en centros comerciales, hoteles y la mayoría de restaurantes.' },
-            { fr: 'Pourboire : environ 10 % au restaurant, quelques dirhams pour les petits services.', en: 'Tipping: about 10% in restaurants, a few dirhams for small services.', ar: 'البقشيش: نحو 10٪ في المطعم، وبضعة دراهم للخدمات الصغيرة.', es: 'Propina: alrededor del 10 % en restaurantes y unos dírhams por pequeños servicios.' }
-          ]
-        },
-        {
-          title: { fr: 'Bon à savoir', en: 'Good to know', ar: 'معلومات مفيدة', es: 'Conviene saber' },
-          icon: 'bulb',
-          key: { fr: 'Tenue couvrante : médina, mosquée', en: 'Cover up: medina, mosque', ar: 'لباس محتشم: المدينة والمسجد', es: 'Ropa discreta: medina, mezquita' },
-          list: [
-            { fr: 'Tenue couvrante pour la médina et la mosquée.', en: 'Wear covering clothes in the medina and at the mosque.', ar: 'البس ملابس محتشمة في المدينة القديمة والمسجد.', es: 'Ropa que cubra para la medina y la mezquita.' },
-            { fr: 'Demandez avant de photographier quelqu’un.', en: 'Ask before taking someone’s photo.', ar: 'استأذن قبل تصوير أي شخص.', es: 'Pregunta antes de fotografiar a alguien.' },
-            { fr: 'Le vendredi midi, beaucoup de commerces ferment le temps de la prière.', en: 'On Friday at midday, many shops close for prayer.', ar: 'يوم الجمعة ظهراً، تغلق محلات كثيرة وقت الصلاة.', es: 'El viernes a mediodía, muchas tiendas cierran durante la oración.' },
-            { fr: 'Pendant le Ramadan, les horaires des restaurants et des commerces changent.', en: 'During Ramadan, restaurant and shop hours change.', ar: 'في رمضان، تتغيّر أوقات المطاعم والمحلات.', es: 'Durante el Ramadán cambian los horarios de restaurantes y tiendas.' },
-            { fr: 'Préférez l’eau en bouteille.', en: 'Prefer bottled water.', ar: 'يُفضَّل شرب المياه المعبّأة.', es: 'Mejor agua embotellada.' }
-          ]
-        },
-        {
-          title: { fr: 'Quelques mots de darija', en: 'A few words of Darija', ar: 'كلمات من الدارجة', es: 'Algunas palabras de dariya' },
-          icon: 'star',
-          key: { fr: 'Salam · Choukran', en: 'Salam · Choukran', ar: 'سلام · شكراً', es: 'Salam · Choukran' },
-          body: {
-            fr: 'L’arabe marocain. Un mot en darija fait toujours sourire.',
-            en: 'Moroccan Arabic. A word of Darija always brings a smile.',
-            ar: 'العامية المغربية. كلمة بالدارجة ترسم دائماً ابتسامة.',
-            es: 'El árabe marroquí. Una palabra en dariya siempre saca una sonrisa.'
-          },
-          phrases: [
-            { latin: 'Salam', ar: 'سلام', meaning: { fr: 'Bonjour', en: 'Hello', ar: 'مرحباً', es: 'Hola' } },
-            { latin: 'Choukran', ar: 'شكراً', meaning: { fr: 'Merci', en: 'Thank you', ar: 'شكراً', es: 'Gracias' } },
-            { latin: 'La, choukran', ar: 'لا، شكراً', meaning: { fr: 'Non merci', en: 'No, thank you', ar: 'لا، شكراً', es: 'No, gracias' } },
-            { latin: 'Bchhal ?', ar: 'بشحال؟', meaning: { fr: 'Combien ?', en: 'How much?', ar: 'كم الثمن؟', es: '¿Cuánto?' } },
-            { latin: 'Mzyan', ar: 'مزيان', meaning: { fr: 'C’est bien, c’est bon', en: 'Good, nice', ar: 'جيّد', es: 'Bien, bueno' } },
-            { latin: 'Safi', ar: 'صافي', meaning: { fr: 'D’accord, ça suffit', en: 'OK, that’s enough', ar: 'حسناً، يكفي', es: 'Vale, es suficiente' } },
-            { latin: 'Smeh liya', ar: 'سمح ليا', meaning: { fr: 'Pardon, excusez-moi', en: 'Sorry, excuse me', ar: 'عذراً', es: 'Perdón, disculpe' } },
-            { latin: 'Bslama', ar: 'بسلامة', meaning: { fr: 'Au revoir', en: 'Goodbye', ar: 'مع السلامة', es: 'Adiós' } }
-          ]
         }
       ]
     }

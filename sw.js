@@ -1,14 +1,15 @@
 /*
- * Casa, côté vous — offline mode.
- * Once a guest has opened the guide (on the apartment Wi-Fi, for example),
+ * Atlas Stays — offline mode.
+ * Once a guest has opened their guide (on the place's Wi-Fi, for example),
  * it keeps working without mobile data. The film itself is not stored:
  * offline, its still frame shows instead.
  *
  * Content is fetched fresh whenever there is a connection, so edits to
- * content/*.js reach guests straight away. Change VERSION after renaming
- * or removing files.
+ * content/ reach guests straight away. A place's own files (its city, its
+ * page) are stored the first time it is opened. Change VERSION, and this
+ * list, after renaming or removing files: a missing file stops the update.
  */
-var VERSION = 'casa-v3';
+var VERSION = 'atlas-v1';
 var CORE = [
   './',
   'index.html',
@@ -19,8 +20,8 @@ var CORE = [
   'assets/img/icon.svg',
   'assets/img/icon-192.png',
   'content/ui.js',
-  'content/city.js',
-  'content/apartment.js'
+  'content/brand.js',
+  'content/morocco.js'
 ];
 var FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
@@ -36,7 +37,7 @@ self.addEventListener('activate', function (event) {
   event.waitUntil(
     caches.keys()
       .then(function (keys) {
-        return Promise.all(keys.filter(function (k) { return k.indexOf('casa-') === 0 && k !== VERSION; })
+        return Promise.all(keys.filter(function (k) { return (k.indexOf('casa-') === 0 || k.indexOf('atlas-') === 0) && k !== VERSION; })
           .map(function (k) { return caches.delete(k); }));
       })
       .then(function () { return self.clients.claim(); })

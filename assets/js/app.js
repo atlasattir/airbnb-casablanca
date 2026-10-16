@@ -1,17 +1,32 @@
 /*
- * Casa, côté vous — guest guide.
- * Plain JavaScript, no build step: content comes from content/*.js.
+ * Atlas Stays — guest guide.
+ * Plain JavaScript, no build step.
+ *
+ * Two modes on the same page:
+ *   home  (./)            the brand, the choice of a city and of a place
+ *   stay  (./?stay=<id>)  one place's guide; loads content/morocco.js,
+ *                         content/cities/<city>.js and content/stays/<id>.js
+ * Each place also has a short link, ./<id>/, that forwards to ./?stay=<id>.
  */
 (function () {
   'use strict';
 
   var C = window.CASA || {};
-  var APT = C.apartment || {};
-  var CITY = C.city || {};
-  var SECTIONS = CITY.sections || {};
-  var GROUPS = CITY.groups || [];
+  var BRAND = C.brand || {};
   var UI = C.ui || {};
   var ICONS = C.icons || {};
+  var STAYS = BRAND.stays || [];
+  var CITIES = BRAND.cities || [];
+
+  // Filled once a place is chosen (bootStay)
+  var STAY = null;     // the place's line in content/brand.js
+  var APT = {};        // the place's content, merged with the brand defaults
+  var CITY = {};       // the city file
+  var NEAR = {};       // ids of the city's addresses within walking distance
+  var SECTIONS = {};
+  var GROUPS = [];
+  var INDEX = {};      // places by id, for favourites
+  var MODE = 'home';
 
   var root = document.documentElement;
   root.classList.remove('no-js');
@@ -19,6 +34,7 @@
 
   var LANGS = ['fr', 'en', 'ar', 'es'];
   var LOCALES = { fr: 'fr-FR', en: 'en-GB', ar: 'ar-MA', es: 'es-ES' };
+  var CITY_ICONS = { casablanca: 'minaret', marrakech: 'arch', martil: 'waves' };
   var SPECIAL = {
     location: { icon: 'pin', tint: '#1D4C49' },
     favorites: { icon: 'heart', tint: '#8E6E3A' }
@@ -32,11 +48,16 @@
     poster: byId('hero-poster'),
     topbar: byId('topbar'),
     clock: byId('clock'),
+    clockHome: byId('clock-home'),
+    clockCity: byId('clock-city'),
     sunset: byId('sunset-time'),
     coords: byId('coords'),
     cue: byId('scroll-cue'),
     menu: byId('menu'),
     groups: byId('groups'),
+    chips: byId('city-chips'),
+    resume: byId('resume'),
+    locate: byId('locate-btn'),
     sheet: byId('sheet'),
     scroll: byId('sheet-scroll'),
     bar: byId('sheet-bar'),
@@ -52,25 +73,45 @@
     toast: byId('toast')
   };
 
+  function query() {
+    var out = {};
+    (window.location.search || '').replace(/^\?/, '').split('&').forEach(function (pair) {
+      if (!pair) return;
+      var i = pair.indexOf('=');
+      var k = decodeURIComponent(i > -1 ? pair.slice(0, i) : pair);
+      out[k] = i > -1 ? decodeURIComponent(pair.slice(i + 1).replace(/\+/g, ' ')) : '';
+    });
+    return out;
+  }
+  var params = query();
+
   /* ---------- storage: optional, the guide works without it ---------- */
 
   function load(key) { try { return window.localStorage.getItem(key); } catch (e) { return null; } }
   function save(key, value) { try { window.localStorage.setItem(key, value); } catch (e) { /* private mode */ } }
-  function loadList(key) {
-    try { var v = JSON.parse(load(key) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; }
+  function loadJSON(key, fallback) {
+    try { var v = JSON.parse(load(key)); return v == null ? fallback : v; } catch (e) { return fallback; }
+  }
+  // Preferences saved by the first version of the guide (casa.*) are carried over once
+  function loadPref(key, old) {
+    var v = load(key);
+    if (v == null && old) { v = load(old); if (v != null) save(key, v); }
+    return v;
   }
 
   var state = {
     lang: initialLang(),
-    favs: loadList('casa.favs'),
-    done: loadList('casa.checkout'),
+    favs: [],
+    done: [],
     current: null,
     modal: null,
     openedHere: false,
     modalHere: false,
     lastFocus: null,
     stayTab: 'in',
-    howto: -1
+    howto: -1,
+    geo: null,       // distances after "Trouver mon logement"
+    locating: false
   };
 
   // The guest's own choice wins; otherwise the phone's main language if the
@@ -82,9 +123,23 @@
   }
 
   function initialLang() {
-    var saved = load('casa.lang');
+    var saved = loadPref('atlas.lang', 'casa.lang');
     return saved && LANGS.indexOf(saved) > -1 ? saved : deviceLang();
   }
+
+  /* ---------- the brand's places ---------- */
+
+  function stayById(id) { return STAYS.filter(function (s) { return s.id === id; })[0] || null; }
+  function cityById(id) { return CITIES.filter(function (c) { return c.id === id; })[0] || null; }
+  function staysIn(cityId) { return STAYS.filter(function (s) { return s.city === cityId; }); }
+  function areaName(s) { return tr((BRAND.areas || {})[s.area]) || ''; }
+  function cityName(id) { var c = cityById(id); return c ? tr(c.name) : ''; }
+  // "Aïn Diab · Casablanca", or only "Martil" when the area is the city
+  function placeLine(s) {
+    var a = areaName(s), c = cityName(s.city);
+    return a && a !== c ? a + ' · ' + c : c;
+  }
+  function host() { return APT.host || BRAND.host || {}; }
 
   /* ---------- text ---------- */
 
@@ -101,11 +156,15 @@
 
   function fill(s) {
     s = String(s)
-      .replace(/\{host\}/g, (APT.host && APT.host.name) || '')
+      .replace(/\{host\}/g, host().name || '')
+      .replace(/\{stay\}/g, STAY ? STAY.name : BRAND.name || '')
+      .replace(/\{city\}/g, STAY ? cityName(STAY.city) : '')
+      .replace(/\{area\}/g, STAY ? areaName(STAY) : '')
+      .replace(/\{airport\}/g, tr(CITY.airport))
       .replace(/\{checkin\}/g, (APT.checkin && APT.checkin.time) || '')
       .replace(/\{checkout\}/g, (APT.checkout && APT.checkout.time) || '');
     // French typography: keep « » and ; : ? ! attached to their words
-    if (state.lang === 'fr') s = s.replace(/« /g, '« ').replace(/ ([»;:?!])/g, ' $1');
+    if (state.lang === 'fr') s = s.replace(/« /g, '« ').replace(/ ([»;:?!])/g, ' $1');
     return s;
   }
 
@@ -159,9 +218,31 @@
     return deg + '°' + (m < 10 ? '0' : '') + m + '′ ' + (v >= 0 ? pos : neg);
   }
 
+  function fmtDistance(km) {
+    if (km < 1) return Math.max(10, Math.round(km * 100) * 10) + ' m';
+    var v = km < 10 ? (Math.round(km * 10) / 10).toString() : String(Math.round(km));
+    if (state.lang !== 'en') v = v.replace('.', ',');
+    return v + ' km';
+  }
+
+  // Morocco has been on UTC+0 all year since 20 September 2026. Phones whose
+  // time-zone data predate that change still add an hour to Africa/Casablanca:
+  // they get UTC instead, which is the same clock.
+  var TZ = (function () {
+    try {
+      var now = new Date();
+      if (now.getTime() < Date.UTC(2026, 8, 20, 1)) return 'Africa/Casablanca';
+      var parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Casablanca', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(now);
+      var get = function (t) { return +parts.filter(function (p) { return p.type === t; })[0].value; };
+      var local = (get('hour') % 24) * 60 + get('minute');
+      var utc = now.getUTCHours() * 60 + now.getUTCMinutes();
+      return local === utc ? 'Africa/Casablanca' : 'UTC';
+    } catch (e) { return 'Africa/Casablanca'; }
+  })();
+
   function fmtTime(date) {
     try {
-      return new Intl.DateTimeFormat(LOCALES[state.lang], { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Africa/Casablanca' }).format(date);
+      return new Intl.DateTimeFormat(LOCALES[state.lang], { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: TZ }).format(date);
     } catch (e) { return ''; }
   }
 
@@ -171,7 +252,7 @@
     return '<span class="budget" role="img" aria-label="' + esc(ui('budget') + ' ' + n + '/3') + '">' + s + '</span>';
   }
 
-  /* ---------- today's sunset over Casablanca (standard solar formulas) ---------- */
+  /* ---------- today's sunset over the place (standard solar formulas) ---------- */
 
   function sunsetOn(date, lat, lng) {
     var rad = Math.PI / 180, dayMs = 86400000, J1970 = 2440588, J2000 = 2451545, J0 = 0.0009;
@@ -188,9 +269,16 @@
     return new Date((jset + 0.5 - J1970) * dayMs);
   }
 
-  function todaysSunset() {
+  function placePos() {
     var loc = APT.location || {};
-    return sunsetOn(new Date(), typeof loc.lat === 'number' ? loc.lat : 33.59, typeof loc.lng === 'number' ? loc.lng : -7.62);
+    if (typeof loc.lat === 'number' && typeof loc.lng === 'number') return { lat: loc.lat, lng: loc.lng };
+    var c = STAY ? cityById(STAY.city) : null;
+    return c ? { lat: c.lat, lng: c.lng } : { lat: 33.59, lng: -7.62 };
+  }
+
+  function todaysSunset() {
+    var p = placePos();
+    return sunsetOn(new Date(), p.lat, p.lng);
   }
 
   function stopTime(st) {
@@ -200,9 +288,18 @@
     return fmtTime(new Date(Math.round(t / step) * step));
   }
 
+  function distanceKm(a, b) {
+    var rad = Math.PI / 180;
+    var dLat = (b.lat - a.lat) * rad, dLng = (b.lng - a.lng) * rad;
+    var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return 12742 * Math.asin(Math.min(1, Math.sqrt(h)));
+  }
+
   /* ---------- links ---------- */
 
-  function aptQuery() { return (APT.location && APT.location.mapsQuery) || 'Bourgogne, Casablanca'; }
+  function aptQuery() {
+    return (APT.location && APT.location.mapsQuery) || (STAY ? areaName(STAY) + ', ' + cityName(STAY.city) : '');
+  }
   function aptLink() { return (APT.location && APT.location.mapsUrl) || mapsSearch(aptQuery()); }
   function mapsSearch(q) { return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q); }
   function mapsDir(q, mode) {
@@ -220,23 +317,19 @@
   }
 
   function waLink(message) {
-    var number = String((APT.host && APT.host.whatsapp) || '').replace(/\D/g, '');
+    var number = String(host().whatsapp || '').replace(/\D/g, '');
     return 'https://wa.me/' + number + '?text=' + encodeURIComponent(message);
   }
 
+  function waHello() { return MODE === 'stay' ? ui('waHello') : ui('waHelloHome'); }
   function requestLink(what) { return waLink(ui('waRequest') + fill(tr(what))); }
   function ext(href) { return ' href="' + esc(href) + '" target="_blank" rel="noopener"'; }
+  function stayHref(s) { return './?stay=' + encodeURIComponent(s.id); }
 
-  /* ---------- index of places, for favourites ---------- */
+  /* ---------- favourites (kept per city) ---------- */
 
-  var INDEX = {};
-  Object.keys(SECTIONS).forEach(function (sid) {
-    if (SECTIONS[sid].type !== 'places') return;
-    (SECTIONS[sid].items || []).forEach(function (it) {
-      if (it.id && !it.kind) INDEX[it.id] = { item: it, sid: sid };
-    });
-  });
-
+  function favKey() { return 'atlas.favs.' + (STAY ? STAY.city : ''); }
+  function isNear(it) { return !!NEAR[it.id]; }
   function isFav(id) { return state.favs.indexOf(id) > -1; }
 
   function favButton(id) {
@@ -244,7 +337,108 @@
     return '<button class="fav" type="button" data-fav="' + esc(id) + '" aria-pressed="' + on + '" aria-label="' + esc(ui(on ? 'removeFav' : 'addFav')) + '">' + icon('heart') + '</button>';
   }
 
-  /* ---------- home ---------- */
+  /* ---------- home: the brand and the choice of a place ---------- */
+
+  function factPills(s, max) {
+    return '<span class="facts">' + (s.facts || []).slice(0, max || 3).map(function (f) {
+      return '<span class="fact">' + icon(f.icon) + '<span>' + esc(tr(f.label)) + '</span></span>';
+    }).join('') + '</span>';
+  }
+
+  function stayCard(s, i, opts) {
+    opts = opts || {};
+    var km = state.geo ? state.geo.km[s.id] : null;
+    var near = state.geo && state.geo.best.indexOf(s.id) > -1;
+    var badge = km != null ? '<span class="vcard__badge" dir="ltr">' + esc(fmtDistance(km)) + '</span>' : '';
+    return '<article class="scard' + (opts.reveal ? ' reveal' : ' rise') + (near ? ' is-nearest' : '') + '"' + tintStyle(s.tint, i) + '>' +
+      '<a class="scard__link" href="' + esc(stayHref(s)) + '">' +
+        '<span class="art">' + (s.cover ? '<img src="' + esc(s.cover) + '" alt="" loading="lazy">' : icon(s.icon || 'house')) + badge + '</span>' +
+        '<span class="scard__body">' + (near ? '<span class="scard__near">' + icon('locate') + esc(ui('nearest')) + '</span>' : '') +
+          '<span class="scard__name" dir="ltr">' + esc(s.name) + '</span>' +
+          '<span class="scard__place">' + esc(placeLine(s)) + '</span>' + factPills(s, 3) + '</span>' +
+        '<span class="scard__go" aria-hidden="true">' + icon('go', 'flip-rtl') + '</span></a></article>';
+  }
+
+  function sortedStays(list) {
+    if (!state.geo) return list;
+    return list.slice().sort(function (a, b) { return state.geo.km[a.id] - state.geo.km[b.id]; });
+  }
+
+  function renderHome() {
+    // Chips: one per city, with its number of places
+    els.chips.innerHTML = CITIES.map(function (c) {
+      return '<a class="city-chip" href="#' + esc(c.id) + '" data-open="' + esc(c.id) + '">' + esc(tr(c.name)) + '</a>';
+    }).join('');
+    byId('home-kicker').textContent = CITIES.map(function (c) { return tr(c.name); }).join(' · ');
+
+    // Back to the last place opened on this phone
+    var last = loadJSON('atlas.stay', null);
+    var lastStay = last && last.id ? stayById(last.id) : null;
+    if (lastStay) {
+      els.resume.hidden = false;
+      els.resume.href = stayHref(lastStay);
+      els.resume.innerHTML = '<span>' + esc(ui('resume')) + '</span><b dir="ltr">' + esc(lastStay.name) + '</b>' + icon('go', 'flip-rtl');
+    } else {
+      els.resume.hidden = true;
+    }
+    els.locate.innerHTML = icon('locate') + '<span>' + esc(ui(state.locating ? 'locating' : 'locateMe')) + '</span>';
+
+    // Below the first screen: every place, by city
+    var seen = !!els.groups.querySelector('.reveal.is-in');
+    var rv = ' reveal' + (seen ? ' is-in' : '');
+    els.groups.innerHTML = '<section class="group group--places" aria-labelledby="group-places">' +
+      '<header class="group__head' + rv + '"><p class="eyebrow">' + esc(ui('ourPlaces')) + '</p>' +
+      '<h2 class="group__title" id="group-places">' + esc(ui('ourPlacesTitle')) + '</h2></header>' +
+      CITIES.map(function (c) {
+        var list = sortedStays(staysIn(c.id));
+        if (!list.length) return '';
+        return '<div class="city-block">' +
+          '<h3 class="city-block__title' + rv + '"' + tintStyle(c.tint) + '><span class="icircle">' + icon(CITY_ICONS[c.id] || 'pin') + '</span><span>' + esc(tr(c.name)) + '</span>' +
+          '<span class="city-block__n">' + list.length + ' ' + esc(ui(list.length > 1 ? 'stayMany' : 'stayOne')) + '</span></h3>' +
+          '<div class="scards">' + list.map(function (s, i) { return stayCard(s, i, { reveal: true }); }).join('') + '</div></div>';
+      }).join('') + '</section>';
+    if (seen) els.groups.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+    watch(els.groups);
+  }
+
+  function viewCity(meta, id) {
+    var list = sortedStays(staysIn(id));
+    return '<div class="scards scards--sheet">' + list.map(function (s, i) { return stayCard(s, i + 1); }).join('') + '</div>';
+  }
+
+  /* "Trouver mon logement": the position stays on the phone; it only sorts the places */
+  function locate() {
+    if (!navigator.geolocation) { toast(ui('locateFail')); return; }
+    if (state.locating) return;
+    state.locating = true;
+    els.locate.setAttribute('aria-busy', 'true');
+    renderHome();
+    function stop() {
+      state.locating = false;
+      els.locate.removeAttribute('aria-busy');
+    }
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      stop();
+      var here = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      var km = {};
+      STAYS.forEach(function (s) { if (typeof s.lat === 'number') km[s.id] = distanceKm(here, s); });
+      var ids = Object.keys(km).sort(function (a, b) { return km[a] - km[b]; });
+      if (!ids.length || km[ids[0]] > 60) { renderHome(); toast(ui('locateFar')); return; }
+      // Places at the same spot (one building, or positions not set yet) are all "closest"
+      var best = ids.filter(function (id) { return km[id] - km[ids[0]] < 0.15; });
+      state.geo = { km: km, best: best };
+      renderHome();
+      var city = stayById(ids[0]).city;
+      state.openedHere = true;
+      if (window.location.hash === '#' + city) route(); else window.location.hash = city;
+    }, function (err) {
+      stop();
+      renderHome();
+      toast(ui(err && err.code === 1 ? 'locateDenied' : 'locateFail'));
+    }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 120000 });
+  }
+
+  /* ---------- a place's home ---------- */
 
   function tileData(id) {
     if (id === 'wifi') {
@@ -273,14 +467,29 @@
           '<span class="tile__text"><span class="tile__label">' + esc(tr(s.title)) + '</span>' +
           (data ? '<span class="tile__data">' + data + '</span>' : '') + '</span></a>';
       }).join('');
-      var host = g.id === 'home' && APT.welcome ?
-        '<p class="host-line"><span class="avatar" aria-hidden="true">' + esc((APT.host.name || '?').charAt(0)) + '</span><span>' + txt(APT.welcome) + '</span></p>' : '';
+      var hostLine = g.id === 'home' && APT.welcome ?
+        '<p class="host-line"><span class="avatar" aria-hidden="true">' + esc((host().name || '?').charAt(0)) + '</span><span>' + txt(APT.welcome) + '</span></p>' : '';
       return '<section class="group group--' + g.id + '" aria-labelledby="group-' + g.id + '">' +
         '<header class="group__head' + rv + '"><p class="eyebrow">' + txt(g.kicker) + '</p>' +
-        '<h2 class="group__title" id="group-' + g.id + '">' + txt(g.title) + '</h2>' + host + '</header>' +
+        '<h2 class="group__title" id="group-' + g.id + '">' + txt(g.title) + '</h2>' + hostLine + '</header>' +
         '<nav class="btns btns--' + g.id + '" aria-labelledby="group-' + g.id + '">' + tiles + '</nav></section>';
     }).join('');
     watch(els.groups);
+  }
+
+  function renderStayHero() {
+    byId('stay-kicker').textContent = placeLine(STAY);
+    var words = String(STAY.name).split(' ');
+    var lines = STAY.title || (words.length > 1 ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [STAY.name, '']);
+    var title = byId('stay-title');
+    title.querySelector('.l1').textContent = lines[0];
+    title.querySelector('.l2').textContent = lines[1] || '';
+    // Long names get a smaller title so they stay on one line each
+    title.style.setProperty('--tc', Math.max(lines[0].length, (lines[1] || '').length + 1, 5));
+    byId('stay-tagline').textContent = ui('tagline');
+    var p = placePos();
+    els.coords.textContent = fmtCoord(p.lat, 'N', 'S') + ' · ' + fmtCoord(p.lng, 'E', 'W');
+    els.clockCity.textContent = cityName(STAY.city);
   }
 
   function applyLang() {
@@ -289,12 +498,12 @@
     document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = ui(el.getAttribute('data-i18n')); });
     document.querySelectorAll('[data-i18n-label]').forEach(function (el) { el.setAttribute('aria-label', ui(el.getAttribute('data-i18n-label'))); });
     document.querySelectorAll('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === state.lang)); });
-    document.querySelectorAll('[data-host]').forEach(function (el) { el.textContent = APT.host.name; });
-    els.wa.href = waLink(ui('waHello'));
+    document.querySelectorAll('[data-host]').forEach(function (el) { el.textContent = host().name || ''; });
+    els.wa.href = waLink(waHello());
     updateThemeButton();
-    renderGroups();
+    if (MODE === 'stay') { renderStayHero(); renderGroups(); updateFavCount(); }
+    else renderHome();
     updateClock();
-    updateFavCount();
     if (state.current) renderSheet(state.current, true);
     if (state.modal) renderModal(state.modal);
   }
@@ -302,7 +511,7 @@
   function setLang(lang) {
     if (LANGS.indexOf(lang) === -1 || lang === state.lang) return;
     state.lang = lang;
-    save('casa.lang', lang);
+    save('atlas.lang', lang);
     applyLang();
   }
 
@@ -328,11 +537,11 @@
 
   function setTheme(theme) {
     root.setAttribute('data-theme', theme);
-    save('casa.theme', theme);
+    save('atlas.theme', theme);
     updateThemeButton();
   }
 
-  var savedTheme = load('casa.theme');
+  var savedTheme = loadPref('atlas.theme', 'casa.theme');
   if (savedTheme === 'light' || savedTheme === 'dark') root.setAttribute('data-theme', savedTheme);
   if (darkQuery) {
     var onSystemTheme = function () { updateThemeButton(); };
@@ -341,8 +550,10 @@
   }
 
   function updateClock() {
-    els.clock.textContent = fmtTime(new Date());
-    if (els.sunset) els.sunset.textContent = fmtTime(todaysSunset());
+    var now = fmtTime(new Date());
+    if (els.clock) els.clock.textContent = now;
+    if (els.clockHome) els.clockHome.textContent = now;
+    if (els.sunset && MODE === 'stay') els.sunset.textContent = fmtTime(todaysSunset());
   }
 
   function updateFavCount() {
@@ -386,21 +597,23 @@
   function reducedMotion() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
 
   function playVideo() {
-    if (!els.video || reducedMotion()) return;
+    if (!els.video || !els.video.currentSrc || reducedMotion()) return;
     var p = els.video.play();
-    if (p && p.catch) p.catch(function () { /* autoplay refused: the drawn scene stays */ });
+    if (p && p.catch) p.catch(function () { /* autoplay refused: the still stays */ });
   }
   function pauseVideo() { if (els.video && !els.video.paused) els.video.pause(); }
   function resumeVideo() { if (els.stage.classList.contains('has-video')) playVideo(); }
 
-  function initVideo() {
-    var v = els.video, hero = APT.hero || {};
-    if (!v) return;
+  // film: { video, videoPortrait, credit } or null; scene: the drawing underneath
+  function initVideo(film, scene) {
+    els.stage.setAttribute('data-scene', scene || 'atlantic');
+    var v = els.video;
+    if (!v || !film) return;
     // Phones held upright get the vertical cut, anything wider the landscape one
-    var cut = (window.innerHeight > window.innerWidth && hero.videoPortrait) || hero.video;
+    var cut = (window.innerHeight > window.innerWidth && film.videoPortrait) || film.video;
     if (!cut) return;
     if (typeof cut === 'string') cut = { mp4: cut };
-    var credit = hero.credit, creditEl = byId('film-credit');
+    var credit = film.credit, creditEl = byId('film-credit');
     if (credit && credit.name && creditEl) {
       var link = byId('film-credit-link');
       link.textContent = credit.name;
@@ -437,7 +650,11 @@
 
   /* ---------- sheet ---------- */
 
-  function sectionMeta(id) { return SECTIONS[id] || SPECIAL[id]; }
+  function sectionMeta(id) {
+    var m = SECTIONS[id] || SPECIAL[id];
+    // The home screen only opens city pages; the rest needs a place
+    return MODE === 'home' && (!m || m.type !== 'city') ? null : m;
+  }
 
   function openSheet(id) {
     var wasOpen = !!state.current;
@@ -495,6 +712,7 @@
       return;
     }
     if (state.current !== h.sid) openSheet(h.sid);
+    else if (sectionMeta(h.sid).type === 'city') renderSheet(h.sid, true); // re-sorted by distance
     if (h.iid) openModal(h.sid + '.' + h.iid);
     else closeModal();
   }
@@ -503,11 +721,17 @@
     var top = els.scroll.scrollTop;
     var meta = sectionMeta(id);
     var title, kicker, html, extra = '';
-    if (id === 'location') { title = ui('locationTitle'); kicker = tr(APT.name); html = viewLocation(); }
-    else if (id === 'favorites') { title = ui('favsTitle'); kicker = 'Casa, côté vous'; html = viewFavorites(); }
+    if (meta.type === 'city') {
+      var n = staysIn(id).length;
+      title = cityName(id);
+      kicker = n + ' ' + ui(n > 1 ? 'stayMany' : 'stayOne');
+      html = viewCity(meta, id);
+    }
+    else if (id === 'location') { title = ui('locationTitle'); kicker = STAY.name; html = viewLocation(); }
+    else if (id === 'favorites') { title = ui('favsTitle'); kicker = cityName(STAY.city); html = viewFavorites(); }
     else {
       title = tr(meta.title);
-      kicker = ['wifi', 'stay', 'house', 'nearby', 'services', 'assistance'].indexOf(id) > -1 ? tr(APT.name) : ui('cityKicker');
+      kicker = (BRAND.stayGroup || []).indexOf(id) > -1 ? STAY.name : cityName(STAY.city);
       var view = VIEWS[meta.type] || viewPlaces;
       html = view(meta, id);
       if (meta.type === 'routes') extra = '<div class="band__meta"><span class="pill">' + icon('sun') + '<span>' + esc(ui('sunsetToday')) + ' ' + esc(fmtTime(todaysSunset())) + '</span></span></div>';
@@ -542,7 +766,7 @@
         '<span class="art">' + icon('star') + '</span>' +
         '<span class="vcard__body"><span class="vcard__name">' + txt(it.name) + '</span>' + todoBadge() + '</span></div></article>';
     }
-    var badge = it.near ? '<span class="vcard__badge">' + icon('walk') + esc(ui('onFoot')) + '</span>' :
+    var badge = isNear(it) ? '<span class="vcard__badge">' + icon('walk') + esc(ui('onFoot')) + '</span>' :
       it.kind === 'request' ? '<span class="vcard__badge">' + icon('chat') + esc(ui('onRequest')) + '</span>' : '';
     return '<article class="vcard' + (it.kind === 'note' ? ' vcard--note' : '') + ' rise" data-tags="' + esc((it.tags || []).join(' ')) + '"' + tintStyle(s.tint, i) + '>' +
       '<a class="vcard__link" href="' + href + '" data-open-detail>' +
@@ -569,7 +793,7 @@
     if (price) p.push('<span class="pill">' + icon('coins') + '<span>' + esc(price) + '</span></span>');
     if (it.budget) p.push('<span class="pill">' + icon('coins') + budgetMarks(it.budget) + '</span>');
     if (it.sunset) p.push('<span class="pill">' + icon('sunset') + '<span>' + esc(fmtTime(todaysSunset())) + '</span></span>');
-    if (it.near) p.push('<span class="pill pill--near">' + icon('walk') + '<span>' + esc(ui('nearHome')) + '</span></span>');
+    if (isNear(it)) p.push('<span class="pill pill--near">' + icon('walk') + '<span>' + esc(ui('nearHome')) + '</span></span>');
     return p.length ? '<div class="pills">' + p.join('') + '</div>' : '';
   }
 
@@ -585,7 +809,7 @@
         }).join('') + '</ul></div>';
     }
     var actions = '';
-    if (it.maps) actions += '<a class="btn btn--go"' + ext(mapsDir(it.maps, it.near ? 'walking' : '')) + '>' + icon('nav') + '<span>' + esc(ui('go')) + '</span></a>';
+    if (it.maps) actions += '<a class="btn btn--go"' + ext(mapsDir(it.maps, isNear(it) ? 'walking' : '')) + '>' + icon('nav') + '<span>' + esc(ui('go')) + '</span></a>';
     if (it.request) actions += '<a class="btn btn--go"' + ext(requestLink(it.request)) + '>' + icon('chat') + '<span>' + esc(ui('askHost')) + '</span></a>';
     if (!it.kind) actions += favButton(it.id);
     return '<div class="art d-art">' + art(it, s.icon) + '</div><div class="d-body">' +
@@ -672,9 +896,9 @@
     var out = '', tiles = [];
     s.blocks.forEach(function (b, i) {
       if (b.action === 'whatsapp') {
-        out += '<section class="hostcard rise"' + tintStyle(s.tint, 0) + '><div class="hostcard__who"><span class="avatar" aria-hidden="true">' + esc((APT.host.name || '?').charAt(0)) + '</span>' +
-          '<div><div class="hostcard__name">' + esc(APT.host.name) + '</div><div class="hostcard__role">' + esc(ui('yourHost')) + '</div></div></div>' +
-          '<a class="btn btn--wide"' + ext(waLink(ui('waHello'))) + '>' + icon('chat') + '<span>WhatsApp</span></a></section>';
+        out += '<section class="hostcard rise"' + tintStyle(s.tint, 0) + '><div class="hostcard__who"><span class="avatar" aria-hidden="true">' + esc((host().name || '?').charAt(0)) + '</span>' +
+          '<div><div class="hostcard__name">' + esc(host().name) + '</div><div class="hostcard__role">' + esc(ui('yourHost')) + '</div></div></div>' +
+          '<a class="btn btn--wide"' + ext(waLink(waHello())) + '>' + icon('chat') + '<span>WhatsApp</span></a></section>';
       } else if (b.phones) {
         out += subhead(tr(b.title), 1) + '<div class="sos rise"' + d(1) + '>' + b.phones.map(function (p) {
           return '<a href="tel:' + esc(p.number) + '"><span class="sos__num">' + esc(p.number) + '</span><span class="sos__label">' + txt(p.label) + '</span></a>';
@@ -698,7 +922,7 @@
     return out;
   }
 
-  /* the apartment pages */
+  /* the place's own pages */
 
   function copyPill(value) {
     return '<button class="copy-pill" type="button" data-copy="' + esc(value) + '">' + icon('copy') + '<span>' + esc(ui('copy')) + '</span></button>';
@@ -753,8 +977,9 @@
     return '<div class="itiles">' + (APT.nearby || []).map(function (n, i) {
       var inner = '<span class="icircle">' + icon(n.icon || 'pin') + '</span><span><span class="itile__title">' + txt(n.label) + '</span>' +
         '<span class="itile__key">' + txt(n.name) + '</span></span>' +
-        (n.walk ? '<span class="near-tile__walk">' + icon('walk') + '<span>' + n.walk + ' min</span></span>' : '');
-      return n.maps ? '<a class="itile near-tile rise"' + d(i) + ext(mapsDir(n.maps, 'walking')) + '>' + inner + '</a>' :
+        (n.walk ? '<span class="near-tile__walk">' + icon('walk') + '<span>' + n.walk + ' min</span></span>' :
+          n.drive ? '<span class="near-tile__walk">' + icon('car') + '<span>' + n.drive + ' min</span></span>' : '');
+      return n.maps ? '<a class="itile near-tile rise"' + d(i) + ext(mapsDir(n.maps, n.drive ? 'driving' : 'walking')) + '>' + inner + '</a>' :
         '<div class="itile near-tile rise"' + d(i) + '>' + inner + '</div>';
     }).join('') + '</div>';
   }
@@ -812,8 +1037,9 @@
   function viewFavorites() {
     var items = state.favs.map(function (id) { return INDEX[id]; }).filter(Boolean);
     if (!items.length) {
+      var first = SECTIONS.visit ? 'visit' : (CITY.group && CITY.group.items || []).filter(function (id) { return SECTIONS[id] && SECTIONS[id].type === 'places'; })[0];
       return '<div class="empty rise"' + d(0) + '><span class="icircle">' + icon('heart') + '</span><p>' + esc(ui('favsEmpty')) + '</p>' +
-        '<a class="btn btn--go" href="#visit" data-open="visit">' + esc(ui('favsBrowse')) + '</a></div>';
+        (first ? '<a class="btn btn--go" href="#' + first + '" data-open="' + first + '">' + esc(first === 'visit' ? ui('favsBrowse') : tr(SECTIONS[first].title)) + '</a>' : '') + '</div>';
     }
     return '<div class="cards">' + items.map(function (x, i) { return card(x.item, x.sid, i); }).join('') + '</div>';
   }
@@ -926,7 +1152,7 @@
     var at = state.favs.indexOf(id);
     var on = at === -1;
     if (on) state.favs.push(id); else state.favs.splice(at, 1);
-    save('casa.favs', JSON.stringify(state.favs));
+    save(favKey(), JSON.stringify(state.favs));
     document.querySelectorAll('[data-fav="' + id + '"]').forEach(function (b) {
       b.setAttribute('aria-pressed', String(on));
       b.setAttribute('aria-label', ui(on ? 'removeFav' : 'addFav'));
@@ -935,10 +1161,12 @@
     toast(ui(on ? 'favAdded' : 'favRemoved'));
   }
 
+  // Departure ticks belong to one stay: they are forgotten after a week
+  function checkoutKey() { return 'atlas.checkout.' + STAY.id; }
   function toggleCheck(i) {
     var at = state.done.indexOf(i);
     if (at === -1) state.done.push(i); else state.done.splice(at, 1);
-    save('casa.checkout', JSON.stringify(state.done));
+    save(checkoutKey(), JSON.stringify({ t: Date.now(), done: state.done }));
     renderSheet(state.current, true);
   }
 
@@ -975,7 +1203,7 @@
     toastTimer = window.setTimeout(function () {
       els.toast.classList.remove('is-on');
       window.setTimeout(function () { if (token === toastToken) els.toast.hidden = true; }, 400);
-    }, 1800);
+    }, 2600);
   }
 
   /* ---------- events ---------- */
@@ -1001,6 +1229,7 @@
   });
 
   els.back.addEventListener('click', goBack);
+  if (els.locate) els.locate.addEventListener('click', locate);
 
   byId('theme-btn').addEventListener('click', function () {
     setTheme(currentTheme() === 'dark' ? 'light' : 'dark');
@@ -1008,7 +1237,7 @@
 
   // If the guest has not picked a language, follow a change of the phone's language
   window.addEventListener('languagechange', function () {
-    if (!load('casa.lang')) {
+    if (!load('atlas.lang')) {
       var l = deviceLang();
       if (l !== state.lang) { state.lang = l; applyLang(); }
     }
@@ -1044,15 +1273,125 @@
 
   /* ---------- start ---------- */
 
-  if (APT.location && typeof APT.location.lat === 'number') {
-    els.coords.textContent = fmtCoord(APT.location.lat, 'N', 'S') + ' · ' + fmtCoord(APT.location.lng, 'E', 'W');
+  function setMode(mode) {
+    MODE = mode;
+    root.classList.toggle('mode-home', mode === 'home');
+    root.classList.toggle('mode-stay', mode === 'stay');
   }
-  applyLang();
-  watch(document);
-  onScroll();
-  initVideo();
-  route();
-  window.setInterval(updateClock, 20000);
+
+  function isStandalone() {
+    try { return window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches; } catch (e) { return false; }
+  }
+
+  function loadScripts(list, done) {
+    var left = list.length, ok = true;
+    list.forEach(function (src) {
+      var s = document.createElement('script');
+      s.src = src;
+      s.async = false;
+      s.onload = function () { if (--left === 0) done(ok); };
+      s.onerror = function () { ok = false; if (--left === 0) done(ok); };
+      document.head.appendChild(s);
+    });
+  }
+
+  function finish() {
+    applyLang();
+    watch(document);
+    onScroll();
+    route();
+    window.setInterval(updateClock, 20000);
+  }
+
+  function bootHome(message) {
+    setMode('home');
+    document.title = BRAND.name || document.title;
+    SECTIONS = {};
+    CITIES.forEach(function (c) { SPECIAL[c.id] = { type: 'city', icon: CITY_ICONS[c.id] || 'pin', tint: c.tint }; });
+    // An icon on the home screen of the phone reopens the last place directly
+    var last = loadJSON('atlas.stay', null);
+    if (!message && isStandalone() && !('choose' in params) && last && stayById(last.id) && Date.now() - (last.t || 0) < 30 * 86400000) {
+      window.location.replace(stayHref(stayById(last.id)) + window.location.hash);
+      return;
+    }
+    initVideo(BRAND.film, 'atlantic');
+    finish();
+    if (message) toast(message);
+  }
+
+  function bootStay(st) {
+    setMode('stay');
+    STAY = st;
+    CITY = C.cities[st.city] || {};
+    var raw = C.stays[st.id] || {};
+    var def = BRAND.defaults || {};
+    // The place's file wins; anything it leaves out comes from the brand defaults
+    APT = {};
+    Object.keys(def).forEach(function (k) { APT[k] = def[k]; });
+    Object.keys(raw).forEach(function (k) { if (raw[k] != null) APT[k] = raw[k]; });
+    ['checkin', 'checkout'].forEach(function (k) {
+      APT[k] = { time: (raw[k] && raw[k].time) || def[k].time, steps: (raw[k] && raw[k].steps) || def[k].steps };
+    });
+    APT.name = st.name;
+
+    NEAR = {};
+    ((CITY.areas || {})[st.area] || { near: [] }).near.forEach(function (id) { NEAR[id] = true; });
+
+    // Sections: the place's own pages, the Moroccan help page, then the city's,
+    // without the items meant for other neighbourhoods
+    SECTIONS = {};
+    var own = BRAND.staySections || {};
+    Object.keys(own).forEach(function (k) { SECTIONS[k] = own[k]; });
+    var country = (C.country && C.country.sections) || {};
+    Object.keys(country).forEach(function (k) { SECTIONS[k] = country[k]; });
+    var cs = CITY.sections || {};
+    Object.keys(cs).forEach(function (k) {
+      var s = cs[k], copy = {};
+      Object.keys(s).forEach(function (f) { copy[f] = s[f]; });
+      if (s.items) copy.items = s.items.filter(function (it) { return !it.areas || it.areas.indexOf(st.area) > -1; });
+      SECTIONS[k] = copy;
+    });
+    Object.keys(SECTIONS).forEach(function (sid) {
+      if (SECTIONS[sid].type !== 'places') return;
+      (SECTIONS[sid].items || []).forEach(function (it) { if (it.id && !it.kind) INDEX[it.id] = { item: it, sid: sid }; });
+    });
+
+    GROUPS = [
+      { id: 'home', kicker: areaName(st) || cityName(st.city), title: { fr: '', en: '' }, items: BRAND.stayGroup || [] },
+      { id: 'city', kicker: (cityById(st.city) || {}).name, title: (CITY.group || {}).title, items: (CITY.group || {}).items || [], wide: (CITY.group || {}).wide || [] }
+    ];
+    GROUPS[0].title = st.kind === 'studio' ?
+      { fr: UI.fr.yourStudio, en: UI.en.yourStudio, ar: UI.ar.yourStudio, es: UI.es.yourStudio } :
+      { fr: UI.fr.yourApartment, en: UI.en.yourApartment, ar: UI.ar.yourApartment, es: UI.es.yourApartment };
+
+    // Favourites per city (the first version kept Casablanca's under casa.favs)
+    var favs = loadJSON(favKey(), null);
+    if (favs == null && st.city === 'casablanca') favs = loadJSON('casa.favs', null);
+    state.favs = Array.isArray(favs) ? favs : [];
+    var co = loadJSON(checkoutKey(), null);
+    state.done = co && co.done && Date.now() - (co.t || 0) < 7 * 86400000 ? co.done : [];
+
+    save('atlas.stay', JSON.stringify({ id: st.id, t: Date.now() }));
+    document.title = st.name + ' · ' + (BRAND.name || '');
+
+    var film = CITY.film === 'brand' ? BRAND.film : (CITY.film || null);
+    initVideo(film, CITY.scene || 'plain');
+    finish();
+  }
+
+  function start() {
+    var id = params.stay;
+    if (!id) { bootHome(); return; }
+    var st = stayById(id);
+    if (!st) { bootHome(ui('stayUnknown')); return; }
+    loadScripts(['content/morocco.js', 'content/cities/' + st.city + '.js', 'content/stays/' + st.id + '.js'], function (ok) {
+      C = window.CASA || C;
+      if (!ok || !C.stays || !C.stays[st.id] || !C.cities || !C.cities[st.city]) { bootHome(ui('stayOffline')); return; }
+      bootStay(st);
+    });
+  }
+
+  start();
 
   // Offline mode, on the published site (and localhost for testing)
   try {

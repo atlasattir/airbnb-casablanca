@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Casa, côté vous</title>
-  <meta name="description" content="Votre guide personnel de Casablanca, depuis l’appartement Bourgogne.">
+  <title>Atlas Stays</title>
+  <meta name="description" content="Votre guide personnel · Casablanca · Marrakech · Martil">
   <meta name="theme-color" content="#091215">
   <!-- Guest guide: keep it out of search engines -->
   <meta name="robots" content="noindex, nofollow">
@@ -12,20 +12,31 @@
   <link rel="apple-touch-icon" href="assets/img/icon-180.png">
   <!-- Link preview in WhatsApp, Airbnb messages, etc. Update the URLs if you use your own domain. -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Casa, côté vous">
-  <meta property="og:description" content="Votre guide personnel de Casablanca · Your personal Casablanca guide">
+  <meta property="og:title" content="Atlas Stays">
+  <meta property="og:description" content="Votre guide personnel · Your personal guide · Casablanca · Marrakech · Martil">
   <meta property="og:image" content="https://atlasattir.github.io/airbnb-casablanca/assets/img/share.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://atlasattir.github.io/airbnb-casablanca/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="apple-mobile-web-app-title" content="Casa">
-  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Atlas Stays">
+  <link rel="manifest" href="manifest.webmanifest" id="manifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200..600&family=Tajawal:wght@300;400;500;700&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
-  <script>try { var t = localStorage.getItem('casa.theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+  <script>
+    // Before the first paint: saved theme, home or place mode, and the place's own
+    // home-screen icon (each place folder has its manifest)
+    (function () {
+      var d = document.documentElement, q = window.location.search;
+      try { var t = localStorage.getItem('atlas.theme') || localStorage.getItem('casa.theme'); if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t); } catch (e) {}
+      var m = /[?&]stay=([a-z0-9-]+)/.exec(q);
+      d.className += m ? ' mode-stay' : ' mode-home';
+      if (/[?&]look=a(&|$)/.test(q)) d.className += ' look-a';
+      if (m) document.getElementById('manifest').setAttribute('href', m[1] + '/manifest.webmanifest');
+    })();
+  </script>
 </head>
 <body>
 
@@ -81,9 +92,9 @@
   </div>
 
   <header class="topbar" id="topbar">
-    <a class="brand" href="#top" aria-label="Casa, côté vous">
+    <a class="brand" href="#top" aria-label="Atlas Stays">
       <svg class="ico brand__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true" focusable="false"><rect x="6.75" y="6.75" width="10.5" height="10.5"/><rect x="6.75" y="6.75" width="10.5" height="10.5" transform="rotate(45 12 12)"/></svg>
-      <span class="brand__word" dir="ltr">Casa, côté vous</span>
+      <span class="brand__word" dir="ltr">Atlas Stays</span>
     </a>
     <div class="topbar__tools">
       <nav class="langs" data-i18n-label="languages" aria-label="Langue">
@@ -98,16 +109,30 @@
 
   <main>
     <section class="hero" id="top">
-      <div class="hero__inner">
-        <p class="eyebrow hero__kicker"><span data-i18n="kicker">Bourgogne · Casablanca</span></p>
-        <h1 class="hero__title">
-          <span class="l1" dir="ltr" lang="fr">Casa<span class="comma">,</span></span>
-          <span class="l2" dir="ltr" lang="fr">côté vous</span>
-        </h1>
-        <p class="hero__tagline" data-i18n="tagline">Votre guide personnel de Casablanca</p>
+      <!-- Home: the brand and the choice of a place -->
+      <div class="hero__inner hero__inner--home">
+        <p class="eyebrow hero__kicker"><span id="home-kicker">Casablanca · Marrakech · Martil</span></p>
+        <h1 class="hero__title wordmark" dir="ltr" lang="en"><span class="l1">Atlas</span> <span class="l2">Stays</span></h1>
+        <p class="hero__tagline" data-i18n="homeTagline">Votre guide personnel</p>
+        <div class="chooser">
+          <p class="chooser__label" id="chooser-label" data-i18n="chooseStay">Choisissez votre lieu de séjour</p>
+          <nav class="chooser__chips" id="city-chips" aria-labelledby="chooser-label"></nav>
+          <a class="resume" id="resume" href="./" hidden></a>
+          <button class="locate" id="locate-btn" type="button"></button>
+          <p class="locate__note" data-i18n="locateNote">Avec votre position, qui reste sur votre téléphone</p>
+        </div>
         <div class="hero__meta">
-          <span id="coords" dir="ltr">33°36′ N · 7°38′ W</span>
-          <span class="hero__times"><span class="clock" id="clock" dir="ltr">--:--</span> <span class="clock-city" data-i18n="localTime">Casablanca</span>
+          <span class="hero__times"><span class="clock" id="clock-home" dir="ltr">--:--</span> <span data-i18n="moroccoTime">Heure du Maroc</span></span>
+        </div>
+      </div>
+      <!-- A place: its name, neighbourhood, coordinates, local time and sunset -->
+      <div class="hero__inner hero__inner--stay">
+        <p class="eyebrow hero__kicker"><span id="stay-kicker"></span></p>
+        <h1 class="hero__title" id="stay-title" dir="ltr"><span class="l1"></span> <span class="l2"></span></h1>
+        <p class="hero__tagline" id="stay-tagline"></p>
+        <div class="hero__meta">
+          <span id="coords" dir="ltr"></span>
+          <span class="hero__times"><span class="clock" id="clock" dir="ltr">--:--</span> <span class="clock-city" id="clock-city"></span>
             <span class="sunset"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 16.5a5 5 0 0 1 10 0"/><path d="M12 7v2.25M5.4 9.9l1.6 1.6M18.6 9.9 17 11.5M3 16.5h2M19 16.5h2"/><path d="M3 20h18"/><path d="M9.5 3.75 12 5.75l2.5-2"/></svg><span id="sunset-time" dir="ltr" aria-label="Sunset"></span></span></span>
         </div>
       </div>
@@ -124,6 +149,7 @@
         <blockquote data-i18n="signQuote">Je reste disponible pendant tout votre séjour. Une question, une envie : écrivez-moi.</blockquote>
         <figcaption class="eyebrow"><b data-host>Yassine</b><span data-i18n="yourHost">votre hôte</span></figcaption>
       </figure>
+      <p class="change-stay"><a href="./?choose"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8h13l-3.5-3.5"/><path d="M20 16H7l3.5 3.5"/></svg><span data-i18n="changeStay">Changer de logement</span></a></p>
       <p class="credit eyebrow" id="film-credit" hidden><span data-i18n="filmBy">Film</span> <a id="film-credit-link" href="#" target="_blank" rel="noopener" dir="ltr"></a></p>
     </section>
   </main>
@@ -175,8 +201,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
   <script src="content/ui.js"></script>
-  <script src="content/city.js"></script>
-  <script src="content/apartment.js"></script>
+  <script src="content/brand.js"></script>
   <script src="assets/js/icons.js"></script>
   <script src="assets/js/app.js"></script>
 </body>

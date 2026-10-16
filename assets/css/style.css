@@ -1,5 +1,5 @@
 /* =====================================================================
-   Casa, côté vous — guest guide
+   Atlas Stays — guest guide
    ===================================================================== */
 
 :root {
@@ -180,7 +180,7 @@
 
 /* ---------- base ---------- */
 
-.no-js .hero__times, .no-js .theme-btn, .no-js .dock, .no-js .scroll-cue { display: none; }
+.no-js .hero__times, .no-js .theme-btn, .no-js .dock, .no-js .scroll-cue, .no-js .chooser { display: none; }
 
 .nojs-note {
   max-width: 1080px;
@@ -647,6 +647,140 @@ main { position: relative; z-index: 1; }
 .is-ready .scroll-cue span:last-child { animation: lift 1s var(--ease) 1.5s both; }
 .is-ready .dock { animation: lift 1s var(--ease) 1.7s both; }
 
+/* ---------- two modes: the brand's home, or one place ---------- */
+
+/* Without a mode (no JavaScript) the home shows */
+.hero__inner--stay, .change-stay { display: none; }
+.mode-stay .hero__inner--stay { display: block; }
+.mode-stay .hero__inner--home { display: none; }
+.mode-stay .change-stay { display: block; }
+/* Before a place is chosen, the dock only keeps WhatsApp */
+.mode-home .dock__btn:not(.dock__btn--main) { display: none; }
+
+/* A place's name: long names get a smaller size so each line fits */
+.hero__inner--stay .hero__title {
+  font-size: clamp(44px, min(19.5vw, calc((100vw - var(--gutter-l) - var(--gutter-r)) / (var(--tc, 7) * .56))), 188px);
+}
+
+/* The chooser, under the brand */
+.chooser {
+  margin-top: 28px;
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+
+.chooser__label {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--on-stage-dim);
+}
+
+:root[lang="ar"] .chooser__label { font-size: 14px; letter-spacing: 0; }
+
+.chooser__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.city-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid rgba(238, 234, 225, .3);
+  border-radius: 999px;
+  background: rgba(9, 18, 21, .34);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  color: var(--on-stage);
+  text-decoration: none;
+  font-size: 15.5px;
+  font-weight: 400;
+  letter-spacing: -.005em;
+  white-space: nowrap;
+  transition: background-color .3s ease, transform .35s var(--ease);
+}
+
+@media (max-width: 380px) { .city-chip { padding: 0 15px; font-size: 15px; } }
+
+.city-chip:hover { background: rgba(238, 234, 225, .14); }
+.city-chip:active { transform: scale(.97); }
+
+.resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--brass);
+  color: var(--on-brass);
+  text-decoration: none;
+  font-size: 14.5px;
+}
+
+.resume b { font-weight: 600; }
+.resume .ico { font-size: 17px; }
+
+.locate {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  margin-top: 2px;
+  padding: 0 18px 0 14px;
+  border: 1px solid var(--stage-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--on-stage);
+  font-size: 14.5px;
+  transition: background-color .3s ease;
+}
+
+.locate:hover { background: rgba(238, 234, 225, .08); }
+.locate .ico { font-size: 20px; color: var(--brass); }
+.locate[aria-busy="true"] .ico { animation: spin 1.6s linear infinite; }
+.locate__note { margin: -6px 0 0; padding-inline-start: 4px; font-size: 12px; color: var(--on-stage-dim); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.js .chooser { opacity: 0; }
+.is-ready .chooser { animation: enter 1.2s var(--ease) .95s both; }
+
+/* Version A of the home: the client's own sketch, white labels over the film (?look=a) */
+.look-a .wordmark {
+  display: inline-flex;
+  gap: .3em;
+  margin-top: 18px;
+  padding: .16em .5em .2em;
+  border-radius: .3em;
+  background: #fff;
+  color: #10191A;
+  font-size: clamp(34px, 11vw, 96px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.look-a .wordmark > span { display: inline; padding: 0; font-weight: 600; }
+.look-a .city-chip { border-color: #fff; background: #fff; color: #10191A; font-weight: 500; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.look-a .chooser__chips { order: 1; }
+.look-a .chooser__label { order: 2; padding: 7px 14px; border-radius: 999px; background: #fff; color: #10191A; font-size: 14px; letter-spacing: 0; text-transform: none; }
+.look-a .locate { order: 3; }
+.look-a .locate__note { order: 4; }
+
+/* The drawing behind the film, per city */
+.stage[data-scene="sea"] .scene__mosque { display: none; }
+.stage[data-scene="plain"] .scene__mosque,
+.stage[data-scene="plain"] .scene__sea,
+.stage[data-scene="plain"] .scene__shimmer { display: none; }
+.stage[data-scene="plain"] .scene { background: linear-gradient(180deg, #061013 0%, #0B1C21 30%, #2A2F2E 56%, #6E5440 80%, #A57A55 100%); }
+.stage[data-scene="plain"] .scene__glow, .stage[data-scene="plain"] .scene__sun { top: 82%; }
+
+
 /* ---------- menu: two groups of big rounded buttons ---------- */
 
 .menu {
@@ -891,6 +1025,87 @@ main { position: relative; z-index: 1; }
 .js .reveal.is-in { opacity: 1; transform: none; }
 .js .tile.reveal.is-in:hover { transform: translate3d(0, -3px, 0); transition-delay: 0s; }
 .js .tile.reveal.is-in:active { transform: scale(.97); transition-delay: 0s; }
+
+/* ---------- the places (home) ---------- */
+
+.city-block { display: grid; gap: 14px; margin-top: 34px; }
+
+.city-block__title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--menu-ink);
+  font-family: var(--f-display);
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: -.02em;
+}
+
+.city-block__title .icircle { width: 42px; height: 42px; font-size: 21px; color: var(--tint); }
+.city-block__n { margin-inline-start: auto; color: var(--menu-ink-dim); font-family: var(--f-sans); font-size: 11.5px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+:root[lang="ar"] .city-block__n { letter-spacing: 0; font-size: 13px; }
+
+.scards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+
+.scard { position: relative; min-width: 0; display: flex; }
+
+.scard__link {
+  flex: 1;
+  min-width: 0;
+  min-height: 118px;
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr) auto;
+  align-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--tile-home-bg);
+  color: var(--ink-fixed);
+  text-decoration: none;
+  box-shadow: var(--tile-home-shadow);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+
+.scard__link:hover { transform: translate3d(0, -2px, 0); }
+.scard__link:active { transform: scale(.98); }
+.scard .art { align-self: stretch; font-size: 42px; }
+.scard .vcard__badge { top: 8px; bottom: auto; inset-inline-start: 8px; padding: 4px 8px; font-size: 10.5px; }
+.scard__body { display: grid; gap: 4px; padding: 14px 6px 14px 16px; min-width: 0; }
+[dir="rtl"] .scard__body { padding: 14px 16px 14px 6px; }
+.scard__name { font-family: var(--f-display); font-size: 19px; font-weight: 500; line-height: 1.15; letter-spacing: -.02em; }
+.scard__place { font-size: 12.5px; color: rgba(19, 33, 31, .66); }
+.facts { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 4px; }
+.fact { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: rgba(19, 33, 31, .72); }
+.fact .ico { font-size: 15px; color: var(--tint); }
+.scard__go { padding-inline-end: 16px; color: rgba(19, 33, 31, .45); font-size: 18px; }
+.scard.is-nearest .scard__link { box-shadow: 0 0 0 2px var(--brass), var(--tile-home-shadow); }
+.scard__near { display: inline-flex; align-items: center; gap: 5px; color: #7E6230; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.scard__near .ico { font-size: 13px; }
+:root[lang="ar"] .scard__near { letter-spacing: 0; font-size: 12.5px; }
+
+/* In a city's page the cards follow the page's colours */
+.scards--sheet { grid-template-columns: 1fr; }
+.sheet .scard__link { background: var(--card); color: var(--ink); box-shadow: var(--shadow-card); }
+.sheet .scard__place, .sheet .fact { color: var(--ink-dim); }
+.sheet .fact .ico { color: var(--tint-ink); }
+.sheet .scard__go { color: var(--ink-dim); }
+
+.change-stay { width: 100%; max-width: 1080px; margin: 30px auto 0; }
+
+.change-stay a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid var(--menu-line);
+  border-radius: 999px;
+  color: var(--menu-ink);
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.change-stay .ico { font-size: 18px; color: var(--menu-accent); }
 
 /* ---------- dock ---------- */
 
