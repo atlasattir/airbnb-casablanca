@@ -167,6 +167,12 @@
       ],
       "category": "Category:Mint_tea",
       "illustr": true
+    },
+    "medina-souks": {
+      "files": [
+        "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(2).jpg",
+        "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(5).jpg"
+      ]
     }
   },
   "marrakech": {
@@ -539,6 +545,12 @@
     },
     "mnar-park": {
       "search": "Mnar Park Tanger"
+    },
+    "chefchaouen": {
+      "files": [
+        "File:Chefchaouen_-_blue_city_in_Morocco.jpg",
+        "File:Blue_Town_Chefchaouen.jpg"
+      ]
     }
   }
 }

@@ -1,0 +1,21 @@
+# On every push: every script parses, and the guide's content is complete (tools/check-content.js).
+# A red cross on the commit means something would break for guests: fix it before sending links.
+name: Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Every script parses
+        run: git ls-files -z '*.js' | xargs -0 -n1 node --check
+      - name: The content is complete
+        run: node tools/check-content.js
