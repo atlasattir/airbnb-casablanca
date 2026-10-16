@@ -44,8 +44,8 @@ CASA.stays['pestana'] = {
   },
 
   checkin: {
-   . The hotel's own times (in 15:00, out 12:00)
-    // are for hotel guests and do not necessarily apply to this apartment.
+    // Confirmed by the host: 15:00 / 11:00. The hotel's own times (in 15:00, out 12:00)
+    // are for hotel guests and do not apply to this apartment.
     time: '15:00',
     // null: the default steps of content/brand.js.
     // TODO: if the residence's reception or security hands over the keys or checks IDs,
