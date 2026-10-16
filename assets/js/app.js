@@ -1348,7 +1348,12 @@
     Object.keys(cs).forEach(function (k) {
       var s = cs[k], copy = {};
       Object.keys(s).forEach(function (f) { copy[f] = s[f]; });
-      if (s.items) copy.items = s.items.filter(function (it) { return !it.areas || it.areas.indexOf(st.area) > -1; });
+      if (s.items) {
+        // Items meant for this neighbourhood only come first (its own beach, its walk from the door)
+        var mine = function (it) { return it.areas && it.kind !== 'placeholder'; };
+        var kept = s.items.filter(function (it) { return !it.areas || it.areas.indexOf(st.area) > -1; });
+        copy.items = kept.filter(mine).concat(kept.filter(function (it) { return !mine(it); }));
+      }
       SECTIONS[k] = copy;
     });
     Object.keys(SECTIONS).forEach(function (sid) {

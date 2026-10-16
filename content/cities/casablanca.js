@@ -39,7 +39,7 @@ CASA.cities.casablanca = {
      and walking directions). Ids refer to the items below. */
   areas: {
     bourgogne: { near: ['hassan2', 'elhank', 'cabestan', 'sunset-elhank', 'corniche', 'corniche-family', 'mosque-night'] },
-    'ain-diab': { near: [] },
+    'ain-diab': { near: ['anfaplace', 'corniche', 'corniche-family', 'corniche-night', 'anfaplace-beach'] },
     'dar-bouazza': { near: [] }
   },
 
@@ -523,6 +523,21 @@ CASA.cities.casablanca = {
             ar: 'مقهى الحي الذي يرتاده مضيفك، على بُعد خطوات من مسكنك.',
             es: 'El café del barrio donde tu anfitrión toma el suyo, a pocos pasos de tu alojamiento.'
           }
+        },
+        // source: none needed: a placeholder for the host's own pick (shows "Bientôt")
+        {
+          id: 'host-cafe-aindiab',
+          icon: 'cup',
+          areas: ['ain-diab'],
+          short: { fr: 'Café du quartier, tout près', en: 'Local café, close by', ar: 'مقهى الحيّ، على مقربة منك', es: 'Café de barrio, muy cerca' },
+          kind: 'placeholder',
+          name: { fr: 'Le café de {host} à Aïn Diab', en: '{host}’s café in Ain Diab', ar: 'مقهى {host} في عين الذئاب', es: 'El café de {host} en Aïn Diab' },
+          desc: {
+            fr: 'Le café où votre hôte prend le sien, près d’Anfa Place.',
+            en: 'The café where your host has their own coffee, near Anfa Place.',
+            ar: 'المقهى الذي يرتاده مضيفك، قرب أنفا بلاس.',
+            es: 'El café donde tu anfitrión toma el suyo, cerca de Anfa Place.'
+          }
         }
       ]
     },
@@ -850,6 +865,32 @@ CASA.cities.casablanca = {
             es: 'Ve en coche o en taxi; acuerda un precio de ida y vuelta con el conductor.'
           },
           maps: 'Dar Bouazza, Morocco'
+        },
+        // source: https://vacations.aircanada.com/en/accommodation-details/CMNPES/Pestana%20Casablanca%20Seaside%20Suites
+        // ("the Anfa Place Living Resort complex … a promenade with direct beach access"; pestana.com says the same)
+        // source: https://snrtnews.com/fr/article/prevention-des-noyades-sur-la-plage-dain-diab-quelles-mesures-de-sauvetage-78687
+        // (lifeguards on the Aïn Diab beaches from 1 May to 30 September)
+        {
+          id: 'anfaplace-beach',
+          icon: 'waves',
+          areas: ['ain-diab'],
+          short: { fr: 'Plage et couchant, au bout de la promenade', en: 'Beach and sunset past the promenade', ar: 'شاطئ وغروب في آخر الممشى', es: 'Playa y atardecer al final del paseo' },
+          name: { fr: 'La plage au pied d’Anfa Place', en: 'The beach below Anfa Place', ar: 'الشاطئ أسفل أنفا بلاس', es: 'La playa junto a Anfa Place' },
+          area: { fr: 'Anfa Place · Corniche', ar: 'أنفا بلاس · الكورنيش' },
+          desc: {
+            fr: 'La promenade d’Anfa Place, côté mer, mène directement à la plage. Parfait pour marcher pieds nus le matin ou regarder le soleil se coucher.',
+            en: 'The seaward promenade of Anfa Place leads straight onto the beach. Perfect for a barefoot morning walk or for watching the sunset.',
+            ar: 'يقود ممشى أنفا بلاس المطلّ على البحر مباشرة إلى الشاطئ. مثالي لنزهة حافي القدمين صباحاً أو لمشاهدة الغروب.',
+            es: 'El paseo de Anfa Place, del lado del mar, lleva directamente a la playa. Perfecto para caminar descalzo por la mañana o ver la puesta de sol.'
+          },
+          tip: {
+            fr: 'Baignade seulement près d’un poste de secours, du 1er mai au 30 septembre, en respectant les drapeaux.',
+            en: 'Only swim near a lifeguard post, from 1 May to 30 September, and follow the flags.',
+            ar: 'لا تسبح إلا قرب مركز للإنقاذ، من فاتح ماي إلى 30 شتنبر، واحترم الأعلام.',
+            es: 'Báñate solo cerca de un puesto de socorrismo, del 1 de mayo al 30 de septiembre, y respeta las banderas.'
+          },
+          price: 0, sunset: true,
+          maps: 'Anfa Place, Casablanca'
         }
       ]
     },
@@ -952,6 +993,32 @@ CASA.cities.casablanca = {
           },
           price: 0,
           maps: 'Corniche Aïn Diab, Casablanca'
+        },
+        // source: https://maroc.ma/fr/actualites/casablanca-le-spectacle-nostalgia-marque-louverture-au-public-du-parc-archeologique-de-sidi
+        // (opened to the public on 16 July 2025)
+        // source: https://fr.le360.ma/culture/parc-archeologique-de-sidi-abderrahmane-un-voyage-a-pied-dans-la-nuit-des-temps_TP3G3DF3FJAJBHMDAGCTTCNL4E/
+        // (Feb. 2026: about 5 ha on the former quarry, a 1,200 m trail, workshops, a 900 m² interpretation centre;
+        //  no hours or prices published, hence no price field)
+        {
+          id: 'prehistory-park',
+          icon: 'museum',
+          short: { fr: 'Sentier et ateliers de la préhistoire', en: 'Prehistory trail and workshops', ar: 'مسار وورشات عن عصور ما قبل التاريخ', es: 'Sendero y talleres de prehistoria' },
+          name: { fr: 'Parc archéologique', en: 'Archaeological park', ar: 'الحديقة الأثرية', es: 'Parque arqueológico' },
+          area: { fr: 'Sidi Abderrahmane', ar: 'سيدي عبد الرحمن' },
+          desc: {
+            fr: 'Ouvert en juillet 2025 sur une ancienne carrière riche en traces préhistoriques : un sentier de 1,2 km, des ateliers pratiques et un centre d’interprétation.',
+            en: 'Opened in July 2025 on a former quarry rich in prehistoric finds: a 1.2 km trail, hands-on workshops and an interpretation centre.',
+            ar: 'افتُتحت في يوليوز 2025 على مقلع قديم غنيّ بآثار ما قبل التاريخ: مسار طوله 1,2 كيلومتر وورشات تطبيقية ومركز للتعريف بالموقع.',
+            es: 'Abrió en julio de 2025 en una antigua cantera llena de huellas prehistóricas: un sendero de 1,2 km, talleres prácticos y un centro de interpretación.'
+          },
+          tip: {
+            fr: 'Vérifiez les horaires et le tarif avant d’y aller.',
+            en: 'Check opening hours and prices before you go.',
+            ar: 'تحقّق من أوقات الفتح والأسعار قبل الذهاب.',
+            es: 'Consulta el horario y el precio antes de ir.'
+          },
+          duration: 90,
+          maps: 'Parc archéologique de Sidi Abderrahmane, Casablanca'
         }
       ]
     },
@@ -1045,6 +1112,31 @@ CASA.cities.casablanca = {
             { time: '14:00', title: { fr: 'Morocco Mall', en: 'Morocco Mall', ar: 'موروكو مول', es: 'Morocco Mall' }, text: { fr: 'L’aquarium et le parc de jeux, parfaits s’il pleut.', en: 'The aquarium and the play park, perfect if it rains.', ar: 'حوض الأسماك ومدينة الألعاب، مثاليان إن أمطرت.', es: 'El acuario y el parque de juegos, perfectos si llueve.' }, maps: 'Morocco Mall, Casablanca' },
             { time: '17:00', title: { fr: 'Parc Sindibad', en: 'Sindibad Park', ar: 'حديقة سندباد', es: 'Parque Sindibad' }, text: { fr: 'Ou la plage d’Aïn Diab s’il fait beau.', en: 'Or Aïn Diab beach if the weather is fine.', ar: 'أو شاطئ عين الذئاب إن كان الجو جميلاً.', es: 'O la playa de Aïn Diab si hace buen tiempo.' }, maps: 'Parc Sindibad, Casablanca' }
           ]
+        },
+        // source: https://www.okvoyage.com/?p=43411 and https://www.cityzeum.com/la-corniche
+        // (the El Hank to Aïn Diab walk, about 5 km, "surtout au coucher du soleil")
+        // source: https://kayak.ae/Casablanca-Hotels-Pestana-Casablanca.518172.ksp (El Hank lighthouse 1.8 km);
+        // https://www.sembo.com/d/hotel-30995_pestana_casablanca_casablanca (2.9 km); hence "about 2 to 3 km"
+        // source: https://uk.trip.com/travel-guide/foods/Casablanca-1693-restaurant/Le%20Cabestan-17312109
+        // (Le Cabestan, 90 Bd de la Corniche, Phare d'El Hank)
+        {
+          id: 'door-aindiab',
+          areas: ['ain-diab'],
+          title: { fr: 'Depuis votre porte', en: 'From your door', ar: 'من باب شقتك', es: 'Desde tu puerta' },
+          duration: { fr: '3 h · à pied', en: '3 h · on foot', ar: '3 ساعات · مشياً', es: '3 h · a pie' },
+          intro: {
+            fr: 'Une fin de journée le long de l’océan : la Corniche à pied jusqu’au phare d’El Hank pour le coucher du soleil, puis le dîner.',
+            en: 'An evening along the ocean: the Corniche on foot to El Hank lighthouse for the sunset, then dinner.',
+            ar: 'نهاية يوم على طول المحيط: الكورنيش مشياً حتى منارة العنق لمشاهدة الغروب، ثم العشاء.',
+            es: 'Una tarde junto al océano: la Corniche a pie hasta el faro de El Hank para el atardecer, y luego la cena.'
+          },
+          mode: 'walking', fromHome: true,
+          stops: [
+            { time: '17:00', rel: -90, title: { fr: 'La promenade d’Anfa Place', en: 'The Anfa Place promenade', ar: 'ممشى أنفا بلاس', es: 'El paseo de Anfa Place' }, text: { fr: 'Rejoignez le bord de mer et partez vers l’est, en direction du phare.', en: 'Reach the seafront and head east, towards the lighthouse.', ar: 'انزل إلى الواجهة البحرية واتجه شرقاً نحو المنارة.', es: 'Baja al paseo marítimo y ve hacia el este, en dirección al faro.' } },
+            { time: '17:30', rel: -60, title: { fr: 'Le long de la Corniche', en: 'Along the Corniche', ar: 'على طول الكورنيش', es: 'Por la Corniche' }, text: { fr: 'Environ 2 à 3 km face aux vagues, à votre rythme.', en: 'About 2 to 3 km facing the waves, at your own pace.', ar: 'نحو 2 إلى 3 كيلومترات أمام الأمواج، على راحتك.', es: 'Unos 2 a 3 km frente a las olas, a tu ritmo.' } },
+            { time: '18:30', rel: -20, title: { fr: 'Phare d’El Hank', en: 'El Hank Lighthouse', ar: 'منارة العنق', es: 'Faro de El Hank' }, text: { fr: 'Installez-vous sur les rochers pour le coucher du soleil.', en: 'Settle on the rocks for the sunset.', ar: 'اجلس على الصخور لمشاهدة الغروب.', es: 'Acomódate en las rocas para ver la puesta de sol.' }, maps: 'Phare d\'El Hank, Casablanca' },
+            { time: '19:30', rel: 40, title: { fr: 'Dîner face à la mer', en: 'Dinner by the sea', ar: 'عشاء أمام البحر', es: 'Cena frente al mar' }, text: { fr: 'Le Cabestan, au pied du phare. Pour rentrer, un petit taxi suffit.', en: 'Le Cabestan, at the foot of the lighthouse. A petit taxi brings you back.', ar: '«لو كابيستان» عند سفح المنارة، وللعودة يكفي طاكسي صغير.', es: 'Le Cabestan, al pie del faro. Para volver, basta un petit taxi.' }, maps: 'Le Cabestan, Casablanca' }
+          ]
         }
       ]
     },
@@ -1135,6 +1227,20 @@ CASA.cities.casablanca = {
             ar: 'حركة السير كثيفة في أوقات الذروة. في الشارع، يحرس حرّاس بسترات السيارات، فاترك لهم بضعة دراهم عند المغادرة.',
             es: 'El tráfico es denso en horas punta. En la calle, vigilantes con chaleco cuidan los coches: déjales unos dírhams al irte.'
           }
+        },
+        // source: https://en.wikipedia.org/wiki/Casablanca_Tramway
+        // (T2: Aïn Diab Plage to Sidi Bernoussi; changes with T1 at Abdelmoumen-Anoual and Ibn Tachfine)
+        // source: https://www.smartertravel.com/local-taxis-casablanca-transportation/ (red petits taxis)
+        // source: https://fourseasons.com/casablanca/getting-here (same Anfa Place complex: airport about 38 km, 45 min)
+        {
+          title: { fr: 'Si vous logez à Aïn Diab', en: 'If you stay in Ain Diab', ar: 'إن كنت تقيم في عين الذئاب', es: 'Si te alojas en Aïn Diab' },
+          icon: 'tram',
+          key: { fr: 'Taxis de la Corniche · tram T2', en: 'Corniche taxis · tram T2', ar: 'طاكسيات الكورنيش · ترامواي T2', es: 'Taxis de la Corniche · tranvía T2' },
+          list: [
+            { fr: 'Les petits taxis rouges circulent sur le boulevard de la Corniche : faites signe au bord de la route.', en: 'Red petits taxis run along the Boulevard de la Corniche: wave one down from the roadside.', ar: 'تجوب الطاكسيات الصغيرة الحمراء شارع الكورنيش، فأشِر إلى إحداها من جانب الطريق.', es: 'Los petits taxis rojos circulan por el bulevar de la Corniche: haz una seña desde la acera.' },
+            { fr: 'Le tram T2 part du terminus Aïn Diab Plage. Pour la gare Casa Voyageurs, changez pour le T1 à Abdelmoumen-Anoual.', en: 'Tram T2 starts at the Aïn Diab Plage terminus. For Casa Voyageurs station, change to T1 at Abdelmoumen-Anoual.', ar: 'ينطلق الترامواي T2 من محطته النهائية «عين الذئاب الشاطئ». للوصول إلى محطة الدار البيضاء المسافرين، غيّر إلى T1 في محطة عبد المومن-أنوال.', es: 'El tranvía T2 sale de la terminal Aïn Diab Plage. Para la estación Casa Voyageurs, cambia al T1 en Abdelmoumen-Anoual.' },
+            { fr: 'Aéroport : environ 45 minutes en voiture, davantage aux heures de pointe et l’été.', en: 'Airport: about 45 minutes by car, longer at rush hour and in summer.', ar: 'المطار: نحو 45 دقيقة بالسيارة، وأكثر في أوقات الذروة وفي الصيف.', es: 'Aeropuerto: unos 45 minutos en coche, más en hora punta y en verano.' }
+          ]
         }
       ]
     },
