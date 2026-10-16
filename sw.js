@@ -6,10 +6,12 @@
  *
  * Content is fetched fresh whenever there is a connection, so edits to
  * content/ reach guests straight away. A place's own files (its city, its
- * page) are stored the first time it is opened. Change VERSION, and this
+ * page) are stored the first time it is opened, and so is each photo the
+ * first time it shows (photos never change under the same address: a new
+ * one gets a new ?v=). Change VERSION, and this
  * list, after renaming or removing files: a missing file stops the update.
  */
-var VERSION = 'atlas-v3';
+var VERSION = 'atlas-v4';
 var CORE = [
   './',
   'index.html',
@@ -21,6 +23,7 @@ var CORE = [
   'assets/img/icon-192.png',
   'content/ui.js',
   'content/brand.js',
+  'content/photos.js',
   'content/morocco.js'
 ];
 var FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
@@ -59,6 +62,16 @@ self.addEventListener('fetch', function (event) {
 
   // The film is large and streamed in ranges: always from the network.
   if (request.destination === 'video' || /\.(mp4|webm|mov)$/i.test(url.pathname)) return;
+
+  if (url.origin === self.location.origin && url.pathname.indexOf('/assets/img/photos/') > -1) {
+    // Photos: the stored copy first.
+    event.respondWith(
+      caches.match(request).then(function (hit) {
+        return hit || fetch(request).then(function (response) { return store(request, response); });
+      })
+    );
+    return;
+  }
 
   if (url.origin === self.location.origin) {
     // Our files: network first, the stored copy when offline.

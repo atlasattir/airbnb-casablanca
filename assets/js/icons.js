@@ -46,6 +46,7 @@ CASA.icons = {
   wifi: '<path d="M3 9.5a13 13 0 0 1 18 0"/><path d="M6 12.8a8.5 8.5 0 0 1 12 0"/><path d="M9 16a4 4 0 0 1 6 0"/><circle cx="12" cy="19" r=".8"/>',
   lock: '<rect x="5.5" y="10.5" width="13" height="10" rx="1.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>',
   chevron: '<path d="m6.5 9.5 5.5 5.5 5.5-5.5"/>',
+  next: '<path d="m9.5 5.5 6.5 6.5-6.5 6.5"/>',
   check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
   info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5"/><circle cx="12" cy="7.75" r=".6"/>',

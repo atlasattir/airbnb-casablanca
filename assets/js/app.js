@@ -37,7 +37,8 @@
   var CITY_ICONS = { casablanca: 'minaret', marrakech: 'arch', martil: 'waves' };
   var SPECIAL = {
     location: { icon: 'pin', tint: '#1D4C49' },
-    favorites: { icon: 'heart', tint: '#8E6E3A' }
+    favorites: { icon: 'heart', tint: '#8E6E3A' },
+    credits: { icon: 'sparkle', tint: '#5B5346' }
   };
   var ALIASES = { apartment: 'stay' };
 
@@ -199,6 +200,32 @@
 
   function d(i) { return ' style="--i:' + Math.min(i, 10) + '"'; }
   function tintStyle(t, i) { return ' style="--tint:' + (t || '#1D4C49') + (i != null ? ';--i:' + Math.min(i, 10) : '') + '"'; }
+
+  /* Photos: open-licence pictures from Wikimedia Commons, listed in content/photos.js
+     (made by tools/fetch-photos.py). Without one, the drawn icon shows. */
+  function photosOf(cityId) { return ((C.photos || {})[cityId]) || {}; }
+  function photoFor(it, cityId) {
+    if (!it) return null;
+    if (it.image) return { src: it.image };
+    var p = photosOf(cityId || (STAY && STAY.city))[it.id];
+    return p && p.src ? p : null;
+  }
+  // A city's picture for its button, a section's for its tile and header
+  function coverFor(cityId, key) {
+    var all = photosOf(cityId), ref = key ? (all._covers || {})[key] : all._city;
+    return ref && all[ref] && all[ref].src ? all[ref] : null;
+  }
+  function photoImg(p, sizes, eager) {
+    return '<img src="' + esc(p.sm || p.src) + '"' +
+      (p.sm ? ' srcset="' + esc(p.sm) + ' 640w, ' + esc(p.src) + ' 1280w" sizes="' + esc(sizes || '50vw') + '"' : '') +
+      ' alt=""' + (eager ? '' : ' loading="lazy"') + ' decoding="async"' +
+      (p.pos ? ' style="object-position:' + esc(p.pos) + '"' : '') + '>';
+  }
+  function photoCredit(p) {
+    if (!p.by && !p.lic) return '';
+    var t = esc(ui(p.illustr ? 'illustration' : 'photo')) + (p.by ? ' · <bdi>' + esc(p.by) + '</bdi>' : '') + (p.lic ? ' · ' + esc(p.lic) : '');
+    return '<figcaption class="ph-credit">' + (p.url ? '<a' + ext(p.url) + '>' + t + '</a>' : '<span>' + t + '</span>') + '</figcaption>';
+  }
 
   /* ---------- formats ---------- */
 
@@ -375,9 +402,14 @@
   }
 
   function renderHome() {
-    // Chips: one per city, with its number of places
+    // One big button per city: its emblem, its name, its number of places
     els.chips.innerHTML = CITIES.map(function (c) {
-      return '<a class="city-chip" href="#' + esc(c.id) + '" data-open="' + esc(c.id) + '">' + esc(tr(c.name)) + '</a>';
+      var n = staysIn(c.id).length, ph = coverFor(c.id);
+      return '<a class="city-chip" href="#' + esc(c.id) + '" data-open="' + esc(c.id) + '"' + tintStyle(c.tint) + '>' +
+        '<span class="city-chip__icon' + (ph ? ' has-photo' : '') + '" aria-hidden="true">' + (ph ? photoImg(ph, '120px', true) : icon(CITY_ICONS[c.id] || 'pin')) + '</span>' +
+        '<span class="city-chip__text"><span class="city-chip__name">' + esc(tr(c.name)) + '</span>' +
+        '<span class="city-chip__n">' + n + ' ' + esc(ui(n > 1 ? 'stayMany' : 'stayOne')) + '</span></span>' +
+        '<span class="city-chip__go" aria-hidden="true">' + icon('next', 'flip-rtl') + '</span></a>';
     }).join('');
     byId('home-kicker').textContent = CITIES.map(function (c) { return tr(c.name); }).join(' · ');
 
@@ -472,9 +504,11 @@
         var s = SECTIONS[id];
         var wide = (g.wide || []).indexOf(id) > -1;
         var data = tileData(id);
-        return '<a class="tile tile--' + g.id + (wide ? ' tile--wide' : '') + rv + '"' + tintStyle(s.tint, i) + ' href="#' + id + '" data-open="' + id + '">' +
+        var ph = g.id === 'city' ? coverFor(STAY.city, id) : null;
+        return '<a class="tile tile--' + g.id + (wide ? ' tile--wide' : '') + (ph ? ' tile--photo' : '') + rv + '"' + tintStyle(s.tint, i) + ' href="#' + id + '" data-open="' + id + '">' +
+          (ph ? '<span class="tile__photo" aria-hidden="true">' + photoImg(ph, wide ? '(min-width: 760px) 50vw, 100vw' : '(min-width: 760px) 25vw, 50vw') + '</span>' : '') +
           '<span class="tile__icon">' + icon(s.icon) + '</span>' +
-          (g.id === 'city' ? '<span class="tile__art" aria-hidden="true">' + icon(s.icon) + '</span>' : '') +
+          (g.id === 'city' && !ph ? '<span class="tile__art" aria-hidden="true">' + icon(s.icon) + '</span>' : '') +
           '<span class="tile__text"><span class="tile__label">' + esc(tr(s.title)) + '</span>' +
           (data ? '<span class="tile__data">' + data + '</span>' : '') + '</span></a>';
       }).join('');
@@ -666,7 +700,7 @@
   function sectionMeta(id) {
     var m = SECTIONS[id] || SPECIAL[id];
     // The home screen only opens city pages; the rest needs a place
-    return MODE === 'home' && (!m || m.type !== 'city') ? null : m;
+    return MODE === 'home' && (!m || (m.type !== 'city' && id !== 'credits')) ? null : m;
   }
 
   function openSheet(id) {
@@ -748,6 +782,7 @@
     }
     else if (id === 'location') { title = ui('locationTitle'); kicker = STAY.name; html = viewLocation(); }
     else if (id === 'favorites') { title = ui('favsTitle'); kicker = cityName(STAY.city); html = viewFavorites(); }
+    else if (id === 'credits') { title = ui('photoCredits'); kicker = STAY ? cityName(STAY.city) : BRAND.name; html = viewCredits(); }
     else {
       title = tr(meta.title);
       kicker = (BRAND.stayGroup || []).indexOf(id) > -1 ? STAY.name : cityName(STAY.city);
@@ -755,8 +790,9 @@
       html = view(meta, id);
       if (meta.type === 'routes') extra = '<div class="band__meta"><span class="pill">' + icon('sun') + '<span>' + esc(ui('sunsetToday')) + ' ' + esc(fmtTime(todaysSunset())) + '</span></span></div>';
     }
-    els.band.innerHTML = '<header class="band"' + tintStyle(meta.tint) + '>' +
-      '<span class="band__art" aria-hidden="true">' + icon(meta.icon) + '</span>' +
+    var cover = meta.type === 'city' ? coverFor(id) : STAY && SECTIONS[id] ? coverFor(STAY.city, id) : null;
+    els.band.innerHTML = '<header class="band' + (cover ? ' band--photo' : '') + '"' + tintStyle(meta.tint) + '>' +
+      (cover ? '<span class="band__photo" aria-hidden="true">' + photoImg(cover, '100vw', true) + '</span>' : '<span class="band__art" aria-hidden="true">' + icon(meta.icon) + '</span>') +
       '<div class="band__text"><p class="eyebrow">' + esc(kicker) + '</p>' +
       '<h1 class="band__title" id="sheet-title">' + esc(title) + '</h1>' + extra + '</div></header>';
     els.barTitle.textContent = title;
@@ -769,8 +805,15 @@
 
   /* places */
 
-  function art(it, iconName) {
-    return it.image ? '<img src="' + esc(it.image) + '" alt="" loading="lazy">' : icon(it.icon || iconName);
+  function art(it, iconName, sizes) {
+    var ph = photoFor(it);
+    return '<span class="art' + (ph ? ' art--photo' : '') + '">' + (ph ? photoImg(ph, sizes) : icon(it.icon || iconName));
+  }
+
+  function detailArt(it, iconName) {
+    var ph = photoFor(it);
+    if (!ph) return '<div class="art d-art">' + icon(it.icon || iconName) + '</div>';
+    return '<figure class="art d-art art--photo">' + photoImg(ph, '(min-width: 700px) 640px, 100vw', true) + photoCredit(ph) + '</figure>';
   }
 
   function chip(id, label, on) {
@@ -790,7 +833,7 @@
       it.kind === 'request' ? '<span class="vcard__badge">' + icon('chat') + esc(ui('onRequest')) + '</span>' : '';
     return '<article class="vcard' + (it.kind === 'note' ? ' vcard--note' : '') + ' rise" data-tags="' + esc((it.tags || []).join(' ')) + '"' + tintStyle(s.tint, i) + '>' +
       '<a class="vcard__link" href="' + href + '" data-open-detail>' +
-        '<span class="art">' + art(it, it.kind === 'note' ? 'bulb' : s.icon) + badge + '</span>' +
+        art(it, it.kind === 'note' ? 'bulb' : s.icon, '(min-width: 620px) 30vw, 50vw') + badge + '</span>' +
         '<span class="vcard__body"><span class="vcard__name">' + txt(it.name) + '</span>' +
         (it.short ? '<span class="vcard__short">' + txt(it.short) + '</span>' : '') + '</span></a>' +
       (it.kind ? '' : favButton(it.id)) +
@@ -832,7 +875,7 @@
     if (it.maps) actions += '<a class="btn btn--go"' + ext(mapsDir(it.maps, isNear(it) ? 'walking' : '')) + '>' + icon('nav') + '<span>' + esc(ui('go')) + '</span></a>';
     if (it.request) actions += '<a class="btn btn--go"' + ext(requestLink(it.request)) + '>' + icon('chat') + '<span>' + esc(ui('askHost')) + '</span></a>';
     if (!it.kind) actions += favButton(it.id);
-    return '<div class="art d-art">' + art(it, s.icon) + '</div><div class="d-body">' +
+    return detailArt(it, s.icon) + '<div class="d-body">' +
       (it.area ? '<p class="eyebrow">' + txt(it.area) + '</p>' : '') +
       '<h2 class="d-title" id="modal-title">' + txt(it.name) + '</h2>' +
       (it.short ? '<p class="d-short">' + txt(it.short) + '</p>' : '') +
@@ -1059,6 +1102,28 @@
   }
 
   /* favourites */
+
+  // Every photo shown here, with its author, its licence and a link to its page
+  function viewCredits() {
+    var ids = STAY ? [STAY.city] : CITIES.map(function (c) { return c.id; });
+    var rows = [], seen = {};
+    ids.forEach(function (cid) {
+      var all = photosOf(cid);
+      Object.keys(all).forEach(function (k) {
+        var p = all[k];
+        // Two places can share one photo: it is listed once
+        if (k.charAt(0) === '_' || !p.src || !p.by || seen[p.src]) return;
+        seen[p.src] = true;
+        var name = '<bdi>' + esc(p.title || k) + '</bdi>';
+        rows.push('<li class="credit-row"><span class="credit-row__img">' + photoImg(p, '112px') + '</span><span class="credit-row__text">' +
+          (p.url ? '<a class="credit-row__title"' + ext(p.url) + '>' + name + '</a>' : '<span class="credit-row__title">' + name + '</span>') +
+          '<span class="credit-row__by">' + esc(ui(p.illustr ? 'illustration' : 'photo')) + ' · <bdi>' + esc(p.by) + '</bdi> · ' +
+          (p.licUrl ? '<a' + ext(p.licUrl) + '>' + esc(p.lic) + '</a>' : esc(p.lic || '')) + '</span></span></li>');
+      });
+    });
+    if (!rows.length) return '<div class="empty rise"' + d(0) + '><span class="icircle">' + icon('sparkle') + '</span><p>' + esc(ui('photoCreditsNone')) + '</p></div>';
+    return '<p class="credits__note rise"' + d(0) + '>' + esc(ui('photoCreditsNote')) + '</p><ul class="credits rise"' + d(1) + '>' + rows.join('') + '</ul>';
+  }
 
   function viewFavorites() {
     var items = state.favs.map(function (id) { return INDEX[id]; }).filter(Boolean);
@@ -1321,7 +1386,18 @@
     });
   }
 
+  function showPhotoCredit() {
+    var el = byId('photo-credit');
+    if (!el) return;
+    var ids = STAY ? [STAY.city] : CITIES.map(function (c) { return c.id; });
+    el.hidden = !ids.some(function (cid) {
+      var all = photosOf(cid);
+      return Object.keys(all).some(function (k) { return k.charAt(0) !== '_' && all[k].src && all[k].by; });
+    });
+  }
+
   function finish() {
+    showPhotoCredit();
     applyLang();
     watch(document);
     onScroll();

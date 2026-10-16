@@ -1,0 +1,639 @@
+{
+  "casablanca": {
+    "_city": "hassan2",
+    "_covers": {
+      "visit": "hassan2",
+      "restaurants": "portpeche",
+      "cafes": "tea-habous",
+      "nightlife": "corniche-night",
+      "shopping": "habous-crafts",
+      "beaches": "aindiab",
+      "family": "ligue-family",
+      "experiences": "mosque-night",
+      "itineraries": "medina"
+    },
+    "hassan2": {
+      "files": [
+        "File:Hassan_II_Mosque_Plaza.jpg",
+        "File:Mezquita_Hassan_II_(reflejo_en_agua_difuso).jpg",
+        "File:Sunshine_on_mosque_Hassan_II_in_Casablanca,_Morocco_-_Flickr_-_Milamber's_portfolio.jpg"
+      ],
+      "category": "Category:Hassan_II_Mosque"
+    },
+    "elhank": {
+      "files": [
+        "File:Le_phare_d'El_Hank,_Casablanca,_Maroc.jpg",
+        "File:Casablanca_Lighthouse.jpg"
+      ],
+      "category": "Category:El_Hank_Lighthouse"
+    },
+    "medina": {
+      "files": [
+        "File:Old_Medina,_Casablanca,_a_view_from_United_Nations_square.JPG",
+        "File:Entrée_de_la_médina_de_Casablanca.jpg",
+        "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio.jpg"
+      ],
+      "category": "Category:Medina_of_Casablanca"
+    },
+    "habous": {
+      "files": [
+        "File:Quartier_Habous_Casablanca.jpg",
+        "File:One_of_the_most_instragmable_views_of_the_old_medina_the_habous_in_Casablanca.jpg"
+      ],
+      "category": "Category:Quartier_Habous"
+    },
+    "artdeco": {
+      "files": [
+        "File:Place_Mohammed_V_-_Casablanca_-_2022.jpg",
+        "File:Casablanca_Place_Mohammed_V_1.jpg"
+      ],
+      "category": "Category:Place_Mohammed_V,_Casablanca"
+    },
+    "sacrecoeur": {
+      "category": "Category:Casablanca_Cathedral_Sacré-Cœur"
+    },
+    "slaoui": {
+      "category": "Category:Abderrahman_Slaoui_Museum"
+    },
+    "ligue": {
+      "files": [
+        "File:Parc_de_la_Ligue_Arabe_Avenue.JPG",
+        "File:Parc_de_la_Ligue_Arabe.jpg"
+      ],
+      "category": "Category:Parc_de_la_Ligue_Arabe"
+    },
+    "sqala": {
+      "files": [
+        "File:Canon_à_la_Sqala_Casablanca.jpg"
+      ]
+    },
+    "portpeche": {
+      "files": [
+        "File:Port_de_peche_casablanca.jpg"
+      ],
+      "category": "Category:Port_of_Casablanca"
+    },
+    "cabestan": {
+      "search": "Cabestan Casablanca"
+    },
+    "ricks": {
+      "files": [
+        "File:Rickscafe_casablanca.jpg"
+      ],
+      "search": "Rick's Café Casablanca"
+    },
+    "dauphin": {
+      "search": "fried fish platter",
+      "illustr": true
+    },
+    "marchecentral": {
+      "category": "Category:Central_Market_(Casablanca)"
+    },
+    "sqala-breakfast": {
+      "search": "Moroccan breakfast msemen",
+      "illustr": true
+    },
+    "bennis": {
+      "category": "Category:Pastries_of_Morocco",
+      "illustr": true
+    },
+    "bondi": {
+      "search": "flat white coffee cup",
+      "illustr": true
+    },
+    "holybrunch": {
+      "search": "brunch eggs avocado toast",
+      "illustr": true
+    },
+    "sunset-elhank": {
+      "files": [
+        "File:Casablanca_Lighthouse.jpg",
+        "File:Le_phare_d'El_Hank,_Casablanca,_Maroc.jpg"
+      ],
+      "category": "Category:El_Hank_Lighthouse"
+    },
+    "corniche-night": {
+      "files": [
+        "File:Ain_Diab,_Casablanca_20052,_Morocco_-_panoramio.jpg"
+      ]
+    },
+    "james": {
+      "files": [
+        "File:Sunrise_in_Casablanca_with_Hassan_II_Mosque.jpg"
+      ],
+      "illustr": true
+    },
+    "habous-crafts": {
+      "files": [
+        "File:A_souvenirs_shop_in_habous_market_casablanca.jpg"
+      ],
+      "category": "Category:Quartier_Habous"
+    },
+    "moroccomall": {
+      "files": [
+        "File:Morocco_Mall.jpg",
+        "File:Le_Morocco_Mall_ouvre_ses_portes_à_Casablanca_(6555301965).jpg"
+      ],
+      "category": "Category:Morocco_Mall"
+    },
+    "anfaplace": {
+      "search": "Anfa Place Casablanca"
+    },
+    "medina-souks": {
+      "files": [
+        "File:Street_Scene_-_Medina_(Old_City)_-_Casablanca_-_Morocco_-_02.jpg",
+        "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(2).jpg",
+        "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(5).jpg"
+      ],
+      "category": "Category:Medina_of_Casablanca"
+    },
+    "maarif": {
+      "files": [
+        "File:Twin_Center,_Boulevard_Mohamed_Zerktouni,_Casablanca.JPG"
+      ],
+      "category": "Category:Casablanca_Twin_Center"
+    },
+    "corniche": {
+      "files": [
+        "File:Boulevard_de_la_Corniche,_Dar-el-Beida,_Morocco_-_panoramio_(11).jpg"
+      ]
+    },
+    "aindiab": {
+      "files": [
+        "File:Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio.jpg",
+        "File:Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio_(1).jpg"
+      ],
+      "search": "Ain Diab beach Casablanca"
+    },
+    "beachclubs": {
+      "search": "Tahiti Beach Casablanca"
+    },
+    "sidiabderrahmane": {
+      "files": [
+        "File:Sidi_Abderahmane_Ain_Diab_Casablanca_banner.jpg",
+        "File:Sidi_Abderrahman.jpg",
+        "File:Sidi_Abderrahmane_1.JPG"
+      ],
+      "category": "Category:Islet_of_Sidi_Abderrahmane"
+    },
+    "darbouazza": {
+      "category": "Category:Dar_Bouazza"
+    },
+    "anfaplace-beach": {
+      "files": [
+        "File:Ebb_Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio.jpg"
+      ],
+      "illustr": true
+    },
+    "tamaris2": {
+      "files": [
+        "File:Tamaris_beach,_Dar_bouazza.JPG"
+      ],
+      "search": "Tamaris beach Dar Bouazza"
+    },
+    "jackbeach": {
+      "search": "Jack Beach Dar Bouazza"
+    },
+    "mall-family": {
+      "files": [
+        "File:Le_Morocco_Mall_ouvre_ses_portes_à_Casablanca_(6555301965).jpg"
+      ],
+      "category": "Category:Morocco_Mall"
+    },
+    "sindibad": {
+      "search": "Sindibad Casablanca"
+    },
+    "tamaris": {
+      "search": "Tamaris Aquaparc"
+    },
+    "ligue-family": {
+      "files": [
+        "File:Arab_League_Park_2.jpg",
+        "File:Πάρκο_Αραβικού_Συνδέσμου_1644.jpg"
+      ],
+      "category": "Category:Parc_de_la_Ligue_Arabe"
+    },
+    "corniche-family": {
+      "files": [
+        "File:Pedestrians_and_Palms_-_Ain_Diab_-_Seaside_District_-_Casablanca_-_Morocco.jpg"
+      ]
+    },
+    "prehistory-park": {
+      "search": "Thomas Quarry Casablanca prehistoric"
+    },
+    "hammam-ziani": {
+      "search": "hammam Morocco interior",
+      "illustr": true
+    },
+    "mosque-night": {
+      "files": [
+        "File:Night_of_the_Hassan_II.jpg",
+        "File:Mezquita_Hassan_II_(reflejo_en_agua_difuso).jpg"
+      ],
+      "category": "Category:Hassan_II_Mosque"
+    },
+    "tea-habous": {
+      "files": [
+        "File:Moroccan_tea_glasses.jpg",
+        "File:Moroccan_tea_1.jpg",
+        "File:Mint-tea.jpg"
+      ],
+      "category": "Category:Mint_tea",
+      "illustr": true
+    }
+  },
+  "marrakech": {
+    "_city": "koutoubia",
+    "_covers": {
+      "visit": "koutoubia",
+      "restaurants": "jemaa-stalls",
+      "cafes": "grand-balcon",
+      "souks": "haddadine",
+      "experiences": "agafay",
+      "family": "menara",
+      "itineraries": "jemaa"
+    },
+    "jemaa": {
+      "files": [
+        "File:Jamaa_el_Fna_(7346063132).jpg",
+        "File:Djemaa_el_Fna_1.JPG",
+        "File:Djemaa_el_Fna.jpg"
+      ],
+      "category": "Category:General_views_of_Jamaa_El_Fna"
+    },
+    "koutoubia": {
+      "files": [
+        "File:Koutoubia_Mosque,Marrakech,Morocco.jpg",
+        "File:Le_minaret_de_la_Koutoubia_(Marrakech,_Maroc)_(50961792868).jpg",
+        "File:Koutoubia_mosque_of_Marrakech.jpg"
+      ],
+      "category": "Category:Koutoubia_Mosque"
+    },
+    "ben-youssef": {
+      "files": [
+        "File:South-west_interior_facade_of_the_Ben_Youssef_Madrasa,_Morocco_(1).jpg",
+        "File:Medersa_Ben_Youssef_Marrakech.jpg",
+        "File:Marrakech,_Medersa_Ben_Youssef_08.jpg"
+      ],
+      "category": "Category:Main_courtyard_of_the_Ben_Youssef_Madrasa"
+    },
+    "jardin-secret": {
+      "files": [
+        "File:Le_Jardin_Secret_Marrakech_Morocco.jpg",
+        "File:Morocco_-_Marrakech_-_Le_Jardin_Secret_(49133982557).jpg"
+      ]
+    },
+    "bahia": {
+      "files": [
+        "File:Bahia_Palace_large_court.jpg",
+        "File:Palais_Bahia_(The_Bahia_Palace)_(7346181900).jpg",
+        "File:Palais_Bahia_(The_Bahia_Palace)_(7160898875).jpg"
+      ],
+      "category": "Category:Grand_Courtyard_in_the_Bahia_Palace"
+    },
+    "saadiens": {
+      "files": [
+        "File:0063_SAADIER-GRÄBER,_Marrakesch_(36548736594).jpg",
+        "File:Saadier-Gräber.JPG"
+      ],
+      "category": "Category:Saadian_Tombs"
+    },
+    "majorelle": {
+      "files": [
+        "File:Jardin_Majorelle_(Marrakech).jpg",
+        "File:La_villa_Majorelle_(Marrakech)_(7163370926).jpg",
+        "File:The_Jardin_Majorelle_marrakech.jpg"
+      ],
+      "category": "Category:Villa_Majorelle_(Marrakech)"
+    },
+    "jemaa-stalls": {
+      "files": [
+        "File:Place_Jemaa_el-Fna_-_Marrakech_-_Morocco_-_Maroc_-_Maroko_-_Μαρόκο_-_Fas_-_Marruecos_-_Marokko_-_Марокко_-_Night_-_Nuit_-_Photo_Image_Photography_(9126147462).jpg",
+        "File:Place_Jemaa_el-Fna_-_Aicha_n°1_-_Marrakech_-_Morocco_-_Maroc_-_Maroko_-_Μαρόκο_-_Fas_-_Marruecos_-_Marokko_-_Марокк_picture_image_photo_(9123946665).jpg",
+        "File:Place_Jemaa_el-Fna_-_Aicha_n°1_-_Marrakech_-_Morocco_-_Maroc_-_Maroko_-_Μαρόκο_-_Fas_-_Marruecos_-_Marokko_-_Марокк_picture_image_photo_(9123932853).jpg"
+      ],
+      "category": "Category:Dusk_in_Jamaa_El_Fna"
+    },
+    "nomad": {
+      "files": [
+        "File:Chermoula_tagine.jpg"
+      ],
+      "category": "Category:Moroccan_tajines",
+      "illustr": true
+    },
+    "le-jardin": {
+      "files": [
+        "File:Tajine_Djaj_zitoune_maroc.jpg"
+      ],
+      "category": "Category:Moroccan_tajines",
+      "illustr": true
+    },
+    "al-fassia": {
+      "files": [
+        "File:Moroccan_food_tagine.jpg"
+      ],
+      "category": "Category:Moroccan_tajines",
+      "illustr": true
+    },
+    "plus61": {
+      "files": [
+        "File:Moroccan_traditional_dishes.jpg"
+      ],
+      "category": "Category:Moroccan_tajines",
+      "illustr": true
+    },
+    "amal": {
+      "files": [
+        "File:Tagine_for_lunch_in_Zagora,_Morocco_(5422895511)_(6).jpg"
+      ],
+      "category": "Category:Moroccan_tajines",
+      "illustr": true
+    },
+    "cafe-epices": {
+      "files": [
+        "File:Café_des_Épices,_Marrakech,_2008.jpg"
+      ],
+      "search": "Café des Épices Marrakech"
+    },
+    "grand-balcon": {
+      "files": [
+        "File:Marrakesh_banner.jpg",
+        "File:Jemaa_El_Fnaa_4.jpg"
+      ],
+      "category": "Category:Dusk_in_Jamaa_El_Fna",
+      "illustr": true
+    },
+    "kessabine": {
+      "files": [
+        "File:Moroccan_Mint_Tea_-_1.jpg"
+      ],
+      "category": "Category:Mint_tea",
+      "illustr": true
+    },
+    "bacha": {
+      "files": [
+        "File:Dar_El_Bacha_Thami_EL_Glaoui.jpg"
+      ]
+    },
+    "semmarine": {
+      "files": [
+        "File:Covered_Souk_Semmarine,_Marrakech,_2008.jpg"
+      ],
+      "search": "Souk Semmarine Marrakech"
+    },
+    "rahba-kedima": {
+      "files": [
+        "File:Rahba_Kedima,_Marrakesh,_Morocco_-_panoramio_(3).jpg"
+      ],
+      "search": "Rahba Kedima Marrakech"
+    },
+    "teinturiers": {
+      "category": "Category:Dyers'_Souk_(Marrakesh)",
+      "search": "Souk des teinturiers Marrakech"
+    },
+    "haddadine": {
+      "files": [
+        "File:Oriental_hanging_lanterns._Souk_Haddadine,_Marrakech_Medina_(سوق_الحدادين_مراكش).jpg"
+      ],
+      "search": "Souk Haddadine Marrakech"
+    },
+    "ensemble-artisanal": {
+      "files": [
+        "File:Ensemble_Artisanal_-_2026-01-31.jpg"
+      ],
+      "search": "Ensemble Artisanal Marrakech"
+    },
+    "hammam-mouassine": {
+      "search": "Hammam Mouassine Marrakech"
+    },
+    "bains-marrakech": {
+      "search": "hammam Morocco zellige",
+      "illustr": true
+    },
+    "agafay": {
+      "files": [
+        "File:Agafay_Desert,_Morocco,_20250125_1759_7281.jpg",
+        "File:Agafay_Desert,_Morocco,_20250125_1802_7284.jpg",
+        "File:Agafay_desert.jpg"
+      ],
+      "category": "Category:Agafay_Desert"
+    },
+    "ourika": {
+      "files": [
+        "File:Ourika_-_Setti_Fatma_-_Maroc_26.jpg",
+        "File:In_Setti_Fatma_Ourika_near_Marrakech_Maroc.jpg",
+        "File:Ourika_Valley.jpg"
+      ],
+      "category": "Category:Setti_Fatma"
+    },
+    "maison-arabe-cooking": {
+      "files": [
+        "File:Tajines_in_a_pottery_shop_in_Morocco.jpg"
+      ],
+      "category": "Category:Moroccan_tajines",
+      "illustr": true
+    },
+    "oasiria": {
+      "search": "Oasiria Marrakech"
+    },
+    "menara": {
+      "files": [
+        "File:Jardins_de_la_Ménara.jpg",
+        "File:MENARA-MARRAKECH.jpg"
+      ],
+      "category": "Category:Menara_Garden"
+    },
+    "cyberpark": {
+      "files": [
+        "File:Fontaine_Cyber_Parc_Arsat_Moulay_Abdeslam.jpg"
+      ],
+      "category": "Category:Cyber_Parc_Arsat_Moulay_Abdessalam"
+    },
+    "caleche": {
+      "search": "caleche Marrakech"
+    },
+    "jardin-secret-family": {
+      "files": [
+        "File:Secret_Garden_Marrakesh_2021.jpg",
+        "File:Morocco_-_Marrakech_-_Le_Jardin_Secret_(49133982557).jpg"
+      ]
+    }
+  },
+  "martil": {
+    "_city": "martil-beach",
+    "_covers": {
+      "beaches": "martil-beach",
+      "visit": "tetouan-medina",
+      "restaurants": "cabo-corner",
+      "cafes": "goya",
+      "family": "corniche-family",
+      "itineraries": "chefchaouen"
+    },
+    "martil-beach": {
+      "files": [
+        "File:Martil_beach,_north_Morocco_Tetouan.jpg",
+        "File:Martil_1.jpg"
+      ],
+      "category": "Category:Martil"
+    },
+    "martil-corniche": {
+      "files": [
+        "File:Corniche_martil.jpg"
+      ],
+      "category": "Category:Martil"
+    },
+    "oued-martil": {
+      "files": [
+        "File:River_in_Martil,_Morocco.jpg"
+      ],
+      "category": "Category:Martil_Valley"
+    },
+    "cabo-negro": {
+      "files": [
+        "File:Cabo_Negro_beach.jpg"
+      ],
+      "search": "Cabo Negro beach Morocco"
+    },
+    "mdiq-beach": {
+      "files": [
+        "File:M'diq_beach_2023-1.jpg",
+        "File:M'diq_beach_2023-2.jpg",
+        "File:Corniche_de_M'diq_2.JPG"
+      ],
+      "category": "Category:M'diq"
+    },
+    "tetouan-medina": {
+      "files": [
+        "File:Médina_de_Tétouan.jpg",
+        "File:Medina_de_Tetouan_Nov2020_048.jpg"
+      ],
+      "category": "Category:Medina_of_Tetouan"
+    },
+    "ethno-museum": {
+      "category": "Category:Musée_d'ethnographie_à_Tétouan"
+    },
+    "ensanche": {
+      "files": [
+        "File:Church_of_Our_Lady_of_Victory_of_Tétouan.jpg"
+      ],
+      "category": "Category:Church_of_Our_Lady_of_Victory_(Tetouan)"
+    },
+    "art-centre": {
+      "category": "Category:Centre_d'art_moderne_de_Tétouan"
+    },
+    "mdiq-port": {
+      "search": "port M'diq"
+    },
+    "chefchaouen": {
+      "files": [
+        "File:Chefchaouen_Morocco.jpg",
+        "File:Chefchaouen_-_blue_city_in_Morocco.jpg",
+        "File:Blue_Town_Chefchaouen.jpg"
+      ],
+      "category": "Category:Chefchaouen"
+    },
+    "cabo-corner": {
+      "files": [
+        "File:Plated_grilled_fish.jpg"
+      ],
+      "category": "Category:Grilled_fish",
+      "illustr": true
+    },
+    "marino": {
+      "files": [
+        "File:Moroccan_Fish_Recipe.jpg"
+      ],
+      "category": "Category:Grilled_fish",
+      "illustr": true
+    },
+    "vitamines-mer": {
+      "files": [
+        "File:Seafood_Platter.png"
+      ],
+      "category": "Category:Grilled_fish",
+      "illustr": true
+    },
+    "el-faro": {
+      "files": [
+        "File:Dorade_dish.jpg"
+      ],
+      "category": "Category:Grilled_fish",
+      "illustr": true
+    },
+    "yafa": {
+      "files": [
+        "File:Moroccan_Tagra_of_fish_in_the_nature.jpg"
+      ],
+      "category": "Category:Grilled_fish",
+      "illustr": true
+    },
+    "le-mediterranee": {
+      "files": [
+        "File:Corniche_de_M'diq_2.JPG",
+        "File:Plated_grilled_fish.jpg"
+      ],
+      "category": "Category:M'diq",
+      "illustr": true
+    },
+    "rayan": {
+      "category": "Category:Pastries_of_Morocco",
+      "illustr": true
+    },
+    "rise-dine": {
+      "files": [
+        "File:Moroccan_tea_1.jpg"
+      ],
+      "category": "Category:Mint_tea",
+      "illustr": true
+    },
+    "perfect-cup": {
+      "files": [
+        "File:Moroccan_tea_glasses.jpg"
+      ],
+      "category": "Category:Mint_tea",
+      "illustr": true
+    },
+    "goya": {
+      "files": [
+        "File:Moroccan_Mint_Tea_-_1.jpg"
+      ],
+      "category": "Category:Moroccan_tea_ceremony",
+      "illustr": true
+    },
+    "jenin": {
+      "files": [
+        "File:Moroccan_traditional_dishes.jpg"
+      ],
+      "category": "Category:Pastries_of_Morocco",
+      "illustr": true
+    },
+    "beach-rides": {
+      "files": [
+        "File:Martil_beach.jpg",
+        "File:Martil_1.jpg"
+      ],
+      "category": "Category:Martil"
+    },
+    "oued-family": {
+      "files": [
+        "File:River_in_Martil,_Morocco.jpg"
+      ],
+      "category": "Category:Martil"
+    },
+    "corniche-family": {
+      "files": [
+        "File:Corniche_martil.jpg"
+      ],
+      "category": "Category:Martil"
+    },
+    "feddan": {
+      "files": [
+        "File:Feddan_Park_Tetouan_2.jpg",
+        "File:ساحة_الفدان،_تطوان_10.jpg"
+      ]
+    },
+    "mnar-park": {
+      "search": "Mnar Park Tanger"
+    }
+  }
+}

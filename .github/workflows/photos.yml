@@ -1,0 +1,49 @@
+# Downloads the guides' photos from Wikimedia Commons (tools/photos.json) and commits them.
+# Runs only when started by hand: GitHub → Actions → Photos → Run workflow.
+# Then look at tools/photos-sheet.jpg: every photo must show exactly its place.
+name: Photos
+
+on:
+  workflow_dispatch:
+    inputs:
+      auto:
+        description: 'Also pick from categories and searches when no named file works (check the sheet afterwards)'
+        type: boolean
+        default: false
+      force:
+        description: 'Download every photo again'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency: photos
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow==11.0.0
+      - name: Download
+        env:
+          AUTO: ${{ inputs.auto }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          set -- --sheet tools/photos-sheet.jpg
+          [ "$AUTO" = "true" ] || set -- "$@" --exact-only
+          [ "$FORCE" = "true" ] && set -- "$@" --force
+          python3 tools/fetch-photos.py "$@"
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/img/photos content/photos.js tools/photos.lock.json tools/photos-sheet.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m 'Photos: download from Wikimedia Commons'
+          git push

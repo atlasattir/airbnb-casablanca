@@ -27,12 +27,16 @@ assets/js/app.js            le fonctionnement
 assets/js/icons.js          les icônes
 assets/video/               le film de fond (vertical et horizontal)
 assets/vendor/qrcode.js     générateur de QR code (licence MIT, Kazuhiko Arase)
-assets/img/                 icônes, image d’aperçu du lien (share.jpg), vos photos
+assets/img/                 icônes, image d’aperçu du lien (share.jpg)
+assets/img/photos/          les photos des adresses (téléchargées par tools/fetch-photos.py)
 content/brand.js            la marque, les villes, la liste des logements et ce qu’ils ont en commun
 content/morocco.js          ce qui vaut partout au Maroc : urgences, pharmacies, argent, darija
 content/cities/<ville>.js   le guide de chaque ville (casablanca.js, marrakech.js, martil.js)
 content/stays/<logement>.js tout ce qui concerne un logement (arrivée, Wi-Fi, mode d’emploi, autour de vous)
+content/photos.js           la liste des photos, avec auteur et licence (générée : ne pas modifier à la main)
 content/ui.js               les textes de l’interface dans les 4 langues
+tools/photos.json           la photo voulue pour chaque adresse (voir « Les photos »)
+tools/fetch-photos.py       télécharge ces photos depuis Wikimedia Commons
 ```
 
 Le contenu se modifie uniquement dans `content/`. Chaque texte existe en `fr`, `en`, `ar` et `es`. Ce qu’un logement ne précise pas (mot d’accueil, étapes d’arrivée et de départ, règles, services) vient de `content/brand.js`.
@@ -45,8 +49,23 @@ Adresse d’un logement : `…/pestana/` (lien court) ou `…/?stay=pestana`. Le
 - Chaque adresse a une `icon` (son illustration) : choisissez un nom parmi ceux de `assets/js/icons.js` (`minaret`, `lighthouse`, `fish`, `palm`, `sunset`…).
 - Chaque rubrique a une couleur `tint` (en haut de chaque rubrique dans `content/cities/<ville>.js`).
 - **Par quartier** : en haut de chaque fichier de ville, `areas` liste les adresses accessibles à pied depuis ce quartier (badge « À pied »). Une adresse avec `areas: ['bourgogne']` n’apparaît qu’aux logements de ce quartier (par exemple la balade « Depuis votre porte »).
-- **Vos photos** : ajoutez `image: 'assets/img/places/hassan2.jpg'` à une adresse, et la photo remplace l’illustration (format paysage, environ 1200 px de large, moins de 300 Ko). Utilisez vos propres photos ou des photos sous licence libre, jamais des images trouvées sur Google ou Instagram.
+- **Photos** : voir « Les photos » ci-dessous. Une adresse sans photo garde son illustration.
 - Étapes d’itinéraire : `rel: -20` veut dire « 20 minutes avant le coucher du soleil du jour » ; l’heure affichée s’adapte toute l’année.
+
+## Les photos
+
+Chaque adresse des guides peut avoir une photo **de cette adresse précise** (la mosquée Hassan II, la plage de Martil, le souk Haddadine…), prise sur [Wikimedia Commons](https://commons.wikimedia.org) sous licence libre. Elle s’affiche sur la carte de l’adresse, en grand dans sa fiche (avec l’auteur et la licence en bas de la photo), et sur la page « Crédits photos » (lien en bas du guide). Une rubrique peut avoir une photo de couverture (sa tuile et son en-tête), une ville la sienne (son bouton sur l’accueil).
+
+1. `tools/photos.json` liste, par ville et par adresse (son `id`) :
+   - `files` : les fichiers Commons voulus, le meilleur d’abord (`"File:Hassan_II_Mosque_Plaza.jpg"`) ;
+   - `category` ou `search` : où chercher si aucun fichier ne convient (la meilleure photo libre est alors prise, marquée `[auto]` sur la planche de contrôle) ;
+   - `pos` (facultatif) : le cadrage, par exemple `"50% 30%"` pour garder le haut ;
+   - `illustr: true` quand la photo montre le genre de chose et non l’adresse elle-même (un plat pour un restaurant) : elle est alors légendée « Illustration ».
+   - `_city` : l’adresse dont la photo illustre la ville sur l’accueil ; `_covers` : la photo de chaque rubrique (`"visit": "hassan2"`).
+2. Lancez `python3 tools/fetch-photos.py --sheet planche.jpg` (Python 3 et `pip install pillow` ; il faut accès à commons.wikimedia.org et upload.wikimedia.org). Le script vérifie chaque fichier auprès de Commons et **refuse** toute licence non libre (NC, ND, droits réservés) ainsi que les photos signalées comme montrant des personnes identifiables. Il enregistre l’auteur et la licence, prépare deux tailles (1280 et 640 px, sans métadonnées EXIF) et écrit `content/photos.js`. Les relances ne téléchargent que ce qui a changé ; `--force` retélécharge tout.
+3. **Regardez la planche** (`planche.jpg`) avant de publier : chaque photo doit montrer exactement l’adresse, sans visage reconnaissable au premier plan. Pour en changer, modifiez `files` et relancez.
+
+Pas de photos trouvées sur Google, Instagram ou les sites des restaurants : seulement les vôtres, celles que l’établissement vous autorise à publier (ajoutez alors `image: 'assets/img/places/<id>.jpg'` à l’adresse dans le fichier de la ville), ou des photos sous licence libre.
 
 ## Le film de Casablanca
 
