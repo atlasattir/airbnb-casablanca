@@ -1,23 +1,169 @@
 /*
  * Atlas Stays — Casa B Suites, a building of 8 studios in Bourgogne, Casablanca.
- * Starter file: everything left out comes from the defaults in content/brand.js.
- * Security: never put a door or key-box code, a floor, a studio or apartment number here.
+ *
+ * One guide for the whole building: every studio's guests read this page.
+ * Anything left out (check-in and check-out steps, services, host) comes from
+ * the defaults in content/brand.js; add the field here to replace it.
+ *
+ * Any text that starts with 'TODO' shows a small "Bientôt" badge to guests
+ * until you replace it. Search this file for TODO to find what is left.
+ * Keep texts short: each one sits on a card next to an icon.
+ *
+ * Security: never put the street-door code, a key-box code, a floor or a studio
+ * number here. This page is public; send those in the Airbnb messages instead.
  */
 window.CASA = window.CASA || {};
 CASA.stays = CASA.stays || {};
 
 CASA.stays['casa-b-suites'] = {
   location: {
-    // TODO: the building's pin (lat/lng). Until then: the neighbourhood.
+    // TODO: the building's pin (lat/lng). Until then: the Bourgogne district.
     lat: 33.598,
     lng: -7.638,
+    // Text searched in Google Maps for the walk "Depuis votre porte".
+    // TODO: replace with the building's street address.
     mapsQuery: 'Bourgogne, Casablanca',
+    // The host's Google Maps link to the building; it wins over mapsQuery for "Localisation".
     mapsUrl: 'https://maps.app.goo.gl/pupJDv2GjQBwkt4AA',
+    // Street address only (no floor, no studio number). The Arabic line is shown to taxi drivers.
     address: { fr: 'TODO', ar: 'TODO' }
   },
-  checkin: { time: '15:00' }, // TODO: confirm
-  checkout: { time: '11:00' }, // TODO: confirm
-  wifi: { network: 'TODO', password: '' },
-  howto: [],
-  nearby: []
+
+  welcome: {
+    fr: 'Bienvenue dans votre studio, au cœur de Bourgogne. Tout est ici, et je reste à un message près.',
+    en: 'Welcome to your studio in the heart of Bourgogne. Everything is here, and I am one message away.',
+    ar: 'مرحباً بك في الاستوديو الخاص بك، في قلب بورغون. كل شيء هنا، وأنا على بُعد رسالة.',
+    es: 'Te doy la bienvenida a tu estudio, en pleno Bourgogne. Todo está aquí, y estoy a un mensaje de distancia.'
+  },
+
+  checkin: {
+    time: '15:00', // TODO: confirm (same as the Airbnb listing)
+    steps: null // null: the default steps of content/brand.js (access and studio number go in the Airbnb messages)
+  },
+  checkout: {
+    time: '11:00', // TODO: confirm (same as the Airbnb listing)
+    steps: null
+  },
+
+  wifi: {
+    // TODO (host): one network per studio, or one for the building? Use a neutral
+    // name: a name like "Studio5" would give the studio away on the printed card.
+    network: 'TODO',
+    // Leave empty to show "on the card in your place" instead of the password.
+    // The repository is public: a password written here is published.
+    password: ''
+  },
+
+  // The brand's four rules, then the building's own.
+  rules: [
+    { icon: 'nosmoke', fr: 'Non-fumeur', en: 'No smoking', ar: 'ممنوع التدخين', es: 'No fumar' },
+    { icon: 'party', fr: 'Pas de fête', en: 'No parties', ar: 'ممنوع الحفلات', es: 'Sin fiestas' },
+    { icon: 'moon', fr: 'Calme après 22 h', en: 'Quiet after 10 pm', ar: 'الهدوء بعد 22:00', es: 'Silencio desde las 22:00' },
+    { icon: 'users', fr: 'Voyageurs inscrits seulement', en: 'Booked guests only', ar: 'الضيوف المسجّلون فقط', es: 'Solo huéspedes registrados' },
+    { icon: 'building', fr: 'Parties communes : calme et propres', en: 'Shared areas: quiet and tidy', ar: 'الأجزاء المشتركة: هدوء ونظافة', es: 'Zonas comunes: tranquilas y limpias' },
+    { icon: 'door', fr: 'Porte d’entrée toujours refermée', en: 'Street door always closed', ar: 'باب العمارة مغلق دائماً', es: 'Puerta de entrada siempre cerrada' }
+  ],
+
+  // Two or three short lines each. Remove what the studios do not have.
+  // The client's description of each studio: bathroom, one bedroom, living area,
+  // air conditioning, balcony.
+  // TODO (host): is there a lift, or stairs only? Worth saying for heavy luggage.
+  howto: [
+    {
+      // TODO (host): add where the remote is, if useful.
+      icon: 'snow',
+      title: { fr: 'Climatisation', en: 'Air conditioning', ar: 'المكيّف', es: 'Aire acondicionado' },
+      body: {
+        fr: 'Fermez les fenêtres et la porte du balcon quand elle tourne. Éteignez-la en sortant.',
+        en: 'Keep the windows and the balcony door shut while it runs. Switch it off when you go out.',
+        ar: 'أغلق النوافذ وباب الشرفة أثناء تشغيله، وأطفئه عند خروجك.',
+        es: 'Cierra las ventanas y la puerta del balcón mientras funciona. Apágalo al salir.'
+      }
+    },
+    {
+      // TODO (host): the water heater's type and size, if guests should space out showers.
+      icon: 'drop',
+      title: { fr: 'Eau chaude', en: 'Hot water', ar: 'الماء الساخن', es: 'Agua caliente' },
+      body: {
+        fr: 'Laissez couler l’eau quelques instants avant la douche. Toujours froide ? Écrivez à {host}.',
+        en: 'Let the water run for a moment before your shower. Still cold? Message {host}.',
+        ar: 'اترك الماء يجري لحظات قبل الاستحمام. ما زال بارداً؟ راسل {host}.',
+        es: 'Deja correr el agua unos instantes antes de ducharte. ¿Sigue fría? Escribe a {host}.'
+      }
+    },
+    // TODO (host): what the kitchen corner has (hob, fridge, kettle…). The client's
+    // description does not mention one: remove this entry if the studios have none.
+    { icon: 'pot', title: { fr: 'Coin cuisine', en: 'Kitchenette', ar: 'ركن المطبخ', es: 'Zona de cocina' }, body: 'TODO' },
+    {
+      icon: 'door',
+      title: { fr: 'L’immeuble', en: 'The building', ar: 'العمارة', es: 'El edificio' },
+      body: {
+        fr: 'Refermez toujours la porte d’entrée et n’ouvrez pas aux inconnus. Escalier partagé : rien sur les paliers. Une livraison ? Récupérez-la à la porte.',
+        en: 'Always close the street door and never let strangers in. Shared stairs: leave nothing on the landings. A delivery? Collect it at the door.',
+        ar: 'أغلق باب العمارة دائماً ولا تفتحه للغرباء. الدرج مشترك، فلا تترك فيه أي شيء. طلبية؟ استلمها عند الباب.',
+        es: 'Cierra siempre la puerta de entrada y no abras a desconocidos. Escalera compartida: nada en los rellanos. ¿Un pedido? Recógelo en la puerta.'
+      }
+    },
+    {
+      icon: 'moon',
+      title: { fr: 'Heures calmes', en: 'Quiet hours', ar: 'أوقات الهدوء', es: 'Horas de silencio' },
+      body: {
+        fr: 'Après 22 h, le son passe d’un studio à l’autre. Parlez bas dans l’escalier et sur le balcon.',
+        en: 'After 10 pm, sound carries between studios. Keep your voice low on the stairs and the balcony.',
+        ar: 'بعد الساعة 22:00 ينتقل الصوت بين الاستوديوهات، فاخفض صوتك في الدرج وعلى الشرفة.',
+        es: 'A partir de las 22:00, el sonido pasa de un estudio a otro. Habla bajo en la escalera y en el balcón.'
+      }
+    },
+    {
+      // TODO (host): replace the last sentence with the exact place and time
+      // (bin room or street container, in the evening?).
+      icon: 'trash',
+      title: { fr: 'Poubelles', en: 'Rubbish', ar: 'النفايات', es: 'Basura' },
+      body: {
+        fr: 'Fermez bien les sacs et ne les laissez jamais sur le palier ni dans l’escalier. Où les déposer ? Demandez à {host}.',
+        en: 'Tie the bags well and never leave them on the landing or the stairs. Where do they go? Ask {host}.',
+        ar: 'أحكم إغلاق الأكياس ولا تتركها أبداً على البسطة أو في الدرج. أين تضعها؟ اسأل {host}.',
+        es: 'Cierra bien las bolsas y no las dejes nunca en el rellano ni en la escalera. ¿Dónde van? Pregunta a {host}.'
+      }
+    }
+  ],
+
+  // name: the shop; walk: minutes on foot FROM THE BUILDING (0 = not measured yet);
+  // maps: Google Maps search text.
+  // Same list as Bourgogne 133 (same neighbourhood): change both together.
+  // Every address below is in the Bourgogne district according to its source; the
+  // walking times stay at 0 until the building's pin is known.
+  nearby: [
+    // source: https://carrefourmarket.ma/nos-magasins/casablanca/carrefour-market-casablanca-bourgogne/
+    // source: https://promotheus.ma/casablanca/carrefour-market/rue-ain-sidi-ali-immeuble-e-quartier-bourgogne
+    // Rue Aïn Sidi Ali, Immeuble E. Official page: 09:00–23:00, 7 days a week.
+    { icon: 'cart', label: { fr: 'Supermarché', en: 'Supermarket', ar: 'متجر كبير', es: 'Supermercado' }, name: 'Carrefour Market Bourgogne', walk: 0, maps: 'Carrefour Market Bourgogne, Casablanca' },
+    // source: https://www.med.ma/pharmacie/casablanca/pharmacie-des-generations--46548
+    // 53 rue Jaber Ben Hayane (ex-Verlet-Hanus), Bourgogne.
+    { icon: 'cross', label: { fr: 'Pharmacie', en: 'Pharmacy', ar: 'صيدلية', es: 'Farmacia' }, name: 'Pharmacie des Générations', walk: 0, maps: 'Pharmacie des Générations, Bourgogne, Casablanca' },
+    // source: https://www.telecontact.ma/annonceur/boulangerie-abou-marouane/3149586/casablanca.php
+    // 172 bd de Bourgogne. One directory listing only: TODO (host) confirm it is still open,
+    // or put your own favourite bakery here.
+    { icon: 'bread', label: { fr: 'Boulangerie', en: 'Bakery', ar: 'مخبزة', es: 'Panadería' }, name: 'Boulangerie Abou Marouane', walk: 0, maps: 'Boulangerie Abou Marouane, Bourgogne, Casablanca' },
+    // source: https://www.annuaire-gratuit.ma/banques-maroc/attijariwafa-bank/attijariwafa-bank-casa-bourgogne-expansion-s186710.html
+    // source: https://www.telecontact.ma/liens/attijariwafa-bank-ag-casa-bourgogne/casablanca.php
+    // Agence Casa Bourgogne Expansion, corner of rue Ibnou Jarir and rue Abou El Wakt Ibno Khalaf.
+    // A bank branch; the sources do not mention the cash machine itself.
+    { icon: 'card', label: { fr: 'Distributeur', en: 'Cash machine', ar: 'شبّاك بنكي', es: 'Cajero' }, name: 'Attijariwafa bank', walk: 0, maps: 'Attijariwafa bank Casa Bourgogne Expansion, Casablanca' },
+    // TODO (host): no café in Bourgogne could be confirmed online. Your own favourite?
+    { icon: 'cup', label: { fr: 'Café', en: 'Café', ar: 'مقهى', es: 'Café' }, name: 'TODO', walk: 0, maps: '' },
+    // source: https://www.smartertravel.com/local-taxis-casablanca-transportation/
+    // source: https://telquel.ma/2025/11/27/uber-annonce-officiellement-son-retour-au-maroc-a-la-veille-de-la-can-2025_1962895
+    // No tram stop inside Bourgogne could be confirmed. TODO (host): if you send guests
+    // to a tram stop, add it as its own line (icon 'tram').
+    { icon: 'car', label: { fr: 'Taxi', en: 'Taxi', ar: 'طاكسي', es: 'Taxi' }, name: { fr: 'Petit taxi rouge ou Uber', en: 'Red petit taxi or Uber', ar: 'طاكسي صغير أحمر أو Uber', es: 'Petit taxi rojo o Uber' }, walk: 0, maps: '' },
+    // source: https://www.kerix.net/fr/annuaire-entreprise/clinique-badr
+    // source: https://www.BMCEbank.ma/sites/default/files/list-clinics_0.pdf
+    // source: https://fnh.ma/article/entreprises/le-groupe-odm-acquiert-la-clinique-badr-de-casablanca
+    // Private clinic, 35 rue El Alloussi, Bourgogne (facing the Badr mosque). No source
+    // confirms a 24 h emergency department, so the tile does not say "urgences".
+    { icon: 'heart', label: { fr: 'Clinique', en: 'Clinic', ar: 'مصحّة', es: 'Clínica' }, name: 'Clinique Badr', walk: 0, maps: 'Clinique Badr, Bourgogne, Casablanca' }
+  ],
+
+  services: null // null: the brand's services (airport transfer, early/late, cleaning)
 };
