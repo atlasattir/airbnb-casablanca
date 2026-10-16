@@ -72,11 +72,11 @@ Outfit (sans-serif géométrique, graisses fines) pour les titres et le texte ; 
 
 ## Avant de publier : ce qu’il reste à compléter
 
-Les champs marqués `TODO` affichent un petit badge « Bientôt » aux voyageurs. Cherchez `TODO` dans `content/`.
+Les champs marqués `TODO` ne sont pas montrés aux voyageurs (Wi-Fi : « Sur la carte dans votre logement »). Pour voir ce qu’il reste à compléter, ajoutez `&draft` à l’adresse d’un logement, par exemple `…/?stay=ocean-21&draft` : chaque champ manquant y apparaît avec un badge « Bientôt ». Cherchez `TODO` dans `content/`.
 
 Pour toute la marque (`content/brand.js`) :
 - [ ] Numéro WhatsApp (`host.whatsapp`, chiffres seulement, ex. `2126XXXXXXXX`) ; un logement peut avoir le sien (`host` dans son fichier)
-- [ ] Position exacte de chaque logement (`lat`, `lng`, et `approx: false`) : elle sert à « Trouver mon logement », aux coordonnées et au coucher du soleil. Reportez-la aussi dans `location` du fichier du logement.
+- [ ] Position de chaque logement : la position exacte va seulement dans `location` du fichier du logement (coordonnées, coucher du soleil, itinéraire depuis la porte). Dans `content/brand.js`, gardez 2 décimales (environ 1 km) : cela suffit pour « Trouver mon logement » sans afficher l’immeuble sur l’accueil. Passez `approx` à `false` quand c’est fait.
 
 Pour chaque logement (`content/stays/<logement>.js`) :
 - [ ] Adresse en français et en arabe (pour le chauffeur de taxi), sans étage ni numéro d’appartement

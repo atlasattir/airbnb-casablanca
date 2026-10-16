@@ -48,6 +48,11 @@
         <div class="scene__sun"></div>
         <div class="scene__sea"></div>
         <div class="scene__shimmer"></div>
+        <!-- Martil: the Rif mountains on the horizon -->
+        <svg class="scene__hills" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="M0 200V128l70-30 60 18 90-62 80 40 70-26 110 56 90-74 100 48 70-20 90 44 90-36 80 30v88z" fill="#0B1A1E" opacity=".75"/>
+          <path d="M0 200v-46l110-22 90 26 120-40 110 30 100-18 130 34 100-26 140 20v42z" fill="#081215"/>
+        </svg>
         <svg class="scene__mosque" viewBox="0 0 360 640" preserveAspectRatio="xMaxYMax meet" focusable="false">
           <defs>
             <pattern id="hall-windows" width="22" height="40" patternUnits="userSpaceOnUse">
@@ -113,8 +118,8 @@
       <div class="hero__inner hero__inner--home">
         <p class="eyebrow hero__kicker"><span id="home-kicker">Casablanca · Marrakech · Martil</span></p>
         <h1 class="hero__title wordmark" dir="ltr" lang="en"><span class="l1">Atlas</span> <span class="l2">Stays</span></h1>
-        <p class="hero__tagline" data-i18n="homeTagline">Votre guide personnel</p>
         <div class="chooser">
+          <p class="hero__tagline" data-i18n="homeTagline">Votre guide personnel</p>
           <p class="chooser__label" id="chooser-label" data-i18n="chooseStay">Choisissez votre lieu de séjour</p>
           <nav class="chooser__chips" id="city-chips" aria-labelledby="chooser-label"></nav>
           <a class="resume" id="resume" href="./" hidden></a>

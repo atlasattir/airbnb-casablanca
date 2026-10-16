@@ -56,7 +56,7 @@ CASA.cities.marrakech = {
           id: 'jemaa',
           icon: 'lantern',
           short: { fr: 'Le cœur de la médina, magique le soir', en: 'The heart of the medina, magical at night', ar: 'قلب المدينة العتيقة، ساحر ليلاً', es: 'El corazón de la medina, mágico de noche' },
-          name: { fr: 'Place Jemaa el-Fna', en: 'Jemaa el-Fna Square', ar: 'ساحة جامع الفنا', es: 'Plaza Jemaa el-Fna' },
+          name: { fr: 'Place Jemaa el‑Fna', en: 'Jemaa el-Fna Square', ar: 'ساحة جامع الفنا', es: 'Plaza Jemaa el-Fna' },
           area: { fr: 'Médina', en: 'Medina', ar: 'المدينة العتيقة', es: 'Medina' },
           desc: {
             fr: 'La grande place de la médina, reconnue par l’UNESCO en 2001 pour son patrimoine oral et immatériel. Le soir, les stands de cuisine s’installent et la place s’anime.',
@@ -121,7 +121,7 @@ CASA.cities.marrakech = {
           tip: {
             fr: 'Ouverte tous les jours de 9 h à 19 h selon son site ; billets en vente à l’entrée (10 MAD pour les moins de 12 ans).',
             en: 'Open daily 9 am to 7 pm according to its website; tickets sold at the entrance (10 MAD for under-12s).',
-            ar: 'مفتوحة يومياً من 9:00 إلى 19:00 حسب موقعها، والتذاكر تُباع عند المدخل (10 دراهم لمن هم دون 12 سنة).',
+            ar: 'مفتوحة يومياً من 9:00 إلى 19:00 حسب موقعها الإلكتروني، والتذاكر تُباع عند المدخل (10 دراهم لمن هم دون 12 سنة).',
             es: 'Abre a diario de 9:00 a 19:00 según su web; entradas en la puerta (10 MAD para menores de 12 años).'
           },
           duration: 60, price: 50,
@@ -140,7 +140,7 @@ CASA.cities.marrakech = {
           desc: {
             fr: 'Un ancien riad de la médina, ouvert au public en 2016 après trois ans de travaux : un jardin islamique autour de ses bassins, un jardin exotique et une tour avec vue sur la ville.',
             en: 'A former riad in the medina, opened to the public in 2016 after three years of work: an Islamic garden around its pools, an exotic garden and a tower with a view over the city.',
-            ar: 'رياض قديم في المدينة العتيقة فُتح للعموم سنة 2016 بعد ثلاث سنوات من الأشغال: حديقة إسلامية حول أحواضه، وحديقة للنباتات الغريبة، وبرج يطلّ على المدينة.',
+            ar: 'رياض قديم في المدينة العتيقة فُتح للعموم سنة 2016 بعد ثلاث سنوات من الأشغال: حديقة إسلامية حول أحواضه، وحديقة نباتات من مختلف القارات، وبرج يطلّ على المدينة.',
             es: 'Un antiguo riad de la medina, abierto al público en 2016 tras tres años de obras: un jardín islámico en torno a sus estanques, un jardín exótico y una torre con vistas a la ciudad.'
           },
           tip: {
@@ -244,8 +244,8 @@ CASA.cities.marrakech = {
           },
           list: [
             { text: { fr: '« C’est fermé par là » ? C’est presque toujours faux : continuez votre chemin.', en: '“That way is closed”? It almost never is: keep going.', ar: '«الطريق مغلق»؟ غالباً ما يكون ذلك غير صحيح، فتابع طريقك.', es: '¿«Por ahí está cerrado»? Casi nunca es cierto: sigue tu camino.' } },
-            { text: { fr: 'Déclinez poliment les guides improvisés ; prenez un guide officiel ou suivez votre carte.', en: 'Politely turn down self-appointed guides; hire an official guide or follow your map.', ar: 'اعتذر بلطف عن المرشدين غير الرسميين، واستعن بمرشد رسمي أو اتبع خريطتك.', es: 'Rechaza con amabilidad a los guías improvisados; contrata un guía oficial o sigue tu mapa.' } },
-            { text: { fr: 'Henné sur la place : gardez vos mains et fixez le prix avant.', en: 'Henna on the square: keep your hands back and agree the price first.', ar: 'الحنّاء في الساحة: لا تمدّ يدك قبل الاتفاق على الثمن.', es: 'Henna en la plaza: no des la mano y acuerda el precio antes.' } },
+            { text: { fr: 'Déclinez poliment les guides improvisés ; prenez un guide officiel ou suivez votre carte.', en: 'Politely turn down self-appointed guides; hire an official guide or follow your map.', ar: 'ارفض بلطف عروض المرشدين غير الرسميين، واستعن بمرشد رسمي أو اتبع خريطتك.', es: 'Rechaza con amabilidad a los guías improvisados; contrata un guía oficial o sigue tu mapa.' } },
+            { text: { fr: 'Henné sur la place : ne tendez pas la main avant d’avoir fixé le prix.', en: 'Henna on the square: do not hold out your hand until the price is agreed.', ar: 'الحنّاء في الساحة: لا تمدّ يدك قبل الاتفاق على الثمن.', es: 'Henna en la plaza: no tiendas la mano hasta acordar el precio.' } },
             { text: { fr: 'Juillet et août : souvent 36–37 °C l’après-midi. Sortez le matin et en fin de journée.', en: 'July and August: often 36–37 °C in the afternoon. Go out in the morning and late in the day.', ar: 'في يوليو وأغسطس: غالباً 36–37 درجة بعد الظهر، فاخرج صباحاً وآخر النهار.', es: 'Julio y agosto: a menudo 36–37 °C por la tarde. Sal por la mañana y al final del día.' } },
             { text: { fr: 'En hiver, les journées sont douces mais les nuits froides (5–7 °C) : prenez une veste.', en: 'In winter, days are mild but nights are cold (5–7 °C): bring a jacket.', ar: 'في الشتاء، النهار معتدل لكن الليل بارد (5–7 درجات)، فاحمل سترة.', es: 'En invierno, los días son suaves pero las noches frías (5–7 °C): lleva una chaqueta.' } }
           ]
@@ -277,7 +277,7 @@ CASA.cities.marrakech = {
           id: 'jemaa-stalls',
           icon: 'tagine',
           short: { fr: 'Dîner sur la place, à petit prix', en: 'Dinner on the square, on a budget', ar: 'عشاء في الساحة بثمن زهيد', es: 'Cenar en la plaza, a buen precio' },
-          name: { fr: 'Stands de Jemaa el-Fna', en: 'Jemaa el-Fna food stalls', ar: 'أكشاك الطعام في جامع الفنا', es: 'Puestos de Jemaa el-Fna' },
+          name: { fr: 'Stands de Jemaa el‑Fna', en: 'Jemaa el-Fna food stalls', ar: 'أكشاك الطعام في جامع الفنا', es: 'Puestos de Jemaa el-Fna' },
           area: { fr: 'Médina', en: 'Medina', ar: 'المدينة العتيقة', es: 'Medina' },
           tags: ['moroccan', 'medina', 'budget'],
           desc: {
@@ -367,7 +367,7 @@ CASA.cities.marrakech = {
             es: 'Una institución de la cocina marroquí, llevada solo por mujeres. Se viene por el cordero de cocción lenta, el cuscús y los pasteles.'
           },
           tip: {
-            fr: 'Réservez, et préférez les tajines à la carte au menu.',
+            fr: 'Réservez, et préférez les tajines à la carte plutôt que le menu.',
             en: 'Book ahead, and choose the à la carte tagines over the set menu.',
             ar: 'احجز مسبقاً، واختر الطواجن من القائمة بدل الوجبة الثابتة.',
             es: 'Reserva y elige los tajines a la carta en vez del menú.'
@@ -397,10 +397,10 @@ CASA.cities.marrakech = {
             es: 'Un restaurante fundado por australianos: platos para compartir entre Australia, Marruecos y el Mediterráneo, con pan y pasta caseros.'
           },
           tip: {
-            fr: 'Classé en 2026 parmi les 50 meilleurs restaurants du Moyen-Orient et d’Afrique du Nord : réservez.',
-            en: 'Listed in 2026 among the Middle East & North Africa’s 50 Best Restaurants: book ahead.',
-            ar: 'صُنّف سنة 2026 ضمن أفضل 50 مطعماً في الشرق الأوسط وشمال إفريقيا، فاحجز مسبقاً.',
-            es: 'En 2026 figura entre los 50 mejores restaurantes de Oriente Medio y el Norte de África: reserva.'
+            fr: 'Une table primée et très demandée : réservez.',
+            en: 'An award-winning, much sought-after table: book ahead.',
+            ar: 'مطعم حائز على جوائز وعليه إقبال كبير، فاحجز مسبقاً.',
+            es: 'Una mesa premiada y muy solicitada: reserva.'
           },
           budget: 2,
           maps: 'Plus61, Marrakech'
@@ -418,9 +418,9 @@ CASA.cities.marrakech = {
           area: { fr: 'Hors médina', en: 'Outside the medina', ar: 'خارج المدينة العتيقة', es: 'Fuera de la medina' },
           tags: ['moroccan'],
           desc: {
-            fr: 'Une association qui forme aux métiers de la restauration des femmes en situation difficile. On y déjeune de cuisine marocaine, dans un jardin.',
+            fr: 'Une association qui forme aux métiers de la restauration des femmes en situation difficile. On y déjeune d’une cuisine marocaine, dans un jardin.',
             en: 'A non-profit that trains women in difficulty for restaurant work. You lunch on Moroccan food, in a garden.',
-            ar: 'جمعية غير ربحية تكوّن نساء في وضعية صعبة على مهن المطاعم، وتتناول فيها غداءً مغربياً في حديقة.',
+            ar: 'جمعية غير ربحية تُدرّب نساءً في وضع صعب على مهن المطاعم، ويمكنك أن تتناول فيها غداءً مغربياً في حديقة.',
             es: 'Una asociación que forma a mujeres en situación difícil en el oficio de la restauración. Se come cocina marroquí en un jardín.'
           },
           tip: {
@@ -795,7 +795,7 @@ CASA.cities.marrakech = {
         },
         // source: https://www.lonelyplanet.com/news/best-day-trips-from-marrakesh
         // source: https://press.fourseasons.com/marrakech/trending-now/day-trips
-        // About 30 km south, about 45 min by car; camel, quad, sunset tea, dinner in a tent.
+        // About 30 km south, about 45 min by car; camel, quad, sunset tea, dinner in a tent.
         // TODO (host): `request` lets guests ask you for a driver or a trip; remove it if you
         // do not arrange this.
         {
@@ -803,11 +803,11 @@ CASA.cities.marrakech = {
           icon: 'sunset',
           short: { fr: 'Désert de pierres au coucher du soleil', en: 'Stone desert at sunset', ar: 'صحراء صخرية عند الغروب', es: 'Desierto de piedra al atardecer' },
           name: { fr: 'Désert d’Agafay', en: 'Agafay Desert', ar: 'صحراء أكافاي', es: 'Desierto de Agafay' },
-          area: { fr: '≈ 30 km au sud', en: '≈ 30 km south', ar: '≈ 30 كلم جنوباً', es: '≈ 30 km al sur' },
+          area: { fr: '≈ 30 km au sud', en: '≈ 30 km south', ar: '≈ 30 كلم جنوباً', es: '≈ 30 km al sur' },
           desc: {
             fr: 'Un désert de pierres à environ 45 minutes de route. Les camps proposent thé au coucher du soleil, dîner sous la tente, balade à dos de chameau ou en quad.',
             en: 'A stone desert about 45 minutes’ drive away. Camps offer sunset tea, dinner in a tent, camel rides or quad biking.',
-            ar: 'صحراء صخرية على بُعد نحو 45 دقيقة بالسيارة. تقترح المخيّمات شاياً عند الغروب وعشاءً تحت الخيمة وجولات على الجمال أو بالدراجات الرباعية.',
+            ar: 'صحراء صخرية على بُعد نحو 45 دقيقة بالسيارة. تقدّم المخيّمات الشاي عند الغروب وعشاءً تحت الخيمة وجولات على الجمال أو بالدراجات الرباعية.',
             es: 'Un desierto de piedra a unos 45 minutos en coche. Los campamentos ofrecen té al atardecer, cena en jaima, paseos en camello o en quad.'
           },
           duration: 240, sunset: true,
@@ -824,7 +824,7 @@ CASA.cities.marrakech = {
           icon: 'mountain',
           short: { fr: 'Vallée de l’Atlas et cascades', en: 'Atlas valley and waterfalls', ar: 'وادٍ في الأطلس وشلالات', es: 'Valle del Atlas y cascadas' },
           name: { fr: 'Vallée de l’Ourika', en: 'Ourika Valley', ar: 'وادي أوريكا', es: 'Valle de Ourika' },
-          area: { fr: '≈ 1 h au sud', en: '≈ 1 h south', ar: '≈ ساعة جنوباً', es: '≈ 1 h al sur' },
+          area: { fr: '≈ 1 h au sud', en: '≈ 1 h south', ar: '≈ ساعة جنوباً', es: '≈ 1 h al sur' },
           desc: {
             fr: 'Une vallée de l’Atlas à environ une heure de route. Depuis le village de Setti Fatma, une marche d’environ 1 h 30 mène aux cascades.',
             en: 'An Atlas valley about an hour’s drive away. From the village of Setti Fatma, a walk of about 1½ hours leads to the waterfalls.',
@@ -1072,13 +1072,13 @@ CASA.cities.marrakech = {
         // source: https://www.thetraveler.org/marrakech-airport-taxi-guide-fares-driver-tips/
         // source: https://www.pointswithacrew.com/how-to-use-marrakech-airport-bus-19-to-marrakech-city-center-a-step-by-step-guide/
         // source: https://airconnect.live/en/airports/marrakech-airport-transport-guide
-        // Bus 19: 30 MAD one way (return 50 MAD per one source), every 20–30 min; hours differ by
+        // Bus 19: 30 MAD one way (return 50 MAD per one source), every 20–30 min; hours differ by
         // source (to ~21:30 or ~23:30). How to pay differs (driver, kiosk, or on board by card):
         // the text only says to carry cash. Operator not named (not confirmed). Taxi 70–100 MAD by day.
         {
           title: { fr: 'Aéroport Marrakech-Ménara', en: 'Marrakech Menara Airport', ar: 'مطار مراكش المنارة', es: 'Aeropuerto Marrakech-Menara' },
           icon: 'plane',
-          key: { fr: 'Bus 19 · ≈ 30 MAD', en: 'Bus 19 · ≈ 30 MAD', ar: 'الحافلة 19 · ≈ 30 درهماً', es: 'Bus 19 · ≈ 30 MAD' },
+          key: { fr: 'Bus 19 · ≈ 30 MAD', en: 'Bus 19 · ≈ 30 MAD', ar: 'الحافلة 19 · ≈ 30 درهماً', es: 'Bus 19 · ≈ 30 MAD' },
           list: [
             { fr: 'Bus ligne 19 : environ 30 MAD l’aller ; prévoyez des espèces. Il passe par Jemaa el-Fna et la gare toutes les 20 à 30 minutes ; vérifiez les horaires.', en: 'Bus line 19: about 30 MAD one way; carry cash. It stops at Jemaa el-Fna and the railway station every 20 to 30 minutes; check the times.', ar: 'الحافلة رقم 19: نحو 30 درهماً للذهاب، فاحمل معك نقوداً. تمرّ بجامع الفنا ومحطة القطار كل 20 إلى 30 دقيقة، فتحقّق من المواعيد.', es: 'Bus línea 19: unos 30 MAD la ida; lleva efectivo. Pasa por Jemaa el-Fna y la estación de tren cada 20 a 30 minutos; consulta los horarios.' },
             { fr: 'Taxi : environ 70 à 100 MAD de jour vers la médina ou Guéliz, davantage la nuit. Convenez du prix avant de partir.', en: 'Taxi: about 70 to 100 MAD by day to the medina or Guéliz, more at night. Agree the price before you leave.', ar: 'الطاكسي: نحو 70 إلى 100 درهم نهاراً نحو المدينة العتيقة أو جليز، وأكثر ليلاً. اتفق على الثمن قبل الانطلاق.', es: 'Taxi: unos 70 a 100 MAD de día a la medina o Guéliz, más de noche. Acuerda el precio antes de salir.' },
@@ -1093,7 +1093,7 @@ CASA.cities.marrakech = {
         {
           title: { fr: 'Gare de Marrakech', en: 'Marrakech railway station', ar: 'محطة قطار مراكش', es: 'Estación de tren de Marrakech' },
           icon: 'train',
-          key: { fr: 'Casablanca ≈ 2 h 40', en: 'Casablanca ≈ 2 h 40', ar: 'الدار البيضاء ≈ ساعتان و40 دقيقة', es: 'Casablanca ≈ 2 h 40' },
+          key: { fr: 'Casablanca ≈ 2 h 40', en: 'Casablanca ≈ 2 h 40', ar: 'الدار البيضاء ≈ ساعتان و40 دقيقة', es: 'Casablanca ≈ 2 h 40' },
           body: {
             fr: 'La gare ONCF est à Guéliz, avenue Hassan II. Plusieurs trains directs par jour rejoignent Casa Voyageurs en 2 h 40 à 3 h environ.',
             en: 'The ONCF station is in Guéliz, on Avenue Hassan II. Several direct trains a day reach Casa Voyageurs in about 2 h 40 to 3 h.',

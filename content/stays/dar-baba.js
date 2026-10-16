@@ -89,7 +89,7 @@ CASA.stays['dar-baba'] = {
       body: {
         fr: 'Une connexion rapide, idéale pour travailler. Réseau et mot de passe : voir « Wi-Fi ». Une coupure ? Écrivez à {host}.',
         en: 'A fast connection, ideal for working. Network and password: see “Wi-Fi”. Connection down? Message {host}.',
-        ar: 'اتصال سريع، مثالي للعمل. اسم الشبكة وكلمة السر: انظر «واي فاي». انقطع الاتصال؟ راسل {host}.',
+        ar: 'اتصال سريع، مثالي للعمل. اسم الشبكة وكلمة المرور: انظر «واي فاي». انقطع الاتصال؟ راسل {host}.',
         es: 'Una conexión rápida, ideal para trabajar. Red y contraseña: mira «Wi-Fi». ¿Se corta? Escribe a {host}.'
       }
     },
@@ -102,7 +102,7 @@ CASA.stays['dar-baba'] = {
       body: {
         fr: 'Trois appartements partagent la maison. Refermez toujours la porte d’entrée, ne laissez rien dans les parties communes et parlez bas le soir.',
         en: 'Three apartments share the house. Always close the front door, leave nothing in the shared areas and keep voices low in the evening.',
-        ar: 'تضمّ الدار ثلاث شقق. أغلق باب المدخل دائماً، ولا تترك شيئاً في الأجزاء المشتركة، واخفض صوتك مساءً.',
+        ar: 'تضمّ الدار ثلاث شقق. أغلق باب المدخل دائماً، ولا تترك شيئاً في الأماكن المشتركة، واخفض صوتك مساءً.',
         es: 'Tres apartamentos comparten la casa. Cierra siempre la puerta de entrada, no dejes nada en las zonas comunes y habla bajo por la noche.'
       }
     },

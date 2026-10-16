@@ -74,12 +74,10 @@ CASA.stays['ocean-21'] = {
     // TODO: which entrance of Anfa Place to use, whether security asks for ID, whether the reception
     // is involved, how to reach the lifts. Never the tower, floor or apartment number.
     { icon: 'building', title: { fr: 'La résidence', en: 'The residence', ar: 'الإقامة', es: 'La residencia' }, body: 'TODO' },
-    // TODO: may guests use the residence's pool (seasonal), gym and beach access? Free, paid or not at all?
-    // Wristband or card, from whom? Until the host answers, keep 'TODO': never promise hotel facilities.
-    { icon: 'pool', title: { fr: 'Piscine, sport, plage', en: 'Pool, gym, beach', ar: 'المسبح والرياضة والشاطئ', es: 'Piscina, gimnasio, playa' }, body: 'TODO' },
-    // TODO: is there a parking space for the apartment, and how do guests get in (badge, remote)?
-    // Never a space number if it identifies the apartment.
-    { icon: 'car', title: { fr: 'Parking', en: 'Parking', ar: 'موقف السيارات', es: 'Aparcamiento' }, body: 'TODO' },
+    // TODO (host): may guests use the residence's pool, gym and beach access? Free, paid or not at all?
+    // Wristband or card, from whom? Add a tile only once confirmed: never promise hotel facilities.
+    // TODO (host): a parking space for the apartment? How do guests get in (badge, remote)? Add a
+    // 'Parking' tile once confirmed, never with a space number that identifies the apartment.
     // General advice for a sea-facing balcony (wind, salt spray, children), not a host fact.
     {
       icon: 'balcony',
@@ -102,15 +100,15 @@ CASA.stays['ocean-21'] = {
     { icon: 'cart', label: { fr: 'Supermarché', en: 'Supermarket', ar: 'متجر كبير', es: 'Supermercado' }, name: 'Carrefour Market Anfa Place', walk: 0, maps: 'Carrefour Market Anfa Place, Casablanca' },
     // source: https://www.med.ma/pharmacie/casablanca/pharmacie-anfaplace--44442
     // (Bd de la Corniche, in the shopping centre; hours and night duty not confirmed)
-    { icon: 'cross', label: { fr: 'Pharmacie', en: 'Pharmacy', ar: 'صيدلية', es: 'Farmacia' }, name: 'Pharmacie Anfaplace', walk: 0, maps: 'Pharmacie Anfaplace, Casablanca' },
+    { icon: 'cross', label: { fr: 'Pharmacie', en: 'Pharmacy', ar: 'صيدلية', es: 'Farmacia' }, name: 'Pharmacie Anfa Place', walk: 0, maps: 'Pharmacie Anfaplace, Casablanca' },
     // source: https://wanderlog.com/place/details/89712/paul-anfaplace
     // source: https://fodors.com/world/africa-and-middle-east/morocco/the-northern-atlantic-coast/places/casablanca/restaurants
     // TODO (host): only a listing site names this branch; the mall's tenant lists checked in Oct. 2026
     // (grit.group) do not. Confirm it is still open, or set name: 'TODO' and maps: ''.
-    { icon: 'bread', label: { fr: 'Boulangerie', en: 'Bakery', ar: 'مخبزة', es: 'Panadería' }, name: 'Paul Anfaplace', walk: 0, maps: 'Paul Anfaplace, Casablanca' },
+    { icon: 'bread', label: { fr: 'Boulangerie', en: 'Bakery', ar: 'مخبزة', es: 'Panadería' }, name: 'Paul Anfa Place', walk: 0, maps: 'Paul Anfaplace, Casablanca' },
     // source: https://locations.alshaya.com/starbucks/ma/casablanca/anfaplace-mall
     // (listed 09:00–22:00, 23:00 on Friday and Saturday)
-    { icon: 'cup', label: { fr: 'Café', en: 'Café', ar: 'مقهى', es: 'Café' }, name: 'Starbucks AnfaPlace Mall', walk: 0, maps: 'Starbucks AnfaPlace Mall, Casablanca' },
+    { icon: 'cup', label: { fr: 'Café', en: 'Café', ar: 'مقهى', es: 'Café' }, name: 'Starbucks Anfa Place', walk: 0, maps: 'Starbucks AnfaPlace Mall, Casablanca' },
     // TODO: no source confirms a cash machine inside the AnfaPlace mall (a BMCI branch is said to be
     // nearby: https://www.spacesworks.com/casablanca/anfa-place/). Ask the host which one guests use.
     { icon: 'card', label: { fr: 'Distributeur', en: 'Cash machine', ar: 'شبّاك بنكي', es: 'Cajero' }, name: 'TODO', walk: 0, maps: '' },

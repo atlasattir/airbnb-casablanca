@@ -9,7 +9,7 @@
  * page) are stored the first time it is opened. Change VERSION, and this
  * list, after renaming or removing files: a missing file stops the update.
  */
-var VERSION = 'atlas-v1';
+var VERSION = 'atlas-v2';
 var CORE = [
   './',
   'index.html',

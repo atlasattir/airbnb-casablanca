@@ -46,7 +46,7 @@ CASA.cities.martil = {
       intro: {
         fr: 'Une Méditerranée souvent calme et des plages de sable, de Martil à M’diq. En juillet et août, venez tôt.',
         en: 'An often calm Mediterranean and sandy beaches, from Martil to M’diq. In July and August, come early.',
-        ar: 'البحر الأبيض المتوسط هنا هادئ في الغالب، وشواطئه رملية من مرتيل إلى المضيق. في يوليوز وغشت، تعالَ باكراً.',
+        ar: 'البحر الأبيض المتوسط هنا هادئ في الغالب، وشواطئه رملية من مرتيل إلى المضيق. في يوليو وأغسطس، تعالَ باكراً.',
         es: 'Un Mediterráneo a menudo tranquilo y playas de arena, de Martil a M’diq. En julio y agosto, ve temprano.'
       },
       items: [
@@ -70,7 +70,7 @@ CASA.cities.martil = {
           tip: {
             fr: 'En juillet et août, la plage est bondée : venez le matin et baignez-vous près d’un poste de secours.',
             en: 'In July and August the beach is packed: come in the morning and swim near a lifeguard post.',
-            ar: 'في يوليوز وغشت يكون الشاطئ مكتظاً، فتعال صباحاً واسبح قرب مركز للإنقاذ.',
+            ar: 'في يوليو وأغسطس يكون الشاطئ مكتظاً، فتعال صباحاً واسبح قرب مركز للإنقاذ.',
             es: 'En julio y agosto la playa se llena: ve por la mañana y báñate cerca de un puesto de socorrismo.'
           },
           price: 0,
@@ -184,14 +184,14 @@ CASA.cities.martil = {
         // source: https://kupi.com/en/explore/morocco/tetouan/bab-al-okla (Bab Okla, the main gate)
         // source: https://www.barcelo.com/guia-turismo/en/morocco/tanger/things-to-do/tetouan/
         // (a working market rather than a tourist set; allow 2-3 h)
-        // Martil–Tétouan: about 10 min (https://travelynnfamily.com/tetouan-with-kids/) to about 20 min by car
+        // Martil–Tétouan: about 10 min (https://travelynnfamily.com/tetouan-with-kids/) to about 20 min by car
         // (https://travel.hotelscombined.ca/Place/Martil.htm), hence "10 à 20 minutes".
         {
           id: 'tetouan-medina',
           icon: 'gate',
           short: { fr: 'Médina andalouse, classée UNESCO', en: 'Andalusian medina, UNESCO-listed', ar: 'مدينة عتيقة أندلسية مصنّفة لدى اليونسكو', es: 'Medina andalusí, Patrimonio UNESCO' },
           name: { fr: 'Médina de Tétouan', en: 'Tétouan Medina', ar: 'مدينة تطوان العتيقة', es: 'Medina de Tetuán' },
-          area: { fr: 'Tétouan · 10 à 20 min', en: 'Tétouan · 10 to 20 min', ar: 'تطوان · 10 إلى 20 دقيقة', es: 'Tetuán · 10 a 20 min' },
+          area: { fr: 'Tétouan · 10 à 20 min', en: 'Tétouan · 10 to 20 min', ar: 'تطوان · 10 إلى 20 دقيقة', es: 'Tetuán · 10 a 20 min' },
           desc: {
             fr: 'Classée au patrimoine mondial de l’UNESCO en 1997, c’est l’une des médinas les mieux conservées du Maroc, marquée par l’Andalousie. Un vrai marché vivant, plus qu’un décor pour touristes.',
             en: 'A UNESCO World Heritage Site since 1997 and one of the best-preserved medinas in Morocco, shaped by Andalusia. A real working market rather than a tourist set.',
@@ -201,7 +201,7 @@ CASA.cities.martil = {
           tip: {
             fr: 'Entrez par Bab Okla, prévoyez 2 à 3 heures et des chaussures plates : les ruelles sont en pente.',
             en: 'Enter by Bab Okla, allow 2 to 3 hours and wear flat shoes, as the lanes slope.',
-            ar: 'ادخل من باب العقلة وخصّص ساعتين إلى ثلاث، والبس حذاءً مسطّحاً لأن الأزقة منحدرة.',
+            ar: 'ادخل من باب العقلة وخصّص ساعتين إلى ثلاث، والبس حذاءً مريحاً بلا كعب لأن الأزقة منحدرة.',
             es: 'Entra por Bab Okla, calcula de 2 a 3 horas y lleva calzado plano: las callejuelas tienen cuesta.'
           },
           duration: 150, price: 0,
@@ -245,9 +245,9 @@ CASA.cities.martil = {
           name: { fr: 'L’Ensanche', en: 'The Ensanche', ar: 'حيّ الإنسانشي', es: 'El Ensanche' },
           area: { fr: 'Tétouan', en: 'Tétouan', ar: 'تطوان', es: 'Tetuán' },
           desc: {
-            fr: 'Le quartier bâti sous le protectorat espagnol, restauré, autour de la place Moulay El Mehdi et de son église. Les cafés d’en face servent crêpes et glaces.',
+            fr: 'Le quartier bâti sous le protectorat espagnol autour de la place Moulay El Mehdi et de son église, aujourd’hui restauré. Les cafés d’en face servent crêpes et glaces.',
             en: 'The quarter built under the Spanish protectorate, now restored, around Moulay El Mehdi Square and its church. The cafés opposite serve crêpes and ice cream.',
-            ar: 'الحيّ الذي شُيّد في عهد الحماية الإسبانية، وقد رُمّم، حول ساحة مولاي المهدي وكنيستها. المقاهي المقابلة تقدّم الكريب والمثلّجات.',
+            ar: 'حيّ شُيّد في عهد الحماية الإسبانية حول ساحة مولاي المهدي وكنيستها، وقد رُمّم. وتقدّم المقاهي المقابلة الكريب والمثلّجات.',
             es: 'El barrio construido durante el protectorado español, hoy restaurado, en torno a la plaza Moulay El Mehdi y su iglesia. Los cafés de enfrente sirven crepes y helados.'
           },
           duration: 60, price: 0,
@@ -307,7 +307,7 @@ CASA.cities.martil = {
         {
           id: 'chefchaouen',
           icon: 'mountain',
-          short: { fr: 'La ville bleue, à ≈ 1 h 15 de route', en: 'The blue town, ≈ 1 h 15 by road', ar: 'المدينة الزرقاء، على بُعد ≈ ساعة وربع', es: 'El pueblo azul, a ≈ 1 h 15 en coche' },
+          short: { fr: 'La ville bleue, à ≈ 1 h 15 de route', en: 'The blue town, ≈ 1 h 15 by road', ar: 'المدينة الزرقاء، على بُعد ≈ ساعة وربع', es: 'El pueblo azul, a ≈ 1 h 15 en coche' },
           name: { fr: 'Chefchaouen', ar: 'شفشاون' },
           area: { fr: 'Rif · excursion', en: 'Rif · day trip', ar: 'الريف · رحلة يوم', es: 'Rif · excursión' },
           desc: {
@@ -720,7 +720,7 @@ CASA.cities.martil = {
           tip: {
             fr: 'Parking souterrain sur place ; très animé au coucher du soleil.',
             en: 'Underground car park on site; very lively at sunset.',
-            ar: 'يوجد موقف سيارات تحت أرضي في المكان، والساحة تعجّ بالحياة عند الغروب.',
+            ar: 'يوجد موقف سيارات تحت الأرض في المكان، والساحة تعجّ بالحياة عند الغروب.',
             es: 'Aparcamiento subterráneo en el lugar; muy animado al atardecer.'
           },
           maps: 'Place Feddan, Tétouan'
@@ -740,7 +740,7 @@ CASA.cities.martil = {
           desc: {
             fr: 'Un complexe de Tanger avec un parc aquatique payant, à plus d’une heure de route : le plus proche que nous ayons trouvé.',
             en: 'A Tangier resort with a paid water park, over an hour’s drive away: the nearest one we found.',
-            ar: 'مُجمّع في طنجة به منتزه مائي بالأداء، على بُعد أكثر من ساعة بالسيارة: أقرب منتزه مائي وجدناه.',
+            ar: 'مُجمّع في طنجة به منتزه مائي مدفوع الدخول، على بُعد أكثر من ساعة بالسيارة: أقرب منتزه مائي وجدناه.',
             es: 'Un complejo de Tánger con parque acuático de pago, a más de una hora en coche: el más cercano que hemos encontrado.'
           },
           tip: {
@@ -767,7 +767,7 @@ CASA.cities.martil = {
         es: 'Grand taxis, autobuses y dos aeropuertos: lo básico para moverse entre Martil, Tetuán y la costa.'
       },
       blocks: [
-        // source: https://travelynnfamily.com/tetouan-with-kids/ (shared grand taxis Martil–Tétouan, about 10 min)
+        // source: https://travelynnfamily.com/tetouan-with-kids/ (shared grand taxis Martil–Tétouan, about 10 min)
         // source: https://www.gobytaxi.com/drivers/79071 (grand-taxi station for Martil, Avenue Hassan II, Tétouan)
         // source: https://fr.le360.ma/societe/tetouan-protestations-contre-les-hausses-tarifaires-abusives-des-grands-taxis_TWP4K22EFVCWPGBMQWRZZOLGNU/
         // (rush-hour fare rises reported on Tétouan–Martil)
@@ -779,11 +779,11 @@ CASA.cities.martil = {
           list: [
             { fr: 'Des grands taxis partagés relient Martil et Tétouan en 10 à 20 minutes environ. On paie sa place, ou le taxi entier pour partir seul.', en: 'Shared grand taxis link Martil and Tétouan in about 10 to 20 minutes. You pay for your seat, or for the whole taxi to travel alone.', ar: 'تربط الطاكسيات الكبيرة المشتركة بين مرتيل وتطوان في نحو 10 إلى 20 دقيقة. تدفع ثمن مقعدك، أو ثمن الطاكسي كله إن أردت الانفراد به.', es: 'Los grand taxis compartidos unen Martil y Tetuán en unos 10 a 20 minutos. Se paga por plaza, o el taxi entero para ir solo.' },
             { fr: 'Fixez le prix avant de monter : la presse locale a signalé des hausses de tarif aux heures de pointe.', en: 'Agree the fare before you get in: local press has reported fare rises at rush hour.', ar: 'اتفق على الثمن قبل الركوب، فقد أشارت الصحافة المحلية إلى زيادات في التعريفة في أوقات الذروة.', es: 'Acuerda la tarifa antes de subir: la prensa local ha informado de subidas en horas punta.' },
-            { fr: 'En juillet et août, la côte est très fréquentée : prévoyez plus de temps pour chaque trajet.', en: 'In July and August the coast is very busy: allow extra time for every trip.', ar: 'في يوليوز وغشت يشهد الساحل إقبالاً كبيراً، فخصّص وقتاً أطول لكل تنقّل.', es: 'En julio y agosto la costa está muy concurrida: calcula más tiempo para cada trayecto.' }
+            { fr: 'En juillet et août, la côte est très fréquentée : prévoyez plus de temps pour chaque trajet.', en: 'In July and August the coast is very busy: allow extra time for every trip.', ar: 'في يوليو وأغسطس يشهد الساحل إقبالاً كبيراً، فخصّص وقتاً أطول لكل تنقّل.', es: 'En julio y agosto la costa está muy concurrida: calcula más tiempo para cada trayecto.' }
           ]
         },
-        // source: https://www.checkmybus.com/martil/tetouan (Martil to Tétouan bus station, about 30 min, a few a day)
-        // source: https://travel.hotelscombined.ca/Place/Martil.htm (about 30 min by bus)
+        // source: https://www.checkmybus.com/martil/tetouan (Martil to Tétouan bus station, about 30 min, a few a day)
+        // source: https://travel.hotelscombined.ca/Place/Martil.htm (about 30 min by bus)
         // Re-checked 2026-10: the aggregators disagree on frequency (https://www.checkmybus.com/tetouan/martil
         // lists no direct trip, 12go lists several an hour), so no frequency or stop is printed.
         // source: https://www.checkmybus.com/travel/tetouan/chefchaouen and https://12go.asia/en/travel/tetouan/chefchaouen
@@ -792,10 +792,10 @@ CASA.cities.martil = {
         {
           title: { fr: 'Bus', en: 'Buses', ar: 'الحافلات', es: 'Autobuses' },
           icon: 'nav',
-          key: { fr: 'Martil → Tétouan ≈ 30 min', en: 'Martil → Tétouan ≈ 30 min', ar: 'مرتيل ← تطوان ≈ 30 دقيقة', es: 'Martil → Tetuán ≈ 30 min' },
+          key: { fr: 'Martil → Tétouan ≈ 30 min', en: 'Martil → Tétouan ≈ 30 min', ar: 'مرتيل ← تطوان ≈ 30 دقيقة', es: 'Martil → Tetuán ≈ 30 min' },
           list: [
             { fr: 'Des bus relient aussi Martil à Tétouan, en 30 minutes environ. Demandez sur place où et quand les prendre.', en: 'Buses also link Martil and Tétouan, in about 30 minutes. Ask locally where and when to catch them.', ar: 'تربط حافلات أيضاً بين مرتيل وتطوان في نحو 30 دقيقة. اسأل في عين المكان عن موقفها ومواعيدها.', es: 'También hay autobuses entre Martil y Tetuán, en unos 30 minutos. Pregunta allí dónde y cuándo tomarlos.' },
-            { fr: 'Depuis Tétouan, les bus CTM vont notamment à Chefchaouen (≈ 1 h 15 à 1 h 30) et à Tanger.', en: 'From Tétouan, CTM buses go to Chefchaouen (≈ 1 h 15 to 1 h 30) and Tangier, among others.', ar: 'من تطوان تنطلق حافلات CTM نحو شفشاون (≈ ساعة وربع إلى ساعة ونصف) وطنجة وغيرهما.', es: 'Desde Tetuán, los autobuses CTM van a Chefchaouen (≈ 1 h 15 a 1 h 30) y a Tánger, entre otros destinos.' },
+            { fr: 'Depuis Tétouan, les bus CTM vont notamment à Chefchaouen (≈ 1 h 15 à 1 h 30) et à Tanger.', en: 'From Tétouan, CTM buses go to Chefchaouen (≈ 1 h 15 to 1 h 30) and Tangier, among others.', ar: 'من تطوان تنطلق حافلات CTM نحو شفشاون (≈ ساعة وربع إلى ساعة ونصف) وطنجة وغيرهما.', es: 'Desde Tetuán, los autobuses CTM van a Chefchaouen (≈ 1 h 15 a 1 h 30) y a Tánger, entre otros destinos.' },
             { fr: 'Horaires et tarifs changent : vérifiez-les à la gare ou auprès de la compagnie.', en: 'Times and fares change: check them at the station or with the company.', ar: 'المواعيد والأسعار تتغيّر، فتحقّق منها في المحطة أو لدى الشركة.', es: 'Horarios y tarifas cambian: consúltalos en la estación o con la compañía.' }
           ]
         },
@@ -809,7 +809,7 @@ CASA.cities.martil = {
         {
           title: { fr: 'Aéroport de Tétouan', en: 'Tétouan Airport', ar: 'مطار تطوان', es: 'Aeropuerto de Tetuán' },
           icon: 'plane',
-          key: { fr: 'Sania Ramel · ≈ 10–15 min', en: 'Sania Ramel · ≈ 10–15 min', ar: 'سانية الرمل · ≈ 10–15 دقيقة', es: 'Sania Ramel · ≈ 10–15 min' },
+          key: { fr: 'Sania Ramel · ≈ 10–15 min', en: 'Sania Ramel · ≈ 10–15 min', ar: 'سانية الرمل · ≈ 10–15 دقيقة', es: 'Sania Ramel · ≈ 10–15 min' },
           body: {
             fr: 'L’aéroport Sania Ramel est sur la route entre Tétouan et Martil, à environ 10 à 15 minutes en grand taxi.',
             en: 'Sania Ramel airport is on the road between Tétouan and Martil, about 10 to 15 minutes by grand taxi.',
@@ -818,7 +818,7 @@ CASA.cities.martil = {
           },
           list: [
             { fr: 'Pas de bus pour l’aéroport : des grands taxis attendent devant le terminal. Fixez le prix avant de partir.', en: 'No airport bus: grand taxis wait outside the terminal. Agree the fare before you leave.', ar: 'لا توجد حافلة للمطار، والطاكسيات الكبيرة تنتظر أمام مبنى المطار. اتفق على الثمن قبل الانطلاق.', es: 'No hay autobús al aeropuerto: los grand taxis esperan frente a la terminal. Acuerda el precio antes de salir.' },
-            { fr: 'Les vols changent selon les saisons, et l’aéroport a fermé deux jours après de fortes pluies en janvier 2026 : vérifiez votre vol auprès de la compagnie.', en: 'Flights change with the seasons, and the airport closed for two days after heavy rain in January 2026: check your flight with the airline.', ar: 'تتغيّر الرحلات حسب المواسم، وقد أُغلق المطار يومين بعد أمطار غزيرة في يناير 2026، فتحقّق من رحلتك لدى شركة الطيران.', es: 'Los vuelos cambian según la temporada, y el aeropuerto cerró dos días tras fuertes lluvias en enero de 2026: confirma tu vuelo con la aerolínea.' },
+            { fr: 'Les vols changent selon les saisons, et de fortes pluies peuvent perturber l’aéroport en hiver : vérifiez votre vol auprès de la compagnie.', en: 'Flights change with the seasons, and heavy rain can disrupt the airport in winter: check your flight with the airline.', ar: 'تتغيّر الرحلات حسب المواسم، وقد تُعطّل الأمطار الغزيرة المطار شتاءً، فتحقّق من رحلتك لدى شركة الطيران.', es: 'Los vuelos cambian según la temporada, y las lluvias fuertes pueden afectar al aeropuerto en invierno: confirma tu vuelo con la aerolínea.' },
             { fr: 'Transfert privé : {host} peut l’organiser pour vous.', en: 'Private transfer: {host} can arrange it for you.', ar: 'نقل خاص: يمكن لـ{host} تنظيمه لك.', es: 'Traslado privado: {host} puede organizarlo.' }
           ],
           request: { fr: 'un transfert depuis l’aéroport de Tétouan', en: 'a transfer from Tétouan airport', ar: 'نقلاً من مطار تطوان', es: 'un traslado desde el aeropuerto de Tetuán' }
@@ -827,7 +827,7 @@ CASA.cities.martil = {
         {
           title: { fr: 'Aéroport de Tanger', en: 'Tangier Airport', ar: 'مطار طنجة', es: 'Aeropuerto de Tánger' },
           icon: 'plane',
-          key: { fr: 'Ibn Battouta · ≈ 1 h de Tétouan', en: 'Ibn Battouta · ≈ 1 h to Tétouan', ar: 'ابن بطوطة · ≈ ساعة من تطوان', es: 'Ibn Battouta · ≈ 1 h de Tetuán' },
+          key: { fr: 'Ibn Battouta · ≈ 1 h de Tétouan', en: 'Ibn Battouta · ≈ 1 h to Tétouan', ar: 'ابن بطوطة · ≈ ساعة من تطوان', es: 'Ibn Battouta · ≈ 1 h de Tetuán' },
           body: {
             fr: 'Plus de vols, mais plus loin : environ 75 km jusqu’à Tétouan, soit un peu plus d’une heure de route. Martil est un peu plus loin.',
             en: 'More flights, but further away: about 75 km to Tétouan, a little over an hour by road. Martil is slightly further.',
@@ -845,7 +845,7 @@ CASA.cities.martil = {
         {
           title: { fr: 'Train vers Casablanca', en: 'Train to Casablanca', ar: 'القطار نحو الدار البيضاء', es: 'Tren a Casablanca' },
           icon: 'train',
-          key: { fr: 'Al Boraq depuis Tanger ≈ 2 h 10', en: 'Al Boraq from Tangier ≈ 2 h 10', ar: 'البراق من طنجة ≈ ساعتان و10 دقائق', es: 'Al Boraq desde Tánger ≈ 2 h 10' },
+          key: { fr: 'Al Boraq depuis Tanger ≈ 2 h 10', en: 'Al Boraq from Tangier ≈ 2 h 10', ar: 'البراق من طنجة ≈ ساعتان و10 دقائق', es: 'Al Boraq desde Tánger ≈ 2 h 10' },
           body: {
             fr: 'Pour Rabat ou Casablanca, le TGV Al Boraq part de la gare de Tanger Ville : environ 2 h 10 jusqu’à Casa Voyageurs.',
             en: 'For Rabat or Casablanca, the Al Boraq high-speed train leaves from Tanger Ville station: about 2 h 10 to Casa Voyageurs.',

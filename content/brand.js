@@ -36,11 +36,10 @@ window.CASA = window.CASA || {};
     pool: { icon: 'pool', label: { fr: 'Piscine', en: 'Pool', ar: 'مسبح', es: 'Piscina' } },
     mountain: { icon: 'mountain', label: { fr: 'Vue montagne', en: 'Mountain view', ar: 'إطلالة على الجبال', es: 'Vistas a la montaña' } },
     parking: { icon: 'car', label: { fr: 'Parking gratuit', en: 'Free parking', ar: 'موقف مجاني', es: 'Parking gratuito' } },
-    gated: { icon: 'lock', label: { fr: 'Résidence fermée', en: 'Gated residence', ar: 'إقامة مغلقة', es: 'Residencia cerrada' } },
+    gated: { icon: 'lock', label: { fr: 'Résidence fermée', en: 'Gated residence', ar: 'إقامة محروسة', es: 'Residencia cerrada' } },
     fastwifi: { icon: 'wifi', label: { fr: 'Wi-Fi rapide', en: 'Fast Wi-Fi', ar: 'واي فاي سريع', es: 'Wi-Fi rápido' } },
     family: { icon: 'family', label: { fr: 'Idéal en famille', en: 'Great for families', ar: 'مثالي للعائلات', es: 'Ideal en familia' } },
-    privacy: { icon: 'sun', label: { fr: 'Sans vis-à-vis', en: 'Not overlooked', ar: 'خصوصية تامة', es: 'Sin vecinos enfrente' } },
-    hotel: { icon: 'building', label: { fr: 'Résidence hôtelière', en: 'Hotel residence', ar: 'إقامة فندقية', es: 'Residencia hotelera' } }
+    privacy: { icon: 'sun', label: { fr: 'Sans vis-à-vis', en: 'Not overlooked', ar: 'خصوصية تامة', es: 'Sin vecinos enfrente' } }
   };
 
   var film = {
@@ -68,11 +67,11 @@ window.CASA = window.CASA || {};
     film: film,
 
     cities: [
-      { id: 'casablanca', tint: '#1D4C49', lat: 33.5731, lng: -7.5898,
+      { id: 'casablanca', tint: '#1D4C49', lat: 33.57, lng: -7.59,
         name: { fr: 'Casablanca', en: 'Casablanca', ar: 'الدار البيضاء', es: 'Casablanca' } },
-      { id: 'marrakech', tint: '#8C553C', lat: 31.6295, lng: -7.9811,
+      { id: 'marrakech', tint: '#8C553C', lat: 31.63, lng: -7.98,
         name: { fr: 'Marrakech', en: 'Marrakech', ar: 'مراكش', es: 'Marrakech' } },
-      { id: 'martil', tint: '#2D5F8A', lat: 35.6178, lng: -5.2750,
+      { id: 'martil', tint: '#2D5F8A', lat: 35.62, lng: -5.28,
         name: { fr: 'Martil', en: 'Martil', ar: 'مرتيل', es: 'Martil' } }
     ],
 
@@ -88,27 +87,29 @@ window.CASA = window.CASA || {};
     /*
      * The places. id: the link (…/ocean-21/) and the file name. kind: 'apartment'
      * or 'studio' (titles "Votre appartement" / "Votre studio"). lat/lng: the
-     * building, used for "Trouver mon logement", the coordinates and the sunset.
+     * neighbourhood, used for "Trouver mon logement": two decimals (about 1 km) are
+     * enough, and keep the exact building off the home page. The exact pin goes
+     * only in the place's own file (content/stays/<id>.js → location).
      * approx: true while the position is only the neighbourhood's.
      */
     stays: [
       { id: 'bourgogne-133', name: 'Bourgogne 133', city: 'casablanca', area: 'bourgogne', kind: 'apartment',
-        icon: 'building', tint: '#2C5A6B', lat: 33.5980, lng: -7.6380, approx: true,
+        icon: 'building', tint: '#2C5A6B', lat: 33.60, lng: -7.64, approx: true,
         facts: [fact.bedrooms(3), fact.bathrooms(2), fact.balcony, fact.lift] },
       { id: 'casa-b-suites', name: 'Casa B Suites', city: 'casablanca', area: 'bourgogne', kind: 'studio', units: 8,
-        icon: 'key', tint: '#8A6A3A', lat: 33.5980, lng: -7.6380, approx: true,
+        icon: 'key', tint: '#8A6A3A', lat: 33.60, lng: -7.64, approx: true,
         facts: [fact.studios(8), fact.balcony, fact.ac] },
       { id: 'ocean-21', name: 'Ocean 21', city: 'casablanca', area: 'ain-diab', kind: 'apartment',
-        icon: 'waves', tint: '#1D4C49', lat: 33.5957, lng: -7.6660, approx: true,
-        facts: [fact.seaview, fact.bedrooms(1), fact.hotel] },
+        icon: 'waves', tint: '#1D4C49', lat: 33.60, lng: -7.67, approx: true,
+        facts: [fact.seaview, fact.bedrooms(1), fact.balcony] },
       { id: 'darb-inn', name: 'DarB Inn', city: 'casablanca', area: 'dar-bouazza', kind: 'apartment',
-        icon: 'palm', tint: '#4F6650', lat: 33.5300, lng: -7.8200, approx: true,
+        icon: 'palm', tint: '#4F6650', lat: 33.53, lng: -7.82, approx: true,
         facts: [fact.bedrooms(2), fact.gated, fact.parking] },
       { id: 'dar-baba', name: 'Dar Baba', city: 'marrakech', area: 'daoudiate', kind: 'apartment', units: 3,
-        icon: 'arch', tint: '#8C553C', lat: 31.6480, lng: -8.0120, approx: true,
+        icon: 'arch', tint: '#8C553C', lat: 31.65, lng: -8.01, approx: true,
         facts: [fact.flats(3), fact.bedrooms(2), fact.fastwifi] },
-      { id: 'casa-azul', name: 'Casa Azul Martil', city: 'martil', area: 'martil', kind: 'apartment',
-        icon: 'pool', tint: '#2D5F8A', lat: 35.6178, lng: -5.2750, approx: true,
+      { id: 'casa-azul', name: 'Casa Azul Martil', title: ['Casa', 'Azul'], city: 'martil', area: 'martil', kind: 'apartment',
+        icon: 'pool', tint: '#2D5F8A', lat: 35.62, lng: -5.28, approx: true,
         facts: [fact.pool, fact.bedrooms(2), fact.mountain, fact.family] }
     ],
 
@@ -117,7 +118,7 @@ window.CASA = window.CASA || {};
       welcome: {
         fr: 'Bienvenue chez vous. Tout est prêt, et je ne suis qu’à un message de vous.',
         en: 'Welcome home. Everything is ready, and I am one message away.',
-        ar: 'مرحباً بك في بيتك. كل شيء جاهز، وأنا رهن إشارتك برسالة واحدة.',
+        ar: 'مرحباً بك في بيتك. كل شيء جاهز، وأنا على بُعد رسالة منك.',
         es: 'Te doy la bienvenida a casa. Todo está aquí, y estoy a un mensaje de distancia.'
       },
       checkin: {
@@ -156,7 +157,7 @@ window.CASA = window.CASA || {};
         {
           icon: 'clock',
           title: { fr: 'Arrivée tôt, départ tard', en: 'Early in, late out', ar: 'وصول مبكر، مغادرة متأخرة', es: 'Llegada temprana, salida tardía' },
-          text: { fr: 'Selon les disponibilités', en: 'When the place is free', ar: 'حسب التوفّر', es: 'Según disponibilidad' },
+          text: { fr: 'Selon les disponibilités', en: 'Subject to availability', ar: 'حسب التوفّر', es: 'Según disponibilidad' },
           request: { fr: 'une arrivée anticipée ou un départ tardif', en: 'an early check-in or a late check-out', ar: 'وصولاً مبكراً أو مغادرة متأخرة', es: 'una llegada temprana o una salida tardía' }
         },
         {

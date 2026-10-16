@@ -59,7 +59,7 @@ CASA.stays['bourgogne-133'] = {
       body: {
         fr: 'L’immeuble a deux ascenseurs. Ne laissez pas les enfants y monter seuls. En cas de panne ou de coupure de courant, prenez l’escalier.',
         en: 'The building has two lifts. Do not let children ride in them alone. If they break down or the power goes off, take the stairs.',
-        ar: 'في العمارة مصعدان، فلا تدع الأطفال يركبونهما وحدهم. عند حدوث عطل أو انقطاع الكهرباء، استعمل الدرج.',
+        ar: 'في العمارة مصعدان. لا تدع الأطفال يركبونهما وحدهم، وعند حدوث عطل أو انقطاع الكهرباء استعمل الدرج.',
         es: 'El edificio tiene dos ascensores. No dejes que los niños suban solos. Si hay avería o corte de luz, usa la escalera.'
       }
     },

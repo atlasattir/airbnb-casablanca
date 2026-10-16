@@ -43,7 +43,7 @@
   --bar-ink: #13211F;
   --bar-ink-dim: #56615E;
   --bar-line: rgba(19, 33, 31, .12);
-  --dock-bg: rgba(255, 255, 255, .86);
+  --dock-bg: rgba(255, 255, 255, .95);
   --dock-bg-solid: rgba(255, 255, 255, .96);
   --dock-ink: #13211F;
   --dock-line: rgba(19, 33, 31, .1);
@@ -654,8 +654,13 @@ main { position: relative; z-index: 1; }
 .mode-stay .hero__inner--stay { display: block; }
 .mode-stay .hero__inner--home { display: none; }
 .mode-stay .change-stay { display: block; }
-/* Before a place is chosen, the dock only keeps WhatsApp */
+/* Before a place is chosen, the dock only keeps WhatsApp, as a single button */
 .mode-home .dock__btn:not(.dock__btn--main) { display: none; }
+.mode-home .dock, .mode-home.on-hero body:not(.is-locked) .dock { padding: 0; border: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.mode-home .dock__btn--main { box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+
+/* Over the film, the dock is dark glass in both themes */
+.on-hero body:not(.is-locked) .dock { background: rgba(9, 18, 21, .55); border-color: var(--stage-line); --dock-ink: var(--on-stage); --dock-hover: rgba(238, 234, 225, .08); }
 
 /* A place's name: long names get a smaller size so each line fits */
 .hero__inner--stay .hero__title {
@@ -670,16 +675,32 @@ main { position: relative; z-index: 1; }
   gap: 12px;
 }
 
+/* The question the client asked for: clear, white, readable over the film */
 .chooser__label {
-  margin: 0;
-  font-size: 11.5px;
-  font-weight: 500;
-  letter-spacing: var(--track);
-  text-transform: uppercase;
-  color: var(--on-stage-dim);
+  margin: 4px 0 0;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--on-stage);
+  text-shadow: 0 1px 14px rgba(9, 18, 21, .8);
 }
 
-:root[lang="ar"] .chooser__label { font-size: 14px; letter-spacing: 0; }
+.chooser .hero__tagline { order: -1; margin: 0 0 6px; }
+.hero__tagline { text-shadow: 0 1px 14px rgba(9, 18, 21, .75); }
+
+/* The home lists the cities in its chips: no line above the brand */
+.hero__inner--home .hero__kicker { display: none; }
+.hero__inner--home .hero__title { margin-top: 0; }
+
+/* A little more shade behind the chooser */
+.mode-home .stage__veil { background: linear-gradient(180deg, rgba(9, 18, 21, .62) 0%, rgba(9, 18, 21, .1) 24%, rgba(9, 18, 21, .4) 46%, rgba(9, 18, 21, .78) 72%, rgba(9, 18, 21, .92) 100%); }
+
+/* The brand fits the screen's height too, and sits on one line on wide screens */
+.wordmark { font-size: clamp(60px, min(19.5vw, 19vh), 188px); }
+@media (min-width: 900px) {
+  .wordmark > span { display: inline; }
+  .wordmark .l2 { padding-inline-start: .18em; }
+}
 
 .chooser__chips { display: flex; flex-wrap: wrap; gap: 8px; }
 
@@ -742,7 +763,7 @@ main { position: relative; z-index: 1; }
 .locate:hover { background: rgba(238, 234, 225, .08); }
 .locate .ico { font-size: 20px; color: var(--brass); }
 .locate[aria-busy="true"] .ico { animation: spin 1.6s linear infinite; }
-.locate__note { margin: -6px 0 0; padding-inline-start: 4px; font-size: 12px; color: var(--on-stage-dim); }
+.locate__note { margin: -6px 0 0; padding-inline-start: 18px; font-size: 12px; color: var(--on-stage-dim); text-shadow: 0 1px 10px rgba(9, 18, 21, .8); }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -767,18 +788,27 @@ main { position: relative; z-index: 1; }
 
 .look-a .wordmark > span { display: inline; padding: 0; font-weight: 600; }
 .look-a .city-chip { border-color: #fff; background: #fff; color: #10191A; font-weight: 500; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.look-a .hero { justify-content: center; }
 .look-a .chooser__chips { order: 1; }
-.look-a .chooser__label { order: 2; padding: 7px 14px; border-radius: 999px; background: #fff; color: #10191A; font-size: 14px; letter-spacing: 0; text-transform: none; }
-.look-a .locate { order: 3; }
-.look-a .locate__note { order: 4; }
+.look-a .chooser__label { order: 2; margin: 0; padding: 5px 12px; border-radius: 6px; background: rgba(255, 255, 255, .9); color: #10191A; font-size: 13px; font-weight: 500; text-shadow: none; }
+.look-a .chooser .hero__tagline { order: 3; margin: 2px 0 0; color: #fff; }
+.look-a .resume { order: 4; }
+.look-a .locate { order: 5; }
+.look-a .locate__note { order: 6; }
 
-/* The drawing behind the film, per city */
+/* The drawing behind the film, per city: 'atlantic' (Casablanca: ocean and minaret),
+   'sea' (Martil: sea and the Rif mountains), 'plain' (Marrakech: dusk over the red city and its minaret) */
+.scene__hills { display: none; position: absolute; left: 0; right: 0; bottom: 33.6%; width: 100%; height: 13vh; }
 .stage[data-scene="sea"] .scene__mosque { display: none; }
-.stage[data-scene="plain"] .scene__mosque,
-.stage[data-scene="plain"] .scene__sea,
+.stage[data-scene="sea"] .scene__hills { display: block; }
+.stage[data-scene="sea"] .scene__sun, .stage[data-scene="sea"] .scene__glow, .stage[data-scene="sea"] .scene__shimmer { left: 62%; }
 .stage[data-scene="plain"] .scene__shimmer { display: none; }
-.stage[data-scene="plain"] .scene { background: linear-gradient(180deg, #061013 0%, #0B1C21 30%, #2A2F2E 56%, #6E5440 80%, #A57A55 100%); }
-.stage[data-scene="plain"] .scene__glow, .stage[data-scene="plain"] .scene__sun { top: 82%; }
+.stage[data-scene="plain"] .scene { background: linear-gradient(180deg, #08100F 0%, #1A1E1C 28%, #4A3328 50%, #9C5B3C 61%, #C98552 66%); }
+.stage[data-scene="plain"] .scene__sea { background: linear-gradient(180deg, #3A2219 0%, #24150F 22%, #140C09 70%, #0C0806 100%); }
+.stage[data-scene="plain"] .scene__glow { background: radial-gradient(closest-side, rgba(236, 140, 84, .55), rgba(196, 96, 60, .22) 42%, transparent 72%); }
+
+/* Without a film, the page fully covers the drawing as it scrolls */
+.stage:not(.has-video):not(.has-poster) .stage__veil::after { opacity: calc(var(--p) * .97); }
 
 
 /* ---------- menu: two groups of big rounded buttons ---------- */
@@ -1557,6 +1587,7 @@ main { position: relative; z-index: 1; }
 :root[lang="ar"] .vcard__name { font-weight: 700; font-size: 17px; line-height: 1.35; letter-spacing: 0; }
 
 .vcard__short { font-size: 13px; line-height: 1.35; color: var(--ink-dim); }
+.vcard__name, .itile__key, .itile__title, .toast, .d-title { text-wrap: pretty; }
 
 .vcard .fav {
   position: absolute;

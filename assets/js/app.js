@@ -85,6 +85,16 @@
   }
   var params = query();
 
+  // Draft view for the host: ./?stay=<id>&draft shows what is still to complete
+  // ("Bientôt" badges). Guests never see unfinished entries.
+  var DRAFT = (function () {
+    try {
+      if ('draft' in params) window.sessionStorage.setItem('atlas.draft', '1');
+      return window.sessionStorage.getItem('atlas.draft') === '1';
+    } catch (e) { return 'draft' in params; }
+  })();
+  function ready4guests(v) { return DRAFT || !isTodo(typeof v === 'object' && v ? (v.fr || v.en || '') : v); }
+
   /* ---------- storage: optional, the guide works without it ---------- */
 
   function load(key) { try { return window.localStorage.getItem(key); } catch (e) { return null; } }
@@ -443,13 +453,14 @@
   function tileData(id) {
     if (id === 'wifi') {
       var n = APT.wifi && APT.wifi.network;
-      return n && !isTodo(n) ? '<span dir="ltr">' + esc(n) + '</span>' : '';
+      return n && !isTodo(n) ? '<span dir="ltr">' + esc(n) + '</span>' : DRAFT ? '' : esc(ui('wifiOnCard'));
     }
     if (id === 'stay') return '<span dir="ltr">' + esc(APT.checkin.time) + ' · ' + esc(APT.checkout.time) + '</span>';
     if (id === 'assistance') return '<span dir="ltr">19 · 15 · 177</span>';
     var s = SECTIONS[id];
-    if (s.type === 'routes') return esc(s.items.length + ' ' + ui('routesCount'));
-    if (id === 'visit') return esc(s.items.length + ' ' + ui('placesCount'));
+    var shown = (s.items || []).filter(function (it) { return DRAFT || it.kind !== 'placeholder'; }).length;
+    if (s.type === 'routes') return esc(shown + ' ' + ui('routesCount'));
+    if (id === 'visit') return esc(shown + ' ' + ui('placesCount'));
     return '';
   }
 
@@ -478,7 +489,7 @@
   }
 
   function renderStayHero() {
-    byId('stay-kicker').textContent = placeLine(STAY);
+    byId('stay-kicker').textContent = (BRAND.name || '') + ' · ' + cityName(STAY.city);
     var words = String(STAY.name).split(' ');
     var lines = STAY.title || (words.length > 1 ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [STAY.name, '']);
     var title = byId('stay-title');
@@ -486,7 +497,7 @@
     title.querySelector('.l2').textContent = lines[1] || '';
     // Long names get a smaller title so they stay on one line each
     title.style.setProperty('--tc', Math.max(lines[0].length, (lines[1] || '').length + 1, 5));
-    byId('stay-tagline').textContent = ui('tagline');
+    byId('stay-tagline').textContent = ui('homeTagline');
     var p = placePos();
     els.coords.textContent = fmtCoord(p.lat, 'N', 'S') + ' · ' + fmtCoord(p.lng, 'E', 'W');
     els.clockCity.textContent = cityName(STAY.city);
@@ -589,6 +600,7 @@
       var p = Math.min(1, Math.max(0, y / (h * 0.85)));
       root.style.setProperty('--p', p.toFixed(3));
       els.topbar.classList.toggle('is-solid', y > h * 0.6);
+      root.classList.toggle('on-hero', y <= h * 0.6);
     });
   }
 
@@ -706,6 +718,12 @@
 
   function route() {
     var h = parseHash();
+    var meta = sectionMeta(h.sid);
+    if (meta && meta.type === 'city' && staysIn(h.sid).length === 1) {
+      try { window.history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) { /* sandboxed frame */ }
+      window.location.assign(stayHref(staysIn(h.sid)[0]));
+      return;
+    }
     if (!sectionMeta(h.sid)) {
       closeModal();
       if (state.current) closeSheet();
@@ -762,6 +780,7 @@
     var s = SECTIONS[sid];
     var href = '#' + sid + '.' + it.id;
     if (it.kind === 'placeholder') {
+      if (!DRAFT) return '';
       return '<article class="vcard vcard--soon rise"' + tintStyle(s.tint, i) + '><div class="vcard__link">' +
         '<span class="art">' + icon('star') + '</span>' +
         '<span class="vcard__body"><span class="vcard__name">' + txt(it.name) + '</span>' + todoBadge() + '</span></div></article>';
@@ -931,9 +950,11 @@
   function viewWifi() {
     var w = APT.wifi || {};
     var net = w.network;
+    var netValue = ready4guests(net) ? '<span class="wifi-row__value" dir="ltr">' + txt(net) + '</span>' :
+      '<span class="wifi-row__value is-muted">' + icon('card') + '<span>' + esc(ui('wifiOnCard')) + '</span></span>';
     return '<section class="wifi-card rise"' + d(0) + '>' +
       '<div class="wifi-row"><div class="wifi-row__text"><span class="eyebrow">' + esc(ui('network')) + '</span>' +
-        '<span class="wifi-row__value" dir="ltr">' + txt(net) + '</span></div>' + (net && !isTodo(net) ? copyPill(net) : '') + '</div>' +
+        netValue + '</div>' + (net && !isTodo(net) ? copyPill(net) : '') + '</div>' +
       '<div class="wifi-row"><div class="wifi-row__text"><span class="eyebrow">' + esc(ui('password')) + '</span>' +
         (w.password ? '<span class="wifi-row__value" dir="ltr">' + esc(w.password) + '</span>' :
           '<span class="wifi-row__value is-muted">' + icon('card') + '<span>' + esc(ui('wifiOnCard')) + '</span></span>') +
@@ -944,6 +965,7 @@
     var inTab = state.stayTab === 'in';
     var list = inTab ? APT.checkin.steps : APT.checkout.steps;
     var steps = list.map(function (st, i) {
+      if (st.todo && !DRAFT) return '';
       var done = !inTab && state.done.indexOf(i) > -1;
       return '<li class="' + (done ? 'is-done' : '') + '"><span class="icircle">' + icon(st.icon || 'check') + '</span>' +
         '<span class="vsteps__text"><span>' + txt(st) + '</span>' + (st.todo ? todoBadge() : '') + '</span>' +
@@ -961,7 +983,7 @@
   }
 
   function viewHouse() {
-    var hs = APT.howto || [];
+    var hs = (APT.howto || []).filter(function (h) { return ready4guests(h.body); });
     var grid = '<div class="howto-grid rise"' + d(0) + '>' + hs.map(function (h, i) {
       return '<button class="howto-btn" type="button" data-howto="' + i + '" aria-expanded="' + (state.howto === i) + '"><span class="icircle">' + icon(h.icon || 'info') + '</span><span>' + txt(h.title) + '</span></button>';
     }).join('') + '</div>';
@@ -974,7 +996,7 @@
   }
 
   function viewNearby() {
-    return '<div class="itiles">' + (APT.nearby || []).map(function (n, i) {
+    return '<div class="itiles">' + (APT.nearby || []).filter(function (n) { return ready4guests(n.name); }).map(function (n, i) {
       var inner = '<span class="icircle">' + icon(n.icon || 'pin') + '</span><span><span class="itile__title">' + txt(n.label) + '</span>' +
         '<span class="itile__key">' + txt(n.name) + '</span></span>' +
         (n.walk ? '<span class="near-tile__walk">' + icon('walk') + '<span>' + n.walk + ' min</span></span>' :
@@ -999,15 +1021,16 @@
   function viewLocation() {
     var addr = (APT.location && APT.location.address) || {};
     var line = addr.fr && !isTodo(addr.fr) ? addr.fr : '';
+    var showAddr = line || DRAFT;
     return '<section class="address rise"' + d(0) + '>' +
-      '<p class="eyebrow">' + esc(ui('address')) + '</p>' +
-      '<p class="address__line" lang="fr" dir="ltr">' + txt(addr.fr) + '</p>' +
+      (showAddr ? '<p class="eyebrow">' + esc(ui('address')) + '</p>' +
+      '<p class="address__line" lang="fr" dir="ltr">' + txt(addr.fr) + '</p>' : '') +
       (addr.ar && !isTodo(addr.ar) ? '<p class="address__ar" lang="ar" dir="rtl">' + esc(addr.ar) + '</p>' : '') +
       '<p class="address__note">' + icon('lock') + '<span>' + esc(ui('privateNote')) + '</span></p></section>' +
       '<div class="stack rise"' + d(1) + '>' +
       '<a class="btn btn--go btn--wide"' + ext(aptLink()) + '>' + icon('map') + '<span>' + esc(ui('openMaps')) + '</span></a>' +
       (line ? '<button class="btn btn--wide" type="button" data-copy="' + esc(line) + '">' + icon('copy') + '<span>' + esc(ui('copyAddress')) + '</span></button>' : '') +
-      '<button class="btn btn--wide" type="button" data-taxi>' + icon('car') + '<span>' + esc(ui('showDriver')) + '</span></button></div>';
+      (line || (addr.ar && !isTodo(addr.ar)) ? '<button class="btn btn--wide" type="button" data-taxi>' + icon('car') + '<span>' + esc(ui('showDriver')) + '</span></button>' : '') + '</div>';
   }
 
   function showTaxi() {
@@ -1355,6 +1378,10 @@
         var mine = function (it) { return it.areas && it.areas.length === 1 && it.kind !== 'placeholder'; };
         var kept = s.items.filter(function (it) { return !it.areas || it.areas.indexOf(st.area) > -1; });
         copy.items = kept.filter(mine).concat(kept.filter(function (it) { return !mine(it); }));
+      }
+      if (s.blocks) {
+        var kb = s.blocks.filter(function (b) { return !b.areas || b.areas.indexOf(st.area) > -1; });
+        copy.blocks = kb.filter(function (b) { return b.areas; }).concat(kb.filter(function (b) { return !b.areas; }));
       }
       SECTIONS[k] = copy;
     });

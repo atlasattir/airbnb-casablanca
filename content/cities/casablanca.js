@@ -412,10 +412,10 @@ CASA.cities.casablanca = {
           short: { fr: 'Vérifiez avant d’y aller', en: 'Check before you go', ar: 'تحقّق قبل الذهاب', es: 'Compruébalo antes de ir' },
           name: { fr: 'Manger à Dar Bouazza', en: 'Eating out in Dar Bouazza', ar: 'المطاعم في دار بوعزة', es: 'Comer fuera en Dar Bouazza' },
           desc: {
-            fr: 'En mai 2025, plusieurs restaurants de plage connus de Dar Bouazza ont été démolis : des adresses encore en ligne n’existent plus. Avant d’y aller :',
-            en: 'In May 2025, several well-known beach restaurants in Dar Bouazza were demolished: some addresses still online no longer exist. Before you go:',
-            ar: 'في ماي 2025، هُدمت عدة مطاعم شاطئية معروفة في دار بوعزة، فبعض العناوين التي لا تزال على الإنترنت لم تعد موجودة. قبل الذهاب:',
-            es: 'En mayo de 2025 se demolieron varios restaurantes de playa conocidos de Dar Bouazza: algunas direcciones que siguen en internet ya no existen. Antes de ir:'
+            fr: 'Plusieurs restaurants de plage connus de Dar Bouazza ont été démolis : certaines adresses encore en ligne n’existent plus. Avant d’y aller :',
+            en: 'Several well-known beach restaurants in Dar Bouazza have been demolished: some addresses still online no longer exist. Before you go:',
+            ar: 'هُدمت عدة مطاعم شاطئية معروفة في دار بوعزة، فبعض العناوين التي لا تزال على الإنترنت لم تعد موجودة. قبل الذهاب:',
+            es: 'Se han demolido varios restaurantes de playa conocidos de Dar Bouazza: algunas direcciones que siguen en internet ya no existen. Antes de ir:'
           },
           list: [
             { text: { fr: 'Regardez les avis récents sur Google Maps.', en: 'Look at recent reviews on Google Maps.', ar: 'اطّلع على أحدث التقييمات في خرائط Google.', es: 'Mira las reseñas recientes en Google Maps.' } },
@@ -900,10 +900,10 @@ CASA.cities.casablanca = {
             es: 'Al suroeste de la ciudad, a 30–45 minutos en coche (más en verano): playas más salvajes y tranquilas, y spots de surf.'
           },
           tip: {
-            fr: 'Y aller en voiture ou en taxi ; convenez d’un prix aller-retour avec le chauffeur.',
-            en: 'Go by car or taxi; agree a return price with the driver.',
-            ar: 'اذهب بالسيارة أو بالطاكسي، واتفق مع السائق على ثمن الذهاب والإياب.',
-            es: 'Ve en coche o en taxi; acuerda un precio de ida y vuelta con el conductor.'
+            fr: 'Y aller en voiture, en grand taxi ou en VTC ; en grand taxi, convenez d’un prix aller-retour.',
+            en: 'Go by car, grand taxi or ride-hailing app; with a grand taxi, agree a return price first.',
+            ar: 'اذهب بالسيارة أو بالطاكسي الكبير أو عبر تطبيق نقل، ومع الطاكسي الكبير اتفق مسبقاً على ثمن الذهاب والإياب.',
+            es: 'Ve en coche, en grand taxi o con una app de VTC; en grand taxi, acuerda antes un precio de ida y vuelta.'
           },
           maps: 'Dar Bouazza, Morocco'
         },
@@ -931,7 +931,7 @@ CASA.cities.casablanca = {
           tip: {
             fr: 'Les postes de secours sont tenus du 1er mai au 30 septembre : baignez-vous près de l’un d’eux et respectez les drapeaux.',
             en: 'Lifeguard posts are staffed from 1 May to 30 September: swim near one and follow the flags.',
-            ar: 'تعمل مراكز الإنقاذ من فاتح ماي إلى 30 شتنبر، فاسبح قرب أحدها والتزم بإشارات الأعلام.',
+            ar: 'تعمل مراكز الإنقاذ من الأول من مايو إلى 30 سبتمبر، فاسبح قرب أحدها والتزم بإشارات الأعلام.',
             es: 'Los puestos de socorrismo funcionan del 1 de mayo al 30 de septiembre: báñate cerca de uno y respeta las banderas.'
           },
           price: 0, sunset: true,
@@ -950,14 +950,14 @@ CASA.cities.casablanca = {
           id: 'tamaris2',
           icon: 'umbrella',
           areas: ['dar-bouazza'],
-          short: { fr: 'Pavillon Bleu 2026, idéale en famille', en: 'Blue Flag 2026, great for families', ar: 'اللواء الأزرق 2026، مثالي للعائلات', es: 'Bandera Azul 2026, ideal en familia' },
+          short: { fr: 'Sable fin, idéale en famille', en: 'Fine sand, great for families', ar: 'رمل ناعم، مثالي للعائلات', es: 'Arena fina, ideal en familia' },
           name: { fr: 'Plage Tamaris 2', en: 'Tamaris 2 Beach', ar: 'شاطئ تماريس 2', es: 'Playa Tamaris 2' },
           area: { fr: 'Tamaris · Dar Bouazza', ar: 'تماريس · دار بوعزة' },
           desc: {
-            fr: 'Une plage de sable labellisée Pavillon Bleu en 2026. Pour l’été 2026, elle a reçu le Wi-Fi gratuit et une piscine d’initiation à la nage pour les enfants.',
-            en: 'A sandy beach awarded the Blue Flag in 2026. For summer 2026 it gained free Wi-Fi and a learn-to-swim pool for children.',
-            ar: 'شاطئ رملي نال اللواء الأزرق سنة 2026، وزُوّد في صيف 2026 بشبكة واي فاي مجانية ومسبح لتعليم الأطفال السباحة.',
-            es: 'Una playa de arena con Bandera Azul en 2026. Para el verano de 2026 recibió Wi-Fi gratis y una piscina para que los niños aprendan a nadar.'
+            fr: 'Une plage de sable de Tamaris, la première de Dar Bouazza à avoir reçu le Pavillon Bleu (2026). En saison, des sauveteurs la surveillent.',
+            en: 'A sandy beach in Tamaris, the first in Dar Bouazza to win the Blue Flag (2026). Lifeguards watch it in season.',
+            ar: 'شاطئ رملي في تماريس، أول شاطئ في دار بوعزة ينال اللواء الأزرق (2026)، وتحرسه فرق الإنقاذ في موسم الاصطياف.',
+            es: 'Una playa de arena en Tamaris, la primera de Dar Bouazza con Bandera Azul (2026). En temporada la vigilan socorristas.'
           },
           tip: {
             fr: 'En saison, baignez-vous près d’un poste de secours, et venez tôt les week-ends d’été.',
@@ -1063,7 +1063,7 @@ CASA.cities.casablanca = {
           tip: {
             fr: 'Ouvert seulement à la belle saison, en général de mai à septembre.',
             en: 'Open in the warm season only, usually May to September.',
-            ar: 'مفتوح في الموسم الحار فقط، عادةً من ماي إلى شتنبر.',
+            ar: 'مفتوح في الموسم الحار فقط، عادةً من مايو إلى سبتمبر.',
             es: 'Abre solo en temporada de calor, normalmente de mayo a septiembre.'
           },
           budget: 2,
@@ -1113,7 +1113,7 @@ CASA.cities.casablanca = {
           desc: {
             fr: 'Ouvert en juillet 2025 sur une ancienne carrière riche en traces préhistoriques : un sentier de 1,2 km, des ateliers pratiques et un centre d’interprétation.',
             en: 'Opened in July 2025 on a former quarry rich in prehistoric finds: a 1.2 km trail, hands-on workshops and an interpretation centre.',
-            ar: 'افتُتحت في يوليوز 2025 على أرض مقلع قديم غنيّ بآثار ما قبل التاريخ: مسار طوله 1,2 كيلومتر، وورشات تطبيقية، ومركز للتعريف بالموقع.',
+            ar: 'افتُتحت في يوليو 2025 على أرض مقلع قديم غنيّ بآثار ما قبل التاريخ: مسار طوله 1,2 كيلومتر، وورشات تطبيقية، ومركز للتعريف بالموقع.',
             es: 'Abrió en julio de 2025 en una antigua cantera llena de huellas prehistóricas: un sendero de 1,2 km, talleres prácticos y un centro de interpretación.'
           },
           tip: {
@@ -1128,7 +1128,7 @@ CASA.cities.casablanca = {
         // source: https://visitcasablanca.ma/pois/la-ferme-equestre-de-dar-bouazza
         // (dressage, jumping, endurance and trail rides; also a pool, tennis and mountain biking)
         // source: https://lepetitjournal.com/casablanca/actualites/vacances-scolaires-six-centres-de-loisirs-pour-vos-enfants-5301
-        // (July 2023: on the coastal road to Azemmour, about 20 min from the centre; pony courses for children,
+        // (July 2023: on the coastal road to Azemmour, about 20 min from the centre; pony courses for children,
         //  a small educational farm. Its 2023 price is not used.)
         // source: https://www.telecontact.ma/annonceur/ferme-equestre-dar-bouazza/2121915/dar-bouazza.php
         // (route d'Azemmour; also listed at https://www.kerix.net/en/annuaire-entreprise/ferme-equestre)
@@ -1318,7 +1318,7 @@ CASA.cities.casablanca = {
           icon: 'car',
           key: { fr: 'Demandez le compteur', en: 'Ask for the meter', ar: 'اطلب تشغيل العدّاد', es: 'Pide el taxímetro' },
           list: [
-            { fr: 'Ils circulent partout en ville. Demandez « le compteur » au départ.', en: 'They run everywhere in town. Ask for “le compteur” (the meter) when you get in.', ar: 'تجوب المدينة كلها. اطلب تشغيل «العدّاد» عند الانطلاق.', es: 'Circulan por toda la ciudad. Pide «le compteur» (el taxímetro) al subir.' },
+            { fr: 'Ils circulent partout dans Casablanca (pas jusqu’à Dar Bouazza). Demandez « le compteur » au départ.', en: 'They run all over Casablanca (not out to Dar Bouazza). Ask for “le compteur” (the meter) when you get in.', ar: 'تجوب الدار البيضاء كلها (لا تصل إلى دار بوعزة). اطلب تشغيل «العدّاد» عند الانطلاق.', es: 'Circulan por toda Casablanca (no llegan a Dar Bouazza). Pide «le compteur» (el taxímetro) al subir.' },
             { fr: 'Trois passagers maximum. Le chauffeur peut prendre d’autres clients en route : c’est normal.', en: 'Three passengers maximum. The driver may pick up other passengers on the way: this is normal.', ar: 'ثلاثة ركاب كحدّ أقصى، وقد يقلّ السائق ركاباً آخرين في الطريق، وهذا أمر عادي.', es: 'Tres pasajeros como máximo. El conductor puede recoger a otros clientes por el camino: es normal.' },
             { fr: 'Le tarif est majoré la nuit. Payez en espèces, avec de la petite monnaie.', en: 'Fares go up at night. Pay in cash, with small change.', ar: 'تزداد التعريفة ليلاً. ادفع نقداً وبقطع نقدية صغيرة.', es: 'La tarifa sube por la noche. Paga en efectivo, con cambio pequeño.' }
           ]
@@ -1337,7 +1337,7 @@ CASA.cities.casablanca = {
         {
           title: { fr: 'Tramway et busway', en: 'Tram and busway', ar: 'الترامواي والباصواي', es: 'Tranvía y busway' },
           icon: 'tram',
-          key: { fr: '≈ 8 MAD le ticket', en: '≈ 8 MAD a ticket', ar: '≈ 8 دراهم للتذكرة', es: '≈ 8 MAD el billete' },
+          key: { fr: '≈ 8 MAD le ticket', en: '≈ 8 MAD a ticket', ar: '≈ 8 دراهم للتذكرة', es: '≈ 8 MAD el billete' },
           body: {
             fr: 'Quatre lignes de tramway (T1 à T4) et deux lignes de busway. Un ticket coûte environ 8 MAD, avec correspondances pendant 2 heures. Service d’environ 6 h à 22 h 30.',
             en: 'Four tram lines (T1 to T4) and two busway lines. A ticket costs about 8 MAD, with transfers for 2 hours. Service runs roughly 6 am to 10:30 pm.',
@@ -1353,7 +1353,7 @@ CASA.cities.casablanca = {
         {
           title: { fr: 'Aéroport Mohammed V', en: 'Mohammed V Airport', ar: 'مطار محمد الخامس', es: 'Aeropuerto Mohammed V' },
           icon: 'plane',
-          key: { fr: 'Train ONCF, 35–50 min', en: 'ONCF train, 35–50 min', ar: 'قطار ONCF، 35–50 دقيقة', es: 'Tren ONCF, 35–50 min' },
+          key: { fr: 'Train ONCF, 35–50 min', en: 'ONCF train, 35–50 min', ar: 'قطار ONCF، 35–50 دقيقة', es: 'Tren ONCF, 35–50 min' },
           body: {
             fr: 'L’aéroport se trouve à environ 30 km au sud de la ville.',
             en: 'The airport is about 30 km south of the city.',
@@ -1392,8 +1392,9 @@ CASA.cities.casablanca = {
         // source: https://fr.hespress.com/57343-la-deuxieme-ligne-du-tramway-casablancais-critiquee-ratp-dev-sexplique.html
         // (2019: from Aïn Diab to the centre, change at Anoual-Abdelmoumen; re-check on casatramway.ma)
         // source: https://www.smartertravel.com/local-taxis-casablanca-transportation/ (red petits taxis)
-        // source: https://fourseasons.com/casablanca/getting-here (same Anfa Place complex: airport about 38 km, 45 min)
+        // source: https://fourseasons.com/casablanca/getting-here (same Anfa Place complex: airport about 38 km, 45 min)
         {
+          areas: ['ain-diab'],
           title: { fr: 'Si vous logez à Aïn Diab', en: 'If you stay in Ain Diab', ar: 'إن كنت تقيم في عين الذئاب', es: 'Si te alojas en Aïn Diab' },
           icon: 'tram',
           key: { fr: 'Taxis de la Corniche · tram T2', en: 'Corniche taxis · tram T2', ar: 'طاكسيات الكورنيش · ترامواي T2', es: 'Taxis de la Corniche · tranvía T2' },
@@ -1413,11 +1414,12 @@ CASA.cities.casablanca = {
         // source: https://medias24.com/2021/10/14/circulation-dar-bouazza-casablanca-les-habitants-obtiennent-quelques-ameliorations/
         // (R320: jams about 7:00–9:30 and 16:30–20:30; 2021 figures, hence "en général")
         // source: https://www.airporttransferportal.com/en/airport-guides/cmn and research-darbouazza.json
-        // (airport about 45–50 min by car; Dar Bouazza has no train station)
+        // (airport about 45–50 min by car; Dar Bouazza has no train station)
         // source: https://www.casabus.ma/en/casabus-operated-by-alsa/ (Dar Bouazza is one of the communes served)
         // source: https://fr.hespress.com/271136-ete-casabus-renforce-12-lignes-de-bus-vers-les-plages.html
         // (summer 2022: Casabus beach lines, Tamaris among the beaches served; line numbers not given to guests)
         {
+          areas: ['dar-bouazza'],
           title: { fr: 'Si vous logez à Dar Bouazza', en: 'If you stay in Dar Bouazza', ar: 'إن كنت تقيم في دار بوعزة', es: 'Si te alojas en Dar Bouazza' },
           icon: 'car',
           key: { fr: 'Voiture conseillée', en: 'A car is best', ar: 'يُنصح بالسيارة', es: 'Mejor en coche' },

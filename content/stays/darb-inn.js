@@ -126,7 +126,7 @@ CASA.stays['darb-inn'] = {
       body: {
         fr: 'Les plages de Tamaris et Jack Beach bordent Dar Bouazza. En saison, baignez-vous près d’un poste de secours.',
         en: 'The Tamaris beaches and Jack Beach line the Dar Bouazza coast. In season, swim near a lifeguard post.',
-        ar: 'تمتدّ شواطئ تماريس وشاطئ جاك بيتش على ساحل دار بوعزة. في موسم الاصطياف، اسبح قرب مركز للإنقاذ.',
+        ar: 'تمتدّ شواطئ تماريس وجاك بيتش على ساحل دار بوعزة. في موسم الاصطياف، اسبح قرب مركز للإنقاذ.',
         es: 'Las playas de Tamaris y Jack Beach bordean Dar Bouazza. En temporada, báñate cerca de un puesto de socorristas.'
       }
     }

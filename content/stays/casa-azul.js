@@ -120,7 +120,7 @@ CASA.stays['casa-azul'] = {
       body: {
         fr: 'La plage de Martil a une eau souvent calme et des postes de secours en saison. En juillet et août, elle est bondée : allez-y le matin.',
         en: 'Martil beach has often calm water and lifeguard posts in season. In July and August it is packed: go in the morning.',
-        ar: 'مياه شاطئ مرتيل هادئة في الغالب، وفيه مراكز للإنقاذ في موسم الاصطياف. في يوليوز وغشت يكون مكتظاً، فاذهب صباحاً.',
+        ar: 'مياه شاطئ مرتيل هادئة في الغالب، وفيه مراكز للإنقاذ في موسم الاصطياف. في يوليو وأغسطس يكون مكتظاً، فاذهب صباحاً.',
         es: 'La playa de Martil tiene agua a menudo tranquila y socorristas en temporada. En julio y agosto se llena: ve por la mañana.'
       }
     }
@@ -159,7 +159,7 @@ CASA.stays['casa-azul'] = {
     //  radiology, lab, operating theatre). Re-checked 2026-10: nothing newer found on how the emergency
     // unit runs today, so the tile does not say "urgences 24 h/24".
     // TODO (host): confirm it is the place you send guests to for urgent care.
-    { icon: 'heart', label: { fr: 'Clinique', en: 'Clinic', ar: 'مصحّة', es: 'Clínica' }, name: { fr: 'Clinique de jour de Martil', en: 'Martil day clinic', ar: 'مستشفى النهار بمرتيل', es: 'Clínica de día de Martil' }, walk: 0, maps: 'Clinique de jour Martil' },
+    { icon: 'heart', label: { fr: 'Clinique', en: 'Clinic', ar: 'مصحّة', es: 'Clínica' }, name: { fr: 'Clinique de jour de Martil', en: 'Martil day clinic', ar: 'مصحّة النهار بمرتيل', es: 'Clínica de día de Martil' }, walk: 0, maps: 'Clinique de jour Martil' },
     // source: https://travelynnfamily.com/tetouan-with-kids/ (shared grand taxis Martil–Tétouan)
     // No taxi colour is given: the sources disagree for Tétouan. Uber is not confirmed in Martil.
     { icon: 'car', label: { fr: 'Taxi', en: 'Taxi', ar: 'طاكسي', es: 'Taxi' }, name: { fr: 'Grand taxi', en: 'Grand taxi', ar: 'طاكسي كبير', es: 'Grand taxi' }, walk: 0, maps: '' }
