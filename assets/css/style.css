@@ -2409,6 +2409,46 @@ figure.art { margin: 0; }
 
 /* ---------- motion preferences ---------- */
 
+/* ---------- text over the film or a photo: a strong shadow, so it reads on any frame ---------- */
+
+:root {
+  --shade-text: 0 1px 2px rgba(0, 0, 0, .65), 0 2px 16px rgba(0, 0, 0, .6);
+  --shade-title: 0 2px 4px rgba(0, 0, 0, .45), 0 4px 30px rgba(0, 0, 0, .6);
+  --shade-icon: drop-shadow(0 1px 2px rgba(0, 0, 0, .6)) drop-shadow(0 2px 8px rgba(0, 0, 0, .45));
+}
+
+.hero__title { text-shadow: var(--shade-title); }
+.hero__kicker,
+.hero__tagline,
+.chooser__label,
+.locate__note,
+.hero__meta,
+.locate,
+.scroll-cue { text-shadow: var(--shade-text); }
+.hero__kicker::before { box-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+.hero__kicker, .hero__tagline, .hero__meta, .locate__note { color: rgba(238, 234, 225, .9); }
+.hero__meta { border-top-color: rgba(238, 234, 225, .3); }
+.hero .ico, .scroll-cue::before { filter: var(--shade-icon); }
+.hero .city-chip .ico, .hero .resume .ico { filter: none; }
+.locate--sheet { text-shadow: none; }
+
+/* The top bar, while it floats over the film */
+.topbar:not(.is-solid) .brand,
+.topbar:not(.is-solid) .langs button { text-shadow: var(--shade-text); }
+.topbar:not(.is-solid) .ico { filter: var(--shade-icon); }
+
+/* A page's coloured header, and above all one with a photo */
+.band .eyebrow,
+.band__title,
+.band .pill { text-shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 2px 14px rgba(0, 0, 0, .3); }
+.band--photo .eyebrow,
+.band--photo .band__title,
+.band--photo .pill { text-shadow: var(--shade-title); }
+.band--photo .pill { background: rgba(0, 0, 0, .35); }
+
+/* A section's tile with a photo */
+.tile--photo .tile__text { text-shadow: var(--shade-text); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
