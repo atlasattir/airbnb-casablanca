@@ -58,10 +58,9 @@ window.CASA = window.CASA || {};
 
     host: {
       name: 'Yassine',
-      // TODO: WhatsApp number in international format, digits only (e.g. 2126XXXXXXXX).
-      // While it is empty, the WhatsApp button lets the guest choose the contact.
+      // WhatsApp, in international format (spaces and + are ignored).
       // A place can have its own host in its file (content/stays/<id>.js).
-      whatsapp: ''
+      whatsapp: '+212600600486'
     },
 
     // The film of the home screen. Casablanca holds four of the six places.

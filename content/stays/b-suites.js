@@ -37,11 +37,11 @@ CASA.stays['b-suites'] = {
   },
 
   checkin: {
-    time: '15:00', // TODO: confirm (same as the Airbnb listing)
+    time: '15:00',
     steps: null // null: the default steps of content/brand.js (access and studio number go in the Airbnb messages)
   },
   checkout: {
-    time: '11:00', // TODO: confirm (same as the Airbnb listing)
+    time: '11:00',
     steps: null
   },
 

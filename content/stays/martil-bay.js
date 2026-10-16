@@ -46,14 +46,14 @@ CASA.stays['martil-bay'] = {
   },
 
   checkin: {
-    time: '15:00', // TODO: confirm (same as the Airbnb listing)
+    time: '15:00',
     // null: the default steps of content/brand.js.
     // TODO (host): if the residence's guard hands over the keys or needs the guests' names,
     // replace with this place's own steps (never a code, the guard's name or phone).
     steps: null
   },
   checkout: {
-    time: '11:00', // TODO: confirm (same as the Airbnb listing)
+    time: '11:00',
     steps: null
   },
 

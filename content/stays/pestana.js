@@ -44,7 +44,7 @@ CASA.stays['pestana'] = {
   },
 
   checkin: {
-    // TODO: confirm (same as the Airbnb listing). The hotel's own times (in 15:00, out 12:00)
+   . The hotel's own times (in 15:00, out 12:00)
     // are for hotel guests and do not necessarily apply to this apartment.
     time: '15:00',
     // null: the default steps of content/brand.js.
@@ -53,7 +53,7 @@ CASA.stays['pestana'] = {
     steps: null
   },
   checkout: {
-    time: '11:00', // TODO: confirm (same as the Airbnb listing)
+    time: '11:00',
     steps: null
   },
 
