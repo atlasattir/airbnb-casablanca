@@ -684,9 +684,16 @@
     var cut = (window.innerHeight > window.innerWidth && film.videoPortrait) || film.video;
     if (!cut) return;
     if (typeof cut === 'string') cut = { mp4: cut };
-    var credit = film.credit, creditEl = byId('film-credit');
-    if (credit && credit.name && creditEl) {
-      var link = byId('film-credit-link');
+    // Who filmed it: one name with its link, or several clips listed on the credits page
+    state.film = film;
+    var credit = film.credit, creditEl = byId('film-credit'), link = byId('film-credit-link');
+    if (creditEl && link && film.credits && film.credits.length) {
+      link.textContent = ui('filmCommons');
+      link.href = '#credits';
+      link.setAttribute('data-open', 'credits');
+      link.removeAttribute('target');
+      creditEl.hidden = false;
+    } else if (credit && credit.name && creditEl && link) {
       link.textContent = credit.name;
       if (credit.url) link.href = credit.url; else link.removeAttribute('href');
       creditEl.hidden = false;
@@ -1173,8 +1180,18 @@
           (p.licUrl ? '<a' + ext(p.licUrl) + '>' + esc(p.lic) + '</a>' : esc(p.lic || '')) + '</span></span></li>');
       });
     });
-    if (!rows.length) return '<div class="empty rise"' + d(0) + '><span class="icircle">' + icon('sparkle') + '</span><p>' + esc(ui('photoCreditsNone')) + '</p></div>';
-    return '<p class="credits__note rise"' + d(0) + '>' + esc(ui('photoCreditsNote')) + '</p><ul class="credits rise"' + d(1) + '>' + rows.join('') + '</ul>';
+    var clips = ((state.film && state.film.credits) || []).map(function (c) {
+      var name = '<bdi>' + esc(c.title || c.file || '') + '</bdi>';
+      return '<li class="credit-row"><span class="credit-row__img credit-row__img--film">' + icon('play') + '</span><span class="credit-row__text">' +
+        (c.url ? '<a class="credit-row__title"' + ext(c.url) + '>' + name + '</a>' : '<span class="credit-row__title">' + name + '</span>') +
+        '<span class="credit-row__by">' + esc(ui('filmBy')) + ' · <bdi>' + esc(c.by || '') + '</bdi> · ' +
+        (c.licUrl ? '<a' + ext(c.licUrl) + '>' + esc(c.lic) + '</a>' : esc(c.lic || '')) + '</span></span></li>';
+    });
+    if (!rows.length && !clips.length) return '<div class="empty rise"' + d(0) + '><span class="icircle">' + icon('sparkle') + '</span><p>' + esc(ui('photoCreditsNone')) + '</p></div>';
+    return '<p class="credits__note rise"' + d(0) + '>' + esc(ui(clips.length ? 'photoCreditsNoteFilm' : 'photoCreditsNote')) + '</p>' +
+      (clips.length ? '<h2 class="s-sub rise"' + d(1) + '>' + esc(ui('filmCredits')) + '</h2><ul class="credits rise"' + d(1) + '>' + clips.join('') + '</ul>' +
+        (rows.length ? '<h2 class="s-sub rise"' + d(2) + '>' + esc(ui('photoCredits')) + '</h2>' : '') : '') +
+      (rows.length ? '<ul class="credits rise"' + d(2) + '>' + rows.join('') + '</ul>' : '');
   }
 
   function viewFavorites() {
