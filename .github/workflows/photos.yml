@@ -22,7 +22,7 @@ on:
         type: boolean
         default: false
       candidates:
-        description: 'Only show candidates: "missing" (every place without a photo) or city/id keys separated by spaces'
+        description: 'Only show candidates: "missing" (every place without a photo), city/id keys separated by spaces, or searches separated by | ("search:Martil beach|category:Category:Martil")'
         type: string
         default: ''
 
@@ -47,7 +47,9 @@ jobs:
           KEYS: ${{ inputs.candidates }}
         run: |
           OUT="$RUNNER_TEMP/candidates"
-          if [ "$KEYS" = "missing" ]; then python3 tools/photo-candidates.py "$OUT"; else read -r -a LIST <<< "$KEYS"; python3 tools/photo-candidates.py "$OUT" "${LIST[@]}"; fi
+          if [ "$KEYS" = "missing" ]; then python3 tools/photo-candidates.py "$OUT"
+          elif [[ "$KEYS" == *"|"* ]]; then IFS='|' read -r -a LIST <<< "$KEYS"; python3 tools/photo-candidates.py "$OUT" "${LIST[@]}"
+          else read -r -a LIST <<< "$KEYS"; python3 tools/photo-candidates.py "$OUT" "${LIST[@]}"; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git switch --orphan photos-candidates

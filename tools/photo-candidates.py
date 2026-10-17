@@ -4,6 +4,7 @@ Shows the free photos Commons offers for places still without one, to choose fro
 
     python3 tools/photo-candidates.py out/                          # every place of photos.json without a photo
     python3 tools/photo-candidates.py out/ casablanca/aindiab morocco/door
+    python3 tools/photo-candidates.py out/ "search:Martil beach" "category:Category:Martil"   # any search
 
 For each place it looks at its "files", "category" and "search" (tools/photos.json),
 keeps what fetch-photos.py would accept (free licence, no identifiable people, no
@@ -78,6 +79,9 @@ def main():
     for key in keys:
         city, _, iid = key.partition('/')
         item = wanted.get(city, {}).get(iid)
+        if key.startswith(('search:', 'category:')):  # not a place of photos.json: just a search, to choose from
+            how, _, q = key.partition(':')
+            item = {how: q}
         if not item:
             print('  ? %s is not in photos.json' % key)
             continue
