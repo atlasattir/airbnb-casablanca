@@ -13,7 +13,7 @@
  * kind: 'note' for an explainer card, 'placeholder' for a slot the host still has
  * to fill, 'request' for something the host can organise (opens WhatsApp).
  * areas: ['bourgogne'] shows an item only to the places of those neighbourhoods.
- * Pictures come from content/photos.js by the item's id; photo: 'tea' names
+ * Pictures come from content/photos.js by the item's id; photo: 'pastries' names
  * another one instead (of the city, or of the shared "morocco" pictures).
  *
  * Itinerary stops may carry rel: minutes before (negative) or after today's

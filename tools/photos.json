@@ -8,7 +8,7 @@
       "nightlife": "night-downtown",
       "shopping": "habous-crafts",
       "beaches": "beach",
-      "family": "family-beach",
+      "family": "playground",
       "experiences": "hammam-room",
       "itineraries": "medina",
       "transport": "tram"
@@ -262,9 +262,9 @@
       ],
       "illustr": true
     },
-    "family-beach": {
+    "playground": {
       "files": [
-        "File:Oualidia la plage-photo Bertrand SOUBEYRAND.jpg"
+        "File:Tadoussac - Playground slide.jpg"
       ],
       "illustr": true
     }
@@ -277,7 +277,7 @@
       "cafes": "cafe-terrace-view",
       "souks": "haddadine",
       "experiences": "balloons",
-      "family": "palmeraie-camels",
+      "family": "caleche-family",
       "itineraries": "jemaa",
       "transport": "taxis"
     },
@@ -471,11 +471,6 @@
         "File:Morocco_-_Marrakech_-_Le_Jardin_Secret_(49133982557).jpg"
       ]
     },
-    "gueliz": {
-      "files": [
-        "File:Gueliz Marrakech (2844905899).jpg"
-      ]
-    },
     "rooftops": {
       "files": [
         "File:Marrakech (25561912075).jpg"
@@ -492,9 +487,9 @@
         "File:Ciel d'Afrique,luchtballon in marrakech, globo en marrakech, ballonfährt marrakesch, luftballon marrakeschballonvaart in marrakech,.JPG"
       ]
     },
-    "palmeraie-camels": {
+    "caleche-family": {
       "files": [
-        "File:La Palmeraie de Marrakech 707.JPG"
+        "File:Caleche in Marrakech (2902168814).jpg"
       ]
     },
     "taxis": {
@@ -513,8 +508,8 @@
     "_covers": {
       "beaches": "beach-panorama",
       "visit": "tetouan-panorama",
-      "restaurants": "fresh-fish",
-      "cafes": "le-mediterranee",
+      "restaurants": "fried-fish",
+      "cafes": "mint-tea",
       "family": "family-beach",
       "itineraries": "feddan",
       "transport": "grand-taxi"
@@ -677,11 +672,18 @@
         1
       ]
     },
-    "fresh-fish": {
+    "fried-fish": {
       "files": [
-        "File:Ary-chergho.jpg"
+        "File:A Plate of Fried Fish.jpg"
       ],
       "illustr": true
+    },
+    "mint-tea": {
+      "files": [
+        "File:Moroccan cups of tea with ment.jpg"
+      ],
+      "search": "Moroccan tea",
+      "category": "Category:Moroccan mint tea"
     },
     "family-beach": {
       "files": [
@@ -705,26 +707,12 @@
     "_covers": {
       "wifi": "wifi",
       "stay": "keys",
-      "house": "living-room",
+      "house": "washing-machine",
       "nearby": "grocery",
-      "services": "hotel-bed",
+      "services": "luggage",
       "assistance": "pharmacy",
       "favorites": "heart",
       "location": "map-pin"
-    },
-    "lanterns": {
-      "files": [
-        "File:Oriental hanging lanterns. Souk Haddadine, Marrakech Medina (سوق الحدادين مراكش).jpg"
-      ],
-      "search": "Moroccan lanterns",
-      "category": "Category:Lanterns of Morocco"
-    },
-    "tea": {
-      "files": [
-        "File:Moroccan cups of tea with ment.jpg"
-      ],
-      "search": "Moroccan tea",
-      "category": "Category:Moroccan mint tea"
     },
     "pharmacy": {
       "files": [
@@ -750,7 +738,7 @@
     },
     "tajine": {
       "files": [
-        "File:Md.Boualam Tajine,Outdoor cooking.jpg"
+        "File:Farm to Table Cooking Class Fez.jpg"
       ],
       "search": "tajine cooking Morocco",
       "category": "Category:Tajines",
@@ -770,14 +758,6 @@
       ],
       "search": "hammam Marrakech",
       "category": "Category:Hammams in Marrakesh",
-      "illustr": true
-    },
-    "souk-goods": {
-      "files": [
-        "File:Arcobaleno di babouche.jpg"
-      ],
-      "search": "babouches souk Morocco",
-      "category": "Category:Babouches",
       "illustr": true
     },
     "seafood": {
@@ -846,20 +826,22 @@
         "File:A key is shown inserted into a lock.jpg"
       ]
     },
-    "living-room": {
+    "washing-machine": {
       "files": [
-        "File:Modern living room with stylish furniture and a view of the outdoors in a cozy apartment setting.jpg"
-      ]
+        "File:Washing machine new.png"
+      ],
+      "illustr": true
     },
     "grocery": {
       "files": [
         "File:Grocery store in Medina Rabat 09.jpg"
       ]
     },
-    "hotel-bed": {
+    "luggage": {
       "files": [
-        "File:DSC 6622 Cozy modern hotel room with a large king bed colorful wall art and a minimalist seating area.jpg"
-      ]
+        "File:Travelers with luggage arrive at hotel entrance while suitcase waits on pavement.jpg"
+      ],
+      "illustr": true
     },
     "heart": {
       "files": [

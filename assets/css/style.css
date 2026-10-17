@@ -1912,7 +1912,7 @@ figure.art { margin: 0; }
 [dir="rtl"] .tile--city.tile--photo::before,
 .tile--home.tile--photo::before {
   z-index: -1;
-  background-image: linear-gradient(180deg, color-mix(in srgb, var(--tint) 18%, transparent) 0%, color-mix(in srgb, var(--tint) 50%, transparent) 30%, color-mix(in srgb, var(--tint) 86%, transparent) 52%, color-mix(in srgb, var(--tint) 94%, #000) 100%);
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, .12) 0%, transparent 22%, transparent 42%, color-mix(in srgb, var(--tint) 55%, transparent) 68%, color-mix(in srgb, var(--tint) 90%, #000) 100%);
   background-size: auto;
   opacity: 1;
   -webkit-mask-image: none;
@@ -1926,7 +1926,7 @@ figure.art { margin: 0; }
 .band__photo img { width: 100%; height: 100%; object-fit: cover; }
 .band--photo { min-height: calc(var(--band-top) + 230px); }
 .band--photo::before {
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, color-mix(in srgb, var(--tint) 30%, transparent) 32%, color-mix(in srgb, var(--tint) 86%, transparent) 55%, color-mix(in srgb, var(--tint) 94%, #000) 100%);
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, .38) 0%, transparent 24%, transparent 40%, color-mix(in srgb, var(--tint) 60%, transparent) 70%, color-mix(in srgb, var(--tint) 92%, #000) 100%);
   background-size: auto;
   opacity: 1;
   -webkit-mask-image: none;
@@ -2554,8 +2554,8 @@ figure.art { margin: 0; }
   .art--photo { background: var(--paper-2); }
   .tile--city.tile--photo::before,
   [dir="rtl"] .tile--city.tile--photo::before,
-  .tile--home.tile--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .08) 0%, rgba(0, 0, 0, .3) 30%, rgba(0, 0, 0, .66) 52%, rgba(0, 0, 0, .82) 100%); }
-  .band--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, rgba(0, 0, 0, .3) 32%, rgba(0, 0, 0, .66) 55%, rgba(0, 0, 0, .82) 100%); }
+  .tile--home.tile--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, .5) 68%, rgba(0, 0, 0, .8) 100%); }
+  .band--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .38) 0%, rgba(0, 0, 0, 0) 24%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, .55) 70%, rgba(0, 0, 0, .82) 100%); }
   .icircle, .tile--home .tile__icon, .go-mini, .d-tip { background: rgba(19, 33, 31, .07); }
   :root[data-theme="dark"] .icircle, :root[data-theme="dark"] .tile--home .tile__icon, :root[data-theme="dark"] .go-mini, :root[data-theme="dark"] .d-tip { background: rgba(238, 234, 225, .12); }
   .tile--home.tile--photo .tile__icon, :root[data-theme="dark"] .tile--home.tile--photo .tile__icon { background: rgba(255, 255, 255, .9); }
