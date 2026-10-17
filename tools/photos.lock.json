@@ -3,15 +3,15 @@
   "auto": false,
   "by": "angelius1979",
   "file": "File:Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio.jpg",
-  "h": 960,
+  "h": 845,
   "lic": "CC BY-SA 3.0",
   "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "notes": [],
-  "sel": "{\"category\": \"Category:A\\u00efn Diab\", \"files\": [\"File:Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio.jpg\"], \"search\": \"Ain Diab beach Casablanca\"}",
+  "sel": "{\"category\": \"Category:A\\u00efn Diab\", \"crop\": [0, 0, 1, 0.88], \"files\": [\"File:Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio.jpg\"], \"search\": \"Ain Diab beach Casablanca\"}",
   "sha1": "9cba69bdcf89e2897d2297192541018425f64cf2",
-  "sm": "assets/img/photos/casablanca/ebb-beach-ain-diab-morocco-casablanca-panoramio-9cba69-sm.jpg?v=9cba69bd",
+  "sm": "assets/img/photos/casablanca/ebb-beach-ain-diab-morocco-casablanca-panoramio-9cba69-crop-sm.jpg?v=9cba69bdc",
   "smw": 640,
-  "src": "assets/img/photos/casablanca/ebb-beach-ain-diab-morocco-casablanca-panoramio-9cba69.jpg?v=9cba69bd",
+  "src": "assets/img/photos/casablanca/ebb-beach-ain-diab-morocco-casablanca-panoramio-9cba69-crop.jpg?v=9cba69bdc",
   "title": "Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio",
   "url": "https://commons.wikimedia.org/wiki/File:Ebb_Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio.jpg",
   "w": 1280
@@ -20,15 +20,15 @@
   "auto": false,
   "by": "angelius1979",
   "file": "File:Beach Ain Diab (Morocco, Casablanca) - panoramio (1).jpg",
-  "h": 960,
+  "h": 845,
   "lic": "CC BY-SA 3.0",
   "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "notes": [],
-  "sel": "{\"category\": null, \"files\": [\"File:Beach Ain Diab (Morocco, Casablanca) - panoramio (1).jpg\"], \"search\": \"plage Casablanca corniche oc\\u00e9an\"}",
+  "sel": "{\"category\": null, \"crop\": [0, 0, 1, 0.88], \"files\": [\"File:Beach Ain Diab (Morocco, Casablanca) - panoramio (1).jpg\"], \"search\": \"plage Casablanca corniche oc\\u00e9an\"}",
   "sha1": "3dee512348fadc74225766536c89b3fbdb08e319",
-  "sm": "assets/img/photos/casablanca/beach-ain-diab-morocco-casablanca-panoramio-1-3dee51-sm.jpg?v=3dee5123",
+  "sm": "assets/img/photos/casablanca/beach-ain-diab-morocco-casablanca-panoramio-1-3dee51-crop-sm.jpg?v=3dee5123c",
   "smw": 640,
-  "src": "assets/img/photos/casablanca/beach-ain-diab-morocco-casablanca-panoramio-1-3dee51.jpg?v=3dee5123",
+  "src": "assets/img/photos/casablanca/beach-ain-diab-morocco-casablanca-panoramio-1-3dee51-crop.jpg?v=3dee5123c",
   "title": "Beach Ain Diab (Morocco, Casablanca) - panoramio (1)",
   "url": "https://commons.wikimedia.org/wiki/File:Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio_(1).jpg",
   "w": 1280
@@ -408,8 +408,21 @@
   "w": 1280
  },
  "casablanca/prehistory-park": {
+  "auto": false,
+  "by": "The Portable Antiquities Scheme",
+  "file": "File:Palaeolithic acheulean handaxe (FindID 709909).jpg",
+  "h": 602,
+  "lic": "CC BY 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by/2.0",
   "notes": [],
-  "sel": "{\"category\": \"Category:Acheulean handaxes\", \"files\": null, \"search\": \"Acheulean handaxe\"}"
+  "sel": "{\"category\": \"Category:Acheulean handaxes\", \"files\": [\"File:Palaeolithic acheulean handaxe (FindID 709909).jpg\"], \"search\": \"Acheulean handaxe\"}",
+  "sha1": "449de727e82656ef8eda26e4c91de533f8251714",
+  "sm": "assets/img/photos/casablanca/palaeolithic-acheulean-handaxe-findid-709909-449de7-sm.jpg?v=449de727",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/palaeolithic-acheulean-handaxe-findid-709909-449de7.jpg?v=449de727",
+  "title": "Palaeolithic acheulean handaxe",
+  "url": "https://commons.wikimedia.org/wiki/File:Palaeolithic_acheulean_handaxe_(FindID_709909).jpg",
+  "w": 1280
  },
  "casablanca/ricks": {
   "auto": false,
@@ -448,8 +461,21 @@
   "w": 1280
  },
  "casablanca/sindibad": {
+  "auto": false,
+  "by": "Superjuju10",
+  "file": "File:Nigloland - La grande roue.JPG",
+  "h": 960,
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "notes": [],
-  "sel": "{\"category\": null, \"files\": null, \"search\": \"grande roue parc attractions\"}"
+  "sel": "{\"category\": null, \"files\": [\"File:Nigloland - La grande roue.JPG\"], \"search\": \"grande roue parc attractions\"}",
+  "sha1": "6f782c2fdf75aedfd1c4eb1ba736c28348005026",
+  "sm": "assets/img/photos/casablanca/nigloland-la-grande-roue-6f782c-sm.jpg?v=6f782c2f",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/nigloland-la-grande-roue-6f782c.jpg?v=6f782c2f",
+  "title": "Nigloland - La grande roue",
+  "url": "https://commons.wikimedia.org/wiki/File:Nigloland_-_La_grande_roue.JPG",
+  "w": 1280
  },
  "casablanca/slaoui": {
   "auto": true,
@@ -1236,8 +1262,21 @@
   "w": 1280
  },
  "martil/grand-taxi": {
+  "auto": false,
+  "by": "Rachidourkia",
+  "file": "File:Tétouan Taxi (cropped).jpg",
+  "h": 711,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "notes": [],
-  "sel": "{\"category\": \"Category:Taxis in Morocco\", \"files\": null, \"search\": \"taxi Tetouan\"}"
+  "sel": "{\"category\": \"Category:Taxis in Morocco\", \"files\": [\"File:T\\u00e9touan Taxi (cropped).jpg\"], \"search\": \"taxi Tetouan\"}",
+  "sha1": "6f2a76639358e179c4f5da60e4a6bd6335449ad8",
+  "sm": "assets/img/photos/martil/tetouan-taxi-cropped-6f2a76-sm.jpg?v=6f2a7663",
+  "smw": 640,
+  "src": "assets/img/photos/martil/tetouan-taxi-cropped-6f2a76.jpg?v=6f2a7663",
+  "title": "Tétouan Taxi (cropped)",
+  "url": "https://commons.wikimedia.org/wiki/File:T%C3%A9touan_Taxi_(cropped).jpg",
+  "w": 1280
  },
  "martil/jenin": {
   "auto": false,
