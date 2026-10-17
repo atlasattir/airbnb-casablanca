@@ -1,0 +1,55 @@
+# Finds or downloads open-licence videos of Morocco on Wikimedia Commons, for the guide's film.
+# Runs only when started by hand: GitHub → Actions → Film sources → Run workflow.
+#   - "files" empty: a contact sheet of candidate videos (tools/film-sources.py find)
+#   - "files" set (Commons titles, separated by |): those videos at full size, with their credits
+# The result goes to the branch "film-sources", which holds only these files (never the site).
+name: Film sources
+
+on:
+  workflow_dispatch:
+    inputs:
+      files:
+        description: 'Commons file titles to download, separated by | (empty: find candidates)'
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency: film
+
+jobs:
+  film:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow==11.0.0
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Find or download
+        env:
+          FILES: ${{ inputs.files }}
+        run: |
+          OUT="$RUNNER_TEMP/film"
+          if [ -z "$FILES" ]; then
+            python3 tools/film-sources.py find "$OUT"
+          else
+            IFS='|' read -r -a LIST <<< "$FILES"
+            python3 tools/film-sources.py fetch "$OUT" "${LIST[@]}"
+          fi
+          ls -la "$OUT"
+      - name: Push to the film-sources branch
+        run: |
+          OUT="$RUNNER_TEMP/film"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch --orphan film-sources
+          git rm -rq --cached . || true
+          git clean -fdxq
+          cp -r "$OUT"/. .
+          git add -A
+          git commit -qm 'Film sources from Wikimedia Commons'
+          git push --force origin film-sources
