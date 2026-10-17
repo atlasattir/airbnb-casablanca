@@ -669,6 +669,12 @@
     "tetouan-panorama": {
       "files": [
         "File:Panorama West Tétouan (24977169839).jpg"
+      ],
+      "crop": [
+        0.01,
+        0,
+        0.99,
+        1
       ]
     },
     "fresh-fish": {
@@ -686,6 +692,12 @@
     "beach-panorama": {
       "files": [
         "File:Panormic view of Martil beach 02.jpg"
+      ],
+      "crop": [
+        0.01,
+        0,
+        0.99,
+        1
       ]
     }
   },
@@ -821,6 +833,12 @@
     "wifi": {
       "files": [
         "File:Desalinated Water and Wi-Fi signs.jpg"
+      ],
+      "crop": [
+        0.2,
+        0.405,
+        0.77,
+        0.695
       ]
     },
     "keys": {

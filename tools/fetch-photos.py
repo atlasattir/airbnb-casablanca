@@ -211,14 +211,31 @@ def save_sizes(raw, base, crop=None):
         w, h = im.size
         im = im.crop((round(crop[0] * w), round(crop[1] * h), round(crop[2] * w), round(crop[3] * h)))
     out = {}
+    # A panorama (much wider than tall) keeps some height, for a page's header band
+    pano = im.width > 2.2 * im.height
     for name, size, q in (('', LARGE, 74), ('-sm', SMALL, 70)):
         copy = im.copy()
-        copy.thumbnail((size, size), Image.LANCZOS)
+        copy.thumbnail((size * 4, int(size * 0.7)) if pano else (size, size), Image.LANCZOS)
         path = os.path.join(ROOT, base + name + '.jpg')
         os.makedirs(os.path.dirname(path), exist_ok=True)
         copy.save(path, 'JPEG', quality=q, optimize=True, progressive=True)
         out[name or 'lg'] = (copy.size, os.path.getsize(path))
     return out
+
+
+def thumb_of(page):
+    """The copy to download: a panorama comes wider (Commons serves up to 3840 px), so it keeps some height."""
+    ii = page['imageinfo'][0]
+    if ii.get('width', 0) > 2.2 * ii.get('height', 1):
+        old = FILE_PROPS['iiurlwidth']
+        FILE_PROPS['iiurlwidth'] = str(min(3840, ii['width']))
+        try:
+            wide = info([page['title']]).get(page['title'])
+        finally:
+            FILE_PROPS['iiurlwidth'] = old
+        if wide and wide['imageinfo'][0].get('thumburl'):
+            return wide['imageinfo'][0]['thumburl']
+    return ii.get('thumburl') or ''
 
 
 def selection(item):
@@ -371,7 +388,7 @@ def main():
             else:
                 if not e['thumb']:
                     raise ValueError('no thumbnail from Commons')
-                raw = get(e['thumb'])
+                raw = get(thumb_of(chosen) or e['thumb'])
                 # Named after the photo, not the place: two places may share one
                 base = '%s/%s/%s-%s' % (IMG_DIR, city, slug(e['file']), (e['sha1'] or 'x')[:6]) + ('-crop' if crop else '')
                 sizes = save_sizes(raw, base, crop)
