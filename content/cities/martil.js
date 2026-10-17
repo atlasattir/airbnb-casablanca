@@ -467,6 +467,7 @@ CASA.cities.martil = {
         //  "Cash only" is not printed: only the listing says so.
         {
           id: 'yafa',
+          photo: 'seafood',
           icon: 'fish',
           short: { fr: 'Poisson, fruits de mer, grillades', en: 'Fish, seafood and grills', ar: 'سمك وفواكه بحر ومشويات', es: 'Pescado, marisco y parrilla' },
           name: { fr: 'Restaurant Yafa' },

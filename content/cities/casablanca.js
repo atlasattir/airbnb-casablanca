@@ -463,7 +463,7 @@ CASA.cities.casablanca = {
         {
           kind: 'note',
           id: 'note-breakfast',
-          photo: 'tea',
+          photo: 'breakfast',
           icon: 'steam',
           short: { fr: 'Msemen, baghrir, amlou et atay', en: 'Msemen, baghrir, amlou and atay', ar: 'مسمن وبغرير وأملو وأتاي', es: 'Msemen, baghrir, amlou y atay' },
           name: { fr: 'Le petit-déjeuner marocain', en: 'The Moroccan breakfast', ar: 'الفطور المغربي', es: 'El desayuno marroquí' },
@@ -483,7 +483,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'sqala-breakfast',
-          photo: 'breakfast',
+          photo: 'breakfast-table',
           icon: 'mint',
           short: { fr: 'Petit-déjeuner complet au jardin', en: 'Full breakfast in the garden', ar: 'فطور كامل في الحديقة', es: 'Desayuno completo en el jardín' },
           name: { fr: 'La Sqala, le matin', en: 'La Sqala, in the morning', ar: 'الصقالة صباحاً', es: 'La Sqala, por la mañana' },
@@ -641,7 +641,6 @@ CASA.cities.casablanca = {
         },
         {
           id: 'corniche-night',
-          photo: 'sunset-elhank',
           icon: 'moon',
           short: { fr: 'Là où sort Casablanca', en: 'Where Casablanca goes out', ar: 'حيث تسهر الدار البيضاء', es: 'Donde Casablanca sale de noche' },
           name: { fr: 'La Corniche le soir', en: 'The Corniche at night', ar: 'الكورنيش ليلاً', es: 'La Corniche de noche' },
@@ -810,7 +809,7 @@ CASA.cities.casablanca = {
         {
           kind: 'note',
           id: 'note-bargain',
-          photo: 'souk-goods',
+          photo: 'dirhams',
           icon: 'chat',
           short: { fr: 'Souriez, proposez environ la moitié', en: 'Smile, offer about half', ar: 'ابتسم واقترح نحو النصف', es: 'Sonríe, ofrece la mitad' },
           name: { fr: 'L’art de négocier', en: 'The art of bargaining', ar: 'فن المساومة', es: 'El arte de regatear' },

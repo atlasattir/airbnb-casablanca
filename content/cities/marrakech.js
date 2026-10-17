@@ -253,7 +253,7 @@ CASA.cities.marrakech = {
         {
           kind: 'note',
           id: 'note-tips',
-          photo: 'lanterns',
+          photo: 'henna',
           icon: 'bulb',
           short: { fr: 'Faux guides, henné, chaleur', en: 'Fake guides, henna, heat', ar: 'مرشدون مزيّفون، حنّاء، حرارة', es: 'Falsos guías, henna, calor' },
           name: { fr: 'Bon à savoir à Marrakech', en: 'Good to know in Marrakech', ar: 'معلومات مفيدة في مراكش', es: 'Conviene saber en Marrakech' },
@@ -737,7 +737,7 @@ CASA.cities.marrakech = {
         {
           kind: 'note',
           id: 'note-bargain',
-          photo: 'souk-goods',
+          photo: 'dirhams',
           icon: 'chat',
           short: { fr: 'Souriez, comparez, proposez moins', en: 'Smile, compare, offer less', ar: 'ابتسم وقارن واقترح أقل', es: 'Sonríe, compara, ofrece menos' },
           name: { fr: 'L’art de négocier', en: 'The art of bargaining', ar: 'فن المساومة', es: 'El arte de regatear' },
@@ -873,6 +873,7 @@ CASA.cities.marrakech = {
         // in USD only (about $60): not shown.
         {
           id: 'maison-arabe-cooking',
+          photo: 'tajine',
           icon: 'chef',
           short: { fr: 'Atelier avec une dada marocaine', en: 'A workshop with a Moroccan dada', ar: 'ورشة مع «دادة» مغربية', es: 'Taller con una dada marroquí' },
           name: { fr: 'Cuisine à La Maison Arabe', en: 'Cooking at La Maison Arabe', ar: 'الطبخ في «لا ميزون أراب»', es: 'Cocina en La Maison Arabe' },

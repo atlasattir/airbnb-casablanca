@@ -3,16 +3,15 @@
     "_city": "elhank",
     "_covers": {
       "visit": "artdeco",
-      "restaurants": "sqala",
+      "restaurants": "tajine-table",
       "cafes": "bondi",
-      "nightlife": "james",
+      "nightlife": "night-downtown",
       "shopping": "habous-crafts",
-      "beaches": "sidiabderrahmane",
-      "family": "ligue-family",
-      "experiences": "tea-habous",
+      "beaches": "beach",
+      "family": "family-beach",
+      "experiences": "hammam-room",
       "itineraries": "medina",
-      "transport": "tram",
-      "nearby": "corniche"
+      "transport": "tram"
     },
     "elhank": {
       "files": [
@@ -90,7 +89,7 @@
     },
     "james": {
       "files": [
-        "File:Sunrise_in_Casablanca_with_Hassan_II_Mosque.jpg"
+        "File:Cafe noah's, Cocktail am Abend (10584430763).jpg"
       ],
       "illustr": true
     },
@@ -235,20 +234,52 @@
       ],
       "search": "grande roue parc attractions",
       "illustr": true
+    },
+    "night-downtown": {
+      "files": [
+        "File:Casablanca, Morocco at night, November 2023 - Corner building.jpg"
+      ]
+    },
+    "corniche-night": {
+      "files": [
+        "File:CornicheCasa.jpg"
+      ]
+    },
+    "tajine-table": {
+      "files": [
+        "File:Moroccan Tajine with peas and olives.jpg"
+      ],
+      "illustr": true
+    },
+    "beach": {
+      "files": [
+        "File:Plage, Casablanca.jpg"
+      ]
+    },
+    "hammam-room": {
+      "files": [
+        "File:Almiralll04.jpg"
+      ],
+      "illustr": true
+    },
+    "family-beach": {
+      "files": [
+        "File:Oualidia la plage-photo Bertrand SOUBEYRAND.jpg"
+      ],
+      "illustr": true
     }
   },
   "marrakech": {
     "_city": "koutoubia",
     "_covers": {
-      "visit": "koutoubia",
-      "restaurants": "jemaa-stalls",
-      "cafes": "grand-balcon",
+      "visit": "rooftops",
+      "restaurants": "riad-restaurant",
+      "cafes": "cafe-terrace-view",
       "souks": "haddadine",
-      "experiences": "agafay",
-      "family": "menara",
+      "experiences": "balloons",
+      "family": "palmeraie-camels",
       "itineraries": "jemaa",
-      "transport": "caleche",
-      "nearby": "cyberpark"
+      "transport": "taxis"
     },
     "jemaa": {
       "files": [
@@ -354,10 +385,8 @@
     },
     "grand-balcon": {
       "files": [
-        "File:Marrakesh_banner.jpg",
-        "File:Jemaa_El_Fnaa_4.jpg"
+        "File:Place Jemaa el-Fna - Marrakech - Morocco - Maroc - Maroko - Μαρόκο - Fas - Marruecos - Marokko - Марокко - Night - Nuit - Photo Image Photography (9126147462).jpg"
       ],
-      "category": "Category:Dusk_in_Jamaa_El_Fna",
       "illustr": true
     },
     "kessabine": {
@@ -385,8 +414,9 @@
       "search": "Rahba Kedima Marrakech"
     },
     "teinturiers": {
-      "category": "Category:Dyers'_Souk_(Marrakesh)",
-      "search": "Souk des teinturiers Marrakech"
+      "files": [
+        "File:Marrákeš, v barvířské uličce, 20250313 194650.jpg"
+      ]
     },
     "haddadine": {
       "files": [
@@ -416,13 +446,6 @@
       ],
       "category": "Category:Setti_Fatma"
     },
-    "maison-arabe-cooking": {
-      "files": [
-        "File:Tajines_in_a_pottery_shop_in_Morocco.jpg"
-      ],
-      "category": "Category:Moroccan_tajines",
-      "illustr": true
-    },
     "oasiria": {
       "search": "Oasiria Marrakech"
     },
@@ -447,19 +470,54 @@
         "File:Secret_Garden_Marrakesh_2021.jpg",
         "File:Morocco_-_Marrakech_-_Le_Jardin_Secret_(49133982557).jpg"
       ]
+    },
+    "gueliz": {
+      "files": [
+        "File:Gueliz Marrakech (2844905899).jpg"
+      ]
+    },
+    "rooftops": {
+      "files": [
+        "File:Marrakech (25561912075).jpg"
+      ]
+    },
+    "riad-restaurant": {
+      "files": [
+        "File:13 Green Restaurant 4.jpg"
+      ],
+      "illustr": true
+    },
+    "balloons": {
+      "files": [
+        "File:Ciel d'Afrique,luchtballon in marrakech, globo en marrakech, ballonfährt marrakesch, luftballon marrakeschballonvaart in marrakech,.JPG"
+      ]
+    },
+    "palmeraie-camels": {
+      "files": [
+        "File:La Palmeraie de Marrakech 707.JPG"
+      ]
+    },
+    "taxis": {
+      "files": [
+        "File:MARRAKECH MERCEDES TAXIS MARRAKECH MOROCCO APRIL 2013 (8695908953).jpg"
+      ]
+    },
+    "cafe-terrace-view": {
+      "files": [
+        "File:Blick von der Terrasse des Cafè de France auf den Djemaa el Fna, Marrakesch - panoramio.jpg"
+      ]
     }
   },
   "martil": {
     "_city": "martil-beach",
     "_covers": {
-      "beaches": "martil-beach",
-      "visit": "tetouan-medina",
-      "restaurants": "cabo-corner",
-      "cafes": "goya",
-      "family": "corniche-family",
+      "beaches": "beach-panorama",
+      "visit": "tetouan-panorama",
+      "restaurants": "fresh-fish",
+      "cafes": "le-mediterranee",
+      "family": "family-beach",
       "itineraries": "feddan",
-      "transport": "grand-taxi",
-      "nearby": "martil-corniche"
+      "transport": "grand-taxi"
     },
     "martil-beach": {
       "files": [
@@ -544,19 +602,10 @@
       "category": "Category:Grilled_fish",
       "illustr": true
     },
-    "yafa": {
-      "files": [
-        "File:Moroccan_Tagra_of_fish_in_the_nature.jpg"
-      ],
-      "category": "Category:Grilled_fish",
-      "illustr": true
-    },
     "le-mediterranee": {
       "files": [
-        "File:Corniche_de_M'diq_2.JPG",
-        "File:Plated_grilled_fish.jpg"
+        "File:Restaurant on Stromboli (27253810781).jpg"
       ],
-      "category": "Category:M'diq",
       "illustr": true
     },
     "rise-dine": {
@@ -575,16 +624,14 @@
     },
     "goya": {
       "files": [
-        "File:Moroccan_Mint_Tea_-_1.jpg"
+        "File:Warm cup of coffee on a table at a cafe.jpg"
       ],
-      "category": "Category:Moroccan_tea_ceremony",
       "illustr": true
     },
     "jenin": {
       "files": [
-        "File:Moroccan_traditional_dishes.jpg"
+        "File:Pâtisserie marocaine 014.JPG"
       ],
-      "category": "Category:Pastries_of_Morocco",
       "illustr": true
     },
     "oued-family": {
@@ -618,30 +665,40 @@
       "search": "taxi Tetouan",
       "category": "Category:Taxis in Morocco",
       "illustr": true
+    },
+    "tetouan-panorama": {
+      "files": [
+        "File:Panorama West Tétouan (24977169839).jpg"
+      ]
+    },
+    "fresh-fish": {
+      "files": [
+        "File:Ary-chergho.jpg"
+      ],
+      "illustr": true
+    },
+    "family-beach": {
+      "files": [
+        "File:Imi Ouaddar Beach, Morocco.jpg"
+      ],
+      "illustr": true
+    },
+    "beach-panorama": {
+      "files": [
+        "File:Panormic view of Martil beach 02.jpg"
+      ]
     }
   },
   "morocco": {
     "_covers": {
-      "wifi": "salon",
-      "stay": "door",
-      "house": "lanterns",
-      "services": "tea",
+      "wifi": "wifi",
+      "stay": "keys",
+      "house": "living-room",
+      "nearby": "grocery",
+      "services": "hotel-bed",
       "assistance": "pharmacy",
-      "favorites": "zellige"
-    },
-    "door": {
-      "files": [
-        "File:Anciennes Portes, province de Fes.jpg"
-      ],
-      "search": "Moroccan door carved wood",
-      "category": "Category:Doors in Morocco"
-    },
-    "salon": {
-      "files": [
-        "File:A Fountaine.jpg"
-      ],
-      "search": "riad courtyard Morocco interior",
-      "category": "Category:Riads in Morocco"
+      "favorites": "heart",
+      "location": "map-pin"
     },
     "lanterns": {
       "files": [
@@ -659,18 +716,9 @@
     },
     "pharmacy": {
       "files": [
-        "File:Essaouira - panoramio (166).jpg"
+        "File:Pharmacy lamp, 22 Bocskai Street, 2017 Hajdúnánás.jpg"
       ],
-      "search": "pharmacie Maroc",
-      "category": "Category:Pharmacies in Morocco",
       "illustr": true
-    },
-    "zellige": {
-      "files": [
-        "File:Moroccan zellige in Fes.jpg"
-      ],
-      "search": "zellige Morocco tiles",
-      "category": "Category:Zellige"
     },
     "breakfast": {
       "files": [
@@ -768,6 +816,59 @@
         "File:Toppen Shopping Centre interior (240630) 02.jpg"
       ],
       "search": "shopping centre interior",
+      "illustr": true
+    },
+    "wifi": {
+      "files": [
+        "File:Desalinated Water and Wi-Fi signs.jpg"
+      ]
+    },
+    "keys": {
+      "files": [
+        "File:A key is shown inserted into a lock.jpg"
+      ]
+    },
+    "living-room": {
+      "files": [
+        "File:Modern living room with stylish furniture and a view of the outdoors in a cozy apartment setting.jpg"
+      ]
+    },
+    "grocery": {
+      "files": [
+        "File:Grocery store in Medina Rabat 09.jpg"
+      ]
+    },
+    "hotel-bed": {
+      "files": [
+        "File:DSC 6622 Cozy modern hotel room with a large king bed colorful wall art and a minimalist seating area.jpg"
+      ]
+    },
+    "heart": {
+      "files": [
+        "File:Love padlocks on the Butchers' Bridge (Ljubljana).jpg"
+      ]
+    },
+    "map-pin": {
+      "files": [
+        "File:Map tack uninserted.jpg"
+      ]
+    },
+    "breakfast-table": {
+      "files": [
+        "File:Moroccan breakfast.jpg"
+      ],
+      "illustr": true
+    },
+    "dirhams": {
+      "files": [
+        "File:Dirhams marocains (MAD).jpeg"
+      ],
+      "illustr": true
+    },
+    "henna": {
+      "files": [
+        "File:Henna in Moroccan wedding.jpg"
+      ],
       "illustr": true
     }
   }
