@@ -879,6 +879,9 @@ main { position: relative; z-index: 1; }
   .city-chip__go { display: none; }
   .city-chip__name { font-size: 17px; }
   .locate, .resume { min-height: 48px; font-size: 16px; }
+  .mode-home .dock { margin-inline: 0; left: auto; right: calc(12px + env(safe-area-inset-right, 0px)); }
+  [dir="rtl"] .mode-home .dock { right: auto; left: calc(12px + env(safe-area-inset-left, 0px)); }
+  .mode-home .chooser { width: min(100% - 150px, 720px); }
   .has-resume .chooser { grid-template-columns: 1fr 1fr; }
   .has-resume .chooser > * { grid-column: 1 / -1; }
   .has-resume .chooser > .resume, .has-resume .chooser > .locate { grid-column: auto; margin-top: 0; }
@@ -886,6 +889,15 @@ main { position: relative; z-index: 1; }
 
 @media (max-width: 340px) {
   .resume .ico { display: none; }
+}
+
+/* Small phones held sideways (iPhone SE: 568 × 320): a free column for WhatsApp at the side */
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 700px) {
+  .mode-home .hero { padding-right: calc(var(--gutter-r) + 118px); }
+  [dir="rtl"] .mode-home .hero { padding-right: var(--gutter-r); padding-left: calc(var(--gutter-l) + 118px); }
+  .mode-home .chooser { width: 100%; }
+  .mode-home .city-chip__icon { display: none; }
+  .mode-home .city-chip { padding-inline: 12px; justify-content: center; text-align: center; }
 }
 
 /* On a place, "Découvrir" is a real button: a pill with an arrow down */
@@ -1931,7 +1943,7 @@ figure.art { margin: 0; }
 .credit-row__img { flex: none; width: 56px; height: 56px; overflow: hidden; border-radius: 12px; background: var(--paper-2); }
 .credit-row__img img { width: 100%; height: 100%; object-fit: cover; }
 .credit-row__text { min-width: 0; display: grid; gap: 3px; }
-.credit-row__title { color: var(--ink); font-size: 15px; font-weight: 500; text-decoration: none; overflow-wrap: anywhere; }
+.credit-row__title { display: block; margin-block: -11px; padding-block: 11px; color: var(--ink); font-size: 15px; font-weight: 500; text-decoration: none; overflow-wrap: anywhere; }
 .credit-row__by { font-size: 12.5px; color: var(--ink-dim); overflow-wrap: anywhere; }
 .credit-row__by a { color: inherit; }
 
@@ -2522,6 +2534,42 @@ figure.art { margin: 0; }
 
 /* A section's tile with a photo */
 .tile--photo .tile__text { text-shadow: var(--shade-text); }
+
+/* ---------- older phones ---------- */
+
+/* Without color-mix() (iOS before 16.2, e.g. the iPhone 6s, 7 and first SE; Chrome before 111):
+   the same colours, made by laying white or black over the section's colour */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  .tile--city, .band, .art, .hostcard {
+    --tint-fill: linear-gradient(150deg, rgba(255, 255, 255, .18) 0%, rgba(255, 255, 255, 0) 48%, rgba(0, 0, 0, .28) 100%), var(--tint);
+  }
+  .sheet *, .modal * { --tint-ink: var(--tint); }
+  :root[data-theme="dark"] .sheet *, :root[data-theme="dark"] .modal * { --tint-ink: #EEEAE1; }
+  .art--photo { background: var(--paper-2); }
+  .tile--city.tile--photo::before,
+  [dir="rtl"] .tile--city.tile--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .08) 0%, rgba(0, 0, 0, .3) 30%, rgba(0, 0, 0, .66) 52%, rgba(0, 0, 0, .82) 100%); }
+  .band--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, rgba(0, 0, 0, .3) 32%, rgba(0, 0, 0, .66) 55%, rgba(0, 0, 0, .82) 100%); }
+  .icircle, .tile--home .tile__icon, .go-mini, .d-tip { background: rgba(19, 33, 31, .07); }
+  :root[data-theme="dark"] .icircle, :root[data-theme="dark"] .tile--home .tile__icon, :root[data-theme="dark"] .go-mini, :root[data-theme="dark"] .d-tip { background: rgba(238, 234, 225, .12); }
+  .pill--near { background: rgba(29, 76, 73, .12); }
+  .vcard--soon .vcard__link { border-color: rgba(19, 33, 31, .25); }
+  .vcard--soon .art { background: rgba(19, 33, 31, .05); }
+  .locate.locate--sheet { box-shadow: 0 10px 24px -14px rgba(0, 0, 0, .5); }
+  .locate.locate--sheet:hover { background: var(--tint); }
+}
+@media (prefers-color-scheme: dark) {
+  @supports not (color: color-mix(in srgb, red 50%, blue)) {
+    :root:not([data-theme="light"]) .sheet *, :root:not([data-theme="light"]) .modal * { --tint-ink: #EEEAE1; }
+    :root:not([data-theme="light"]) .icircle, :root:not([data-theme="light"]) .tile--home .tile__icon, :root:not([data-theme="light"]) .go-mini, :root:not([data-theme="light"]) .d-tip { background: rgba(238, 234, 225, .12); }
+  }
+}
+
+/* Without aspect-ratio (Safari before 15): fixed heights for the pictures */
+@supports not (aspect-ratio: 1 / 1) {
+  .vcard .art { height: 140px; }
+  .d-art { height: 220px; }
+  .rcard .art { height: 140px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

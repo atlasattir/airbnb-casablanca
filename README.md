@@ -124,6 +124,10 @@ Pour les villes (`content/cities/<ville>.js`) :
 
 Un lien mal tapé (une majuscule, une faute, un caractère en trop) mène quand même au bon guide, ou à l’accueil pour choisir : c’est le rôle de `404.html`. Si vous passez à votre propre nom de domaine, changez sa ligne `base` en `'/'`.
 
+## Téléphones et navigateurs
+
+Le guide est testé sur le moteur de Safari (WebKit : tous les navigateurs d’iPhone et d’iPad, y compris dans WhatsApp et Airbnb) et sur celui de Chrome (Chromium : Chrome, Samsung Internet et les navigateurs Android), du petit iPhone SE aux tablettes, en portrait et à l’horizontale, dans les quatre langues. Les anciens iPhone (iOS 15 : iPhone 6s, 7, premier SE) gardent les mêmes couleurs grâce à une version de secours du style. Sans connexion, le guide s’ouvre dès qu’il a été ouvert une fois.
+
 ## Vérifier les adresses
 
 Les lieux ont été sélectionnés en octobre 2026 à partir de sources publiques (guides, presse, sites des lieux) ; la source de chaque adresse de Marrakech, Martil et Dar Bouazza est notée en commentaire au-dessus de l’adresse. Les grands monuments et les adresses historiques sont sûrs. Les adresses plus récentes sont à confirmer en priorité, idéalement sur place : Bondi Coffee Kitchen, Holy Brunch, La Taverne du Dauphin, Sky Bar (Villa Blanca), The James Rooftop, Hammam Ziani, Dar Bouazza. Les horaires, prix et fermetures changent. Avant chaque saison :
