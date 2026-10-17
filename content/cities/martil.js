@@ -20,8 +20,25 @@ CASA.cities.martil = {
   name: { fr: 'Martil', en: 'Martil', ar: 'مرتيل', es: 'Martil' },
   // Used by the airport-transfer service: "Un chauffeur depuis {airport}"
   airport: { fr: 'l’aéroport de Tétouan ou de Tanger', en: 'Tétouan or Tangier airport', ar: 'مطار تطوان أو طنجة', es: 'el aeropuerto de Tetuán o Tánger' },
-  // film: 'brand' plays the Morocco film of content/brand.js; null shows the drawing (scene) only.
-  film: 'brand',
+  // film: this city's own film (cut by tools/make-film.py from tools/films/martil.json, from open-licence
+  // photos (photo: true) and clips: each one is listed on the credits page, as the licences ask); 'brand' plays the
+  // home's Morocco film; null shows the drawing (scene) only.
+  film: {
+    video: { mp4: 'assets/video/martil.mp4', webm: 'assets/video/martil.webm', poster: 'assets/video/martil.jpg' },
+    videoPortrait: { mp4: 'assets/video/martil-portrait.mp4', webm: 'assets/video/martil-portrait.webm', poster: 'assets/video/martil-portrait.jpg' },
+    credits: [
+      { title: 'A seagull on Martil beach', url: 'https://commons.wikimedia.org/wiki/File:A_seagull_flying_in_Martil_beach.jpg', photo: true,
+        by: 'Mohamed Haddi', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'The Martil corniche', url: 'https://commons.wikimedia.org/wiki/File:%D9%83%D9%88%D8%B1%D9%86%D9%8A%D8%B4_%D9%85%D8%A7%D8%B1%D8%AA%D9%8A%D9%842.jpg', photo: true,
+        by: 'RACHID BAYA', lic: 'CC0', licUrl: 'https://creativecommons.org/publicdomain/zero/1.0/' },
+      { title: 'Martil beach, panorama', url: 'https://commons.wikimedia.org/wiki/File:Panormic_view_of_Martil_beach.jpg', photo: true,
+        by: 'Mohamed Haddi', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'Oued Martil at dusk', url: 'https://commons.wikimedia.org/wiki/File:River_in_Martil,_Morocco.jpg', photo: true,
+        by: 'Mohamed Haddi', lic: 'CC BY-SA 3.0', licUrl: 'https://creativecommons.org/licenses/by-sa/3.0' },
+      { title: 'Sunset over Martil', url: 'https://commons.wikimedia.org/wiki/File:Martil_2_couch%C3%A9.JPG', photo: true,
+        by: 'Hijou 1234', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' }
+    ]
+  },
   scene: 'sea',
 
   /* No sight, beach, restaurant or café below is confirmed within ~15 minutes

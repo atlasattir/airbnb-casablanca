@@ -1,0 +1,14 @@
+{
+ "name": "marrakech",
+ "fade": 0.9,
+ "h264": 32,
+ "vp9": 44,
+ "shots": [
+  {"image": "koutoubia-mosque-at-the-sunset-3.jpg", "dur": 4.4, "from": [0.5, 0.56, 1.0], "to": [0.5, 0.42, 1.1], "landscape": {"from": [0.5, 0.36, 1.0], "to": [0.5, 0.3, 1.12]}},
+  {"image": "bahia-palace-large-court.jpg", "dur": 4.4, "from": [0.5, 0.55, 1.0], "to": [0.5, 0.56, 1.16]},
+  {"image": "medersa-ben-youssef-madrasa-marrakesh-3.jpg", "dur": 4.4, "from": [0.36, 0.5, 1.0], "to": [0.6, 0.5, 1.0], "landscape": {"from": [0.5, 0.5, 1.0], "to": [0.5, 0.5, 1.12]}},
+  {"image": "oriental-hanging-lanterns-souk-haddadine-marrake.jpg", "dur": 4.4, "from": [0.5, 0.5, 1.0], "to": [0.55, 0.45, 1.15]},
+  {"src": "djemaa-el-fna-marrakech-morocco.mp4", "start": 1.5, "end": 7.5, "x": 0.48, "y": 0.5, "grade": "eq=contrast=1.05:saturation=1.12:brightness=0.02"},
+  {"image": "marrakech-25561912075.jpg", "dur": 4.6, "from": [0.28, 0.5, 1.0], "to": [0.6, 0.5, 1.0], "landscape": {"from": [0.45, 0.5, 1.0], "to": [0.55, 0.5, 1.1]}}
+ ]
+}

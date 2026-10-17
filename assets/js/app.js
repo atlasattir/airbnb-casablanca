@@ -1199,7 +1199,7 @@
       var name = '<bdi>' + esc(c.title || c.file || '') + '</bdi>';
       return '<li class="credit-row"><span class="credit-row__img credit-row__img--film">' + icon('play') + '</span><span class="credit-row__text">' +
         (c.url ? '<a class="credit-row__title"' + ext(c.url) + '>' + name + '</a>' : '<span class="credit-row__title">' + name + '</span>') +
-        '<span class="credit-row__by">' + esc(ui('filmBy')) + ' · <bdi>' + esc(c.by || '') + '</bdi> · ' +
+        '<span class="credit-row__by">' + esc(ui(c.photo ? 'photo' : 'filmBy')) + ' · <bdi>' + esc(c.by || '') + '</bdi> · ' +
         (c.licUrl ? '<a' + ext(c.licUrl) + '>' + esc(c.lic) + '</a>' : esc(c.lic || '')) + '</span></span></li>';
     });
     if (!rows.length && !clips.length) return '<div class="empty rise"' + d(0) + '><span class="icircle">' + icon('sparkle') + '</span><p>' + esc(ui('photoCreditsNone')) + '</p></div>';

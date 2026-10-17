@@ -78,35 +78,30 @@ Hors connexion, le guide montre les photos déjà vues (et celles de la ville qu
 
 Pas de photos trouvées sur Google, Instagram ou les sites des restaurants : seulement les vôtres, celles que l’établissement vous autorise à publier (ajoutez alors `image: 'assets/img/places/<id>.jpg'` à l’adresse dans le fichier de la ville), ou des photos sous licence libre.
 
-## Le film du Maroc
+## Les films
 
-Le film de fond est monté à partir de quatre vidéos sous licence libre de Wikimedia Commons, choisies une à une (pas de visage reconnaissable, pas de texte à l’écran) :
+Quatre films de fond, tous sans son, en boucle (la fin se raccorde au début), chacun en deux versions :
 
-1. la place Jemaa el-Fna à Marrakech au crépuscule, avec la Koutoubia ([Boris Macek](https://commons.wikimedia.org/wiki/File:Djemaa_el_Fna_Marrakech_Morocco.webm), CC BY-SA 3.0) ;
-2. une ruelle bleue de Chefchaouen ([TaylorBux1](https://commons.wikimedia.org/wiki/File:Morocco_Chefchaouen.webm), CC0) ;
-3. le thé à la menthe préparé sur le feu, puis servi dans le désert ([مصطفى ملو](https://commons.wikimedia.org/wiki/File:How_Nomads_prepare_Moroccan_tea.webm), CC BY-SA 4.0) ;
-4. l’aube sur l’Atlantique, plage de Sidi Kacem à Tanger ([Ideophagous](https://commons.wikimedia.org/wiki/File:Plane_landing_at_Tangier_airport_over_Sidi_Kacem_beach.webm), CC0).
+| Film | Où | Fichiers (`assets/video/`) | Plans |
+|---|---|---|---|
+| Le Maroc | l’accueil | `morocco[-portrait]` | Jemaa el-Fna, Chefchaouen, le thé dans le désert, l’aube à Tanger |
+| Casablanca | les pages des quatre logements de Casablanca | `casablanca[-portrait]` | le phare d’El Hank, les palmiers d’Aïn Diab, les Habous, les bateaux du port, le coucher de soleil sur Sidi Abderrahmane |
+| Marrakech | les pages de Darna Marrakech | `marrakech[-portrait]` | la vraie place Jemaa el-Fna (vidéo), la Koutoubia, le palais Bahia, la médersa Ben Youssef, les lanternes du souk Haddadine, les toits au crépuscule |
+| Martil | les pages de Darna Martil Bay | `martil[-portrait]` | la plage et sa mouette, la corniche, la plage en panorama au coucher du soleil, l’oued Martil, le ciel du soir |
 
-Les plans sont recadrés, légèrement ralentis et fondus les uns dans les autres ; la fin se raccorde au début. Le film monté est donc sous licence **CC BY-SA 4.0**. Les licences demandent de citer chaque auteur : c’est fait sur la page « Crédits » (le lien « Film fait d’extraits de Wikimedia Commons » en bas du premier écran y mène). Ne retirez pas `credits` de `content/brand.js` → `film` tant que ces plans sont utilisés.
+Chaque ville ne montre que **sa** ville. Wikimedia Commons n’ayant presque aucune vidéo libre de Casablanca ni de Martil, ces films sont faits de grandes photos libres animées par un lent mouvement de caméra (zoom ou panoramique), fondues les unes dans les autres ; Marrakech mêle une vraie vidéo et des photos. Tout vient de Wikimedia Commons, sous licence libre (CC0, CC BY, CC BY-SA), choisi à l’œil : pas de visage reconnaissable, pas de texte ni de filigrane, la bonne ville. Les films montés sont sous licence **CC BY-SA 4.0**.
 
-| Fichier | Format | Utilisé sur |
-|---|---|---|
-| `morocco-portrait.mp4` / `.webm` / `.jpg` | vertical 720 × 1280, 20 s | téléphones |
-| `morocco.mp4` / `.webm` / `.jpg` | horizontal 1280 × 720, 20 s | ordinateurs et tablettes |
+- `-portrait` : vertical 720 × 1280 pour les téléphones ; sans suffixe : horizontal 1280 × 720 pour les tablettes et ordinateurs. Chacun en MP4 (H.264, pour iPhone et la plupart des navigateurs), WebM (VP9, pour les autres) et `.jpg` (la première image, qui s’affiche tout de suite). Environ 2 à 3 Mo par fichier.
+- Le film d’une ville est décrit dans `content/cities/<ville>.js` → `film` (les fichiers et `credits`) ; celui de l’accueil dans `content/brand.js` → `film`. `film: 'brand'` dans une ville y passe le film du Maroc ; `film: null` montre seulement le décor dessiné (`scene`).
+- Les licences demandent de citer chaque auteur : c’est fait sur la page « Crédits », par le lien « Film fait d’extraits de Wikimedia Commons » en bas du premier écran. Ne retirez pas `credits` tant que ces plans sont utilisés (la vérification automatique le signale).
+- En mode économie de données ou avec les animations réduites, seule l’image fixe s’affiche.
 
-- Le MP4 (H.264) sert aux iPhone et à la plupart des navigateurs ; le WebM (VP9) sert à ceux qui ne lisent pas le H.264. Le `.jpg` est la première image du film : il s’affiche tout de suite, puis le film prend le relais sans saut.
-- Le film passe sur l’accueil et sur les guides des trois villes (`film: 'brand'` dans `content/cities/<ville>.js`). Avec `film: null`, une ville montre seulement son décor dessiné (`scene`).
-- Pour les voyageurs en mode économie de données ou avec les animations réduites, seule l’image fixe s’affiche.
-
-**Refaire ou changer le film.** Les vidéos sources ne sont pas gardées dans le dépôt (trop lourdes).
-1. Chercher des vidéos : GitHub → Actions → **Film sources** → Run workflow, champ `files` vide. La branche `film-sources` reçoit `candidates.jpg` (six images de chaque vidéo libre trouvée, avec auteur et licence) et `candidates.json`. Le script écarte les licences non libres, les vidéos signalées comme montrant des personnes identifiables et celles proposées à la suppression ; vérifiez quand même chaque plan à l’œil (visages, plaques, logos, texte).
-2. Télécharger celles choisies : relancer avec `files` = les noms séparés par `|`, avec `#début-fin` en secondes pour n’en garder qu’un passage. Pour le film actuel :
-   `File:Djemaa el Fna Marrakech Morocco.webm|File:Morocco Chefchaouen.webm|File:How Nomads prepare Moroccan tea.webm#31-50|File:Plane landing at Tangier airport over Sidi Kacem beach.webm#4-40`
-   La branche `film-sources` reçoit alors `src/*.mp4` et `sources.json` (auteurs, licences, liens).
-3. Monter : récupérer cette branche (`git fetch origin film-sources && git archive origin/film-sources | tar -x -C ../film`), décrire les plans dans `tools/film.json` (fichier, début et fin, cadrage `x`/`y` pour le recadrage vertical, `speed`, `grade`, et un réglage propre à une version avec `"landscape": {...}` ou `"portrait": {...}`), puis :
-   `python3 tools/make-film.py tools/film.json ../film/src`
-   Il faut ffmpeg (avec libx264 et libvpx-vp9). Le script écrit les six fichiers de `assets/video/`. Visez environ 3 Mo par fichier (`h264` et `vp9` dans `tools/film.json` : plus haut = plus léger). Un film **sans son**, plans assez sombres en bas (les boutons sont posés dessus).
-4. Mettre à jour `credits` dans `content/brand.js` → `film` avec les auteurs de `sources.json`, dans l’ordre du film.
+**Refaire ou changer un film.** Les sources ne sont pas gardées dans le dépôt (trop lourdes).
+1. Chercher : GitHub → Actions → **Film sources** → Run workflow. Avec `search` (mots séparés par `|`, par exemple `Martil|Tetouan|Category:Videos of Tétouan|User:Ideophagous`), seulement ces recherches ; vide, tout le Maroc. La branche `film-sources` reçoit des planches (`candidates-1.jpg`…: six images de chaque vidéo libre trouvée, avec auteur et licence), `candidates.json` et `rejected.json` (pourquoi les autres ont été écartées). Pour des photos : *Actions* → *Photos* avec `candidates` = des recherches (`search:Martil beach|category:Category:Martil`). Vérifiez chaque plan à l’œil (visages, plaques, logos, texte).
+2. Pour choisir un passage d’une longue vidéo : *Film sources* avec `files` et `preview` coché : une petite copie et une planche d’une image toutes les quelques secondes.
+3. Télécharger : *Film sources* avec `files` = les noms séparés par `|`, `#début-fin` en secondes pour une partie d’une vidéo ; une photo (`File:….jpg`) arrive en grand (jusqu’à 3840 px, un panorama en entier). La branche `film-sources` reçoit `src/` et `sources.json` (auteurs, licences, liens). Les sources des films actuels sont nommées dans leurs `credits`.
+4. Monter : `git fetch origin film-sources && git archive origin/film-sources | tar -x -C ../film`, décrire les plans dans `tools/films/<nom>.json` (une vidéo : `src`, `start`, `end`, `x`/`y`, `speed` ; une photo : `image`, `dur`, `from` et `to` = centre x, centre y et zoom au début et à la fin ; `grade` ; un réglage propre à une version avec `"landscape": {...}` ou `"portrait": {...}`), puis `python3 tools/make-film.py tools/films/<nom>.json ../film/src`. Il faut ffmpeg (avec libx264 et libvpx-vp9) et Pillow. Visez 2 à 3 Mo par fichier (`h264` et `vp9` dans le `.json` : plus haut = plus léger).
+5. Mettre à jour `credits` du film (dans le fichier de la ville ou `content/brand.js`) : chaque photo et vidéo utilisée, son auteur, sa licence et son lien.
 
 ## Typographie
 

@@ -31,10 +31,29 @@ CASA.cities.casablanca = {
   name: { fr: 'Casablanca', en: 'Casablanca', ar: 'الدار البيضاء', es: 'Casablanca' },
   // Used by the airport-transfer service: "Un chauffeur depuis {airport}"
   airport: { fr: 'l’aéroport Mohammed V', en: 'Mohammed V Airport', ar: 'مطار محمد الخامس', es: 'el aeropuerto Mohammed V' },
-  // film: 'brand' plays the film of content/brand.js; null shows the drawing only.
+  // film: this city's own film (cut by tools/make-film.py from tools/films/casablanca.json, from open-licence
+  // photos (photo: true) and clips: each one is listed on the credits page, as the licences ask); 'brand' plays the
+  // home's Morocco film; null shows the drawing (scene) only.
+  film: {
+    video: { mp4: 'assets/video/casablanca.mp4', webm: 'assets/video/casablanca.webm', poster: 'assets/video/casablanca.jpg' },
+    videoPortrait: { mp4: 'assets/video/casablanca-portrait.mp4', webm: 'assets/video/casablanca-portrait.webm', poster: 'assets/video/casablanca-portrait.jpg' },
+    credits: [
+      { title: 'El Hank lighthouse', url: 'https://commons.wikimedia.org/wiki/File:Casablanca_Lighthouse.jpg', photo: true,
+        by: 'Sambasoccer27', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'El Hank lighthouse from the sea', url: 'https://commons.wikimedia.org/wiki/File:El_Hank_Lighthouse_P1010165_(3191246532).jpg', photo: true,
+        by: 'mustapha ennaimi from casablanca, maroc', lic: 'CC BY 2.0', licUrl: 'https://creativecommons.org/licenses/by/2.0' },
+      { title: 'Palms on the Aïn Diab corniche', url: 'https://commons.wikimedia.org/wiki/File:Pedestrians_and_Palms_-_Ain_Diab_-_Seaside_District_-_Casablanca_-_Morocco.jpg', photo: true,
+        by: 'Adam Jones, Ph.D.', lic: 'CC BY-SA 3.0', licUrl: 'https://creativecommons.org/licenses/by-sa/3.0' },
+      { title: 'The Habous quarter', url: 'https://commons.wikimedia.org/wiki/File:One_of_the_most_instragmable_views_of_the_old_medina_the_habous_in_Casablanca.jpg', photo: true,
+        by: 'Omalihy', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'Fishing boats in the port', url: 'https://commons.wikimedia.org/wiki/File:Bateaux_de_p%C3%AAche_au_ancien_port_de_casablanca.jpg', photo: true,
+        by: 'Farid mernissi', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'Sunset over Sidi Abderrahmane', url: 'https://commons.wikimedia.org/wiki/File:Sidi_Abderahmane,_Ain_Diab,_Casablanca_2013.jpg', photo: true,
+        by: 'Achalhikarim', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' }
+    ]
+  },
   // scene: the drawing shown while the film loads or when it cannot play:
   // 'atlantic' (ocean and minaret), 'sea' (sea only) or 'plain' (sky only).
-  film: 'brand',
   scene: 'atlantic',
 
   /* Per neighbourhood: the addresses within walking distance ("À pied" badge

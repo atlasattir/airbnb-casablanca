@@ -17,8 +17,27 @@ CASA.cities.marrakech = {
   name: { fr: 'Marrakech', en: 'Marrakech', ar: 'مراكش', es: 'Marrakech' },
   // Used by the airport-transfer service: "Un chauffeur depuis {airport}"
   airport: { fr: 'l’aéroport Marrakech-Ménara', en: 'Marrakech Menara Airport', ar: 'مطار مراكش المنارة', es: 'el aeropuerto Marrakech-Menara' },
-  // film: 'brand' plays the Morocco film of content/brand.js; null shows the drawing (scene) only.
-  film: 'brand',
+  // film: this city's own film (cut by tools/make-film.py from tools/films/marrakech.json, from open-licence
+  // photos (photo: true) and clips: each one is listed on the credits page, as the licences ask); 'brand' plays the
+  // home's Morocco film; null shows the drawing (scene) only.
+  film: {
+    video: { mp4: 'assets/video/marrakech.mp4', webm: 'assets/video/marrakech.webm', poster: 'assets/video/marrakech.jpg' },
+    videoPortrait: { mp4: 'assets/video/marrakech-portrait.mp4', webm: 'assets/video/marrakech-portrait.webm', poster: 'assets/video/marrakech-portrait.jpg' },
+    credits: [
+      { title: 'The Koutoubia at sunset', url: 'https://commons.wikimedia.org/wiki/File:Koutoubia_Mosque_at_the_sunset_(3).jpg', photo: true,
+        by: 'M0tty', lic: 'CC BY-SA 3.0', licUrl: 'https://creativecommons.org/licenses/by-sa/3.0' },
+      { title: 'Bahia Palace, the large court', url: 'https://commons.wikimedia.org/wiki/File:Bahia_Palace_large_court.jpg', photo: true,
+        by: 'Val Traveler', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'Ben Youssef Madrasa', url: 'https://commons.wikimedia.org/wiki/File:Medersa_Ben_Youssef_Madrasa_Marrakesh_3.jpg', photo: true,
+        by: 'Marco Almbauer', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'Lanterns in Souk Haddadine', url: 'https://commons.wikimedia.org/wiki/File:Oriental_hanging_lanterns._Souk_Haddadine,_Marrakech_Medina_(%D8%B3%D9%88%D9%82_%D8%A7%D9%84%D8%AD%D8%AF%D8%A7%D8%AF%D9%8A%D9%86_%D9%85%D8%B1%D8%A7%D9%83%D8%B4).jpg', photo: true,
+        by: 'Petar Milošević', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'Djemaa el Fna, Marrakech', url: 'https://commons.wikimedia.org/wiki/File:Djemaa_el_Fna_Marrakech_Morocco.webm',
+        by: 'Boris Macek', lic: 'CC BY-SA 3.0', licUrl: 'https://creativecommons.org/licenses/by-sa/3.0' },
+      { title: 'Marrakech rooftops at dusk', url: 'https://commons.wikimedia.org/wiki/File:Marrakech_(25561912075).jpg', photo: true,
+        by: 'Ty Terrasso from Houston', lic: 'CC BY 2.0', licUrl: 'https://creativecommons.org/licenses/by/2.0' }
+    ]
+  },
   scene: 'plain',
 
   /* Daoudiate: a residential quarter of the Guéliz arrondissement, on the

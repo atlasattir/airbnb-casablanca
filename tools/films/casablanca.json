@@ -1,0 +1,18 @@
+{
+ "name": "casablanca",
+ "fade": 0.9,
+ "h264": 28,
+ "vp9": 40,
+ "shots": [
+  {"image": "casablanca-lighthouse.jpg", "dur": 5.0, "from": [0.5, 0.58, 1.0], "to": [0.5, 0.46, 1.12],
+   "landscape": {"image": "el-hank-lighthouse-p1010165-3191246532.jpg", "from": [0.62, 0.45, 1.05], "to": [0.62, 0.42, 1.2]}},
+  {"image": "pedestrians-and-palms-ain-diab-seaside-district.jpg", "dur": 4.6, "from": [0.5, 0.42, 1.3], "to": [0.52, 0.3, 1.42],
+   "landscape": {"from": [0.5, 0.22, 1.0], "to": [0.5, 0.19, 1.08]}},
+  {"image": "one-of-the-most-instragmable-views-of-the-old-me.jpg", "dur": 4.6, "from": [0.5, 0.52, 1.0], "to": [0.5, 0.45, 1.14],
+   "landscape": {"from": [0.5, 0.36, 1.0], "to": [0.5, 0.33, 1.1]}},
+  {"image": "bateaux-de-peche-au-ancien-port-de-casablanca.jpg", "dur": 4.6, "from": [0.3, 0.6, 1.0], "to": [0.58, 0.6, 1.0],
+   "landscape": {"from": [0.45, 0.58, 1.05], "to": [0.55, 0.6, 1.18]}},
+  {"image": "sidi-abderahmane-ain-diab-casablanca-2013.jpg", "dur": 5.2, "from": [0.6, 0.6, 1.0], "to": [0.62, 0.62, 1.15],
+   "landscape": {"from": [0.5, 0.55, 1.0], "to": [0.58, 0.6, 1.15]}}
+ ]
+}
