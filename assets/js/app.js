@@ -116,8 +116,6 @@
     done: [],
     current: null,
     modal: null,
-    openedHere: false,
-    modalHere: false,
     lastFocus: null,
     stayTab: 'in',
     howto: -1,
@@ -349,6 +347,9 @@
     var pts = r.stops.filter(function (s) { return s.maps; }).map(function (s) { return s.maps; });
     var origin = r.fromHome ? aptQuery() : pts.shift();
     var dest = pts.pop() || origin;
+    // Google Maps in a phone's browser takes at most 3 stops in between: keep 3, evenly spread
+    // (each stop of the timeline keeps its own arrow)
+    if (pts.length > 3) pts = [pts[0], pts[Math.floor(pts.length / 2)], pts[pts.length - 1]];
     var url = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(origin) + '&destination=' + encodeURIComponent(dest);
     if (pts.length) url += '&waypoints=' + pts.map(encodeURIComponent).join('%7C');
     if (r.mode) url += '&travelmode=' + r.mode;
@@ -485,7 +486,7 @@
       state.geo = { km: km, best: best };
       renderHome();
       var city = stayById(ids[0]).city;
-      if (!inCity) state.openedHere = true;
+      if (!inCity) stepIn('#' + city);
       if (window.location.hash === '#' + city) route(); else window.location.hash = city;
       // The closest place is now first in the list: show it
       if (inCity && state.current === city) els.scroll.scrollTop = 0;
@@ -498,6 +499,13 @@
 
   /* ---------- a place's home ---------- */
 
+  // "1 parcours", "2 routes", "مساران": the singular, the Arabic dual, the plural
+  function count(n, what) {
+    if (n === 1) return ui(what + 'One');
+    if (n === 2 && state.lang === 'ar') return ui(what + 'Two');
+    return n + ' ' + ui(what + 'sCount');
+  }
+
   function tileData(id) {
     if (id === 'wifi') {
       var n = APT.wifi && APT.wifi.network;
@@ -507,8 +515,8 @@
     if (id === 'assistance') return '<span dir="ltr">19 · 15 · 177</span>';
     var s = SECTIONS[id];
     var shown = (s.items || []).filter(function (it) { return DRAFT || it.kind !== 'placeholder'; }).length;
-    if (s.type === 'routes') return esc(shown + ' ' + ui('routesCount'));
-    if (id === 'visit') return esc(shown + ' ' + ui('placesCount'));
+    if (s.type === 'routes') return esc(count(shown, 'route'));
+    if (id === 'visit') return esc(count(shown, 'place'));
     return '';
   }
 
@@ -752,8 +760,20 @@
     }
   }
 
+  /* The guide's own steps in the browser history (a tap that opened a page or a detail).
+     The back arrows go back through them, like the phone's Back button, and only close
+     a page in place when it was opened directly from a link. */
+  var trail = [];
+  function stepIn(to) {
+    if (to && to !== window.location.hash) trail.push({ from: window.location.hash, to: to });
+  }
+  function ownStep() {
+    var t = trail[trail.length - 1];
+    return t && t.to === window.location.hash ? t : null;
+  }
+
   function goBack() {
-    if (state.openedHere) { state.openedHere = false; window.history.back(); return; }
+    if (ownStep()) { window.history.back(); return; }
     closeModal();
     closeSheet();
     try { window.history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) { /* sandboxed frame */ }
@@ -768,6 +788,9 @@
   }
 
   function route() {
+    // Back (arrow or phone) to where the last step started: that step is done
+    var last = trail[trail.length - 1];
+    if (last && window.location.hash === last.from) trail.pop();
     var h = parseHash();
     var meta = sectionMeta(h.sid);
     if (meta && meta.type === 'city' && staysIn(h.sid).length === 1) {
@@ -1228,7 +1251,8 @@
   }
 
   function modalBack() {
-    if (state.modalHere) { state.modalHere = false; window.history.back(); return; }
+    var own = ownStep();
+    if (own && own.to.indexOf('.') > -1) { window.history.back(); return; }
     var sid = state.current;
     closeModal();
     try { window.history.replaceState(null, '', window.location.pathname + window.location.search + (sid ? '#' + sid : '')); } catch (e) { /* sandboxed frame */ }
@@ -1331,9 +1355,9 @@
   document.addEventListener('click', function (e) {
     var t = e.target.closest && e.target.closest('[data-open],[data-locate],[data-open-detail],[data-modal-close],[data-lang],[data-fav],[data-chip],[data-copy],[data-taxi],[data-tab],[data-check],[data-howto]');
     if (!t) return;
-    if (t.hasAttribute('data-open')) { state.openedHere = true; return; }
+    if (t.hasAttribute('data-open')) { stepIn(t.getAttribute('href')); return; }
     if (t.hasAttribute('data-locate')) { locate(); return; }
-    if (t.hasAttribute('data-open-detail')) { state.modalHere = true; return; }
+    if (t.hasAttribute('data-open-detail')) { stepIn(t.getAttribute('href')); return; }
     if (t.hasAttribute('data-modal-close')) { modalBack(); return; }
     if (t.hasAttribute('data-lang')) setLang(t.getAttribute('data-lang'));
     else if (t.hasAttribute('data-fav')) { e.preventDefault(); toggleFav(t.getAttribute('data-fav')); }
@@ -1498,7 +1522,7 @@
     });
 
     GROUPS = [
-      { id: 'home', kicker: areaName(st) || cityName(st.city), title: { fr: '', en: '' }, items: BRAND.stayGroup || [] },
+      { id: 'home', kicker: areaName(st) || cityName(st.city), title: { fr: '', en: '' }, items: (raw.stayGroup || BRAND.stayGroup || []).slice() },
       { id: 'city', kicker: (cityById(st.city) || {}).name, title: (CITY.group || {}).title, items: (CITY.group || {}).items || [], wide: (CITY.group || {}).wide || [] }
     ];
     GROUPS[0].title = st.kind === 'studio' ?
@@ -1518,7 +1542,18 @@
     var film = CITY.film === 'brand' ? BRAND.film : (CITY.film || null);
     initVideo(film, CITY.scene || 'plain');
     finish();
+    keepForOffline(st);
     window.setTimeout(function () { warmPhotos(st.city); }, 6000);
+  }
+
+  // The place's own files were loaded before the service worker was in charge: ask for them
+  // again once it is, so the guide opens without data next time (and from its short link)
+  function keepForOffline(st) {
+    var sw = navigator.serviceWorker;
+    if (!sw) return;
+    var files = ['content/cities/' + st.city + '.js', 'content/stays/' + st.id + '.js', st.id + '/', st.id + '/manifest.webmanifest'];
+    function go() { files.forEach(function (f) { fetch(f).catch(function () { /* offline: next time */ }); }); }
+    if (sw.controller) go(); else sw.addEventListener('controllerchange', go);
   }
 
   // For later, offline: once the guide works offline (its service worker in charge), store the
@@ -1536,13 +1571,15 @@
   }
 
   function start() {
-    var id = params.stay;
+    var id = String(params.stay || '').trim().toLowerCase();
     // Links made before the final names still open the right place
     var moved = id && (BRAND.aliases || {})[id];
     if (moved) { window.location.replace('./?stay=' + moved + window.location.hash); return; }
     if (!id) { bootHome(); return; }
     var st = stayById(id);
     if (!st) { bootHome(ui('stayUnknown')); return; }
+    var hello = (UI[state.lang] || UI.en || {}).waHello || '';
+    els.wa.href = waLink(hello.replace(/\{host\}/g, host().name || '').replace(/\{stay\}/g, st.name));
     loadScripts(['content/morocco.js', 'content/cities/' + st.city + '.js', 'content/stays/' + st.id + '.js'], function (ok) {
       C = window.CASA || C;
       if (!ok || !C.stays || !C.stays[st.id] || !C.cities || !C.cities[st.city]) { bootHome(ui('stayOffline')); return; }

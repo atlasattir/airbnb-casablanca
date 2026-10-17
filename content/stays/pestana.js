@@ -105,7 +105,7 @@ CASA.stays['pestana'] = {
     // source: https://fodors.com/world/africa-and-middle-east/morocco/the-northern-atlantic-coast/places/casablanca/restaurants
     // TODO (host): only a listing site names this branch; the mall's tenant lists checked in Oct. 2026
     // (grit.group) do not. Confirm it is still open, or set name: 'TODO' and maps: ''.
-    { icon: 'bread', label: { fr: 'Boulangerie', en: 'Bakery', ar: 'مخبزة', es: 'Panadería' }, name: 'Paul Anfa Place', walk: 0, maps: 'Paul Anfaplace, Casablanca' },
+    { icon: 'bread', label: { fr: 'Boulangerie', en: 'Bakery', ar: 'مخبزة', es: 'Panadería' }, name: 'TODO', walk: 0, maps: '' }, // was 'Paul Anfa Place' (maps 'Paul Anfaplace, Casablanca'): hidden until confirmed
     // source: https://locations.alshaya.com/starbucks/ma/casablanca/anfaplace-mall
     // (listed 09:00–22:00, 23:00 on Friday and Saturday)
     { icon: 'cup', label: { fr: 'Café', en: 'Café', ar: 'مقهى', es: 'Café' }, name: 'Starbucks Anfa Place', walk: 0, maps: 'Starbucks AnfaPlace Mall, Casablanca' },

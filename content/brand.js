@@ -138,7 +138,7 @@ window.CASA = window.CASA || {};
         time: '11:00',
         steps: [
           { icon: 'clock', fr: 'Départ avant {checkout}', en: 'Leave before {checkout}', ar: 'المغادرة قبل {checkout}', es: 'Salida antes de las {checkout}' },
-          { icon: 'window', fr: 'Fenêtres, clim et lumières fermées', en: 'Windows, AC and lights off', ar: 'النوافذ والمكيّف والأضواء مطفأة', es: 'Ventanas, aire y luces apagados' },
+          { icon: 'window', fr: 'Fenêtres fermées, lumières et appareils éteints', en: 'Windows shut, lights and appliances off', ar: 'أغلق النوافذ وأطفئ الأضواء والأجهزة', es: 'Ventanas cerradas, luces y aparatos apagados' },
           { icon: 'key', todo: true, fr: 'Où laisser les clés', en: 'Where to leave the keys', ar: 'أين تترك المفاتيح', es: 'Dónde dejar las llaves' },
           { icon: 'trash', todo: true, fr: 'Où déposer les poubelles', en: 'Where the rubbish goes', ar: 'أين تضع النفايات', es: 'Dónde dejar la basura' },
           { icon: 'rating', fr: 'Un avis Airbnb aide beaucoup {host}', en: 'An Airbnb review helps {host} a lot', ar: 'تقييمك على Airbnb يساعد {host} كثيراً', es: 'Una reseña en Airbnb ayuda mucho a {host}' }

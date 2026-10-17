@@ -40,6 +40,23 @@ for (const s of B.stays || []) {
 const wa = String((B.host || {}).whatsapp || '').replace(/\D/g, '');
 if (wa.length < 10) fail('content/brand.js: host.whatsapp is empty or too short');
 
+// The WhatsApp button works before the script runs: index.html carries the same number
+const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+const dock = /id="dock-wa" href="https:\/\/wa\.me\/(\d*)"/.exec(html);
+if (!dock || dock[1] !== wa) fail('index.html: the WhatsApp button (dock-wa) should link to wa.me/' + wa);
+
+// Offline: every file the service worker stores at install exists (one missing file stops it),
+// and every place's short link is among them
+const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
+const core = (/var CORE = \[([\s\S]*?)\];/.exec(sw) || [])[1] || '';
+const coreFiles = (core.replace(/\/\/.*$/gm, '').match(/'[^']*'/g) || []).map(q => q.slice(1, -1));
+for (const f of coreFiles) {
+  const disk = path.join(ROOT, f === './' ? 'index.html' : f.endsWith('/') ? f + 'index.html' : f);
+  if (!fs.existsSync(disk)) fail('sw.js: CORE lists ' + f + ', which does not exist');
+}
+for (const s of B.stays || []) if (coreFiles.indexOf(s.id + '/') < 0) fail('sw.js: CORE lacks the short link ' + s.id + '/');
+for (const old of Object.keys(B.aliases || {})) if (coreFiles.indexOf(old + '/') < 0) fail('sw.js: CORE lacks the old link ' + old + '/');
+
 // Same texts in the four languages
 const U = C.ui || {};
 const keys = Object.keys(U.fr || {});

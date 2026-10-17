@@ -102,14 +102,14 @@ Outfit (sans-serif géométrique, graisses fines) pour les titres et le texte ; 
 Les champs marqués `TODO` ne sont pas montrés aux voyageurs (Wi-Fi : « Sur la carte dans votre logement »). Pour voir ce qu’il reste à compléter, ajoutez `&draft` à l’adresse d’un logement, par exemple `…/?stay=pestana&draft` : chaque champ manquant y apparaît avec un badge « Bientôt ». Cherchez `TODO` dans `content/`.
 
 Pour toute la marque (`content/brand.js`) :
-- [ ] Numéro WhatsApp (`host.whatsapp`, chiffres seulement, ex. `2126XXXXXXXX`) ; un logement peut avoir le sien (`host` dans son fichier)
+- [x] Numéro WhatsApp (`host.whatsapp`) ; un logement peut avoir le sien (`host` dans son fichier). Le même numéro est écrit dans le bouton WhatsApp d’`index.html` (`id="dock-wa"`), pour qu’il marche avant même le chargement : changez les deux (la vérification automatique le signale sinon)
 - [ ] Position de chaque logement : la position exacte va seulement dans `location` du fichier du logement (coordonnées, coucher du soleil, itinéraire depuis la porte). Dans `content/brand.js`, gardez 2 décimales (environ 1 km) : cela suffit pour « Trouver mon logement » sans afficher l’immeuble sur l’accueil. Passez `approx` à `false` quand c’est fait.
 
 Pour chaque logement (`content/stays/<logement>.js`) :
 - [ ] Adresse en français et en arabe (pour le chauffeur de taxi), sans étage ni numéro d’appartement
-- [ ] Horaires d’arrivée et de départ (15:00 et 11:00 par défaut)
+- [x] Horaires d’arrivée et de départ : 15:00 et 11:00, confirmés pour les six logements
 - [ ] Remise des clés, où laisser les clés, où déposer les poubelles
-- [ ] Nom du réseau Wi-Fi (sans numéro d’appartement ni d’étage)
+- [ ] Nom du réseau Wi-Fi (sans numéro d’appartement ni d’étage). À confirmer : y a-t-il le Wi-Fi à Martil Bay et à Dar Bouazza ? Sinon, ajoutez au fichier du logement `stayGroup: ['stay', 'house', 'nearby', 'services', 'assistance']` (la liste de `content/brand.js` sans `'wifi'`) pour retirer la tuile Wi-Fi
 - [ ] Mode d’emploi (climatisation, eau chaude, cuisine…, piscine, parking, résidence)
 - [ ] Autour de vous : vérifiez les adresses proposées et ajoutez le temps de marche **depuis l’immeuble** (`walk`, en minutes)
 
@@ -117,6 +117,12 @@ Pour les villes (`content/cities/<ville>.js`) :
 - [ ] Vos choix personnels (entrées `kind: 'placeholder'`), et les services ou expériences que vous ne proposez pas : supprimez-les. Les règles Airbnb interdisent d’encaisser hors Airbnb ce qui est lié au séjour : passez par une demande de paiement Airbnb.
 - [ ] Les adresses marquées « À pied » (liste `areas` en haut du fichier) : vérifiez le temps de marche réel
 - [ ] Relisez les textes écrits en votre nom (mot d’accueil, signature) : ils doivent vous ressembler
+
+## Vérifier avant d’envoyer un lien
+
+`node tools/check-content.js` vérifie que tout se charge, que chaque logement a sa ville, sa page et son lien court, que les quatre langues ont les mêmes textes, que chaque photo existe et est créditée, et que le mode hors connexion a tous ses fichiers. GitHub la lance aussi à chaque envoi (onglet *Actions* → *Check*) : une croix rouge sur un envoi veut dire qu’un logement risque de ne pas s’ouvrir.
+
+Un lien mal tapé (une majuscule, une faute, un caractère en trop) mène quand même au bon guide, ou à l’accueil pour choisir : c’est le rôle de `404.html`. Si vous passez à votre propre nom de domaine, changez sa ligne `base` en `'/'`.
 
 ## Vérifier les adresses
 

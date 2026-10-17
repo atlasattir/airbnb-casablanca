@@ -11,7 +11,7 @@
  * one gets a new ?v=). Change VERSION, and this
  * list, after renaming or removing files: a missing file stops the update.
  */
-var VERSION = 'atlas-v4';
+var VERSION = 'atlas-v5';
 var CORE = [
   './',
   'index.html',
@@ -24,7 +24,10 @@ var CORE = [
   'content/ui.js',
   'content/brand.js',
   'content/photos.js',
-  'content/morocco.js'
+  'content/morocco.js',
+  // Each place's short link (the one in the Airbnb message and on the QR card), and the old ones
+  'bourgogne/', 'b-suites/', 'pestana/', 'dar-bouazza/', 'marrakech/', 'martil-bay/',
+  'bourgogne-133/', 'casa-b-suites/', 'ocean-21/', 'darb-inn/', 'dar-baba/', 'casa-azul/'
 ];
 var FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
@@ -84,7 +87,13 @@ self.addEventListener('fetch', function (event) {
         .then(function (response) { return store(request, response); })
         .catch(function () {
           return caches.match(request, { ignoreSearch: true }).then(function (hit) {
-            return hit || (request.mode === 'navigate' ? caches.match('index.html') : undefined);
+            if (hit || request.mode !== 'navigate') return hit;
+            // A page never stored: a place's link (…/pestana/) opens its guide; anything else, the home.
+            // (index.html must be served at the site's root, or its relative paths break.)
+            var scope = new URL(self.registration.scope);
+            var rest = url.pathname.slice(scope.pathname.length);
+            var id = /^([a-z0-9-]+)\/?$/i.exec(rest);
+            return Response.redirect(scope.href + (id ? '?stay=' + id[1].toLowerCase() : ''), 302);
           });
         })
     );

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Darna Collection</title>
+  <!-- GitHub Pages shows this page for any address that does not exist (a typo, a capital letter,
+       a stray character). It sends the guest to their place's guide, or to the home to choose it. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#091215">
+  <script>
+    (function () {
+      var base = '/airbnb-casablanca/'; // the site's address under github.io; '/' with a domain of its own
+      var path = window.location.pathname;
+      var rest = path.indexOf(base) === 0 ? path.slice(base.length) : path.replace(/^\//, '');
+      var id = decodeURIComponent(rest.split('/')[0] || '').trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+      window.location.replace(base + (id ? '?stay=' + id : '') + window.location.hash);
+    })();
+  </script>
+  <style>body { margin: 0; background: #091215; color: #EEEAE1; font: 16px system-ui, sans-serif; } a { color: inherit; display: block; padding: 24px; }</style>
+</head>
+<body>
+  <a href="/airbnb-casablanca/">Darna Collection · Votre guide · Your guide · دليلك</a>
+</body>
+</html>
