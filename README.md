@@ -27,7 +27,7 @@ assets/js/app.js            le fonctionnement
 assets/js/icons.js          les icônes
 assets/video/               le film de fond (vertical et horizontal)
 assets/vendor/qrcode.js     générateur de QR code (licence MIT, Kazuhiko Arase)
-assets/img/                 icônes, image d’aperçu du lien (share.jpg)
+assets/img/                 icônes, image d’aperçu du lien (share.jpg : l’accueil sur une image du film à Chefchaouen, CC0, sans crédit à afficher)
 assets/img/photos/          les photos des adresses (téléchargées par tools/fetch-photos.py)
 content/brand.js            la marque, les villes, la liste des logements et ce qu’ils ont en commun
 content/morocco.js          ce qui vaut partout au Maroc : urgences, pharmacies, argent, darija
