@@ -5,6 +5,9 @@
 # "photos-sheet" (tools/photos-sheet.jpg). Look at it; if every photo shows exactly
 # its place, with no recognisable face, merge "photos-review" into the site's branch
 # (a pull request).
+# With "candidates" set, it only shows what Commons offers for places without a photo
+# (tools/photo-candidates.py), on the branch "photos-candidates": choose, then name the
+# chosen file in tools/photos.json and run it again without "candidates".
 name: Photos
 
 on:
@@ -18,6 +21,10 @@ on:
         description: 'Download the chosen photos again'
         type: boolean
         default: false
+      candidates:
+        description: 'Only show candidates: "missing" (every place without a photo) or city/id keys separated by spaces'
+        type: string
+        default: ''
 
 permissions:
   contents: write
@@ -34,7 +41,24 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install pillow==11.0.0
+      - name: Candidates
+        if: ${{ inputs.candidates != '' }}
+        env:
+          KEYS: ${{ inputs.candidates }}
+        run: |
+          OUT="$RUNNER_TEMP/candidates"
+          if [ "$KEYS" = "missing" ]; then python3 tools/photo-candidates.py "$OUT"; else read -r -a LIST <<< "$KEYS"; python3 tools/photo-candidates.py "$OUT" "${LIST[@]}"; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch --orphan photos-candidates
+          git rm -rq --cached . || true
+          git clean -fdxq
+          cp -r "$OUT"/. .
+          git add -A
+          git commit -qm 'Photo candidates from Wikimedia Commons (to choose from)'
+          git push --force origin photos-candidates
       - name: Download
+        if: ${{ inputs.candidates == '' }}
         env:
           AUTO: ${{ inputs.auto }}
           FORCE: ${{ inputs.force }}
@@ -44,6 +68,7 @@ jobs:
           if [ "$FORCE" = "true" ]; then set -- "$@" --force; fi
           python3 tools/fetch-photos.py "$@"
       - name: Push to the review branch
+        if: ${{ inputs.candidates == '' }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

@@ -10,7 +10,9 @@
       "beaches": "sidiabderrahmane",
       "family": "ligue-family",
       "experiences": "tea-habous",
-      "itineraries": "medina"
+      "itineraries": "medina",
+      "transport": "tram",
+      "nearby": "corniche"
     },
     "elhank": {
       "files": [
@@ -57,7 +59,8 @@
       ]
     },
     "cabestan": {
-      "search": "Cabestan Casablanca"
+      "search": "El Hank Casablanca ocean rocks",
+      "illustr": true
     },
     "dauphin": {
       "search": "fried fish platter",
@@ -65,10 +68,6 @@
     },
     "marchecentral": {
       "category": "Category:Central_Market_(Casablanca)"
-    },
-    "sqala-breakfast": {
-      "search": "Moroccan breakfast msemen",
-      "illustr": true
     },
     "bondi": {
       "search": "flat white coffee cup",
@@ -105,18 +104,12 @@
       "category": "Category:Morocco_Mall"
     },
     "maarif": {
-      "files": [
-        "File:Twin_Center,_Boulevard_Mohamed_Zerktouni,_Casablanca.JPG"
-      ],
-      "category": "Category:Casablanca_Twin_Center"
+      "search": "Maarif Casablanca street"
     },
     "corniche": {
       "files": [
         "File:Boulevard_de_la_Corniche,_Dar-el-Beida,_Morocco_-_panoramio_(11).jpg"
       ]
-    },
-    "beachclubs": {
-      "search": "Tahiti Beach Casablanca"
     },
     "sidiabderrahmane": {
       "files": [
@@ -141,9 +134,6 @@
       ],
       "category": "Category:Morocco_Mall"
     },
-    "tamaris": {
-      "search": "Tamaris Aquaparc"
-    },
     "ligue-family": {
       "files": [
         "File:Arab_League_Park_2.jpg",
@@ -157,7 +147,7 @@
       ]
     },
     "prehistory-park": {
-      "search": "Thomas Quarry Casablanca prehistoric"
+      "search": "Sidi Abderrahmane préhistoire Casablanca carrière"
     },
     "tea-habous": {
       "files": [
@@ -173,6 +163,35 @@
         "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(2).jpg",
         "File:Ancienne_Medina,_Casablanca_20250,_Morocco_-_panoramio_(5).jpg"
       ]
+    },
+    "tram": {
+      "category": "Category:Casablanca Tramway",
+      "search": "Casablanca tramway"
+    },
+    "portpeche": {
+      "search": "port de pêche Casablanca bateaux",
+      "category": "Category:Port of Casablanca",
+      "illustr": true
+    },
+    "ricks": {
+      "search": "Rick's Café Casablanca"
+    },
+    "corniche-night": {
+      "search": "Casablanca corniche night"
+    },
+    "aindiab": {
+      "search": "Ain Diab beach Casablanca",
+      "category": "Category:Aïn Diab"
+    },
+    "anfaplace-beach": {
+      "search": "plage Casablanca corniche océan"
+    },
+    "darbouazza": {
+      "search": "Dar Bouazza plage",
+      "category": "Category:Dar Bouazza"
+    },
+    "sindibad": {
+      "search": "Sindibad Casablanca"
     }
   },
   "marrakech": {
@@ -184,7 +203,9 @@
       "souks": "haddadine",
       "experiences": "agafay",
       "family": "menara",
-      "itineraries": "jemaa"
+      "itineraries": "jemaa",
+      "transport": "caleche",
+      "nearby": "cyberpark"
     },
     "jemaa": {
       "files": [
@@ -336,10 +357,6 @@
       ],
       "search": "Ensemble Artisanal Marrakech"
     },
-    "bains-marrakech": {
-      "search": "hammam Morocco zellige",
-      "illustr": true
-    },
     "agafay": {
       "files": [
         "File:Agafay_Desert,_Morocco,_20250125_1759_7281.jpg",
@@ -397,7 +414,9 @@
       "restaurants": "cabo-corner",
       "cafes": "goya",
       "family": "corniche-family",
-      "itineraries": "feddan"
+      "itineraries": "feddan",
+      "transport": "grand-taxi",
+      "nearby": "martil-corniche"
     },
     "martil-beach": {
       "files": [
@@ -551,6 +570,102 @@
         "File:Chefchaouen_-_blue_city_in_Morocco.jpg",
         "File:Blue_Town_Chefchaouen.jpg"
       ]
+    },
+    "grand-taxi": {
+      "search": "grand taxi Tetouan",
+      "category": "Category:Grands taxis in Morocco",
+      "illustr": true
+    }
+  },
+  "morocco": {
+    "_covers": {
+      "wifi": "salon",
+      "stay": "door",
+      "house": "lanterns",
+      "services": "tea",
+      "assistance": "pharmacy",
+      "favorites": "zellige"
+    },
+    "door": {
+      "search": "Moroccan door carved wood",
+      "category": "Category:Doors in Morocco"
+    },
+    "salon": {
+      "search": "riad courtyard Morocco interior",
+      "category": "Category:Riads in Morocco"
+    },
+    "lanterns": {
+      "search": "Moroccan lanterns",
+      "category": "Category:Lanterns of Morocco"
+    },
+    "tea": {
+      "search": "Moroccan mint tea glasses teapot",
+      "category": "Category:Moroccan tea"
+    },
+    "pharmacy": {
+      "search": "pharmacie Maroc enseigne",
+      "illustr": true
+    },
+    "zellige": {
+      "search": "zellige Morocco tiles",
+      "category": "Category:Zellige"
+    },
+    "breakfast": {
+      "search": "Moroccan breakfast msemen",
+      "category": "Category:Msemen",
+      "illustr": true
+    },
+    "pastries": {
+      "search": "cornes de gazelle Moroccan pastries",
+      "category": "Category:Kaab el ghazal",
+      "illustr": true
+    },
+    "tajine": {
+      "search": "tajine cooking Morocco",
+      "category": "Category:Tajines",
+      "illustr": true
+    },
+    "hammam": {
+      "search": "hammam Morocco interior",
+      "category": "Category:Hammams in Morocco",
+      "illustr": true
+    },
+    "spa": {
+      "search": "hammam spa tadelakt Marrakech",
+      "illustr": true
+    },
+    "souk-goods": {
+      "search": "babouches souk Morocco",
+      "category": "Category:Babouches",
+      "illustr": true
+    },
+    "seafood": {
+      "search": "grilled fish Morocco",
+      "illustr": true
+    },
+    "beach-club": {
+      "search": "beach umbrellas sunbeds",
+      "illustr": true
+    },
+    "waterpark": {
+      "search": "water park slides",
+      "illustr": true
+    },
+    "horses": {
+      "search": "horse riding beach Morocco",
+      "illustr": true
+    },
+    "rooftop": {
+      "search": "rooftop terrace bar night",
+      "illustr": true
+    },
+    "camel-beach": {
+      "search": "camel beach Morocco",
+      "illustr": true
+    },
+    "mall": {
+      "search": "shopping mall interior Morocco",
+      "illustr": true
     }
   }
 }
