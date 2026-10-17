@@ -86,15 +86,19 @@ for (const [id, c] of Object.entries(C.cities || {})) {
   }
 }
 
-// The film: its files exist, and each clip it is cut from is credited
-const film = B.film;
-if (film) {
+// The films (the home's, and each city's own): their files exist, and each clip they are cut from is credited
+function checkFilm(film, where) {
   for (const cut of [film.video, film.videoPortrait].filter(Boolean)) {
-    for (const f of [cut.mp4, cut.webm, cut.poster].filter(Boolean)) if (!fs.existsSync(path.join(ROOT, f))) fail('content/brand.js: film file ' + f + ' is missing');
+    for (const f of [cut.mp4, cut.webm, cut.poster].filter(Boolean)) if (!fs.existsSync(path.join(ROOT, f))) fail(where + ': film file ' + f + ' is missing');
   }
-  for (const c of film.credits || []) if (!c.by || !c.lic || !c.url) fail('content/brand.js: film clip "' + (c.title || '?') + '" lacks its author, licence or link');
+  if (!(film.credits || []).length && !(film.credit && film.credit.name)) fail(where + ': the film credits no one');
+  for (const c of film.credits || []) if (!c.by || !c.lic || !c.url) fail(where + ': film clip "' + (c.title || '?') + '" lacks its author, licence or link');
 }
-for (const [id, c] of Object.entries(C.cities || {})) if (c.film === 'brand' && !film) fail(id + ': film is "brand" but content/brand.js has no film');
+if (B.film) checkFilm(B.film, 'content/brand.js');
+for (const [id, c] of Object.entries(C.cities || {})) {
+  if (c.film === 'brand' && !B.film) fail(id + ': film is "brand" but content/brand.js has no film');
+  else if (c.film && typeof c.film === 'object') checkFilm(c.film, 'content/cities/' + id + '.js');
+}
 
 if (errors.length) { console.error('✗ ' + errors.length + ' problem(s):\n  ' + errors.join('\n  ')); process.exit(1); }
 console.log('✓ ' + (B.stays || []).length + ' places, ' + keys.length + ' texts × 4 languages, ' +

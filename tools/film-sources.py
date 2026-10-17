@@ -6,7 +6,9 @@ Finds open-licence videos of Morocco on Wikimedia Commons, for the guide's film.
     python3 tools/film-sources.py find    out/ "Martil" "Tetouan"   # only these searches (a city's own film)
     python3 tools/film-sources.py preview out/ "File:A.webm"        # a small copy of the whole video, to pick a part
     python3 tools/film-sources.py fetch   out/ "File:A.webm" "File:B.webm#30-45"   # the chosen ones, full size
-                                                   # (#30-45: only seconds 30 to 45)
+                                                   # (#30-45: only seconds 30 to 45; a photo, "File:C.jpg",
+                                                   #  comes up to 3840 px wide, for a slow camera move)
+Searches may be words, "Category:Videos of Tétouan", or "User:Ideophagous" (the videos crediting them).
 
 Needs Python 3.8+, Pillow and ffmpeg, and access to commons.wikimedia.org and
 upload.wikimedia.org (or run it on GitHub: .github/workflows/film.yml).
@@ -53,16 +55,34 @@ def pages(data):
     return [p for p in data.get('query', {}).get('pages', []) if p.get('videoinfo')]
 
 
+def search(q, most=200):
+    """Every video a search finds, page after page (50 a page)."""
+    params, got = dict(VPROPS, generator='search', gsrsearch=q + ' filetype:video', gsrnamespace='6', gsrlimit='50'), []
+    while len(got) < most:
+        data = fp.api(params)
+        got += pages(data)
+        more = data.get('continue', {})
+        if 'gsroffset' not in more:
+            break
+        params = dict(params, **more)
+        time.sleep(0.2)
+    return got
+
+
 def candidates(searches=None):
+    """Searches, categories ("Category:Videos of Tétouan") and uploaders ("User:Ideophagous": the videos
+    whose page names them, which is how Commons credits an author)."""
     seen = {}
-    for q in searches or SEARCHES:
+    words = [('insource:"%s"' % w[5:]) if w.startswith('User:') else w for w in (searches or SEARCHES) if not w.startswith('Category:')]
+    cats = [w for w in (searches or []) if w.startswith('Category:')]
+    for q in words:
         try:
-            for p in pages(fp.api(dict(VPROPS, generator='search', gsrsearch=q + ' filetype:video', gsrnamespace='6', gsrlimit='50'))):
+            for p in (search(q) if searches else search(q, 50)):
                 seen.setdefault(p['title'], p)
         except Exception as e:
             print('search', q, e)
         time.sleep(0.2)
-    for c in ([] if searches else CATEGORIES):
+    for c in (cats if searches else CATEGORIES):
         try:
             for p in pages(fp.api(dict(VPROPS, generator='categorymembers', gcmtitle=c, gcmtype='file', gcmlimit='100'))):
                 seen.setdefault(p['title'], p)
@@ -78,7 +98,7 @@ def meta(p, key):
 def usable(p, longest=240):
     vi = p['videoinfo'][0]
     lic = fp.clean(meta(p, 'LicenseShortName'))
-    if not str(vi.get('mime', '')).startswith('video/'):
+    if not (str(vi.get('mime', '')).startswith('video/') or vi.get('mime') == 'application/ogg'):  # .ogv: application/ogg
         return 'not a video'
     if (vi.get('duration') or 0) < 5:
         return 'too short'
@@ -234,15 +254,39 @@ def preview(out, wanted):
         print('  ', p['title'], '%.0fs' % dur, len(ts), 'frames')
 
 
+STILL = re.compile(r'\.(jpe?g|png|tiff?)$', re.I)
+
+
+def stills(out, titles):
+    """Photos for slow camera moves in the film: large (up to 3840 px), with the same rules as the guide's photos."""
+    fp.FILE_PROPS['iiurlwidth'] = '3840'
+    got = []
+    for t, p in fp.info(titles).items():
+        why = 'not found' if not p else fp.usable(p)
+        if why:
+            print('  -', t, why)
+            continue
+        e = fp.describe(p)
+        name = fp.slug(p['title']) + '.jpg'
+        from PIL import Image, ImageOps
+        im = ImageOps.exif_transpose(Image.open(io.BytesIO(fp.get(e['thumb'] or p['imageinfo'][0]['url'])))).convert('RGB')
+        im.save(out + '/src/' + name, quality=92)  # no EXIF kept
+        got.append({'file': p['title'], 'url': e['url'], 'by': e['by'], 'lic': e['lic'], 'licUrl': e['licUrl'], 'title': e['title'],
+                    'src': 'src/' + name, 'size': '%dx%d' % im.size, 'still': True})
+        print('  + still', p['title'], im.size, e['lic'], e['by'][:40])
+    return got
+
+
 def fetch(out, wanted):
     os.makedirs(out + '/src', exist_ok=True)
+    got = stills(out, [w.strip() for w in wanted if STILL.search(w.strip())])
     parts = {}
     for w in wanted:
         title, _, seg = w.partition('#')
-        parts[title.strip()] = seg.strip()
-    data = fp.api(dict(VPROPS, titles='|'.join(parts)))
+        if not STILL.search(title.strip()):
+            parts[title.strip()] = seg.strip()
+    data = fp.api(dict(VPROPS, titles='|'.join(parts))) if parts else {}
     norm = {n['to']: n['from'] for n in data.get('query', {}).get('normalized', [])}
-    got = []
     for p in pages(data):
         why = usable(p, longest=10 ** 6)  # chosen by eye: a long video is fine when a part of it is used
         if why:
@@ -274,4 +318,4 @@ if __name__ == '__main__':
     elif mode == 'preview':
         preview(out, sys.argv[3:])
     else:
-        fetch(out, sys.argv[3:])
+        fetch(out, sys.argv[3:])  # videos (with #start-end) and photos for camera moves
