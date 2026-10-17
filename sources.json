@@ -1,0 +1,24 @@
+[
+ {
+  "file": "File:Panormic view of Martil beach.jpg",
+  "url": "https://commons.wikimedia.org/wiki/File:Panormic_view_of_Martil_beach.jpg",
+  "by": "Mohamed Haddi",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "title": "Panormic view of Martil beach",
+  "src": "src/panormic-view-of-martil-beach.jpg",
+  "size": "9736x2000",
+  "still": true
+ },
+ {
+  "file": "File:Panormic view of Martil beach 02.jpg",
+  "url": "https://commons.wikimedia.org/wiki/File:Panormic_view_of_Martil_beach_02.jpg",
+  "by": "Mohamed Haddi",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "title": "Panormic view of Martil beach 02",
+  "src": "src/panormic-view-of-martil-beach-02.jpg",
+  "size": "9714x2000",
+  "still": true
+ }
+]
