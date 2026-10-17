@@ -1,4 +1,38 @@
 {
+ "casablanca/aindiab": {
+  "auto": false,
+  "by": "angelius1979",
+  "file": "File:Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:A\\u00efn Diab\", \"files\": [\"File:Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio.jpg\"], \"search\": \"Ain Diab beach Casablanca\"}",
+  "sha1": "9cba69bdcf89e2897d2297192541018425f64cf2",
+  "sm": "assets/img/photos/casablanca/ebb-beach-ain-diab-morocco-casablanca-panoramio-9cba69-sm.jpg?v=9cba69bd",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/ebb-beach-ain-diab-morocco-casablanca-panoramio-9cba69.jpg?v=9cba69bd",
+  "title": "Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio",
+  "url": "https://commons.wikimedia.org/wiki/File:Ebb_Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio.jpg",
+  "w": 1280
+ },
+ "casablanca/anfaplace-beach": {
+  "auto": false,
+  "by": "angelius1979",
+  "file": "File:Beach Ain Diab (Morocco, Casablanca) - panoramio (1).jpg",
+  "h": 960,
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Beach Ain Diab (Morocco, Casablanca) - panoramio (1).jpg\"], \"search\": \"plage Casablanca corniche oc\\u00e9an\"}",
+  "sha1": "3dee512348fadc74225766536c89b3fbdb08e319",
+  "sm": "assets/img/photos/casablanca/beach-ain-diab-morocco-casablanca-panoramio-1-3dee51-sm.jpg?v=3dee5123",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/beach-ain-diab-morocco-casablanca-panoramio-1-3dee51.jpg?v=3dee5123",
+  "title": "Beach Ain Diab (Morocco, Casablanca) - panoramio (1)",
+  "url": "https://commons.wikimedia.org/wiki/File:Beach_Ain_Diab_(Morocco,_Casablanca)_-_panoramio_(1).jpg",
+  "w": 1280
+ },
  "casablanca/artdeco": {
   "auto": false,
   "by": "Hamza Izourane",
@@ -15,10 +49,6 @@
   "title": "Place Mohammed V - Casablanca - 2022",
   "url": "https://commons.wikimedia.org/wiki/File:Place_Mohammed_V_-_Casablanca_-_2022.jpg",
   "w": 1280
- },
- "casablanca/beachclubs": {
-  "notes": [],
-  "sel": "{\"category\": null, \"files\": null, \"search\": \"Tahiti Beach Casablanca\"}"
  },
  "casablanca/bondi": {
   "auto": true,
@@ -38,8 +68,21 @@
   "w": 1280
  },
  "casablanca/cabestan": {
+  "auto": false,
+  "by": "Gaussian_venation",
+  "file": "File:Seafood Platter.png",
+  "h": 1280,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "notes": [],
-  "sel": "{\"category\": null, \"files\": null, \"search\": \"Cabestan Casablanca\"}"
+  "sel": "{\"category\": \"Category:Seafood platters\", \"files\": [\"File:Seafood Platter.png\"], \"search\": \"seafood platter oysters\"}",
+  "sha1": "52a033a3c710e8111900870dccee809ce2939b9b",
+  "sm": "assets/img/photos/casablanca/seafood-platter-52a033-sm.jpg?v=52a033a3",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/seafood-platter-52a033.jpg?v=52a033a3",
+  "title": "Seafood Platter",
+  "url": "https://commons.wikimedia.org/wiki/File:Seafood_Platter.png",
+  "w": 1280
  },
  "casablanca/corniche": {
   "auto": false,
@@ -74,6 +117,23 @@
   "title": "Pedestrians and Palms - Ain Diab - Seaside District - Casablanca - Morocco",
   "url": "https://commons.wikimedia.org/wiki/File:Pedestrians_and_Palms_-_Ain_Diab_-_Seaside_District_-_Casablanca_-_Morocco.jpg",
   "w": 853
+ },
+ "casablanca/darbouazza": {
+  "auto": false,
+  "by": "fabien barbier",
+  "file": "File:Dar bouazza sunset on the beach.JPG",
+  "h": 848,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Dar Bouazza\", \"files\": [\"File:Dar bouazza sunset on the beach.JPG\"], \"search\": \"Dar Bouazza plage\"}",
+  "sha1": "9847523a5ee31361b0144a18eeab18a61e040fc6",
+  "sm": "assets/img/photos/casablanca/dar-bouazza-sunset-on-the-beach-984752-sm.jpg?v=9847523a",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/dar-bouazza-sunset-on-the-beach-984752.jpg?v=9847523a",
+  "title": "Dar bouazza sunset on the beach",
+  "url": "https://commons.wikimedia.org/wiki/File:Dar_bouazza_sunset_on_the_beach.JPG",
+  "w": 1280
  },
  "casablanca/dauphin": {
   "auto": true,
@@ -229,10 +289,21 @@
   "w": 1280
  },
  "casablanca/maarif": {
-  "notes": [
-   "File:Twin_Center,_Boulevard_Mohamed_Zerktouni,_Casablanca.JPG: Commons warns: NoFoP-Morocco"
-  ],
-  "sel": "{\"category\": \"Category:Casablanca_Twin_Center\", \"files\": [\"File:Twin_Center,_Boulevard_Mohamed_Zerktouni,_Casablanca.JPG\"], \"search\": null}"
+  "auto": false,
+  "by": "Sam Nabi",
+  "file": "File:Parfumerie jura, Maârif, Casablanca.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Parfumerie jura, Ma\\u00e2rif, Casablanca.jpg\"], \"search\": \"Maarif Casablanca street\"}",
+  "sha1": "c1816e02323e1ff6f40740693f5c0a12fb9bddb4",
+  "sm": "assets/img/photos/casablanca/parfumerie-jura-maarif-casablanca-c1816e-sm.jpg?v=c1816e02",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/parfumerie-jura-maarif-casablanca-c1816e.jpg?v=c1816e02",
+  "title": "Parfumerie jura, Maârif, Casablanca",
+  "url": "https://commons.wikimedia.org/wiki/File:Parfumerie_jura,_Ma%C3%A2rif,_Casablanca.jpg",
+  "w": 1280
  },
  "casablanca/mall-family": {
   "auto": false,
@@ -319,9 +390,43 @@
   "url": "https://commons.wikimedia.org/wiki/File:Morocco_Mall.jpg",
   "w": 961
  },
+ "casablanca/portpeche": {
+  "auto": false,
+  "by": "Farid mernissi",
+  "file": "File:Bateaux de pêche au ancien port de casablanca.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Port of Casablanca\", \"files\": [\"File:Bateaux de p\\u00eache au ancien port de casablanca.jpg\"], \"search\": \"port de p\\u00eache Casablanca bateaux\"}",
+  "sha1": "ec4dcadaa1a68409d6f4f67c0842496576e2960a",
+  "sm": "assets/img/photos/casablanca/bateaux-de-peche-au-ancien-port-de-casablanca-ec4dca-sm.jpg?v=ec4dcada",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/bateaux-de-peche-au-ancien-port-de-casablanca-ec4dca.jpg?v=ec4dcada",
+  "title": "Bateaux de pêche au ancien port de casablanca",
+  "url": "https://commons.wikimedia.org/wiki/File:Bateaux_de_p%C3%AAche_au_ancien_port_de_casablanca.jpg",
+  "w": 1280
+ },
  "casablanca/prehistory-park": {
   "notes": [],
-  "sel": "{\"category\": null, \"files\": null, \"search\": \"Thomas Quarry Casablanca prehistoric\"}"
+  "sel": "{\"category\": \"Category:Acheulean handaxes\", \"files\": null, \"search\": \"Acheulean handaxe\"}"
+ },
+ "casablanca/ricks": {
+  "auto": false,
+  "by": "Quintin Soloviev",
+  "file": "File:Entrance to Rick’s Café in Casablanca.jpg",
+  "h": 1280,
+  "lic": "CC BY 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Entrance to Rick\\u2019s Caf\\u00e9 in Casablanca.jpg\"], \"search\": \"Rick's Caf\\u00e9 Casablanca\"}",
+  "sha1": "97764741001a98cefdaa73247db29493bdf591e5",
+  "sm": "assets/img/photos/casablanca/entrance-to-ricks-cafe-in-casablanca-977647-sm.jpg?v=97764741",
+  "smw": 512,
+  "src": "assets/img/photos/casablanca/entrance-to-ricks-cafe-in-casablanca-977647.jpg?v=97764741",
+  "title": "Entrance to Rick’s Café in Casablanca",
+  "url": "https://commons.wikimedia.org/wiki/File:Entrance_to_Rick%E2%80%99s_Caf%C3%A9_in_Casablanca.jpg",
+  "w": 1024
  },
  "casablanca/sidiabderrahmane": {
   "auto": false,
@@ -341,6 +446,10 @@
   "title": "Sidi Abderrahman",
   "url": "https://commons.wikimedia.org/wiki/File:Sidi_Abderrahman.jpg",
   "w": 1280
+ },
+ "casablanca/sindibad": {
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": null, \"search\": \"grande roue parc attractions\"}"
  },
  "casablanca/slaoui": {
   "auto": true,
@@ -376,10 +485,6 @@
   "url": "https://commons.wikimedia.org/wiki/File:Canon_%C3%A0_la_Sqala_Casablanca.jpg",
   "w": 1280
  },
- "casablanca/sqala-breakfast": {
-  "notes": [],
-  "sel": "{\"category\": null, \"files\": null, \"search\": \"Moroccan breakfast msemen\"}"
- },
  "casablanca/sunset-elhank": {
   "auto": false,
   "by": "Sambasoccer27",
@@ -396,10 +501,6 @@
   "title": "Casablanca Lighthouse",
   "url": "https://commons.wikimedia.org/wiki/File:Casablanca_Lighthouse.jpg",
   "w": 960
- },
- "casablanca/tamaris": {
-  "notes": [],
-  "sel": "{\"category\": null, \"files\": null, \"search\": \"Tamaris Aquaparc\"}"
  },
  "casablanca/tamaris2": {
   "auto": false,
@@ -433,6 +534,23 @@
   "src": "assets/img/photos/casablanca/moroccan-tea-glasses-7cdb5c.jpg?v=7cdb5ca6",
   "title": "Moroccan tea glasses",
   "url": "https://commons.wikimedia.org/wiki/File:Moroccan_tea_glasses.jpg",
+  "w": 1280
+ },
+ "casablanca/tram": {
+  "auto": false,
+  "by": "Michał Beim",
+  "file": "File:Tram in Casablanca 2013.JPG",
+  "h": 853,
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Casablanca Tramway\", \"files\": [\"File:Tram in Casablanca 2013.JPG\"], \"search\": \"Casablanca tramway\"}",
+  "sha1": "65ff4d0fb2aefaf74fec90756a56d9f68612b4c7",
+  "sm": "assets/img/photos/casablanca/tram-in-casablanca-2013-65ff4d-sm.jpg?v=65ff4d0f",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/tram-in-casablanca-2013-65ff4d.jpg?v=65ff4d0f",
+  "title": "Tram in Casablanca 2013",
+  "url": "https://commons.wikimedia.org/wiki/File:Tram_in_Casablanca_2013.JPG",
   "w": 1280
  },
  "marrakech/agafay": {
@@ -519,10 +637,6 @@
   "title": "Bahia Palace large court",
   "url": "https://commons.wikimedia.org/wiki/File:Bahia_Palace_large_court.jpg",
   "w": 1280
- },
- "marrakech/bains-marrakech": {
-  "notes": [],
-  "sel": "{\"category\": null, \"files\": null, \"search\": \"hammam Morocco zellige\"}"
  },
  "marrakech/ben-youssef": {
   "auto": false,
@@ -1121,6 +1235,10 @@
   "url": "https://commons.wikimedia.org/wiki/File:Moroccan_Mint_Tea_-_1.jpg",
   "w": 1280
  },
+ "martil/grand-taxi": {
+  "notes": [],
+  "sel": "{\"category\": \"Category:Taxis in Morocco\", \"files\": null, \"search\": \"taxi Tetouan\"}"
+ },
  "martil/jenin": {
   "auto": false,
   "by": "Abdeaitali",
@@ -1239,10 +1357,6 @@
   "title": "M'diq from above",
   "url": "https://commons.wikimedia.org/wiki/File:M%27diq_from_above.jpg",
   "w": 1280
- },
- "martil/mnar-park": {
-  "notes": [],
-  "sel": "{\"category\": null, \"files\": null, \"search\": \"Mnar Park Tanger\"}"
  },
  "martil/oued-family": {
   "auto": false,
@@ -1364,5 +1478,328 @@
   "title": "140531 Forellen auf dem Grill",
   "url": "https://commons.wikimedia.org/wiki/File:140531_Forellen_auf_dem_Grill.jpg",
   "w": 1280
+ },
+ "morocco/beach-club": {
+  "auto": false,
+  "by": "Pjotr Mahhonin",
+  "file": "File:Sunbeds with Umbrellas Ixia Beach Rodos Palace Hotel Ialysos Rhodes 14 August 2025.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Sunbeds with Umbrellas Ixia Beach Rodos Palace Hotel Ialysos Rhodes 14 August 2025.jpg\"], \"search\": \"beach umbrellas sunbeds\"}",
+  "sha1": "cf8f82681cf9c07d0a4f5f1b7717b5fcab24d263",
+  "sm": "assets/img/photos/morocco/sunbeds-with-umbrellas-ixia-beach-rodos-palace-h-cf8f82-sm.jpg?v=cf8f8268",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/sunbeds-with-umbrellas-ixia-beach-rodos-palace-h-cf8f82.jpg?v=cf8f8268",
+  "title": "Sunbeds with Umbrellas Ixia Beach Rodos Palace Hotel Ialysos Rhodes 14 August 2025",
+  "url": "https://commons.wikimedia.org/wiki/File:Sunbeds_with_Umbrellas_Ixia_Beach_Rodos_Palace_Hotel_Ialysos_Rhodes_14_August_2025.jpg",
+  "w": 1280
+ },
+ "morocco/breakfast": {
+  "auto": false,
+  "by": "Lucyin",
+  "file": "File:Smen msemmen.jpg",
+  "h": 849,
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Msemen\", \"files\": [\"File:Smen msemmen.jpg\"], \"search\": \"msemen\"}",
+  "sha1": "6c7fca80f169e0972b049aa6cfa4f9d90976cc7e",
+  "sm": "assets/img/photos/morocco/smen-msemmen-6c7fca-sm.jpg?v=6c7fca80",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/smen-msemmen-6c7fca.jpg?v=6c7fca80",
+  "title": "Smen msemmen",
+  "url": "https://commons.wikimedia.org/wiki/File:Smen_msemmen.jpg",
+  "w": 1280
+ },
+ "morocco/camel-beach": {
+  "auto": false,
+  "by": "Goldfinchshuffle",
+  "file": "File:Camel on the beach, Essaouira, Morocco.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Camel on the beach, Essaouira, Morocco.jpg\"], \"search\": \"camel beach Morocco\"}",
+  "sha1": "583853c714e1cbad96b5c25f9e9cba99abf7fdcc",
+  "sm": "assets/img/photos/morocco/camel-on-the-beach-essaouira-morocco-583853-sm.jpg?v=583853c7",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/camel-on-the-beach-essaouira-morocco-583853.jpg?v=583853c7",
+  "title": "Camel on the beach, Essaouira, Morocco",
+  "url": "https://commons.wikimedia.org/wiki/File:Camel_on_the_beach,_Essaouira,_Morocco.jpg",
+  "w": 1280
+ },
+ "morocco/door": {
+  "auto": false,
+  "by": "Soufiane elkadaoui",
+  "file": "File:Anciennes Portes, province de Fes.jpg",
+  "h": 875,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Doors in Morocco\", \"files\": [\"File:Anciennes Portes, province de Fes.jpg\"], \"search\": \"Moroccan door carved wood\"}",
+  "sha1": "e43aaf750ee258be2a01ef730c0969f63f1e4695",
+  "sm": "assets/img/photos/morocco/anciennes-portes-province-de-fes-e43aaf-sm.jpg?v=e43aaf75",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/anciennes-portes-province-de-fes-e43aaf.jpg?v=e43aaf75",
+  "title": "Anciennes Portes, province de Fes",
+  "url": "https://commons.wikimedia.org/wiki/File:Anciennes_Portes,_province_de_Fes.jpg",
+  "w": 1280
+ },
+ "morocco/hammam": {
+  "auto": false,
+  "by": "Brahim FARAJI",
+  "file": "File:L'ancien hammam jerda à la médina d'oujda.jpg",
+  "h": 1280,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Hammams in Morocco\", \"files\": [\"File:L'ancien hammam jerda \\u00e0 la m\\u00e9dina d'oujda.jpg\"], \"search\": \"hammam Morocco interior\"}",
+  "sha1": "53d69f7a91c4b6665e1b2fd9e58fe5ab0ff46fc0",
+  "sm": "assets/img/photos/morocco/l-ancien-hammam-jerda-a-la-medina-d-oujda-53d69f-sm.jpg?v=53d69f7a",
+  "smw": 430,
+  "src": "assets/img/photos/morocco/l-ancien-hammam-jerda-a-la-medina-d-oujda-53d69f.jpg?v=53d69f7a",
+  "title": "L'ancien hammam jerda à la médina d'oujda",
+  "url": "https://commons.wikimedia.org/wiki/File:L%27ancien_hammam_jerda_%C3%A0_la_m%C3%A9dina_d%27oujda.jpg",
+  "w": 860
+ },
+ "morocco/horses": {
+  "auto": false,
+  "by": "flowcomm",
+  "file": "File:Horse riding, Essaouira, Morocco.jpg",
+  "h": 853,
+  "lic": "CC BY 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by/2.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Horse riding, Essaouira, Morocco.jpg\"], \"search\": \"horse riding beach Morocco\"}",
+  "sha1": "81abfd39155755720d87dd5e9e822fa1c19226f9",
+  "sm": "assets/img/photos/morocco/horse-riding-essaouira-morocco-81abfd-sm.jpg?v=81abfd39",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/horse-riding-essaouira-morocco-81abfd.jpg?v=81abfd39",
+  "title": "Horse riding, Essaouira, Morocco",
+  "url": "https://commons.wikimedia.org/wiki/File:Horse_riding,_Essaouira,_Morocco.jpg",
+  "w": 1280
+ },
+ "morocco/lanterns": {
+  "auto": false,
+  "by": "Petar Milošević",
+  "file": "File:Oriental hanging lanterns. Souk Haddadine, Marrakech Medina (سوق الحدادين مراكش).jpg",
+  "h": 936,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Lanterns of Morocco\", \"files\": [\"File:Oriental hanging lanterns. Souk Haddadine, Marrakech Medina (\\u0633\\u0648\\u0642 \\u0627\\u0644\\u062d\\u062f\\u0627\\u062f\\u064a\\u0646 \\u0645\\u0631\\u0627\\u0643\\u0634).jpg\"], \"search\": \"Moroccan lanterns\"}",
+  "sha1": "5baeb654877442637727fff8c9fa418530cc7cc8",
+  "sm": "assets/img/photos/morocco/oriental-hanging-lanterns-souk-haddadine-marrake-5baeb6-sm.jpg?v=5baeb654",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/oriental-hanging-lanterns-souk-haddadine-marrake-5baeb6.jpg?v=5baeb654",
+  "title": "Oriental hanging lanterns. Souk Haddadine, Marrakech Medina (سوق الحدادين مراكش)",
+  "url": "https://commons.wikimedia.org/wiki/File:Oriental_hanging_lanterns._Souk_Haddadine,_Marrakech_Medina_(%D8%B3%D9%88%D9%82_%D8%A7%D9%84%D8%AD%D8%AF%D8%A7%D8%AF%D9%8A%D9%86_%D9%85%D8%B1%D8%A7%D9%83%D8%B4).jpg",
+  "w": 1280
+ },
+ "morocco/mall": {
+  "auto": false,
+  "by": "*angys*",
+  "file": "File:Toppen Shopping Centre interior (240630) 02.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Toppen Shopping Centre interior (240630) 02.jpg\"], \"search\": \"shopping centre interior\"}",
+  "sha1": "5762564f37d811ef4003c17700c845fa37ed9691",
+  "sm": "assets/img/photos/morocco/toppen-shopping-centre-interior-240630-02-576256-sm.jpg?v=5762564f",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/toppen-shopping-centre-interior-240630-02-576256.jpg?v=5762564f",
+  "title": "Toppen Shopping Centre interior (240630) 02",
+  "url": "https://commons.wikimedia.org/wiki/File:Toppen_Shopping_Centre_interior_(240630)_02.jpg",
+  "w": 1280
+ },
+ "morocco/pastries": {
+  "auto": false,
+  "by": "Rui Ornelas",
+  "file": "File:Cornes de gazelles.jpg",
+  "h": 960,
+  "lic": "CC BY 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by/2.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Kaab el ghazal\", \"files\": [\"File:Cornes de gazelles.jpg\"], \"search\": \"cornes de gazelle Moroccan pastries\"}",
+  "sha1": "5bbc63833b02e94a00cfb9c209fa5a2de775eb37",
+  "sm": "assets/img/photos/morocco/cornes-de-gazelles-5bbc63-sm.jpg?v=5bbc6383",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/cornes-de-gazelles-5bbc63.jpg?v=5bbc6383",
+  "title": "Cornes de gazelles",
+  "url": "https://commons.wikimedia.org/wiki/File:Cornes_de_gazelles.jpg",
+  "w": 1280
+ },
+ "morocco/pharmacy": {
+  "auto": false,
+  "by": "Patrick Nouhailler's…",
+  "file": "File:Essaouira - panoramio (166).jpg",
+  "h": 853,
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Pharmacies in Morocco\", \"files\": [\"File:Essaouira - panoramio (166).jpg\"], \"search\": \"pharmacie Maroc\"}",
+  "sha1": "895d6299d5e42e54bb4be04197bdf60810f9d0ca",
+  "sm": "assets/img/photos/morocco/essaouira-panoramio-166-895d62-sm.jpg?v=895d6299",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/essaouira-panoramio-166-895d62.jpg?v=895d6299",
+  "title": "Essaouira - panoramio (166)",
+  "url": "https://commons.wikimedia.org/wiki/File:Essaouira_-_panoramio_(166).jpg",
+  "w": 1280
+ },
+ "morocco/rooftop": {
+  "auto": false,
+  "by": "PattayaPatrol",
+  "file": "File:DFC 5189 Rooftop bar glowing at night overlooking the glittering cityscape of Pattaya.jpg",
+  "h": 853,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:DFC 5189 Rooftop bar glowing at night overlooking the glittering cityscape of Pattaya.jpg\"], \"search\": \"rooftop terrace Marrakech\"}",
+  "sha1": "63e9493ed46019429a8bcb1618146fe8bb103b09",
+  "sm": "assets/img/photos/morocco/dfc-5189-rooftop-bar-glowing-at-night-overlookin-63e949-sm.jpg?v=63e9493e",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/dfc-5189-rooftop-bar-glowing-at-night-overlookin-63e949.jpg?v=63e9493e",
+  "title": "DFC 5189 Rooftop bar glowing at night overlooking the glittering cityscape of Pattaya",
+  "url": "https://commons.wikimedia.org/wiki/File:DFC_5189_Rooftop_bar_glowing_at_night_overlooking_the_glittering_cityscape_of_Pattaya.jpg",
+  "w": 1280
+ },
+ "morocco/salon": {
+  "auto": false,
+  "by": "Lkadi Adil",
+  "file": "File:A Fountaine.jpg",
+  "h": 853,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Riads in Morocco\", \"files\": [\"File:A Fountaine.jpg\"], \"search\": \"riad courtyard Morocco interior\"}",
+  "sha1": "dd6a681e1c6d3f5f6a7dac4418ca1ca28a7048db",
+  "sm": "assets/img/photos/morocco/a-fountaine-dd6a68-sm.jpg?v=dd6a681e",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/a-fountaine-dd6a68.jpg?v=dd6a681e",
+  "title": "A Fountaine",
+  "url": "https://commons.wikimedia.org/wiki/File:A_Fountaine.jpg",
+  "w": 1280
+ },
+ "morocco/seafood": {
+  "auto": false,
+  "by": "Yusuke Kawasaki from Tokyo, Japan",
+  "file": "File:Grilled Sardines 5.50€ Marisqueira O Varino Nazaré (3785526688).jpg",
+  "h": 849,
+  "lic": "CC BY 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by/2.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Grilled sardines\", \"files\": [\"File:Grilled Sardines 5.50\\u20ac Marisqueira O Varino Nazar\\u00e9 (3785526688).jpg\"], \"search\": \"grilled sardines\"}",
+  "sha1": "0e94a8415651fa668cbf2be39376a244c042d80c",
+  "sm": "assets/img/photos/morocco/grilled-sardines-5-50-marisqueira-o-varino-nazar-0e94a8-sm.jpg?v=0e94a841",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/grilled-sardines-5-50-marisqueira-o-varino-nazar-0e94a8.jpg?v=0e94a841",
+  "title": "Grilled Sardines 5.50€ Marisqueira O Varino Nazaré (3785526688)",
+  "url": "https://commons.wikimedia.org/wiki/File:Grilled_Sardines_5.50%E2%82%AC_Marisqueira_O_Varino_Nazar%C3%A9_(3785526688).jpg",
+  "w": 1280
+ },
+ "morocco/souk-goods": {
+  "auto": false,
+  "by": "Simo.Albo80",
+  "file": "File:Arcobaleno di babouche.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Babouches\", \"files\": [\"File:Arcobaleno di babouche.jpg\"], \"search\": \"babouches souk Morocco\"}",
+  "sha1": "b25d340b4c498ff00838ea2b3dcf4732623ffa41",
+  "sm": "assets/img/photos/morocco/arcobaleno-di-babouche-b25d34-sm.jpg?v=b25d340b",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/arcobaleno-di-babouche-b25d34.jpg?v=b25d340b",
+  "title": "Arcobaleno di babouche",
+  "url": "https://commons.wikimedia.org/wiki/File:Arcobaleno_di_babouche.jpg",
+  "w": 1280
+ },
+ "morocco/spa": {
+  "auto": false,
+  "by": "Miguel Discart",
+  "file": "File:Museum hammam 2016-01-07 11-26-26 ILCE-6000 DSC01961 (46515893521).jpg",
+  "h": 1280,
+  "lic": "CC BY-SA 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Hammams in Marrakesh\", \"files\": [\"File:Museum hammam 2016-01-07 11-26-26 ILCE-6000 DSC01961 (46515893521).jpg\"], \"search\": \"hammam Marrakech\"}",
+  "sha1": "06c8e61f43e39146c4869962f075ad89aa8b7222",
+  "sm": "assets/img/photos/morocco/museum-hammam-2016-01-07-11-26-26-ilce-6000-dsc0-06c8e6-sm.jpg?v=06c8e61f",
+  "smw": 360,
+  "src": "assets/img/photos/morocco/museum-hammam-2016-01-07-11-26-26-ilce-6000-dsc0-06c8e6.jpg?v=06c8e61f",
+  "title": "Museum hammam 2016-01-07 11-26-26 ILCE-6000 DSC01961 (46515893521)",
+  "url": "https://commons.wikimedia.org/wiki/File:Museum_hammam_2016-01-07_11-26-26_ILCE-6000_DSC01961_(46515893521).jpg",
+  "w": 720
+ },
+ "morocco/tajine": {
+  "auto": false,
+  "by": "محمد بوعلام عصامي",
+  "file": "File:Md.Boualam Tajine,Outdoor cooking.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Tajines\", \"files\": [\"File:Md.Boualam Tajine,Outdoor cooking.jpg\"], \"search\": \"tajine cooking Morocco\"}",
+  "sha1": "6c5e40cea0fc00cd168c1cddffca28894ee94d61",
+  "sm": "assets/img/photos/morocco/md-boualam-tajine-outdoor-cooking-6c5e40-sm.jpg?v=6c5e40ce",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/md-boualam-tajine-outdoor-cooking-6c5e40.jpg?v=6c5e40ce",
+  "title": "Md.Boualam Tajine,Outdoor cooking",
+  "url": "https://commons.wikimedia.org/wiki/File:Md.Boualam_Tajine,Outdoor_cooking.jpg",
+  "w": 1280
+ },
+ "morocco/tea": {
+  "auto": false,
+  "by": "Mouhcine Boudanes",
+  "file": "File:Moroccan cups of tea with ment.jpg",
+  "h": 720,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Moroccan mint tea\", \"files\": [\"File:Moroccan cups of tea with ment.jpg\"], \"search\": \"Moroccan tea\"}",
+  "sha1": "75449ef97994fcbb31ced24186adb0aae038ad4a",
+  "sm": "assets/img/photos/morocco/moroccan-cups-of-tea-with-ment-75449e-sm.jpg?v=75449ef9",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/moroccan-cups-of-tea-with-ment-75449e.jpg?v=75449ef9",
+  "title": "Moroccan cups of tea with ment",
+  "url": "https://commons.wikimedia.org/wiki/File:Moroccan_cups_of_tea_with_ment.jpg",
+  "w": 1280
+ },
+ "morocco/waterpark": {
+  "auto": false,
+  "by": "SMM Mantra Media",
+  "file": "File:Water Park Ride.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Water Park Ride.jpg\"], \"search\": \"water park slides\"}",
+  "sha1": "7a37f1e13bd790e7f342533783ffa88db076de3e",
+  "sm": "assets/img/photos/morocco/water-park-ride-7a37f1-sm.jpg?v=7a37f1e1",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/water-park-ride-7a37f1.jpg?v=7a37f1e1",
+  "title": "Water Park Ride",
+  "url": "https://commons.wikimedia.org/wiki/File:Water_Park_Ride.jpg",
+  "w": 1280
+ },
+ "morocco/zellige": {
+  "auto": false,
+  "by": "Orlysi",
+  "file": "File:Moroccan zellige in Fes.jpg",
+  "h": 1280,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": \"Category:Zellige\", \"files\": [\"File:Moroccan zellige in Fes.jpg\"], \"search\": \"zellige Morocco tiles\"}",
+  "sha1": "3e4fc545c3703a6938888e0f89e32ee19b28a76f",
+  "sm": "assets/img/photos/morocco/moroccan-zellige-in-fes-3e4fc5-sm.jpg?v=3e4fc545",
+  "smw": 360,
+  "src": "assets/img/photos/morocco/moroccan-zellige-in-fes-3e4fc5.jpg?v=3e4fc545",
+  "title": "Moroccan zellige in Fes",
+  "url": "https://commons.wikimedia.org/wiki/File:Moroccan_zellige_in_Fes.jpg",
+  "w": 720
  }
 }
