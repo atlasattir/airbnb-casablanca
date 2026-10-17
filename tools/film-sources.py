@@ -260,8 +260,16 @@ STILL = re.compile(r'\.(jpe?g|png|tiff?)$', re.I)
 def stills(out, titles):
     """Photos for slow camera moves in the film: large (up to 3840 px), with the same rules as the guide's photos."""
     fp.FILE_PROPS['iiurlwidth'] = '3840'
+    found = fp.info(titles)
+    # A panorama (much wider than tall) is fetched wider, so that it stays at least 1800 px tall for the phone cut
+    for t, p in list(found.items()):
+        ii = (p or {}).get('imageinfo', [{}])[0]
+        if ii.get('width', 0) > 2.2 * ii.get('height', 1):
+            fp.FILE_PROPS['iiurlwidth'] = str(min(ii['width'], int(1800 * ii['width'] / ii['height'])))
+            found.update(fp.info([t]))
+    fp.FILE_PROPS['iiurlwidth'] = '3840'
     got = []
-    for t, p in fp.info(titles).items():
+    for t, p in found.items():
         why = 'not found' if not p else fp.usable(p)
         if why:
             print('  -', t, why)
