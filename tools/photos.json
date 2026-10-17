@@ -59,7 +59,8 @@
       ]
     },
     "cabestan": {
-      "search": "El Hank Casablanca ocean rocks",
+      "search": "seafood platter oysters",
+      "category": "Category:Seafood platters",
       "illustr": true
     },
     "dauphin": {
@@ -104,6 +105,9 @@
       "category": "Category:Morocco_Mall"
     },
     "maarif": {
+      "files": [
+        "File:Parfumerie jura, Maârif, Casablanca.jpg"
+      ],
       "search": "Maarif Casablanca street"
     },
     "corniche": {
@@ -147,7 +151,8 @@
       ]
     },
     "prehistory-park": {
-      "search": "Sidi Abderrahmane préhistoire Casablanca carrière"
+      "search": "carrière Thomas Casablanca",
+      "category": "Category:Thomas Quarries"
     },
     "tea-habous": {
       "files": [
@@ -165,33 +170,49 @@
       ]
     },
     "tram": {
+      "files": [
+        "File:Tram in Casablanca 2013.JPG"
+      ],
       "category": "Category:Casablanca Tramway",
       "search": "Casablanca tramway"
     },
     "portpeche": {
+      "files": [
+        "File:Bateaux de pêche au ancien port de casablanca.jpg"
+      ],
       "search": "port de pêche Casablanca bateaux",
       "category": "Category:Port of Casablanca",
       "illustr": true
     },
     "ricks": {
+      "files": [
+        "File:Entrance to Rick’s Café in Casablanca.jpg"
+      ],
       "search": "Rick's Café Casablanca"
     },
-    "corniche-night": {
-      "search": "Casablanca corniche night"
-    },
     "aindiab": {
+      "files": [
+        "File:Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio.jpg"
+      ],
       "search": "Ain Diab beach Casablanca",
       "category": "Category:Aïn Diab"
     },
     "anfaplace-beach": {
+      "files": [
+        "File:Beach Ain Diab (Morocco, Casablanca) - panoramio (1).jpg"
+      ],
       "search": "plage Casablanca corniche océan"
     },
     "darbouazza": {
+      "files": [
+        "File:Dar bouazza sunset on the beach.JPG"
+      ],
       "search": "Dar Bouazza plage",
       "category": "Category:Dar Bouazza"
     },
     "sindibad": {
-      "search": "Sindibad Casablanca"
+      "search": "Sindibad parc Casablanca",
+      "category": "Category:Sindibad (Casablanca)"
     }
   },
   "marrakech": {
@@ -562,9 +583,6 @@
         "File:ساحة_الفدان،_تطوان_10.jpg"
       ]
     },
-    "mnar-park": {
-      "search": "Mnar Park Tanger"
-    },
     "chefchaouen": {
       "files": [
         "File:Chefchaouen_-_blue_city_in_Morocco.jpg",
@@ -572,8 +590,8 @@
       ]
     },
     "grand-taxi": {
-      "search": "grand taxi Tetouan",
-      "category": "Category:Grands taxis in Morocco",
+      "search": "grand taxi Maroc",
+      "category": "Category:Grands taxis",
       "illustr": true
     }
   },
@@ -587,84 +605,126 @@
       "favorites": "zellige"
     },
     "door": {
+      "files": [
+        "File:Anciennes Portes, province de Fes.jpg"
+      ],
       "search": "Moroccan door carved wood",
       "category": "Category:Doors in Morocco"
     },
     "salon": {
+      "files": [
+        "File:A Fountaine.jpg"
+      ],
       "search": "riad courtyard Morocco interior",
       "category": "Category:Riads in Morocco"
     },
     "lanterns": {
+      "files": [
+        "File:Oriental hanging lanterns. Souk Haddadine, Marrakech Medina (سوق الحدادين مراكش).jpg"
+      ],
       "search": "Moroccan lanterns",
       "category": "Category:Lanterns of Morocco"
     },
     "tea": {
-      "search": "Moroccan mint tea glasses teapot",
-      "category": "Category:Moroccan tea"
+      "search": "Moroccan tea",
+      "category": "Category:Moroccan mint tea"
     },
     "pharmacy": {
-      "search": "pharmacie Maroc enseigne",
+      "search": "pharmacie Maroc",
+      "category": "Category:Pharmacies in Morocco",
       "illustr": true
     },
     "zellige": {
+      "files": [
+        "File:Moroccan zellige in Fes.jpg"
+      ],
       "search": "zellige Morocco tiles",
       "category": "Category:Zellige"
     },
     "breakfast": {
-      "search": "Moroccan breakfast msemen",
+      "search": "msemen",
       "category": "Category:Msemen",
       "illustr": true
     },
     "pastries": {
+      "files": [
+        "File:Cornes de gazelles.jpg"
+      ],
       "search": "cornes de gazelle Moroccan pastries",
       "category": "Category:Kaab el ghazal",
       "illustr": true
     },
     "tajine": {
+      "files": [
+        "File:Md.Boualam Tajine,Outdoor cooking.jpg"
+      ],
       "search": "tajine cooking Morocco",
       "category": "Category:Tajines",
       "illustr": true
     },
     "hammam": {
+      "files": [
+        "File:L'ancien hammam jerda à la médina d'oujda.jpg"
+      ],
       "search": "hammam Morocco interior",
       "category": "Category:Hammams in Morocco",
       "illustr": true
     },
     "spa": {
-      "search": "hammam spa tadelakt Marrakech",
+      "search": "hammam Marrakech",
+      "category": "Category:Hammams in Marrakesh",
       "illustr": true
     },
     "souk-goods": {
+      "files": [
+        "File:Arcobaleno di babouche.jpg"
+      ],
       "search": "babouches souk Morocco",
       "category": "Category:Babouches",
       "illustr": true
     },
     "seafood": {
-      "search": "grilled fish Morocco",
+      "search": "grilled sardines",
+      "category": "Category:Grilled sardines",
       "illustr": true
     },
     "beach-club": {
+      "files": [
+        "File:Sunbeds with Umbrellas Ixia Beach Rodos Palace Hotel Ialysos Rhodes 14 August 2025.jpg"
+      ],
       "search": "beach umbrellas sunbeds",
       "illustr": true
     },
     "waterpark": {
+      "files": [
+        "File:Water Park Ride.jpg"
+      ],
       "search": "water park slides",
       "illustr": true
     },
     "horses": {
+      "files": [
+        "File:Horse riding, Essaouira, Morocco.jpg"
+      ],
       "search": "horse riding beach Morocco",
       "illustr": true
     },
     "rooftop": {
-      "search": "rooftop terrace bar night",
+      "files": [
+        "File:DFC 5189 Rooftop bar glowing at night overlooking the glittering cityscape of Pattaya.jpg"
+      ],
+      "search": "rooftop terrace Marrakech",
       "illustr": true
     },
     "camel-beach": {
+      "files": [
+        "File:Camel on the beach, Essaouira, Morocco.jpg"
+      ],
       "search": "camel beach Morocco",
       "illustr": true
     },
     "mall": {
-      "search": "shopping mall interior Morocco",
+      "search": "shopping centre interior",
       "illustr": true
     }
   }
