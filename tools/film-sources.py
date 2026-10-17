@@ -3,7 +3,8 @@
 Finds open-licence videos of Morocco on Wikimedia Commons, for the guide's film.
 
     python3 tools/film-sources.py find   out/      # candidates: a contact sheet + small previews
-    python3 tools/film-sources.py fetch  out/ "File:A.webm" "File:B.webm"   # the chosen ones, full size
+    python3 tools/film-sources.py fetch  out/ "File:A.webm" "File:B.webm#30-45"   # the chosen ones, full size
+                                                   # (#30-45: only seconds 30 to 45)
 
 Needs Python 3.8+, Pillow and ffmpeg, and access to commons.wikimedia.org and
 upload.wikimedia.org (or run it on GitHub: .github/workflows/film.yml).
@@ -174,9 +175,14 @@ def find(out):
         sheet.save(out + '/candidates.jpg', quality=78)
 
 
-def fetch(out, titles):
+def fetch(out, wanted):
     os.makedirs(out + '/src', exist_ok=True)
-    data = fp.api(dict(VPROPS, titles='|'.join(titles)))
+    parts = {}
+    for w in wanted:
+        title, _, seg = w.partition('#')
+        parts[title.strip()] = seg.strip()
+    data = fp.api(dict(VPROPS, titles='|'.join(parts)))
+    norm = {n['to']: n['from'] for n in data.get('query', {}).get('normalized', [])}
     got = []
     for p in pages(data):
         why = usable(p)
@@ -184,10 +190,18 @@ def fetch(out, titles):
             print('  -', p['title'], why)
             continue
         e = describe(p)
-        name = fp.slug(p['title']) + '.webm'
-        with open(out + '/src/' + name, 'wb') as f:
+        seg = parts.get(p['title']) or parts.get(norm.get(p['title'], ''), '')
+        raw = out + '/src/' + fp.slug(p['title']) + '.source'
+        with open(raw, 'wb') as f:
             f.write(fp.get(derivative(p, best=1080)))
+        # The part used (or all of it), at high quality, without sound
+        name = fp.slug(p['title']) + ('-%s' % seg.replace('-', '_') if seg else '') + '.mp4'
+        cut = ['-ss', seg.split('-')[0], '-to', seg.split('-')[1]] if seg else []
+        subprocess.run(['ffmpeg', '-v', 'error', '-y'] + cut + ['-i', raw, '-an', '-c:v', 'libx264', '-crf', '17', '-preset', 'fast',
+                        '-pix_fmt', 'yuv420p', out + '/src/' + name], check=True)
+        os.remove(raw)
         e['src'] = 'src/' + name
+        e['segment'] = seg
         got.append(e)
         print('  +', p['title'], e['lic'], e['by'][:40])
     with open(out + '/sources.json', 'w', encoding='utf-8') as f:
