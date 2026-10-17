@@ -103,28 +103,30 @@ window.CASA = window.CASA || {};
      * enough, and keep the exact building off the home page. The exact pin goes
      * only in the place's own file (content/stays/<id>.js → location).
      * approx: true while the position is only the neighbourhood's.
+     * photo: a picture of its neighbourhood for its card (a place of the city, in
+     * content/photos.js); cover: 'assets/img/…jpg' shows a photo of the place itself instead.
      */
     // Links used before the final names (16 October 2026) still open the right place
     aliases: { 'bourgogne-133': 'bourgogne', 'casa-b-suites': 'b-suites', 'ocean-21': 'pestana', 'darb-inn': 'dar-bouazza', 'dar-baba': 'marrakech', 'casa-azul': 'martil-bay' },
 
     stays: [
       { id: 'bourgogne', name: 'Darna Bourgogne', title: ['Bourgogne'], city: 'casablanca', area: 'bourgogne', kind: 'apartment',
-        icon: 'building', tint: '#2C5A6B', lat: 33.60, lng: -7.64, approx: true,
+        icon: 'building', tint: '#2C5A6B', photo: 'elhank', lat: 33.60, lng: -7.64, approx: true,
         facts: [fact.surface(133), fact.bedrooms(3), fact.bathrooms(2), fact.balcony, fact.lift] },
       { id: 'b-suites', name: 'Darna B-Suites', title: ['B-Suites'], city: 'casablanca', area: 'bourgogne', kind: 'studio', units: 8,
-        icon: 'key', tint: '#8A6A3A', lat: 33.60, lng: -7.64, approx: true,
+        icon: 'key', tint: '#8A6A3A', photo: 'sunset-elhank', lat: 33.60, lng: -7.64, approx: true,
         facts: [fact.studios(8), fact.balcony, fact.ac] },
       { id: 'pestana', name: 'Darna Pestana', title: ['Pestana'], city: 'casablanca', area: 'ain-diab', kind: 'apartment',
-        icon: 'waves', tint: '#1D4C49', lat: 33.60, lng: -7.67, approx: true,
+        icon: 'waves', tint: '#1D4C49', photo: 'aindiab', lat: 33.60, lng: -7.67, approx: true,
         facts: [fact.seaview, fact.bedrooms(1), fact.balcony] },
       { id: 'dar-bouazza', name: 'Darna Dar Bouazza', title: ['Dar', 'Bouazza'], city: 'casablanca', area: 'dar-bouazza', kind: 'apartment',
-        icon: 'palm', tint: '#4F6650', lat: 33.53, lng: -7.82, approx: true,
+        icon: 'palm', tint: '#4F6650', photo: 'darbouazza', lat: 33.53, lng: -7.82, approx: true,
         facts: [fact.bedrooms(2), fact.gated, fact.parking] },
       { id: 'marrakech', name: 'Darna Marrakech', title: ['Marrakech'], city: 'marrakech', area: 'daoudiate', kind: 'apartment', units: 3,
-        icon: 'arch', tint: '#8C553C', lat: 31.65, lng: -8.01, approx: true,
+        icon: 'arch', tint: '#8C553C', photo: 'koutoubia', lat: 31.65, lng: -8.01, approx: true,
         facts: [fact.flats(3), fact.bedrooms(2), fact.fastwifi] },
       { id: 'martil-bay', name: 'Darna Martil Bay', title: ['Martil', 'Bay'], city: 'martil', area: 'martil', kind: 'apartment',
-        icon: 'pool', tint: '#2D5F8A', lat: 35.62, lng: -5.28, approx: true,
+        icon: 'pool', tint: '#2D5F8A', photo: 'martil-beach', lat: 35.62, lng: -5.28, approx: true,
         facts: [fact.pool, fact.bedrooms(2), fact.mountain, fact.family] }
     ],
 

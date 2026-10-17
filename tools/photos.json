@@ -59,6 +59,9 @@
       ]
     },
     "cabestan": {
+      "files": [
+        "File:Seafood Platter.png"
+      ],
       "search": "seafood platter oysters",
       "category": "Category:Seafood platters",
       "illustr": true
@@ -151,8 +154,9 @@
       ]
     },
     "prehistory-park": {
-      "search": "carrière Thomas Casablanca",
-      "category": "Category:Thomas Quarries"
+      "search": "Acheulean handaxe",
+      "category": "Category:Acheulean handaxes",
+      "illustr": true
     },
     "tea-habous": {
       "files": [
@@ -211,8 +215,8 @@
       "category": "Category:Dar Bouazza"
     },
     "sindibad": {
-      "search": "Sindibad parc Casablanca",
-      "category": "Category:Sindibad (Casablanca)"
+      "search": "grande roue parc attractions",
+      "illustr": true
     }
   },
   "marrakech": {
@@ -590,8 +594,8 @@
       ]
     },
     "grand-taxi": {
-      "search": "grand taxi Maroc",
-      "category": "Category:Grands taxis",
+      "search": "taxi Tetouan",
+      "category": "Category:Taxis in Morocco",
       "illustr": true
     }
   },
@@ -626,10 +630,16 @@
       "category": "Category:Lanterns of Morocco"
     },
     "tea": {
+      "files": [
+        "File:Moroccan cups of tea with ment.jpg"
+      ],
       "search": "Moroccan tea",
       "category": "Category:Moroccan mint tea"
     },
     "pharmacy": {
+      "files": [
+        "File:Essaouira - panoramio (166).jpg"
+      ],
       "search": "pharmacie Maroc",
       "category": "Category:Pharmacies in Morocco",
       "illustr": true
@@ -642,6 +652,9 @@
       "category": "Category:Zellige"
     },
     "breakfast": {
+      "files": [
+        "File:Smen msemmen.jpg"
+      ],
       "search": "msemen",
       "category": "Category:Msemen",
       "illustr": true
@@ -671,6 +684,9 @@
       "illustr": true
     },
     "spa": {
+      "files": [
+        "File:Museum hammam 2016-01-07 11-26-26 ILCE-6000 DSC01961 (46515893521).jpg"
+      ],
       "search": "hammam Marrakech",
       "category": "Category:Hammams in Marrakesh",
       "illustr": true
@@ -684,6 +700,9 @@
       "illustr": true
     },
     "seafood": {
+      "files": [
+        "File:Grilled Sardines 5.50€ Marisqueira O Varino Nazaré (3785526688).jpg"
+      ],
       "search": "grilled sardines",
       "category": "Category:Grilled sardines",
       "illustr": true
@@ -724,6 +743,9 @@
       "illustr": true
     },
     "mall": {
+      "files": [
+        "File:Toppen Shopping Centre interior (240630) 02.jpg"
+      ],
       "search": "shopping centre interior",
       "illustr": true
     }

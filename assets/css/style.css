@@ -1904,8 +1904,13 @@ figure.art { margin: 0; }
 /* A section's tile on a place's home: the photo under a veil of the section's colour */
 .tile__photo { position: absolute; inset: 0; z-index: -2; background: var(--tint); }
 .tile__photo img { width: 100%; height: 100%; object-fit: cover; }
+/* The place's own buttons (Wi-Fi, check-in…) with a photo: white text on the same veil */
+.tile--home.tile--photo { color: #fff; background: var(--tint); }
+.tile--home.tile--photo::before { content: ""; position: absolute; inset: 0; }
+.tile--photo .tile__data { opacity: 1; }
 .tile--city.tile--photo::before,
-[dir="rtl"] .tile--city.tile--photo::before {
+[dir="rtl"] .tile--city.tile--photo::before,
+.tile--home.tile--photo::before {
   z-index: -1;
   background-image: linear-gradient(180deg, color-mix(in srgb, var(--tint) 18%, transparent) 0%, color-mix(in srgb, var(--tint) 50%, transparent) 30%, color-mix(in srgb, var(--tint) 86%, transparent) 52%, color-mix(in srgb, var(--tint) 94%, #000) 100%);
   background-size: auto;
@@ -2548,10 +2553,12 @@ figure.art { margin: 0; }
   :root[data-theme="dark"] .sheet *, :root[data-theme="dark"] .modal * { --tint-ink: #EEEAE1; }
   .art--photo { background: var(--paper-2); }
   .tile--city.tile--photo::before,
-  [dir="rtl"] .tile--city.tile--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .08) 0%, rgba(0, 0, 0, .3) 30%, rgba(0, 0, 0, .66) 52%, rgba(0, 0, 0, .82) 100%); }
+  [dir="rtl"] .tile--city.tile--photo::before,
+  .tile--home.tile--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .08) 0%, rgba(0, 0, 0, .3) 30%, rgba(0, 0, 0, .66) 52%, rgba(0, 0, 0, .82) 100%); }
   .band--photo::before { background-image: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, rgba(0, 0, 0, .3) 32%, rgba(0, 0, 0, .66) 55%, rgba(0, 0, 0, .82) 100%); }
   .icircle, .tile--home .tile__icon, .go-mini, .d-tip { background: rgba(19, 33, 31, .07); }
   :root[data-theme="dark"] .icircle, :root[data-theme="dark"] .tile--home .tile__icon, :root[data-theme="dark"] .go-mini, :root[data-theme="dark"] .d-tip { background: rgba(238, 234, 225, .12); }
+  .tile--home.tile--photo .tile__icon, :root[data-theme="dark"] .tile--home.tile--photo .tile__icon { background: rgba(255, 255, 255, .9); }
   .pill--near { background: rgba(29, 76, 73, .12); }
   .vcard--soon .vcard__link { border-color: rgba(19, 33, 31, .25); }
   .vcard--soon .art { background: rgba(19, 33, 31, .05); }
@@ -2562,6 +2569,7 @@ figure.art { margin: 0; }
   @supports not (color: color-mix(in srgb, red 50%, blue)) {
     :root:not([data-theme="light"]) .sheet *, :root:not([data-theme="light"]) .modal * { --tint-ink: #EEEAE1; }
     :root:not([data-theme="light"]) .icircle, :root:not([data-theme="light"]) .tile--home .tile__icon, :root:not([data-theme="light"]) .go-mini, :root:not([data-theme="light"]) .d-tip { background: rgba(238, 234, 225, .12); }
+    :root:not([data-theme="light"]) .tile--home.tile--photo .tile__icon { background: rgba(255, 255, 255, .9); }
   }
 }
 

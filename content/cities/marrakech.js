@@ -234,6 +234,7 @@ CASA.cities.marrakech = {
         {
           kind: 'note',
           id: 'note-tips',
+          photo: 'lanterns',
           icon: 'bulb',
           short: { fr: 'Faux guides, henné, chaleur', en: 'Fake guides, henna, heat', ar: 'مرشدون مزيّفون، حنّاء، حرارة', es: 'Falsos guías, henna, calor' },
           name: { fr: 'Bon à savoir à Marrakech', en: 'Good to know in Marrakech', ar: 'معلومات مفيدة في مراكش', es: 'Conviene saber en Marrakech' },
@@ -464,6 +465,7 @@ CASA.cities.marrakech = {
         {
           kind: 'note',
           id: 'note-breakfast',
+          photo: 'breakfast',
           icon: 'steam',
           short: { fr: 'Msemen, baghrir, amlou et atay', en: 'Msemen, baghrir, amlou and atay', ar: 'مسمن وبغرير وأملو وأتاي', es: 'Msemen, baghrir, amlou y atay' },
           name: { fr: 'Le petit-déjeuner marocain', en: 'The Moroccan breakfast', ar: 'الفطور المغربي', es: 'El desayuno marroquí' },
@@ -716,6 +718,7 @@ CASA.cities.marrakech = {
         {
           kind: 'note',
           id: 'note-bargain',
+          photo: 'souk-goods',
           icon: 'chat',
           short: { fr: 'Souriez, comparez, proposez moins', en: 'Smile, compare, offer less', ar: 'ابتسم وقارن واقترح أقل', es: 'Sonríe, compara, ofrece menos' },
           name: { fr: 'L’art de négocier', en: 'The art of bargaining', ar: 'فن المساومة', es: 'El arte de regatear' },
@@ -750,6 +753,7 @@ CASA.cities.marrakech = {
         // (60, 150 or 170 MAD): not shown.
         {
           id: 'hammam-mouassine',
+          photo: 'hammam',
           icon: 'steam',
           short: { fr: 'Le hammam public historique', en: 'The historic public hammam', ar: 'الحمّام العمومي التاريخي', es: 'El hammam público histórico' },
           name: { fr: 'Hammam Mouassine', ar: 'حمّام المواسين' },
@@ -775,6 +779,7 @@ CASA.cities.marrakech = {
         // The 220–450 MAD range was not confirmed by a 2025–2026 source: no price shown.
         {
           id: 'bains-marrakech',
+          photo: 'spa',
           icon: 'bath',
           short: { fr: 'Hammam-spa, idéal à deux', en: 'Spa hammam, great for couples', ar: 'حمّام وسبا، مثالي للثنائي', es: 'Hammam spa, ideal en pareja' },
           name: { fr: 'Les Bains de Marrakech' },
@@ -874,6 +879,7 @@ CASA.cities.marrakech = {
         // remove `kind` and `request` (or the whole item).
         {
           id: 'official-guide',
+          photo: 'jemaa',
           icon: 'map',
           short: { fr: 'Un guide officiel pour la médina', en: 'An official guide for the medina', ar: 'مرشد رسمي للمدينة العتيقة', es: 'Un guía oficial para la medina' },
           kind: 'request',
@@ -1137,6 +1143,7 @@ CASA.cities.marrakech = {
         // Every stop is an item above, with its own source.
         {
           id: 'medina-day',
+          photo: 'ben-youssef',
           title: { fr: 'Une journée dans la médina', en: 'A day in the medina', ar: 'يوم في المدينة العتيقة', es: 'Un día en la medina' },
           duration: { fr: 'Journée · à pied', en: 'Full day · on foot', ar: 'يوم كامل · مشياً', es: 'Día completo · a pie' },
           intro: {
@@ -1158,6 +1165,7 @@ CASA.cities.marrakech = {
         },
         {
           id: 'gueliz-majorelle',
+          photo: 'majorelle',
           title: { fr: 'Majorelle et Guéliz', en: 'Majorelle and Guéliz', ar: 'ماجوريل وجليز', es: 'Majorelle y Guéliz' },
           duration: { fr: 'Demi-journée · taxi', en: 'Half day · taxi', ar: 'نصف يوم · طاكسي', es: 'Medio día · taxi' },
           intro: {

@@ -76,6 +76,16 @@ for (const [city, all] of Object.entries(C.photos || {})) {
   for (const r of refs) if (!all[r]) fail('photo ' + city + ': cover "' + r + '" has no photo');
 }
 
+// An item that names a picture (photo: 'tea') names one of the wish list, of its city or a shared one
+const wish = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'photos.json'), 'utf8'));
+for (const [id, c] of Object.entries(C.cities || {})) {
+  for (const [sid, s] of Object.entries(c.sections || {})) {
+    for (const it of s.items || []) {
+      if (it.photo && !((wish[id] || {})[it.photo] || (wish.morocco || {})[it.photo])) fail(id + '/' + sid + '/' + it.id + ': photo "' + it.photo + '" is not in tools/photos.json');
+    }
+  }
+}
+
 // The film: its files exist, and each clip it is cut from is credited
 const film = B.film;
 if (film) {

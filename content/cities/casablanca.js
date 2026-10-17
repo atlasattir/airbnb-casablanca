@@ -13,6 +13,8 @@
  * kind: 'note' for an explainer card, 'placeholder' for a slot the host still has
  * to fill, 'request' for something the host can organise (opens WhatsApp).
  * areas: ['bourgogne'] shows an item only to the places of those neighbourhoods.
+ * Pictures come from content/photos.js by the item's id; photo: 'tea' names
+ * another one instead (of the city, or of the shared "morocco" pictures).
  *
  * Itinerary stops may carry rel: minutes before (negative) or after today's
  * sunset; the app then shows the real time for the day instead of 'time'.
@@ -407,6 +409,7 @@ CASA.cities.casablanca = {
         {
           kind: 'note',
           id: 'note-darbouazza-food',
+          photo: 'seafood',
           icon: 'info',
           areas: ['dar-bouazza'],
           short: { fr: 'Vérifiez avant d’y aller', en: 'Check before you go', ar: 'تحقّق قبل الذهاب', es: 'Compruébalo antes de ir' },
@@ -441,6 +444,7 @@ CASA.cities.casablanca = {
         {
           kind: 'note',
           id: 'note-breakfast',
+          photo: 'tea',
           icon: 'steam',
           short: { fr: 'Msemen, baghrir, amlou et atay', en: 'Msemen, baghrir, amlou and atay', ar: 'مسمن وبغرير وأملو وأتاي', es: 'Msemen, baghrir, amlou y atay' },
           name: { fr: 'Le petit-déjeuner marocain', en: 'The Moroccan breakfast', ar: 'الفطور المغربي', es: 'El desayuno marroquí' },
@@ -460,6 +464,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'sqala-breakfast',
+          photo: 'breakfast',
           icon: 'mint',
           short: { fr: 'Petit-déjeuner complet au jardin', en: 'Full breakfast in the garden', ar: 'فطور كامل في الحديقة', es: 'Desayuno completo en el jardín' },
           name: { fr: 'La Sqala, le matin', en: 'La Sqala, in the morning', ar: 'الصقالة صباحاً', es: 'La Sqala, por la mañana' },
@@ -481,6 +486,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'bennis',
+          photo: 'pastries',
           icon: 'bag',
           short: { fr: 'Cornes de gazelle à emporter', en: 'Cornes de gazelle to go', ar: 'كعب الغزال لتأخذه معك', es: 'Cuernos de gacela para llevar' },
           name: { fr: 'Pâtisserie Bennis', ar: 'حلويات بنيس' },
@@ -616,6 +622,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'corniche-night',
+          photo: 'sunset-elhank',
           icon: 'moon',
           short: { fr: 'Là où sort Casablanca', en: 'Where Casablanca goes out', ar: 'حيث تسهر الدار البيضاء', es: 'Donde Casablanca sale de noche' },
           name: { fr: 'La Corniche le soir', en: 'The Corniche at night', ar: 'الكورنيش ليلاً', es: 'La Corniche de noche' },
@@ -637,6 +644,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'skybar',
+          photo: 'rooftop',
           icon: 'glass',
           short: { fr: 'Rooftop avec vue sur l’océan', en: 'Rooftop with ocean views', ar: 'سطح فندق بإطلالة على المحيط', es: 'Azotea con vistas al océano' },
           name: { fr: 'Sky Bar, Villa Blanca' },
@@ -736,6 +744,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'anfaplace',
+          photo: 'mall',
           icon: 'cup',
           short: { fr: 'Calme, cafés tournés vers l’océan', en: 'Calm, cafés facing the ocean', ar: 'هادئ، بمقاهٍ تطلّ على المحيط', es: 'Tranquilo, cafés frente al océano' },
           name: { fr: 'Anfa Place' },
@@ -782,6 +791,7 @@ CASA.cities.casablanca = {
         {
           kind: 'note',
           id: 'note-bargain',
+          photo: 'souk-goods',
           icon: 'chat',
           short: { fr: 'Souriez, proposez environ la moitié', en: 'Smile, offer about half', ar: 'ابتسم واقترح نحو النصف', es: 'Sonríe, ofrece la mitad' },
           name: { fr: 'L’art de négocier', en: 'The art of bargaining', ar: 'فن المساومة', es: 'El arte de regatear' },
@@ -845,6 +855,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'beachclubs',
+          photo: 'beach-club',
           icon: 'sun',
           short: { fr: 'Piscines, transats et restaurant', en: 'Pools, sunbeds and a restaurant', ar: 'مسابح وكراسي استلقاء ومطعم', es: 'Piscinas, tumbonas y restaurante' },
           name: { fr: 'Les beach clubs', en: 'The beach clubs', ar: 'النوادي الشاطئية', es: 'Los beach clubs' },
@@ -1050,6 +1061,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'tamaris',
+          photo: 'waterpark',
           icon: 'waves',
           short: { fr: 'Toboggans et piscine à vagues', en: 'Slides and a wave pool', ar: 'زلّاقات مائية ومسبح أمواج', es: 'Toboganes y piscina de olas' },
           name: { fr: 'Tamaris Aquaparc' },
@@ -1135,6 +1147,7 @@ CASA.cities.casablanca = {
         // The pony courses rest on the 2023 Petit Journal article only: hence the tip "call ahead".
         {
           id: 'ferme-equestre',
+          photo: 'horses',
           icon: 'family',
           short: { fr: 'Poneys, balades et petite ferme', en: 'Ponies, rides and a small farm', ar: 'مهور ونزهات ومزرعة صغيرة', es: 'Ponis, paseos y granja' },
           name: { fr: 'Ferme équestre de Dar Bouazza', en: 'Dar Bouazza riding farm', ar: 'ضيعة الفروسية بدار بوعزة', es: 'Granja ecuestre Dar Bouazza' },
@@ -1170,6 +1183,7 @@ CASA.cities.casablanca = {
       items: [
         {
           id: 'door',
+          photo: 'sunset-elhank',
           areas: ['bourgogne'],
           title: { fr: 'Depuis votre porte', en: 'From your door', ar: 'من باب شقتك', es: 'Desde tu puerta' },
           duration: { fr: '3 h · à pied', en: '3 h · on foot', ar: '3 ساعات · مشياً', es: '3 h · a pie' },
@@ -1189,6 +1203,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'oneday',
+          photo: 'habous',
           title: { fr: 'Casablanca en un jour', en: 'Casablanca in one day', ar: 'الدار البيضاء في يوم واحد', es: 'Casablanca en un día' },
           duration: { fr: 'Journée · taxi et marche', en: 'Full day · taxi and walking', ar: 'يوم كامل · طاكسي ومشي', es: 'Día completo · taxi y a pie' },
           intro: {
@@ -1210,6 +1225,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'artdeco-walk',
+          photo: 'artdeco',
           title: { fr: 'Casablanca Art déco', en: 'Art Deco Casablanca', ar: 'الدار البيضاء الآرت ديكو', es: 'Casablanca art déco' },
           duration: { fr: 'Demi-journée · à pied', en: 'Half day · on foot', ar: 'نصف يوم · مشياً', es: 'Medio día · a pie' },
           intro: {
@@ -1230,6 +1246,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'family-day',
+          photo: 'ligue-family',
           title: { fr: 'Une journée en famille', en: 'A family day', ar: 'يوم عائلي', es: 'Un día en familia' },
           duration: { fr: 'Journée · taxi', en: 'Full day · taxi', ar: 'يوم كامل · طاكسي', es: 'Día completo · taxi' },
           intro: {
@@ -1257,6 +1274,7 @@ CASA.cities.casablanca = {
         // No report of Le Cabestan closing was found (Oct. 2026), but the stop says to check it is open.
         {
           id: 'door-aindiab',
+          photo: 'corniche',
           areas: ['ain-diab'],
           title: { fr: 'Depuis votre porte', en: 'From your door', ar: 'من باب شقتك', es: 'Desde tu puerta' },
           duration: { fr: '3 h · à pied', en: '3 h · on foot', ar: '3 ساعات · مشياً', es: '3 h · a pie' },
@@ -1280,6 +1298,7 @@ CASA.cities.casablanca = {
         // The coast faces the Atlantic to the north-west: the sun sets over the ocean.
         {
           id: 'door-darbouazza',
+          photo: 'tamaris2',
           areas: ['dar-bouazza'],
           title: { fr: 'Depuis votre porte', en: 'From your door', ar: 'من باب شقتك', es: 'Desde tu puerta' },
           duration: { fr: '3 h · en voiture', en: '3 h · by car', ar: '3 ساعات · بالسيارة', es: '3 h · en coche' },
@@ -1449,6 +1468,7 @@ CASA.cities.casablanca = {
       items: [
         {
           id: 'hammam-ziani',
+          photo: 'hammam',
           icon: 'steam',
           short: { fr: 'Vapeur, gommage au savon noir', en: 'Steam and black-soap scrub', ar: 'بخار وتقشير بالصابون البلدي', es: 'Vapor y exfoliación, jabón negro' },
           name: { fr: 'Hammam Ziani', ar: 'حمّام الزياني' },
@@ -1506,6 +1526,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'cooking',
+          photo: 'tajine',
           icon: 'chef',
           short: { fr: 'Tajine, salades et thé', en: 'Tagine, salads and mint tea', ar: 'طاجين وسلطات وشاي', es: 'Tajín, ensaladas y té' },
           kind: 'request',
@@ -1521,6 +1542,7 @@ CASA.cities.casablanca = {
         },
         {
           id: 'guide',
+          photo: 'medina',
           icon: 'map',
           short: { fr: 'Guide local, à votre rythme', en: 'Local guide, at your pace', ar: 'مرشد محلي، على راحتك', es: 'Guía local, a tu ritmo' },
           kind: 'request',

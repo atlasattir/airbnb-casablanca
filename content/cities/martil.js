@@ -528,6 +528,7 @@ CASA.cities.martil = {
         // source: https://restaurantguru.com/Martil (Rayan: Café & Pâtisserie, 4.8 from 309 votes in 2026-10)
         {
           id: 'rayan',
+          photo: 'pastries',
           icon: 'cup',
           short: { fr: 'Café-pâtisserie très bien noté', en: 'Highly rated café and pastry shop', ar: 'مقهى وحلويات بتقييم عالٍ', es: 'Café-pastelería muy bien valorado' },
           name: { fr: 'Rayan Café & Pâtisserie' },
@@ -644,6 +645,7 @@ CASA.cities.martil = {
         // source: https://travel.hotelscombined.ca/Place/Martil.htm (camel and horse rides along the sand at sunset)
         {
           id: 'beach-rides',
+          photo: 'camel-beach',
           icon: 'sun',
           short: { fr: 'Chameau ou cheval sur la plage', en: 'Camel or horse rides on the beach', ar: 'ركوب الجمل أو الحصان على الشاطئ', es: 'Camello o caballo en la playa' },
           name: { fr: 'Balades à chameau ou à cheval', en: 'Camel and horse rides', ar: 'جولات على الجمل أو الحصان', es: 'Paseos en camello o a caballo' },
@@ -734,6 +736,7 @@ CASA.cities.martil = {
         //  several on cleanliness; "nothing sold in the park, bring snacks for the children")
         {
           id: 'mnar-park',
+          photo: 'waterpark',
           icon: 'pool',
           short: { fr: 'Parc aquatique, à Tanger', en: 'A water park, in Tangier', ar: 'منتزه مائي في طنجة', es: 'Parque acuático, en Tánger' },
           name: { fr: 'Mnar Park', ar: 'منار بارك' },
@@ -873,6 +876,7 @@ CASA.cities.martil = {
         // source: https://sp.booking.com/hotel/ma/el-reducto.en-gb.html (Tetuani and Spanish cooking in a medina riad)
         {
           id: 'tetouan-day',
+          photo: 'tetouan-medina',
           title: { fr: 'Tétouan, puis la corniche', en: 'Tétouan, then the corniche', ar: 'تطوان ثم الكورنيش', es: 'Tetuán y luego el paseo' },
           duration: { fr: 'Journée · taxi et marche', en: 'Full day · taxi and walking', ar: 'يوم كامل · طاكسي ومشي', es: 'Día completo · taxi y a pie' },
           intro: {

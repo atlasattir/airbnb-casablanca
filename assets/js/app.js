@@ -200,18 +200,24 @@
   function tintStyle(t, i) { return ' style="--tint:' + (t || '#1D4C49') + (i != null ? ';--i:' + Math.min(i, 10) : '') + '"'; }
 
   /* Photos: open-licence pictures from Wikimedia Commons, listed in content/photos.js
-     (made by tools/fetch-photos.py). Without one, the drawn icon shows. */
+     (made by tools/fetch-photos.py), by city, plus "morocco": pictures of the kind of
+     thing (a door, mint tea), shared by every city. Without one, the drawn icon shows. */
   function photosOf(cityId) { return ((C.photos || {})[cityId]) || {}; }
   function photoFor(it, cityId) {
     if (!it) return null;
     if (it.image) return { src: it.image };
-    var p = photosOf(cityId || (STAY && STAY.city))[it.id];
+    // Its own photo, else the one it names (photo: 'tea'), of its city or a shared one
+    var all = photosOf(cityId || (STAY && STAY.city));
+    var p = (it.id && all[it.id]) || (it.photo && (all[it.photo] || photosOf('morocco')[it.photo]));
     return p && p.src ? p : null;
   }
   // A city's picture for its button, a section's for its tile and header
+  // (the place's own pages, Wi-Fi or check-in, take a shared one)
   function coverFor(cityId, key) {
     var all = photosOf(cityId), ref = key ? (all._covers || {})[key] : all._city;
-    return ref && all[ref] && all[ref].src ? all[ref] : null;
+    if (ref && all[ref] && all[ref].src) return all[ref];
+    var gen = photosOf('morocco'), g = key && (gen._covers || {})[key];
+    return g && gen[g] && gen[g].src ? gen[g] : null;
   }
   function photoImg(p, sizes, eager) {
     // The real widths: a portrait or a small original is narrower than 1280 / 640
@@ -390,9 +396,11 @@
     var km = state.geo ? state.geo.km[s.id] : null;
     var near = state.geo && state.geo.best.indexOf(s.id) > -1;
     var badge = km != null ? '<span class="vcard__badge" dir="ltr">' + esc(fmtDistance(km)) + '</span>' : '';
+    // A photo of the place itself (cover), else of its neighbourhood
+    var ph = s.cover ? { src: s.cover } : s.photo ? photoFor({ photo: s.photo }, s.city) : null;
     return '<article class="scard' + (opts.reveal ? ' reveal' : ' rise') + (near ? ' is-nearest' : '') + '"' + tintStyle(s.tint, i) + '>' +
       '<a class="scard__link" href="' + esc(stayHref(s)) + '">' +
-        '<span class="art">' + (s.cover ? '<img src="' + esc(s.cover) + '" alt="" loading="lazy">' : icon(s.icon || 'house')) + badge + '</span>' +
+        '<span class="art' + (ph ? ' art--photo' : '') + '">' + icon(s.icon || 'house') + (ph ? photoImg(ph, '128px') : '') + badge + '</span>' +
         '<span class="scard__body">' + (near ? '<span class="scard__near">' + icon('locate') + esc(ui('nearest')) + '</span>' : '') +
           '<span class="scard__name" dir="ltr">' + esc(s.name) + '</span>' +
           '<span class="scard__place">' + esc(placeLine(s)) + '</span>' + factPills(s, 3) + '</span>' +
@@ -528,7 +536,7 @@
         var s = SECTIONS[id];
         var wide = (g.wide || []).indexOf(id) > -1;
         var data = tileData(id);
-        var ph = g.id === 'city' ? coverFor(STAY.city, id) : null;
+        var ph = coverFor(STAY.city, id);
         return '<a class="tile tile--' + g.id + (wide ? ' tile--wide' : '') + (ph ? ' tile--photo' : '') + rv + '"' + tintStyle(s.tint, i) + ' href="#' + id + '" data-open="' + id + '">' +
           (ph ? '<span class="tile__photo" aria-hidden="true">' + photoImg(ph, wide ? '(min-width: 760px) 50vw, 100vw' : '(min-width: 760px) 25vw, 50vw') + '</span>' : '') +
           '<span class="tile__icon">' + icon(s.icon) + '</span>' +
@@ -839,7 +847,8 @@
       html = view(meta, id);
       if (meta.type === 'routes') extra = '<div class="band__meta"><span class="pill">' + icon('sun') + '<span>' + esc(ui('sunsetToday')) + ' ' + esc(fmtTime(todaysSunset())) + '</span></span></div>';
     }
-    var cover = meta.type === 'city' ? coverFor(id) : STAY && SECTIONS[id] ? coverFor(STAY.city, id) : null;
+    var cover = meta.type === 'city' ? coverFor(id) : !STAY || id === 'credits' ? null :
+      coverFor(STAY.city, id) || (id === 'location' ? coverFor(STAY.city) : null);
     els.band.innerHTML = '<header class="band' + (cover ? ' band--photo' : '') + '"' + tintStyle(meta.tint) + '>' +
       '<span class="band__art" aria-hidden="true">' + icon(meta.icon) + '</span>' +
       (cover ? '<span class="band__photo" aria-hidden="true">' + photoImg(cover, '100vw', true) + '</span>' : '') +
@@ -975,8 +984,9 @@
 
   function viewRoutes(s, sid) {
     return '<div class="rcards">' + s.items.map(function (r, i) {
+      var ph = photoFor(r);
       return '<article class="rcard rise"' + tintStyle(s.tint, i) + '><a class="rcard__link" href="#' + sid + '.' + r.id + '" data-open-detail>' +
-        '<span class="art">' + routeLine(r.stops.length) + '</span>' +
+        '<span class="art' + (ph ? ' art--photo' : '') + '">' + routeLine(r.stops.length) + (ph ? photoImg(ph, '(min-width: 620px) 50vw, 100vw') : '') + '</span>' +
         '<span class="rcard__body"><span class="rcard__title">' + txt(r.title) + '</span>' + routePills(r) + '</span></a></article>';
     }).join('') + '</div>';
   }
@@ -987,7 +997,9 @@
         '<div class="stop"><h3 class="stop__title">' + txt(st.title) + '</h3>' + (st.text ? '<p class="stop__text">' + txt(st.text) + '</p>' : '') + '</div>' +
         (st.maps ? '<a class="go-mini"' + ext(mapsDir(st.maps, r.mode)) + ' aria-label="' + esc(ui('directions')) + '">' + icon('nav') + '</a>' : '<span></span>') + '</li>';
     }).join('');
-    return '<div class="art d-art">' + routeLine(r.stops.length) + '</div><div class="d-body">' +
+    var ph = photoFor(r);
+    return (ph ? '<figure class="art d-art art--photo">' + routeLine(r.stops.length) + photoImg(ph, '(min-width: 700px) 640px, 100vw', true) + photoCredit(ph) + '</figure>' :
+      '<div class="art d-art">' + routeLine(r.stops.length) + '</div>') + '<div class="d-body">' +
       '<h2 class="d-title" id="modal-title">' + txt(r.title) + '</h2>' + routePills(r) +
       '<ol class="timeline">' + stops + '</ol>' +
       '<div class="d-actions"><a class="btn btn--go"' + ext(routeUrl(r)) + '>' + icon('map') + '<span>' + esc(ui('openRoute')) + '</span></a></div></div>';
@@ -1167,7 +1179,7 @@
 
   // Every photo shown here, with its author, its licence and a link to its page
   function viewCredits() {
-    var ids = STAY ? [STAY.city] : CITIES.map(function (c) { return c.id; });
+    var ids = (STAY ? [STAY.city] : CITIES.map(function (c) { return c.id; })).concat('morocco');
     var rows = [], seen = {};
     ids.forEach(function (cid) {
       var all = photosOf(cid);
@@ -1582,8 +1594,10 @@
     var net = navigator.connection || {};
     if (net.saveData || /2g/.test(net.effectiveType || '')) return;
     if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return;
-    var all = photosOf(cityId), seen = {}, list = [];
-    Object.keys(all).forEach(function (k) { var p = all[k]; if (p && p.sm && !seen[p.sm]) { seen[p.sm] = true; list.push(p.sm); } });
+    var seen = {}, list = [];
+    [photosOf(cityId), photosOf('morocco')].forEach(function (all) {
+      Object.keys(all).forEach(function (k) { var p = all[k]; if (p && p.sm && !seen[p.sm]) { seen[p.sm] = true; list.push(p.sm); } });
+    });
     (function next(i) {
       if (i >= list.length) return;
       fetch(list[i]).catch(function () { /* offline: try another time */ }).then(function () { window.setTimeout(function () { next(i + 1); }, 200); });
