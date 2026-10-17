@@ -114,7 +114,7 @@ window.CASA = window.CASA || {};
         icon: 'building', tint: '#2C5A6B', photo: 'elhank', lat: 33.60, lng: -7.64, approx: true,
         facts: [fact.surface(133), fact.bedrooms(3), fact.bathrooms(2), fact.balcony, fact.lift] },
       { id: 'b-suites', name: 'Darna B-Suites', title: ['B-Suites'], city: 'casablanca', area: 'bourgogne', kind: 'studio', units: 8,
-        icon: 'key', tint: '#8A6A3A', photo: 'sunset-elhank', lat: 33.60, lng: -7.64, approx: true,
+        icon: 'key', tint: '#8A6A3A', photo: 'corniche', lat: 33.60, lng: -7.64, approx: true,
         facts: [fact.studios(8), fact.balcony, fact.ac] },
       { id: 'pestana', name: 'Darna Pestana', title: ['Pestana'], city: 'casablanca', area: 'ain-diab', kind: 'apartment',
         icon: 'waves', tint: '#1D4C49', photo: 'aindiab', lat: 33.60, lng: -7.67, approx: true,
