@@ -1,7 +1,9 @@
 # Finds or downloads open-licence videos of Morocco on Wikimedia Commons, for the guide's film.
 # Runs only when started by hand: GitHub → Actions → Film sources → Run workflow.
-#   - "files" empty: a contact sheet of candidate videos (tools/film-sources.py find)
+#   - "files" empty: contact sheets of candidate videos (tools/film-sources.py find),
+#     from "search" when set (words separated by |, e.g. Martil|Tetouan: a city's own film)
 #   - "files" set (Commons titles, separated by |): those videos at full size, with their credits
+#     ("preview" ticked: only a small copy and a sheet of frames of each whole video)
 # The result goes to the branch "film-sources", which holds only these files (never the site).
 name: Film sources
 
@@ -12,6 +14,14 @@ on:
         description: 'Commons file titles to download, separated by | (empty: find candidates)'
         type: string
         default: ''
+      search:
+        description: 'When finding: only these searches, separated by | (empty: all of Morocco)'
+        type: string
+        default: ''
+      preview:
+        description: 'With files: only a small copy and a sheet of frames of each, to choose a part'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -32,13 +42,17 @@ jobs:
       - name: Find or download
         env:
           FILES: ${{ inputs.files }}
+          SEARCH: ${{ inputs.search }}
+          PREVIEW: ${{ inputs.preview }}
         run: |
           OUT="$RUNNER_TEMP/film"
           if [ -z "$FILES" ]; then
-            python3 tools/film-sources.py find "$OUT"
+            IFS='|' read -r -a WORDS <<< "$SEARCH"
+            python3 tools/film-sources.py find "$OUT" "${WORDS[@]}"
           else
             IFS='|' read -r -a LIST <<< "$FILES"
-            python3 tools/film-sources.py fetch "$OUT" "${LIST[@]}"
+            if [ "$PREVIEW" = "true" ]; then MODE=preview; else MODE=fetch; fi
+            python3 tools/film-sources.py "$MODE" "$OUT" "${LIST[@]}"
           fi
           ls -la "$OUT"
       - name: Push to the film-sources branch
@@ -49,7 +63,7 @@ jobs:
           git switch --orphan film-sources
           git rm -rq --cached . || true
           git clean -fdxq
-          rm -rf "$OUT/preview"   # the small previews only served to draw the contact sheet
+          rm -f "$OUT"/preview/*.webm   # the small downloads only served to draw the contact sheets
           cp -r "$OUT"/. .
           git add -A
           git commit -qm 'Film sources from Wikimedia Commons'
