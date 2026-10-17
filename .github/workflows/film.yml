@@ -49,6 +49,7 @@ jobs:
           git switch --orphan film-sources
           git rm -rq --cached . || true
           git clean -fdxq
+          rm -rf "$OUT/preview"   # the small previews only served to draw the contact sheet
           cp -r "$OUT"/. .
           git add -A
           git commit -qm 'Film sources from Wikimedia Commons'

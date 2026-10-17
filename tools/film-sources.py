@@ -34,7 +34,12 @@ SEARCHES = ['Morocco', 'Maroc', 'Marrakech', 'Marrakesh', 'Jemaa el-Fna', 'Kouto
 CATEGORIES = ['Category:Videos of Morocco', 'Category:Videos of Marrakesh', 'Category:Videos of Casablanca',
               'Category:Videos of Fez', 'Category:Videos of Chefchaouen', 'Category:Videos of Essaouira',
               'Category:Videos of the Sahara', 'Category:Drone videos of Morocco']
-VPROPS = {'prop': 'videoinfo', 'viprop': 'url|size|mime|extmetadata|derivatives', 'viextmetadatafilter': fp.META}
+VPROPS = {'prop': 'videoinfo', 'viprop': 'url|size|mime|extmetadata|derivatives', 'viextmetadatafilter': fp.META + '|ImageDescription|Categories'}
+# A candidate must be about Morocco: one of these in its title, description or categories
+MOROCCO = re.compile(r'morocc|maroc|marokk|marruec|marrak|casablanca|chefchaouen|chaouen|\bf[eè]s\b|fez,|medina of fe|essaouira|merzouga|'
+                     r'erg chebbi|sahara|atlas mountain|high atlas|toubkal|ait.?ben|tanger|tangier|t[eé]touan|martil|rabat|agadir|ouarzazate|'
+                     r'djemaa|jemaa|jamaa|koutoubia|hassan ii|majorelle|ifrane|meknes|volubilis|todra|dades|zagora', re.I)
+NOT_SCENERY = re.compile(r'interview|entrevista|press|conference|speech|discours|debate|gameplay|occupation|protest|parliament|lecture|news', re.I)
 
 
 def pages(data):
@@ -70,6 +75,13 @@ def usable(p):
         return 'not a video'
     if (vi.get('duration') or 0) < 5:
         return 'too short'
+    if (vi.get('duration') or 0) > 240:
+        return 'too long (an interview or a lecture, not scenery)'
+    about = ' '.join([p['title'], fp.clean(meta(p, 'ImageDescription')), fp.clean(meta(p, 'Categories')), fp.clean(meta(p, 'ObjectName'))])
+    if not MOROCCO.search(about):
+        return 'not about Morocco'
+    if NOT_SCENERY.search(about):
+        return 'not scenery'
     if (vi.get('width') or 0) < 1280:
         return 'too small'
     if str(meta(p, 'NonFree')).lower() == 'true' or not fp.licence_ok(lic):
@@ -103,7 +115,7 @@ def describe(p):
             'title': fp.clean(meta(p, 'ObjectName')) or p['title'][5:]}
 
 
-def frames(video, n=4):
+def frames(video, n=6):
     dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', video],
                                capture_output=True, text=True).stdout.strip() or 0)
     shots = []
@@ -147,7 +159,7 @@ def find(out):
     with open(out + '/candidates.json', 'w', encoding='utf-8') as f:
         json.dump(rows, f, ensure_ascii=False, indent=1)
     if sheet_rows:
-        W, H = 4 * 330 + 10, 210
+        W, H = 6 * 330 + 10, 210
         sheet = Image.new('RGB', (W, H * len(sheet_rows)), 'white')
         d = ImageDraw.Draw(sheet)
         for r, (e, shots) in enumerate(sheet_rows):
