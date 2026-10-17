@@ -154,6 +154,9 @@
       ]
     },
     "prehistory-park": {
+      "files": [
+        "File:Palaeolithic acheulean handaxe (FindID 709909).jpg"
+      ],
       "search": "Acheulean handaxe",
       "category": "Category:Acheulean handaxes",
       "illustr": true
@@ -199,13 +202,25 @@
         "File:Ebb Beach Ain Diab (Morocco, Casablanca) - panoramio.jpg"
       ],
       "search": "Ain Diab beach Casablanca",
-      "category": "Category:Aïn Diab"
+      "category": "Category:Aïn Diab",
+      "crop": [
+        0,
+        0,
+        1,
+        0.88
+      ]
     },
     "anfaplace-beach": {
       "files": [
         "File:Beach Ain Diab (Morocco, Casablanca) - panoramio (1).jpg"
       ],
-      "search": "plage Casablanca corniche océan"
+      "search": "plage Casablanca corniche océan",
+      "crop": [
+        0,
+        0,
+        1,
+        0.88
+      ]
     },
     "darbouazza": {
       "files": [
@@ -215,6 +230,9 @@
       "category": "Category:Dar Bouazza"
     },
     "sindibad": {
+      "files": [
+        "File:Nigloland - La grande roue.JPG"
+      ],
       "search": "grande roue parc attractions",
       "illustr": true
     }
@@ -594,6 +612,9 @@
       ]
     },
     "grand-taxi": {
+      "files": [
+        "File:Tétouan Taxi (cropped).jpg"
+      ],
       "search": "taxi Tetouan",
       "category": "Category:Taxis in Morocco",
       "illustr": true

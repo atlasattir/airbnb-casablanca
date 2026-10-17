@@ -11,7 +11,7 @@
  * one gets a new ?v=). Change VERSION, and this
  * list, after renaming or removing files: a missing file stops the update.
  */
-var VERSION = 'atlas-v5';
+var VERSION = 'atlas-v6';
 var CORE = [
   './',
   'index.html',

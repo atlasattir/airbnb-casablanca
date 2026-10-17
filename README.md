@@ -54,14 +54,17 @@ Adresse d’un logement : `…/pestana/` (lien court) ou `…/?stay=pestana`. Le
 
 ## Les photos
 
-Chaque adresse des guides peut avoir une photo **de cette adresse précise** (la mosquée Hassan II, la plage de Martil, le souk Haddadine…), prise sur [Wikimedia Commons](https://commons.wikimedia.org) sous licence libre. Elle s’affiche sur la carte de l’adresse, en grand dans sa fiche (avec l’auteur et la licence en bas de la photo), et sur la page « Crédits photos » (lien en bas du guide). Une rubrique peut avoir une photo de couverture (sa tuile et son en-tête), une ville la sienne (son bouton sur l’accueil).
+Chaque adresse des guides peut avoir une photo **de cette adresse précise** (la mosquée Hassan II, la plage de Martil, le souk Haddadine…), prise sur [Wikimedia Commons](https://commons.wikimedia.org) sous licence libre. Elle s’affiche sur la carte de l’adresse, en grand dans sa fiche (avec l’auteur et la licence en bas de la photo), et sur la page « Crédits photos » (lien en bas du guide). Une rubrique peut avoir une photo de couverture (sa tuile et son en-tête), une ville la sienne (son bouton sur l’accueil). Les pages propres au logement (Wi-Fi, arrivée et départ, mode d’emploi, services, aide) prennent une photo du groupe partagé `morocco` (une porte sculptée, un patio, des lanternes, le thé à la menthe, une pharmacie) ; chaque logement montre sur sa carte une photo de son quartier (`photo` dans `content/brand.js`).
 
 1. `tools/photos.json` liste, par ville et par adresse (son `id`) :
    - `files` : les fichiers Commons voulus, le meilleur d’abord (`"File:Hassan_II_Mosque_Plaza.jpg"`) ;
    - `category` ou `search` : où chercher si aucun fichier ne convient (la meilleure photo libre est alors prise, marquée `[auto]` sur la planche de contrôle) ;
    - `pos` (facultatif) : le cadrage, par exemple `"50% 30%"` pour garder le haut ;
+   - `crop` (facultatif) : la partie de la photo à garder, `[gauche, haut, droite, bas]` de 0 à 1 ; `[0, 0, 1, 0.88]` coupe le bas (une date imprimée par l’appareil) ;
    - `illustr: true` quand la photo montre le genre de chose et non l’adresse elle-même (un plat pour un restaurant) : elle est alors marquée « Illustration » sur la carte et dans la fiche.
    - `_city` : l’adresse dont la photo illustre la ville sur l’accueil ; `_covers` : la photo de chaque rubrique (`"visit": "hassan2"`).
+   - le groupe `morocco` : des photos du genre de chose, communes aux trois villes. Une adresse d’un guide peut en prendre une, ou celle d’une autre adresse de sa ville, avec `photo: 'tea'` dans le fichier de la ville (un hammam, des pâtisseries, un itinéraire qui prend la photo de sa première étape).
+   **Choisir une photo** : *Actions* → *Photos* → *Run workflow* avec `candidates` = `missing` (toutes les adresses sans photo) ou des clés (`casablanca/aindiab morocco/door`). La branche `photos-candidates` reçoit des planches numérotées : jusqu’à six photos libres par adresse, avec auteur et licence (`candidates.json` donne les noms des fichiers). Mettez le nom choisi dans `files`, puis lancez *Photos* sans `candidates`.
 2. **Télécharger les photos**, au choix :
    - **depuis GitHub, sans rien installer** : onglet *Actions* → *Photos* → *Run workflow*. Laissez « auto » décoché pour ne prendre que les fichiers nommés. Rien n’est mis en ligne : le résultat arrive sur la branche `photos-review`, et la planche de contrôle sur la branche `photos-sheet` (le lien s’affiche dans le résumé de l’exécution), pour qu’elle ne soit jamais publiée ;
    - **sur votre ordinateur** : `python3 tools/fetch-photos.py --sheet /tmp/planche.jpg` (Python 3 et `pip install pillow`, accès à commons.wikimedia.org et upload.wikimedia.org). Ajoutez `--exact-only` pour ne prendre que les fichiers nommés.

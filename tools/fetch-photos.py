@@ -17,6 +17,8 @@ The wish list is tools/photos.json. For each place of a city guide (by its id):
     "category": a Commons category to pick from when no file works
     "search":   words to search Commons with when neither works
     "pos":      CSS object-position for the crop ("50% 35%"), optional
+    "crop":     the part of the photo to keep, [left, top, right, bottom] from 0 to 1,
+                optional: [0, 0, 1, 0.88] cuts off the bottom (a date printed by the camera)
     "illustr":  true when the picture shows the kind of thing, not the place
                 itself (a dish for a restaurant): shown as "Illustration"
 "_city" names the place whose photo is the city's picture on the home page,
@@ -193,7 +195,7 @@ def describe(page):
     }
 
 
-def save_sizes(raw, base):
+def save_sizes(raw, base, crop=None):
     from PIL import Image, ImageOps
     Image.MAX_IMAGE_PIXELS = 100_000_000
     im = Image.open(io.BytesIO(raw))
@@ -205,6 +207,9 @@ def save_sizes(raw, base):
         im = flat
     else:
         im = im.convert('RGB')
+    if crop:
+        w, h = im.size
+        im = im.crop((round(crop[0] * w), round(crop[1] * h), round(crop[2] * w), round(crop[3] * h)))
     out = {}
     for name, size, q in (('', LARGE, 74), ('-sm', SMALL, 70)):
         copy = im.copy()
@@ -217,8 +222,9 @@ def save_sizes(raw, base):
 
 
 def selection(item):
-    """What decides which file is chosen (pos and illustr only change how it shows)."""
-    return json.dumps({k: item.get(k) for k in ('files', 'category', 'search')}, sort_keys=True)
+    """What decides which file is chosen and how it is cut (pos and illustr only change how it shows)."""
+    keys = ('files', 'category', 'search') + (('crop',) if item.get('crop') else ())  # without a crop: as before
+    return json.dumps({k: item.get(k) for k in keys}, sort_keys=True)
 
 
 def exists(rel):
@@ -357,19 +363,21 @@ def main():
                 lock[key] = {'sel': sel, 'notes': notes}
                 continue
             e = describe(chosen)
-            if e['file'] in by_file:
-                src, sm, size, smw = by_file[e['file']]
+            crop = item.get('crop')
+            ref = e['file'] + (json.dumps(crop) if crop else '')
+            if ref in by_file:
+                src, sm, size, smw = by_file[ref]
                 print('  = %-34s %s  (shared)' % (key, e['file']))
             else:
                 if not e['thumb']:
                     raise ValueError('no thumbnail from Commons')
                 raw = get(e['thumb'])
                 # Named after the photo, not the place: two places may share one
-                base = '%s/%s/%s-%s' % (IMG_DIR, city, slug(e['file']), (e['sha1'] or 'x')[:6])
-                sizes = save_sizes(raw, base)
-                v = (e['sha1'] or 'x')[:8]
+                base = '%s/%s/%s-%s' % (IMG_DIR, city, slug(e['file']), (e['sha1'] or 'x')[:6]) + ('-crop' if crop else '')
+                sizes = save_sizes(raw, base, crop)
+                v = (e['sha1'] or 'x')[:8] + ('c' if crop else '')
                 src, sm, size, smw = base + '.jpg?v=' + v, base + '-sm.jpg?v=' + v, sizes['lg'][0], sizes['-sm'][0][0]
-                by_file[e['file']] = (src, sm, size, smw)
+                by_file[ref] = (src, sm, size, smw)
                 print('  + %-34s %s  (%s, %d KB + %d KB)' % (key, e['file'], e['lic'], sizes['lg'][1] // 1024, sizes['-sm'][1] // 1024))
                 time.sleep(0.3)
             e.update({'src': src, 'sm': sm, 'w': size[0], 'h': size[1], 'smw': smw, 'sel': sel, 'auto': auto, 'notes': notes})
