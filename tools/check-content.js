@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /*
  * Checks the guide before it goes out: every script parses and loads, every place has
- * its city and its page, the four languages have the same texts, every photo exists
- * and is credited, the host can be reached on WhatsApp.
+ * its city and its page, the four languages have the same texts, every photo and the
+ * film exist and are credited, the host can be reached on WhatsApp.
  *     node tools/check-content.js        (also run by GitHub on every push: .github/workflows/check.yml)
  */
 'use strict';
@@ -75,6 +75,16 @@ for (const [city, all] of Object.entries(C.photos || {})) {
   const refs = [all._city].concat(Object.values(all._covers || {})).filter(Boolean);
   for (const r of refs) if (!all[r]) fail('photo ' + city + ': cover "' + r + '" has no photo');
 }
+
+// The film: its files exist, and each clip it is cut from is credited
+const film = B.film;
+if (film) {
+  for (const cut of [film.video, film.videoPortrait].filter(Boolean)) {
+    for (const f of [cut.mp4, cut.webm, cut.poster].filter(Boolean)) if (!fs.existsSync(path.join(ROOT, f))) fail('content/brand.js: film file ' + f + ' is missing');
+  }
+  for (const c of film.credits || []) if (!c.by || !c.lic || !c.url) fail('content/brand.js: film clip "' + (c.title || '?') + '" lacks its author, licence or link');
+}
+for (const [id, c] of Object.entries(C.cities || {})) if (c.film === 'brand' && !film) fail(id + ': film is "brand" but content/brand.js has no film');
 
 if (errors.length) { console.error('✗ ' + errors.length + ' problem(s):\n  ' + errors.join('\n  ')); process.exit(1); }
 console.log('✓ ' + (B.stays || []).length + ' places, ' + keys.length + ' texts × 4 languages, ' +

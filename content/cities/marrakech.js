@@ -17,7 +17,8 @@ CASA.cities.marrakech = {
   name: { fr: 'Marrakech', en: 'Marrakech', ar: 'مراكش', es: 'Marrakech' },
   // Used by the airport-transfer service: "Un chauffeur depuis {airport}"
   airport: { fr: 'l’aéroport Marrakech-Ménara', en: 'Marrakech Menara Airport', ar: 'مطار مراكش المنارة', es: 'el aeropuerto Marrakech-Menara' },
-  film: null,
+  // film: 'brand' plays the Morocco film of content/brand.js; null shows the drawing (scene) only.
+  film: 'brand',
   scene: 'plain',
 
   /* Daoudiate: a residential quarter of the Guéliz arrondissement, on the

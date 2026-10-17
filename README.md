@@ -75,23 +75,35 @@ Hors connexion, le guide montre les photos déjà vues (et celles de la ville qu
 
 Pas de photos trouvées sur Google, Instagram ou les sites des restaurants : seulement les vôtres, celles que l’établissement vous autorise à publier (ajoutez alors `image: 'assets/img/places/<id>.jpg'` à l’adresse dans le fichier de la ville), ou des photos sous licence libre.
 
-## Le film de Casablanca
+## Le film du Maroc
 
-Le film de fond vient de la vidéo de @mr_enissay (Instagram), utilisée avec son accord. Le montage garde six plans de nuit : la ville vue d’en haut avec la mosquée Hassan II, les tours de Casablanca Finance City, l’avenue, le boulevard et le taxi rouge. Le titre, les visages et la carte de fin ont été retirés. Chaque plan est recadré pour que le pseudo affiché à l’écran n’apparaisse jamais. Les plans sont ralentis à 0,75× avec des fondus, et la fin se raccorde au début.
+Le film de fond est monté à partir de quatre vidéos sous licence libre de Wikimedia Commons, choisies une à une (pas de visage reconnaissable, pas de texte à l’écran) :
+
+1. la place Jemaa el-Fna à Marrakech au crépuscule, avec la Koutoubia ([Boris Macek](https://commons.wikimedia.org/wiki/File:Djemaa_el_Fna_Marrakech_Morocco.webm), CC BY-SA 3.0) ;
+2. une ruelle bleue de Chefchaouen ([TaylorBux1](https://commons.wikimedia.org/wiki/File:Morocco_Chefchaouen.webm), CC0) ;
+3. le thé à la menthe préparé sur le feu, puis servi dans le désert ([مصطفى ملو](https://commons.wikimedia.org/wiki/File:How_Nomads_prepare_Moroccan_tea.webm), CC BY-SA 4.0) ;
+4. l’aube sur l’Atlantique, plage de Sidi Kacem à Tanger ([Ideophagous](https://commons.wikimedia.org/wiki/File:Plane_landing_at_Tangier_airport_over_Sidi_Kacem_beach.webm), CC0).
+
+Les plans sont recadrés, légèrement ralentis et fondus les uns dans les autres ; la fin se raccorde au début. Le film monté est donc sous licence **CC BY-SA 4.0**. Les licences demandent de citer chaque auteur : c’est fait sur la page « Crédits » (le lien « Film fait d’extraits de Wikimedia Commons » en bas du premier écran y mène). Ne retirez pas `credits` de `content/brand.js` → `film` tant que ces plans sont utilisés.
 
 | Fichier | Format | Utilisé sur |
 |---|---|---|
-| `casablanca-portrait.mp4` / `.webm` / `.jpg` | vertical 720 × 1280, 12 s | téléphones |
-| `casablanca.mp4` / `.webm` / `.jpg` | horizontal 1280 × 720, 12 s | ordinateurs et tablettes |
+| `morocco-portrait.mp4` / `.webm` / `.jpg` | vertical 720 × 1280, 20 s | téléphones |
+| `morocco.mp4` / `.webm` / `.jpg` | horizontal 1280 × 720, 20 s | ordinateurs et tablettes |
 
 - Le MP4 (H.264) sert aux iPhone et à la plupart des navigateurs ; le WebM (VP9) sert à ceux qui ne lisent pas le H.264. Le `.jpg` est la première image du film : il s’affiche tout de suite, puis le film prend le relais sans saut.
-- Le film passe sur l’accueil et sur les guides de Casablanca (`film: 'brand'` dans `content/cities/casablanca.js`). Marrakech et Martil n’ont pas encore de film (`film: null`) : un décor dessiné s’affiche (`scene: 'plain'` ou `'sea'`). Ne mettez jamais le film de Casablanca sur une autre ville.
-- Le crédit « Film @mr_enissay » apparaît en bas de la page. Pour le retirer, mettez `credit: null` dans `content/brand.js` → `film`. Le créateur a donné son accord pour un guide de Casablanca : confirmez avec lui qu’il accepte aussi l’accueil Darna Collection.
+- Le film passe sur l’accueil et sur les guides des trois villes (`film: 'brand'` dans `content/cities/<ville>.js`). Avec `film: null`, une ville montre seulement son décor dessiné (`scene`).
 - Pour les voyageurs en mode économie de données ou avec les animations réduites, seule l’image fixe s’affiche.
 
-Pour remplacer le film : mêmes noms de fichiers, 10 à 20 secondes, **sans son** (les navigateurs ne lancent automatiquement que les vidéos muettes), moins de 6 Mo par fichier, plans sombres (le titre est posé dessus). Exemple :
-`ffmpeg -i source.mov -vf scale=720:-2 -an -c:v libx264 -crf 26 -preset slow -movflags +faststart casablanca-portrait.mp4`
-puis `ffmpeg -i casablanca-portrait.mp4 -c:v libvpx-vp9 -b:v 0 -crf 37 casablanca-portrait.webm` et `ffmpeg -i casablanca-portrait.mp4 -frames:v 1 -q:v 5 casablanca-portrait.jpg`.
+**Refaire ou changer le film.** Les vidéos sources ne sont pas gardées dans le dépôt (trop lourdes).
+1. Chercher des vidéos : GitHub → Actions → **Film sources** → Run workflow, champ `files` vide. La branche `film-sources` reçoit `candidates.jpg` (six images de chaque vidéo libre trouvée, avec auteur et licence) et `candidates.json`. Le script écarte les licences non libres, les vidéos signalées comme montrant des personnes identifiables et celles proposées à la suppression ; vérifiez quand même chaque plan à l’œil (visages, plaques, logos, texte).
+2. Télécharger celles choisies : relancer avec `files` = les noms séparés par `|`, avec `#début-fin` en secondes pour n’en garder qu’un passage. Pour le film actuel :
+   `File:Djemaa el Fna Marrakech Morocco.webm|File:Morocco Chefchaouen.webm|File:How Nomads prepare Moroccan tea.webm#31-50|File:Plane landing at Tangier airport over Sidi Kacem beach.webm#4-40`
+   La branche `film-sources` reçoit alors `src/*.mp4` et `sources.json` (auteurs, licences, liens).
+3. Monter : récupérer cette branche (`git fetch origin film-sources && git archive origin/film-sources | tar -x -C ../film`), décrire les plans dans `tools/film.json` (fichier, début et fin, cadrage `x`/`y` pour le recadrage vertical, `speed`, `grade`, et un réglage propre à une version avec `"landscape": {...}` ou `"portrait": {...}`), puis :
+   `python3 tools/make-film.py tools/film.json ../film/src`
+   Il faut ffmpeg (avec libx264 et libvpx-vp9). Le script écrit les six fichiers de `assets/video/`. Visez environ 3 Mo par fichier (`h264` et `vp9` dans `tools/film.json` : plus haut = plus léger). Un film **sans son**, plans assez sombres en bas (les boutons sont posés dessus).
+4. Mettre à jour `credits` dans `content/brand.js` → `film` avec les auteurs de `sources.json`, dans l’ordre du film.
 
 ## Typographie
 

@@ -47,10 +47,21 @@ window.CASA = window.CASA || {};
     // The film behind the first screen, in two cuts: vertical for phones, wide for
     // tablets and computers. Each cut comes as MP4 (H.264, for iPhone) and WebM (VP9);
     // the browser plays the first it supports. The poster is the film's first frame.
-    video: { mp4: 'assets/video/casablanca.mp4', webm: 'assets/video/casablanca.webm', poster: 'assets/video/casablanca.jpg' },
-    videoPortrait: { mp4: 'assets/video/casablanca-portrait.mp4', webm: 'assets/video/casablanca-portrait.webm', poster: 'assets/video/casablanca-portrait.jpg' },
-    // Credit shown at the bottom of the page. Set to null to hide it.
-    credit: { name: '@mr_enissay', url: 'https://www.instagram.com/mr_enissay/' }
+    // Cut by tools/make-film.py (shots in tools/film.json) from open-licence clips.
+    video: { mp4: 'assets/video/morocco.mp4', webm: 'assets/video/morocco.webm', poster: 'assets/video/morocco.jpg' },
+    videoPortrait: { mp4: 'assets/video/morocco-portrait.mp4', webm: 'assets/video/morocco-portrait.webm', poster: 'assets/video/morocco-portrait.jpg' },
+    // Each clip, in the film's order, listed on the credits page (the licences ask for it).
+    // The bottom of the first screen links there.
+    credits: [
+      { title: 'Djemaa el Fna, Marrakech', url: 'https://commons.wikimedia.org/wiki/File:Djemaa_el_Fna_Marrakech_Morocco.webm',
+        by: 'Boris Macek', lic: 'CC BY-SA 3.0', licUrl: 'https://creativecommons.org/licenses/by-sa/3.0' },
+      { title: 'Chefchaouen', url: 'https://commons.wikimedia.org/wiki/File:Morocco_Chefchaouen.webm',
+        by: 'TaylorBux1', lic: 'CC0', licUrl: 'https://creativecommons.org/publicdomain/zero/1.0/' },
+      { title: 'How Nomads prepare Moroccan tea', url: 'https://commons.wikimedia.org/wiki/File:How_Nomads_prepare_Moroccan_tea.webm',
+        by: 'مصطفى ملو', lic: 'CC BY-SA 4.0', licUrl: 'https://creativecommons.org/licenses/by-sa/4.0' },
+      { title: 'Sidi Kacem beach, Tangier', url: 'https://commons.wikimedia.org/wiki/File:Plane_landing_at_Tangier_airport_over_Sidi_Kacem_beach.webm',
+        by: 'Ideophagous', lic: 'CC0', licUrl: 'https://creativecommons.org/publicdomain/zero/1.0/' }
+    ]
   };
 
   CASA.brand = {
@@ -63,7 +74,7 @@ window.CASA = window.CASA || {};
       whatsapp: '+212600600486'
     },
 
-    // The film of the home screen. Casablanca holds four of the six places.
+    // The film of the home screen and of every city (film: 'brand' in content/cities/<city>.js).
     film: film,
 
     cities: [

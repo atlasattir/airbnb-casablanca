@@ -688,6 +688,9 @@
     state.film = film;
     var credit = film.credit, creditEl = byId('film-credit'), link = byId('film-credit-link');
     if (creditEl && link && film.credits && film.credits.length) {
+      var lead = creditEl.querySelector('[data-i18n]');
+      if (lead) { lead.setAttribute('data-i18n', 'filmFrom'); lead.textContent = ui('filmFrom'); }
+      link.setAttribute('data-i18n', 'filmCommons');
       link.textContent = ui('filmCommons');
       link.href = '#credits';
       link.setAttribute('data-open', 'credits');

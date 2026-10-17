@@ -20,7 +20,8 @@ CASA.cities.martil = {
   name: { fr: 'Martil', en: 'Martil', ar: 'مرتيل', es: 'Martil' },
   // Used by the airport-transfer service: "Un chauffeur depuis {airport}"
   airport: { fr: 'l’aéroport de Tétouan ou de Tanger', en: 'Tétouan or Tangier airport', ar: 'مطار تطوان أو طنجة', es: 'el aeropuerto de Tetuán o Tánger' },
-  film: null,
+  // film: 'brand' plays the Morocco film of content/brand.js; null shows the drawing (scene) only.
+  film: 'brand',
   scene: 'sea',
 
   /* No sight, beach, restaurant or café below is confirmed within ~15 minutes

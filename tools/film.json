@@ -1,0 +1,16 @@
+{
+ "name": "morocco",
+ "fade": 0.8,
+ "h264": 30,
+ "vp9": 41,
+ "shots": [
+  {"src": "djemaa-el-fna-marrakech-morocco.mp4", "start": 1.5, "end": 7.5, "x": 0.48, "y": 0.5, "speed": 0.9,
+   "grade": "eq=contrast=1.05:saturation=1.12:brightness=0.02"},
+  {"src": "morocco-chefchaouen.mp4", "start": 0.3, "end": 5.0, "x": 0.5, "y": 0.5, "speed": 0.9},
+  {"src": "how-nomads-prepare-moroccan-tea-31_50.mp4", "start": 1.0, "end": 5.2, "x": 0.6, "y": 0.5},
+  {"src": "how-nomads-prepare-moroccan-tea-31_50.mp4", "start": 12.0, "end": 14.6, "x": 0.62, "y": 0.5,
+   "landscape": {"zoom": 0.72, "x": 0.45, "y": 0.62}},
+  {"src": "plane-landing-at-tangier-airport-over-sidi-kacem-4_40.mp4", "start": 3.0, "end": 7.8, "x": 0.5, "y": 0.5, "speed": 0.85,
+   "grade": "eq=contrast=1.06:saturation=1.15"}
+ ]
+}
