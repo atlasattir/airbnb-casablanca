@@ -102,7 +102,8 @@ def derivative(p, best=1080):
         m = re.match(r'(\d+)p\.vp9\.webm', d.get('transcodekey', ''))
         if m and int(m.group(1)) <= best:
             out.append((int(m.group(1)), d['src']))
-    if out:
+    # When Commons has no large copy (only 480p, say), the original file itself, if it is not huge
+    if out and (max(out)[0] >= min(best, 720) or (vi.get('width') or 0) > 2560):
         return max(out)[1]
     return vi['url']
 
