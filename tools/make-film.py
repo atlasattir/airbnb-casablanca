@@ -2,9 +2,10 @@
 """
 Cuts the guide's background film from open-licence clips (see tools/film-sources.py).
 
-    python3 tools/make-film.py tools/film.json <folder with the source clips> [portrait|landscape]
+    python3 tools/make-film.py tools/films/morocco.json <folder with the sources> [portrait|landscape]
 
-tools/film.json lists the shots, in order:
+tools/films/<name>.json lists the shots, in order (morocco: the home; casablanca, marrakech,
+martil: each city's own pages):
     {"name": "morocco", "fade": 0.8,   # seconds of each cross-fade
      "h264": 30, "vp9": 41,            # compression (higher = lighter files, softer picture)
      "shots": [
@@ -12,7 +13,10 @@ tools/film.json lists the shots, in order:
          "x": 0.5,     # where to centre the vertical (phone) crop, 0 = left edge, 1 = right edge
          "y": 0.5,     # where to centre the wide crop, 0 = top, 1 = bottom
          "speed": 0.8, # 0.8 = slowed down a little
-         "landscape": {"zoom": 0.8}}  # for the wide cut only: a closer crop (also "portrait": {...})
+         "landscape": {"zoom": 0.8}},  # for the wide cut only: a closer crop (also "portrait": {...})
+        {"image": "le-phare-d-el-hank.jpg", "dur": 5,   # a photo, with a slow camera move:
+         "from": [0.5, 0.6, 1.0],                      # centre x, centre y (0 to 1) and zoom at the start,
+         "to": [0.5, 0.45, 1.15]}                      # and at the end (1 = the widest view)
     ]}
 Writes assets/video/<name>-portrait.{mp4,webm,jpg} (720 × 1280, phones) and
 assets/video/<name>.{mp4,webm,jpg} (1280 × 720, tablets and computers): no sound,
@@ -45,8 +49,36 @@ def frames(f):
     return int(json.loads(r.stdout)['streams'][0]['nb_read_frames']) / 30.0
 
 
+def still(spec, src_dir, work, kind, i, tw, th):
+    """A photo with a slow camera move: each frame cut from the full-size photo, so the move is smooth."""
+    from PIL import Image
+    im = Image.open(os.path.join(src_dir, spec['image'])).convert('RGB')
+    W, H = im.size
+    cw0, ch0 = (H * tw / th, H) if W / H > tw / th else (W, W * th / tw)
+    a, b = spec.get('from', [0.5, 0.5, 1.0]), spec.get('to', [0.5, 0.5, 1.1])
+    n = int(round(spec.get('dur', 5) * 30))
+    out = os.path.join(work, '%s_%02d.mp4' % (kind, i))
+    grade = spec.get('grade', 'eq=contrast=1.04:saturation=1.06')
+    enc = subprocess.Popen(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (tw, th), '-r', '30',
+                            '-i', '-', '-vf', grade + ',format=yuv420p', '-c:v', 'libx264', '-crf', '12', '-preset', 'veryfast', out], stdin=subprocess.PIPE)
+    for f in range(n):
+        k = f / max(n - 1, 1)
+        cx, cy, z = [a[j] + (b[j] - a[j]) * k for j in range(3)]
+        cw, ch = cw0 / z, ch0 / z
+        x0 = min(max(cx * W - cw / 2, 0), W - cw)
+        y0 = min(max(cy * H - ch / 2, 0), H - ch)
+        enc.stdin.write(im.resize((tw, th), Image.LANCZOS, box=(x0, y0, x0 + cw, y0 + ch)).tobytes())
+    enc.stdin.close()
+    if enc.wait():
+        raise RuntimeError('ffmpeg failed on ' + spec['image'])
+    return out
+
+
 def shot(spec, src_dir, work, kind, i):
     spec = dict(spec, **spec.get(kind, {}))  # "portrait": {...} or "landscape": {...} change a shot for one cut only
+    if 'image' in spec:
+        tw, th = (720, 1280) if kind == 'portrait' else (1280, 720)
+        return still(spec, src_dir, work, kind, i, tw, th)
     src = os.path.join(src_dir, spec['src'])
     w, h = probe(src)
     tw, th = (720, 1280) if kind == 'portrait' else (1280, 720)

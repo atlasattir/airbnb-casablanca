@@ -259,15 +259,8 @@ STILL = re.compile(r'\.(jpe?g|png|tiff?)$', re.I)
 
 def stills(out, titles):
     """Photos for slow camera moves in the film: large (up to 3840 px), with the same rules as the guide's photos."""
-    fp.FILE_PROPS['iiurlwidth'] = '3840'
+    fp.FILE_PROPS['iiurlwidth'] = '3840'  # Commons serves resized copies up to 3840 px wide
     found = fp.info(titles)
-    # A panorama (much wider than tall) is fetched wider, so that it stays at least 1800 px tall for the phone cut
-    for t, p in list(found.items()):
-        ii = (p or {}).get('imageinfo', [{}])[0]
-        if ii.get('width', 0) > 2.2 * ii.get('height', 1):
-            fp.FILE_PROPS['iiurlwidth'] = str(min(ii['width'], int(1800 * ii['width'] / ii['height'])))
-            found.update(fp.info([t]))
-    fp.FILE_PROPS['iiurlwidth'] = '3840'
     got = []
     for t, p in found.items():
         why = 'not found' if not p else fp.usable(p)
@@ -277,7 +270,13 @@ def stills(out, titles):
         e = fp.describe(p)
         name = fp.slug(p['title']) + '.jpg'
         from PIL import Image, ImageOps
-        im = ImageOps.exif_transpose(Image.open(io.BytesIO(fp.get(e['thumb'] or p['imageinfo'][0]['url'])))).convert('RGB')
+        ii = p['imageinfo'][0]
+        # A panorama (much wider than tall) comes from the original file, so that it stays tall enough for the phone cut
+        pano = ii.get('width', 0) > 2.2 * ii.get('height', 1)
+        Image.MAX_IMAGE_PIXELS = 200_000_000
+        im = ImageOps.exif_transpose(Image.open(io.BytesIO(fp.get(ii['url'] if pano else (e['thumb'] or ii['url']))))).convert('RGB')
+        if pano and im.height > 2000:
+            im = im.resize((round(im.width * 2000 / im.height), 2000), Image.LANCZOS)
         im.save(out + '/src/' + name, quality=92)  # no EXIF kept
         got.append({'file': p['title'], 'url': e['url'], 'by': e['by'], 'lic': e['lic'], 'licUrl': e['licUrl'], 'title': e['title'],
                     'src': 'src/' + name, 'size': '%dx%d' % im.size, 'still': True})

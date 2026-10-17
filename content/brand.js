@@ -47,7 +47,7 @@ window.CASA = window.CASA || {};
     // The film behind the first screen, in two cuts: vertical for phones, wide for
     // tablets and computers. Each cut comes as MP4 (H.264, for iPhone) and WebM (VP9);
     // the browser plays the first it supports. The poster is the film's first frame.
-    // Cut by tools/make-film.py (shots in tools/film.json) from open-licence clips.
+    // Cut by tools/make-film.py (shots in tools/films/morocco.json) from open-licence clips.
     video: { mp4: 'assets/video/morocco.mp4', webm: 'assets/video/morocco.webm', poster: 'assets/video/morocco.jpg' },
     videoPortrait: { mp4: 'assets/video/morocco-portrait.mp4', webm: 'assets/video/morocco-portrait.webm', poster: 'assets/video/morocco-portrait.jpg' },
     // Each clip, in the film's order, listed on the credits page (the licences ask for it).
