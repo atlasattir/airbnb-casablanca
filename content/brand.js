@@ -117,7 +117,7 @@ window.CASA = window.CASA || {};
         icon: 'key', tint: '#8A6A3A', photo: 'sunset-elhank', lat: 33.60, lng: -7.64, approx: true,
         facts: [fact.studios(8), fact.balcony, fact.ac] },
       { id: 'pestana', name: 'Darna Pestana', title: ['Pestana'], city: 'casablanca', area: 'ain-diab', kind: 'apartment',
-        icon: 'waves', tint: '#1D4C49', photo: 'aindiab', lat: 33.60, lng: -7.67, approx: true,
+        icon: 'waves', tint: '#1D4C49', photo: 'pestana-view', lat: 33.60, lng: -7.67, approx: true,
         facts: [fact.seaview, fact.bedrooms(1), fact.balcony] },
       { id: 'dar-bouazza', name: 'Darna Dar Bouazza', title: ['Dar', 'Bouazza'], city: 'casablanca', area: 'dar-bouazza', kind: 'apartment',
         icon: 'palm', tint: '#4F6650', photo: 'darbouazza', lat: 33.53, lng: -7.82, approx: true,

@@ -492,6 +492,23 @@
   "url": "https://commons.wikimedia.org/wiki/File:Casablanca,_Morocco_at_night,_November_2023_-_Corner_building.jpg",
   "w": 1280
  },
+ "casablanca/pestana-view": {
+  "auto": false,
+  "by": "Pestana Hotel Group",
+  "file": "https://www.pestana.com/content/dam/pestana/en_us/destinations/morocco/casablanca/pestana-casablanca/gallery/overview/pestana-casablanca-gallery-surroundings-beach.jpg",
+  "h": 896,
+  "lic": "©",
+  "notes": [
+   "with permission"
+  ],
+  "sel": "{\"category\": null, \"crop\": [0, 0, 1, 0.86], \"files\": null, \"permitted\": {\"by\": \"Pestana Hotel Group\", \"page\": \"https://www.pestana.com/en/hotel/pestana-casablanca/gallery\", \"title\": \"Pestana Casablanca, the Corniche and the beach\", \"url\": \"https://www.pestana.com/content/dam/pestana/en_us/destinations/morocco/casablanca/pestana-casablanca/gallery/overview/pestana-casablanca-gallery-surroundings-beach.jpg\"}, \"search\": null}",
+  "sm": "assets/img/photos/casablanca/pestana-view-be16ca-crop-sm.jpg?v=be16ca88c",
+  "smw": 1018,
+  "src": "assets/img/photos/casablanca/pestana-view-be16ca-crop.jpg?v=be16ca88c",
+  "title": "Pestana Casablanca, the Corniche and the beach",
+  "url": "https://www.pestana.com/en/hotel/pestana-casablanca/gallery",
+  "w": 2036
+ },
  "casablanca/playground": {
   "auto": false,
   "by": "Selbymay",
