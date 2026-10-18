@@ -277,7 +277,7 @@
       "cafes": "cafe-terrace-view",
       "souks": "haddadine",
       "experiences": "balloons",
-      "family": "carousel",
+      "family": "jnane-harti",
       "itineraries": "jemaa",
       "transport": "taxis"
     },
@@ -492,11 +492,10 @@
         "File:Ciel d'Afrique,luchtballon in marrakech, globo en marrakech, ballonfährt marrakesch, luftballon marrakeschballonvaart in marrakech,.JPG"
       ]
     },
-    "carousel": {
+    "jnane-harti": {
       "files": [
-        "File:ManègeLR1.jpg"
-      ],
-      "illustr": true
+        "File:Jnane El-Harti - Playground 01.jpg"
+      ]
     },
     "taxis": {
       "files": [
@@ -834,7 +833,7 @@
     },
     "tap": {
       "files": [
-        "File:Tap-gb0fe5d2cc 1920.jpg"
+        "File:Kitchen water tap 20190408.jpg"
       ],
       "illustr": true
     },

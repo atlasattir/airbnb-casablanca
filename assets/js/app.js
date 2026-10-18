@@ -519,7 +519,8 @@
       var n = APT.wifi && APT.wifi.network;
       return n && !isTodo(n) ? '<span dir="ltr">' + esc(n) + '</span>' : DRAFT ? '' : esc(ui('wifiOnCard'));
     }
-    if (id === 'stay') return '<span dir="ltr">' + esc(APT.checkin.time) + ' · ' + esc(APT.checkout.time) + '</span>';
+    // Each time isolated, not the pair: in Arabic arrival then departure read right to left, like the title
+    if (id === 'stay') return '<span><bdi>' + esc(APT.checkin.time) + '</bdi> · <bdi>' + esc(APT.checkout.time) + '</bdi></span>';
     if (id === 'assistance') return '<span dir="ltr">19 · 15 · 177</span>';
     var s = SECTIONS[id];
     var shown = (s.items || []).filter(function (it) { return DRAFT || it.kind !== 'placeholder'; }).length;
