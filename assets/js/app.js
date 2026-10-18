@@ -372,6 +372,34 @@
   function waHello() { return MODE === 'stay' ? ui('waHello') : ui('waHelloHome'); }
   function requestLink(what) { return waLink(ui('waRequest') + fill(tr(what))); }
   function ext(href) { return ' href="' + esc(href) + '" target="_blank" rel="noopener"'; }
+  // Map buttons keep their Google link (to copy, share or open anywhere); see openMapsApp for Android
+  function mapLink(href) { return ext(href) + ' data-maps'; }
+
+  /* Samsung Internet keeps Google Maps links on the website by default, and a guide installed from
+     Chrome opens them in a browser view: there a tap asks for the Google Maps app itself (an intent
+     link), the website being the fallback. Other browsers keep the plain link. */
+  function wantsMapsApp() {
+    var ua = window.navigator.userAgent || '';
+    if (/SamsungBrowser/i.test(ua)) return !/Windows/i.test(ua);  // phones, and tablets in desktop mode
+    return isStandalone() && /Android/i.test(ua) && /Chrome\/\d/.test(ua) &&
+      !/HuaweiBrowser|HarmonyOS|HeyTapBrowser|MiuiBrowser|XiaoMi|UCBrowser|YaBrowser|OPR\/|EdgA|Firefox/i.test(ua);
+  }
+  function openMapsApp(href) {
+    var m = /^https:\/\/([^#]+)$/.exec(href), left = false;
+    if (!m) { window.open(href, '_blank', 'noopener'); return; }
+    function gone() { left = true; }
+    document.addEventListener('visibilitychange', gone);
+    window.addEventListener('pagehide', gone);
+    window.location.href = 'intent://' + m[1] + '#Intent;scheme=https;package=com.google.android.apps.maps;S.browser_fallback_url=' +
+      encodeURIComponent(href) + ';end';
+    // Samsung Internet has been seen to hang instead of using the fallback when the app is missing:
+    // still on the guide a moment later, open the website
+    window.setTimeout(function () {
+      document.removeEventListener('visibilitychange', gone);
+      window.removeEventListener('pagehide', gone);
+      if (!left && !document.hidden) window.location.href = href;
+    }, 2500);
+  }
   function stayHref(s) { return './?stay=' + encodeURIComponent(s.id); }
 
   /* ---------- favourites (kept per city) ---------- */
@@ -946,7 +974,7 @@
         }).join('') + '</ul></div>';
     }
     var actions = '';
-    if (it.maps) actions += '<a class="btn btn--go"' + ext(mapsDir(it.maps, isNear(it) ? 'walking' : '')) + '>' + icon('nav') + '<span>' + esc(ui('go')) + '</span></a>';
+    if (it.maps) actions += '<a class="btn btn--go"' + mapLink(mapsDir(it.maps, isNear(it) ? 'walking' : '')) + '>' + icon('nav') + '<span>' + esc(ui('go')) + '</span></a>';
     if (it.request) actions += '<a class="btn btn--go"' + ext(requestLink(it.request)) + '>' + icon('chat') + '<span>' + esc(ui('askHost')) + '</span></a>';
     if (!it.kind) actions += favButton(it.id);
     return detailArt(it, s.icon) + '<div class="d-body">' +
@@ -998,14 +1026,14 @@
     var stops = r.stops.map(function (st) {
       return '<li' + (typeof st.rel === 'number' && st.rel > -30 && st.rel < 0 ? ' class="is-sunset"' : '') + '><time>' + esc(stopTime(st)) + '</time>' +
         '<div class="stop"><h3 class="stop__title">' + txt(st.title) + '</h3>' + (st.text ? '<p class="stop__text">' + txt(st.text) + '</p>' : '') + '</div>' +
-        (st.maps ? '<a class="go-mini"' + ext(mapsDir(st.maps, r.mode)) + ' aria-label="' + esc(ui('directions')) + '">' + icon('nav') + '</a>' : '<span></span>') + '</li>';
+        (st.maps ? '<a class="go-mini"' + mapLink(mapsDir(st.maps, r.mode)) + ' aria-label="' + esc(ui('directions')) + '">' + icon('nav') + '</a>' : '<span></span>') + '</li>';
     }).join('');
     var ph = photoFor(r);
     return (ph ? '<figure class="art d-art art--photo">' + routeLine(r.stops.length) + photoImg(ph, '(min-width: 700px) 640px, 100vw', true) + photoCredit(ph) + '</figure>' :
       '<div class="art d-art">' + routeLine(r.stops.length) + '</div>') + '<div class="d-body">' +
       '<h2 class="d-title" id="modal-title">' + txt(r.title) + '</h2>' + routePills(r) +
       '<ol class="timeline">' + stops + '</ol>' +
-      '<div class="d-actions"><a class="btn btn--go"' + ext(routeUrl(r)) + '>' + icon('map') + '<span>' + esc(ui('openRoute')) + '</span></a></div></div>';
+      '<div class="d-actions"><a class="btn btn--go"' + mapLink(routeUrl(r)) + '>' + icon('map') + '<span>' + esc(ui('openRoute')) + '</span></a></div></div>';
   }
 
   /* practical blocks (transport, help) */
@@ -1124,7 +1152,7 @@
           n.drive ? '<span class="near-tile__walk">' + icon('car') + '<span>' + n.drive + ' min</span></span>' : '');
       // Directions on foot, unless the tile gives a drive time or the place is reached by car (travel: 'driving')
       var mode = n.walk ? 'walking' : n.drive ? 'driving' : (APT.travel || 'walking');
-      return n.maps ? '<a class="itile near-tile rise"' + d(i) + ext(mapsDir(n.maps, mode)) + '>' + inner + '</a>' :
+      return n.maps ? '<a class="itile near-tile rise"' + d(i) + mapLink(mapsDir(n.maps, mode)) + '>' + inner + '</a>' :
         '<div class="itile near-tile rise"' + d(i) + '>' + inner + '</div>';
     }).join('') + '</div>';
   }
@@ -1149,7 +1177,7 @@
       (addr.ar && !isTodo(addr.ar) ? '<p class="address__ar" lang="ar" dir="rtl">' + esc(addr.ar) + '</p>' : '') +
       '<p class="address__note">' + icon('lock') + '<span>' + esc(ui('privateNote')) + '</span></p></section>' +
       '<div class="stack rise"' + d(1) + '>' +
-      '<a class="btn btn--go btn--wide"' + ext(aptLink()) + '>' + icon('map') + '<span>' + esc(ui('openMaps')) + '</span></a>' +
+      '<a class="btn btn--go btn--wide"' + mapLink(aptLink()) + '>' + icon('map') + '<span>' + esc(ui('openMaps')) + '</span></a>' +
       (line ? '<button class="btn btn--wide" type="button" data-copy="' + esc(line) + '">' + icon('copy') + '<span>' + esc(ui('copyAddress')) + '</span></button>' : '') +
       (line || (addr.ar && !isTodo(addr.ar)) ? '<button class="btn btn--wide" type="button" data-taxi>' + icon('car') + '<span>' + esc(ui('showDriver')) + '</span></button>' : '') + '</div>';
   }
@@ -1388,6 +1416,8 @@
   /* ---------- events ---------- */
 
   document.addEventListener('click', function (e) {
+    var map = e.target.closest && e.target.closest('a[data-maps]');
+    if (map && wantsMapsApp()) { e.preventDefault(); openMapsApp(map.href); return; }
     var t = e.target.closest && e.target.closest('[data-open],[data-locate],[data-open-detail],[data-modal-close],[data-lang],[data-fav],[data-chip],[data-copy],[data-taxi],[data-tab],[data-check],[data-howto]');
     if (!t) return;
     if (t.hasAttribute('data-open')) { stepIn(t.getAttribute('href')); return; }
