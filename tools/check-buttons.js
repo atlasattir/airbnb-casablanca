@@ -63,9 +63,14 @@ function signature() {
 
 async function tapAll(ctx, label, url, results) {
   const page = await ctx.newPage();
-  // Asked again once: a late tap from the screen before can still be navigating away
+  // Until the guide is drawn, not the page's load event: the film holds that back until its first
+  // frame, which WebKit without a graphics card can take a minute to decode. Asked again once: a
+  // late tap from the screen before can still be navigating away
   const fresh = async () => {
-    await page.goto(url, { waitUntil: 'load', timeout: 60000 }).catch(() => page.goto(url, { waitUntil: 'load', timeout: 60000 }));
+    const open = () => page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await open().catch(open);
+    await page.waitForFunction(() => document.documentElement.classList.contains('is-ready') && document.querySelector('.tile, .city-chip'),
+      null, { timeout: 30000 }).catch(() => {});
     await page.waitForTimeout(1100);
   };
   await fresh();
