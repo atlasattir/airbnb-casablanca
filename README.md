@@ -163,13 +163,15 @@ Le dépôt est public : GitHub l’héberge gratuitement. Une seule fois :
 2. Dans **Build and deployment** → **Source**, choisissez **Deploy from a branch**.
 3. Branche **`claude/great-newton-e86pup`**, dossier **`/ (root)`**, puis **Save**.
 4. Une à deux minutes plus tard, le guide est en ligne à l’adresse :
-   **https://atlasattir.github.io/airbnb-casablanca/**
+   **https://atlasattir.github.io/airbnb-casablanca/**, qui renvoie maintenant vers **https://darnacollection.ma/** (ci-dessous).
 
 Ensuite, chaque modification envoyée sur cette branche met le site à jour automatiquement.
 
 Autres options gratuites : Netlify (glissez le dossier sur [app.netlify.com/drop](https://app.netlify.com/drop)), Vercel ou Cloudflare Pages (importez le dépôt, sans commande de build).
 
 ### Le nom de domaine (darnacollection.ma)
+
+**Fait le 18 octobre 2026** : le guide est à https://darnacollection.ma/ (HTTPS imposé) ; github.io y renvoie. Les étapes, pour mémoire ou pour refaire :
 
 Le guide marche à l’adresse github.io comme à la racine d’un domaine. Pour relier darnacollection.ma, dans cet ordre :
 
@@ -187,7 +189,7 @@ darnacollection.com ne peut pas être ajouté à GitHub Pages (un seul domaine p
 
 ## Une fois en ligne
 
-1. **Carte de chaque logement** : ouvrez `https://atlasattir.github.io/airbnb-casablanca/card.html`, choisissez le logement, tapez le mot de passe Wi-Fi, puis imprimez au format A6 (une carte par studio ou appartement). Décidez de l’adresse définitive du site avant d’imprimer : le QR code la contient. La carte porte le QR code du guide et, si le Wi-Fi est rempli, un second QR code qui connecte le téléphone au Wi-Fi en un geste. Le mot de passe n’est enregistré nulle part.
+1. **Carte de chaque logement** : ouvrez `https://darnacollection.ma/card.html`, choisissez le logement, tapez le mot de passe Wi-Fi, puis imprimez au format A6 (une carte par studio ou appartement). Décidez de l’adresse définitive du site avant d’imprimer : le QR code la contient. La carte porte le QR code du guide et, si le Wi-Fi est rempli, un second QR code qui connecte le téléphone au Wi-Fi en un geste. Le mot de passe n’est enregistré nulle part.
 2. **Messages Airbnb** : copiez les textes de `docs/messages.md` dans les messages programmés de chaque annonce, avec le lien du logement. Le lien part 3 jours avant l’arrivée ; la carte dans le logement sert de rappel.
 3. **Hors connexion** : dès qu’un voyageur a ouvert le guide une fois, il reste consultable sans données mobiles. Après avoir renommé ou supprimé des fichiers, changez `VERSION` dans `sw.js`.
 

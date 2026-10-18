@@ -8,12 +8,12 @@ Remplacez les mots entre crochets. Dans les messages programmés, Airbnb propose
 
 | Logement | Lien du guide | `[LOGEMENT]` · `[VILLE]` |
 |---|---|---|
-| Darna Bourgogne | `https://atlasattir.github.io/airbnb-casablanca/bourgogne/` | Darna Bourgogne · Casablanca |
-| Darna B-Suites (8 studios) | `https://atlasattir.github.io/airbnb-casablanca/b-suites/` | Darna B-Suites · Casablanca |
-| Darna Pestana | `https://atlasattir.github.io/airbnb-casablanca/pestana/` | Darna Pestana · Casablanca |
-| Darna Dar Bouazza | `https://atlasattir.github.io/airbnb-casablanca/dar-bouazza/` | Darna Dar Bouazza · Dar Bouazza |
-| Darna Marrakech (3 appartements) | `https://atlasattir.github.io/airbnb-casablanca/marrakech/` | Darna Marrakech · Marrakech |
-| Darna Martil Bay | `https://atlasattir.github.io/airbnb-casablanca/martil-bay/` | Darna Martil Bay · Martil |
+| Darna Bourgogne | `https://darnacollection.ma/bourgogne/` | Darna Bourgogne · Casablanca |
+| Darna B-Suites (8 studios) | `https://darnacollection.ma/b-suites/` | Darna B-Suites · Casablanca |
+| Darna Pestana | `https://darnacollection.ma/pestana/` | Darna Pestana · Casablanca |
+| Darna Dar Bouazza | `https://darnacollection.ma/dar-bouazza/` | Darna Dar Bouazza · Dar Bouazza |
+| Darna Marrakech (3 appartements) | `https://darnacollection.ma/marrakech/` | Darna Marrakech · Marrakech |
+| Darna Martil Bay | `https://darnacollection.ma/martil-bay/` | Darna Martil Bay · Martil |
 
 Pour Darna B-Suites et Darna Marrakech, le numéro du studio ou de l’appartement et l’étage vont seulement dans le message du jour d’arrivée.
 
