@@ -123,7 +123,7 @@ window.CASA = window.CASA || {};
         icon: 'palm', tint: '#4F6650', photo: 'darbouazza', lat: 33.53, lng: -7.82, approx: true,
         facts: [fact.bedrooms(2), fact.gated, fact.parking] },
       { id: 'marrakech', name: 'Darna Marrakech', title: ['Marrakech'], city: 'marrakech', area: 'daoudiate', kind: 'apartment', units: 3,
-        icon: 'arch', tint: '#8C553C', photo: 'majorelle', lat: 31.65, lng: -8.01, approx: true,
+        icon: 'arch', tint: '#8C553C', photo: 'koutoubia-palms', lat: 31.65, lng: -8.01, approx: true,
         facts: [fact.flats(3), fact.bedrooms(2), fact.fastwifi] },
       { id: 'martil-bay', name: 'Darna Martil Bay', title: ['Martil', 'Bay'], city: 'martil', area: 'martil', kind: 'apartment',
         icon: 'pool', tint: '#2D5F8A', photo: 'martil-beach', lat: 35.62, lng: -5.28, approx: true,
