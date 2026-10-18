@@ -121,6 +121,13 @@ async function tapAll(ctx, label, url, results) {
   // The guide's own hosts, never stubbed: BASE's, and the domain github.io sends to once it has one
   const OWN = new Set(['localhost', '127.0.0.1', new URL(BASE).hostname]);
   await fetch(BASE).then(r => OWN.add(new URL(r.url).hostname), () => { /* offline: BASE only */ });
+  // The version to test: wait up to 5 minutes for GitHub Pages to publish this checkout's app.js
+  const want = fs.readFileSync(path.join(ROOT, 'assets/js/app.js'), 'utf8');
+  for (let t = 0; t < 20; t++) {
+    if (await fetch(BASE + 'assets/js/app.js?v=' + Date.now()).then(r => r.text(), () => '') === want) break;
+    if (t === 19) console.log('· the live app.js is not this checkout\'s: testing what is published');
+    else await new Promise(r => setTimeout(r, 15000));
+  }
   const browser = await pw[ENGINE].launch();
   const states = [['home', '']];
   for (const c of ['casablanca', 'marrakech', 'martil']) states.push(['home #' + c, '#' + c]);

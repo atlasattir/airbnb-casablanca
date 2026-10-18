@@ -54,9 +54,15 @@ async function status(url) {
     got.filter(([, s]) => s !== 200).forEach(([f, s]) => missing.push(f + ' (' + s + ')'));
   }
   ok(!missing.length, list.length + ' files online (photos, films, scripts, offline files)' + (missing.length ? ': missing ' + missing.slice(0, 12).join(', ') : ''));
+  // Asked again for up to 5 minutes: GitHub Pages takes a minute or two to publish a change
   for (const rel of ['content/photos.js', 'assets/js/app.js', 'content/brand.js']) {
-    const live = await fetch(BASE + rel).then(r => r.text()).catch(() => '');
-    ok(live === fs.readFileSync(path.join(ROOT, rel), 'utf8'), 'the live ' + rel + ' is the latest version');
+    const want = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+    let live = '';
+    for (let t = 0; t < 20 && live !== want; t++) {
+      if (t) await new Promise(r => setTimeout(r, 15000));
+      live = await fetch(BASE + rel + '?v=' + Date.now()).then(r => r.text()).catch(() => '');
+    }
+    ok(live === want, 'the live ' + rel + ' is the latest version');
   }
 
   // 2. On phones: the home, then every place and every page of it
