@@ -284,6 +284,20 @@
         "File:Tadoussac - Playground slide.jpg"
       ],
       "illustr": true
+    },
+    "pestana-view": {
+      "permitted": {
+        "url": "https://www.pestana.com/content/dam/pestana/en_us/destinations/morocco/casablanca/pestana-casablanca/gallery/overview/pestana-casablanca-gallery-surroundings-beach.jpg",
+        "page": "https://www.pestana.com/en/hotel/pestana-casablanca/gallery",
+        "by": "Pestana Hotel Group",
+        "title": "Pestana Casablanca, the Corniche and the beach"
+      },
+      "crop": [
+        0,
+        0,
+        1,
+        0.86
+      ]
     }
   },
   "marrakech": {
