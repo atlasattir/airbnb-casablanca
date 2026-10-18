@@ -100,6 +100,31 @@ for (const [id, c] of Object.entries(C.cities || {})) {
   else if (c.film && typeof c.film === 'object') checkFilm(c.film, 'content/cities/' + id + '.js');
 }
 
+// Réserver: each place's booking links go to that site's own pages, over https (a typo, or a
+// look-alike site, would send guests elsewhere with their card details), and never name a flat
+// (its number, and its calendar: when it is empty). The sites' own addresses only, not airbnb.cm,
+// airbnb.com.de or admin.booking.com (the hosts' side)
+const SITES = {
+  airbnb: /^(www\.|[a-z]{2}\.)?airbnb\.(com|fr|es|de|it|nl|be|ch|pt|ie|at|ca|co\.uk|com\.au)$/, booking: /^(www\.|m\.)?booking\.com$/,
+  vrbo: /^(www\.)?vrbo\.com$/, expedia: /^(www\.)?expedia\.(com|fr|es|de|it|ca|co\.uk|com\.au)$/, agoda: /^(www\.)?agoda\.com$/,
+  mubawab: /^(www\.)?mubawab\.ma$/, avito: /^(www\.)?avito\.ma$/ };
+// A flat's number in the link (studio-4, Darna_Studio_4, appartement-n-12, n°3), not a size (apartment-2-bedrooms)
+const UNIT = /(?<![a-z])(studio|flat|appart(ement)?|apartment|appt?|unit|porte|door|n[o°º]?|num[eé]ro)[-_ .#°]*\d+(?![-_ ]*(bed|chambre|pi[eè]ce|room|lit|pers))/i;
+for (const s of B.stays || []) {
+  for (const [site, url] of Object.entries(s.book || {})) {
+    if (!SITES[site]) { fail(s.id + ': booking site "' + site + '" is unknown (' + Object.keys(SITES).join(', ') + ')'); continue; }
+    if (!url) continue;
+    let u = null, where = '';
+    try { u = new URL(url); where = decodeURIComponent(u.pathname + u.search); } catch (e) { where = u ? u.pathname + u.search : ''; }
+    // Read as the page reads it (a link shows only if it starts with https://), nothing hidden in it
+    if (!u || !/^https:\/\/\S+$/.test(url) || u.username || u.password || u.port || !SITES[site].test(u.hostname))
+      fail(s.id + ': the ' + site + ' link is not an https address on ' + site + ' (' + url + ')');
+    else if (UNIT.test(where)) fail(s.id + ': the ' + site + ' link seems to name a flat or studio: use the place\'s or the host\'s page (' + url + ')');
+    else if (s.units > 1 && site === 'airbnb' && !/^\/users\/(show|profile)\//.test(u.pathname))
+      fail(s.id + ': ' + s.units + ' flats: the airbnb link must be the host\'s page (airbnb.com/users/show/…), not one flat\'s listing (' + url + ')');
+  }
+}
+
 // The site's address: its own domain once Settings → Pages has saved one (GitHub writes it in CNAME),
 // else github.io. Link previews (og:url, og:image: crawlers run no script) and the links sent to
 // guests must carry it, and 404.html must not write the site's folder by hand

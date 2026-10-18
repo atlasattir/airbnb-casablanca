@@ -113,6 +113,7 @@ Les champs marqués `TODO` ne sont pas montrés aux voyageurs (Wi-Fi : « Sur la
 
 Pour toute la marque (`content/brand.js`) :
 - [x] Numéro WhatsApp (`host.whatsapp`) ; un logement peut avoir le sien (`host` dans son fichier). Le même numéro est écrit dans le bouton WhatsApp d’`index.html` (`id="dock-wa"`), pour qu’il marche avant même le chargement : changez les deux (la vérification automatique le signale sinon)
+- [ ] Liens de réservation (`book` de chaque logement) : l’adresse de son annonce sur chaque site, en `https://` (Airbnb, Booking.com, Vrbo ; aussi possibles : Expedia, Agoda, Mubawab, Avito). Jamais un lien qui donne le numéro d’un studio ou d’un appartement : pour B-Suites et Marrakech (plusieurs logements), la page de l’hôte sur le site. Un site laissé vide n’est pas montré ; « En direct · WhatsApp » est toujours là. La vérification automatique refuse un lien qui n’est pas en https ou pas sur le bon site. Le bouton « Réserver » est sur l’accueil et sur les cartes des villes, pas dans les pages d’un logement (le lien envoyé dans les messages Airbnb) : Airbnb interdit d’inviter ses voyageurs à réserver ailleurs
 - [ ] Position de chaque logement : la position exacte va seulement dans `location` du fichier du logement (coordonnées, coucher du soleil, itinéraire depuis la porte). Dans `content/brand.js`, gardez 2 décimales (environ 1 km) : cela suffit pour « Trouver mon logement » sans afficher l’immeuble sur l’accueil. Passez `approx` à `false` quand c’est fait.
 
 Pour chaque logement (`content/stays/<logement>.js`) :

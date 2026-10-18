@@ -138,6 +138,7 @@ async function tapAll(ctx, label, url, results) {
   const browser = await pw[ENGINE].launch();
   const states = [['home', '']];
   for (const c of ['casablanca', 'marrakech', 'martil']) states.push(['home #' + c, '#' + c]);
+  states.push(['home #book', '#book'], ['home #book.pestana', '#book.pestana']);
   for (const s of STAYS) {
     const city = C.cities[s.city], st = '?stay=' + s.id;
     states.push([s.id, st], [s.id + ' #location', st + '#location'], [s.id + ' #favorites', st + '#favorites'], [s.id + ' #credits', st + '#credits']);

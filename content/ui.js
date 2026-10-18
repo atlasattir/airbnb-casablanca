@@ -8,6 +8,12 @@ window.CASA = window.CASA || {};
 
 CASA.ui = {
   fr: {
+    book: 'Réserver',
+    bookTitle: 'Réserver un séjour',
+    bookIntro: 'Choisissez le site que vous préférez, ou réservez en direct avec {host}.',
+    bookDirect: 'En direct · WhatsApp',
+    bookDirectMsg: 'Bonjour {host}, je souhaite réserver {stay}. Dates : … · Personnes : …',
+    bookOn: 'Réserver {stay} sur {site}',
     tagline: 'Votre guide personnel de {city}',
     scroll: 'Découvrir',
     signQuote: 'Je reste disponible pendant tout votre séjour. Une question, une envie : écrivez-moi.',
@@ -112,6 +118,12 @@ CASA.ui = {
   },
 
   en: {
+    book: 'Book',
+    bookTitle: 'Book a stay',
+    bookIntro: 'Choose the site you prefer, or book directly with {host}.',
+    bookDirect: 'Direct · WhatsApp',
+    bookDirectMsg: 'Hello {host}, I would like to book {stay}. Dates: … · Guests: …',
+    bookOn: 'Book {stay} on {site}',
     tagline: 'Your personal guide to {city}',
     scroll: 'Explore',
     signQuote: 'I am here for you throughout your stay. Any question or wish, just message me.',
@@ -216,6 +228,12 @@ CASA.ui = {
   },
 
   ar: {
+    book: 'احجز',
+    bookTitle: 'احجز إقامتك',
+    bookIntro: 'اختر الموقع الذي تفضله، أو احجز مباشرة مع {host}.',
+    bookDirect: 'مباشرة · واتساب',
+    bookDirectMsg: 'مرحبا {host}، أود حجز {stay}. التواريخ: … · عدد الأشخاص: …',
+    bookOn: 'احجز {stay} على {site}',
     tagline: 'دليلك الشخصي في {city}',
     scroll: 'اكتشف',
     signQuote: 'أبقى رهن إشارتك طوال إقامتك. لأي سؤال أو رغبة، راسلني.',
@@ -320,6 +338,12 @@ CASA.ui = {
   },
 
   es: {
+    book: 'Reservar',
+    bookTitle: 'Reservar una estancia',
+    bookIntro: 'Elige el sitio que prefieras o reserva directamente con {host}.',
+    bookDirect: 'Directo · WhatsApp',
+    bookDirectMsg: 'Hola {host}, me gustaría reservar {stay}. Fechas: … · Personas: …',
+    bookOn: 'Reservar {stay} en {site}',
     tagline: 'Tu guía personal de {city}',
     scroll: 'Descubrir',
     signQuote: 'Estoy disponible durante toda tu estancia. Para cualquier pregunta o deseo, escríbeme.',

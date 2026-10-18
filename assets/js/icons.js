@@ -106,5 +106,6 @@ CASA.icons = {
   cart: '<path d="M3 4h2.5l2.2 10.5h10.3l2-7.5H7"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="16.5" cy="19" r="1.4"/>',
   cross: '<path d="M9 3.5h6v5.5h5.5v6H15v5.5H9V15H3.5V9H9z"/>',
   bread: '<path d="M5 11a3 3 0 0 1-1.5-2.6C3.5 6 7.3 4 12 4s8.5 2 8.5 4.4A3 3 0 0 1 19 11v8.5H5z"/><path d="M9 8.5l-1 2.5M13 8.5l-1 2.5M17 8.5l-1 2.5"/>',
-  card: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M6.5 14.5h4"/>'
+  card: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M6.5 14.5h4"/>',
+  calendar: '<rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3.5v4M16 3.5v4"/><path d="M8 14h2M14 14h2M8 17h2"/>'
 };

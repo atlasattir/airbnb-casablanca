@@ -105,6 +105,10 @@ window.CASA = window.CASA || {};
      * approx: true while the position is only the neighbourhood's.
      * photo: a picture of its neighbourhood for its card (a place of the city, in
      * content/photos.js); cover: 'assets/img/…jpg' shows a photo of the place itself instead.
+     * book: where to book it (the Réserver page and button): its own page on each site, https,
+     * e.g. airbnb: 'https://www.airbnb.com/rooms/…'. Sites: airbnb, booking, vrbo, expedia,
+     * agoda, mubawab, avito; an empty one is not shown. "En direct" (WhatsApp) is always there.
+     * A place of several flats: the host's page on the site, never a link that names a flat's number.
      */
     // Links used before the final names (16 October 2026) still open the right place
     aliases: { 'bourgogne-133': 'bourgogne', 'casa-b-suites': 'b-suites', 'ocean-21': 'pestana', 'darb-inn': 'dar-bouazza', 'dar-baba': 'marrakech', 'casa-azul': 'martil-bay' },
@@ -112,21 +116,27 @@ window.CASA = window.CASA || {};
     stays: [
       { id: 'bourgogne', name: 'Darna Bourgogne', title: ['Bourgogne'], city: 'casablanca', area: 'bourgogne', kind: 'apartment',
         icon: 'building', tint: '#2C5A6B', photo: 'elhank', lat: 33.60, lng: -7.64, approx: true,
+        book: { airbnb: '', booking: '', vrbo: '' },
         facts: [fact.surface(133), fact.bedrooms(3), fact.bathrooms(2), fact.balcony, fact.lift] },
       { id: 'b-suites', name: 'Darna B-Suites', title: ['B-Suites'], city: 'casablanca', area: 'bourgogne', kind: 'studio', units: 8,
         icon: 'key', tint: '#8A6A3A', photo: 'sunset-elhank', lat: 33.60, lng: -7.64, approx: true,
+        book: { airbnb: '', booking: '', vrbo: '' },
         facts: [fact.studios(8), fact.balcony, fact.ac] },
       { id: 'pestana', name: 'Darna Pestana', title: ['Pestana'], city: 'casablanca', area: 'ain-diab', kind: 'apartment',
         icon: 'waves', tint: '#1D4C49', photo: 'pestana-view', lat: 33.60, lng: -7.67, approx: true,
+        book: { airbnb: '', booking: '', vrbo: '' },
         facts: [fact.seaview, fact.bedrooms(1), fact.balcony] },
       { id: 'dar-bouazza', name: 'Darna Dar Bouazza', title: ['Dar', 'Bouazza'], city: 'casablanca', area: 'dar-bouazza', kind: 'apartment',
         icon: 'palm', tint: '#4F6650', photo: 'darbouazza', lat: 33.53, lng: -7.82, approx: true,
+        book: { airbnb: '', booking: '', vrbo: '' },
         facts: [fact.bedrooms(2), fact.gated, fact.parking] },
       { id: 'marrakech', name: 'Darna Marrakech', title: ['Marrakech'], city: 'marrakech', area: 'daoudiate', kind: 'apartment', units: 3,
         icon: 'arch', tint: '#8C553C', photo: 'koutoubia-palms', lat: 31.65, lng: -8.01, approx: true,
+        book: { airbnb: '', booking: '', vrbo: '' },
         facts: [fact.flats(3), fact.bedrooms(2), fact.fastwifi] },
       { id: 'martil-bay', name: 'Darna Martil Bay', title: ['Martil', 'Bay'], city: 'martil', area: 'martil', kind: 'apartment',
         icon: 'pool', tint: '#2D5F8A', photo: 'martil-beach', lat: 35.62, lng: -5.28, approx: true,
+        book: { airbnb: '', booking: '', vrbo: '' },
         facts: [fact.pool, fact.bedrooms(2), fact.mountain, fact.family] }
     ],
 

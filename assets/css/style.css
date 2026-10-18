@@ -658,6 +658,10 @@ main { position: relative; z-index: 1; }
 .mode-home .dock__btn:not(.dock__btn--main) { display: none; }
 .mode-home .dock, .mode-home.on-hero body:not(.is-locked) .dock { padding: 0; border: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .mode-home .dock__btn--main { box-shadow: 0 10px 30px rgba(0, 0, 0, .35); }
+/* Réserver on the home's dock: light beside WhatsApp's brass; not on a place, nor over an open page */
+.dock__btn.dock__btn--book { background: #F7F3EA; color: #10191A; }
+.dock__btn.dock__btn--book:hover { background: #FFFFFF; }
+.mode-stay .dock__btn--book, .is-locked .dock__btn--book { display: none; }
 
 /* Over the film, the dock is dark glass in both themes */
 .on-hero body:not(.is-locked) .dock { background: rgba(9, 18, 21, .55); border-color: var(--stage-line); --dock-ink: var(--on-stage); --dock-hover: rgba(238, 234, 225, .08); }
@@ -879,9 +883,12 @@ main { position: relative; z-index: 1; }
   .city-chip__go { display: none; }
   .city-chip__name { font-size: 17px; }
   .locate, .resume { min-height: 48px; font-size: 16px; }
-  .mode-home .dock { margin-inline: 0; left: auto; right: calc(12px + env(safe-area-inset-right, 0px)); }
-  [dir="rtl"] .mode-home .dock { right: auto; left: calc(12px + env(safe-area-inset-left, 0px)); }
-  .mode-home .chooser { width: min(100% - 150px, 720px); }
+  .mode-home .dock { margin-inline: 0; left: auto; right: calc(12px + env(safe-area-inset-right, 0px)); flex-direction: column; }
+  [dir="rtl"].mode-home .dock { right: auto; left: calc(12px + env(safe-area-inset-left, 0px)); }
+  /* The dock stands at the side, two buttons high: a free column for it */
+  .mode-home .hero { padding-right: calc(var(--gutter-r) + 118px); }
+  [dir="rtl"].mode-home .hero { padding-right: var(--gutter-r); padding-left: calc(var(--gutter-l) + 118px); }
+  .mode-home .chooser { width: min(100%, 720px); }
   .has-resume .chooser { grid-template-columns: 1fr 1fr; }
   .has-resume .chooser > * { grid-column: 1 / -1; }
   .has-resume .chooser > .resume, .has-resume .chooser > .locate { grid-column: auto; margin-top: 0; }
@@ -891,11 +898,8 @@ main { position: relative; z-index: 1; }
   .resume .ico { display: none; }
 }
 
-/* Small phones held sideways (iPhone SE: 568 × 320): a free column for WhatsApp at the side */
+/* Small phones held sideways (iPhone SE: 568 × 320): the cities' names only */
 @media (max-height: 500px) and (orientation: landscape) and (max-width: 700px) {
-  .mode-home .hero { padding-right: calc(var(--gutter-r) + 118px); }
-  [dir="rtl"] .mode-home .hero { padding-right: var(--gutter-r); padding-left: calc(var(--gutter-l) + 118px); }
-  .mode-home .chooser { width: 100%; }
   .mode-home .city-chip__icon { display: none; }
   .mode-home .city-chip { padding-inline: 12px; justify-content: center; text-align: center; }
 }
@@ -1249,7 +1253,7 @@ main { position: relative; z-index: 1; }
 
 .scards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 12px; }
 
-.scard { position: relative; min-width: 0; display: flex; }
+.scard { position: relative; min-width: 0; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--tile-home-shadow); }
 
 .scard__link {
   flex: 1;
@@ -1259,27 +1263,44 @@ main { position: relative; z-index: 1; }
   grid-template-columns: 104px minmax(0, 1fr) auto;
   align-items: center;
   overflow: hidden;
-  border-radius: var(--radius-md);
   background: var(--tile-home-bg);
   color: var(--ink-fixed);
   text-decoration: none;
-  box-shadow: var(--tile-home-shadow);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  transition: background-color .3s ease;
 }
 
-.scard__link:hover { transform: translate3d(0, -2px, 0); }
-.scard__link:active { transform: scale(.98); }
+.scard__link:active { background: color-mix(in srgb, var(--tile-home-bg) 92%, #000); }
 .scard .art { align-self: stretch; font-size: 42px; }
 .scard .vcard__badge { top: 8px; bottom: auto; inset-inline-start: 8px; padding: 4px 8px; font-size: 10.5px; }
 .scard__body { display: grid; gap: 4px; padding: 14px 6px 14px 16px; min-width: 0; }
 [dir="rtl"] .scard__body { padding: 14px 16px 14px 6px; }
 .scard__name { font-family: var(--f-display); font-size: 19px; font-weight: 500; line-height: 1.15; letter-spacing: -.02em; }
+[dir="rtl"] .scard__name { text-align: right; } /* a Latin name (dir=ltr), on the side of its photo */
 .scard__place { font-size: 12.5px; color: rgba(19, 33, 31, .66); }
 .facts { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 4px; }
 .fact { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: rgba(19, 33, 31, .72); }
 .fact .ico { font-size: 15px; color: var(--tint); }
 .scard__go { padding-inline-end: 16px; color: rgba(19, 33, 31, .45); font-size: 18px; }
-.scard.is-nearest .scard__link { box-shadow: 0 0 0 2px var(--brass), var(--tile-home-shadow); }
+.scard.is-nearest { box-shadow: 0 0 0 2px var(--brass), var(--tile-home-shadow); }
+
+/* Réserver, under each place's card: where to book it */
+.scard__book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  background: var(--brass);
+  color: var(--on-brass);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+.scard__book .ico { font-size: 18px; }
+.scard__book:active { background: #D6BA8A; }
+/* The card clips what is outside it (its rounded corners): the focus ring is drawn inside */
+.scard__link:focus-visible, .scard__book:focus-visible { outline-offset: -3px; }
+.scard__book:focus-visible { outline-color: var(--on-brass); }
 .scard__near { display: inline-flex; align-items: center; gap: 5px; color: #7E6230; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 .scard__near .ico { font-size: 13px; }
 :root[lang="ar"] .scard__near { letter-spacing: 0; font-size: 12.5px; }
@@ -1287,6 +1308,7 @@ main { position: relative; z-index: 1; }
 /* In a city's page the cards follow the page's colours */
 .scards--sheet { grid-template-columns: 1fr; }
 .sheet .scard__link { background: var(--card); color: var(--ink); box-shadow: var(--shadow-card); }
+.sheet .scard__link:active { background: color-mix(in srgb, var(--card) 92%, var(--ink)); }
 .sheet .scard__place, .sheet .fact { color: var(--ink-dim); }
 .sheet .fact .ico { color: var(--tint-ink); }
 .sheet .scard__go { color: var(--ink-dim); }
@@ -1555,6 +1577,35 @@ main { position: relative; z-index: 1; }
   line-height: 1.15;
   letter-spacing: -.03em;
 }
+
+/* Réserver: each place, its booking sites and the host in direct */
+.s-lead { margin: 0; max-width: 46ch; color: var(--ink-dim); line-height: 1.55; }
+.bcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 12px; margin-top: 12px; }
+.bcard { display: grid; gap: 12px; padding: 12px; border-radius: var(--radius-md); background: var(--card); color: var(--ink); box-shadow: var(--shadow-card); scroll-margin: 90px; }
+.bcard.is-target { box-shadow: 0 0 0 2px var(--brass), var(--shadow-card); }
+.bcard__head { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: center; gap: 14px; }
+.bcard__head .art { width: 72px; height: 72px; border-radius: 16px; font-size: 32px; }
+.bcard__text { display: grid; gap: 3px; min-width: 0; }
+.bcard__text .scard__place { color: var(--ink-dim); }
+.bcard__sites { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.bsite {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 16px;
+  border-radius: 14px;
+  background: var(--chip);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 15.5px;
+  font-weight: 500;
+}
+.bsite .ico { font-size: 17px; opacity: .6; }
+.bsite--direct { grid-column: 1 / -1; justify-content: center; background: var(--brass); color: var(--on-brass); }
+.bsite--direct .ico { opacity: 1; font-size: 19px; }
+.bsite:active { transform: scale(.97); }
 
 /* shared pieces */
 

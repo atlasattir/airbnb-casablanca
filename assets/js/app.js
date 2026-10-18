@@ -38,8 +38,11 @@
   var SPECIAL = {
     location: { icon: 'pin', tint: '#1D4C49' },
     favorites: { icon: 'heart', tint: '#8E6E3A' },
-    credits: { icon: 'sparkle', tint: '#5B5346' }
+    credits: { icon: 'sparkle', tint: '#5B5346' },
+    book: { icon: 'calendar', tint: '#7A5A2E' }
   };
+  // Where a place can be booked, in this order (its links are in content/brand.js → book)
+  var BOOK_SITES = [['airbnb', 'Airbnb'], ['booking', 'Booking.com'], ['vrbo', 'Vrbo'], ['expedia', 'Expedia'], ['agoda', 'Agoda'], ['mubawab', 'Mubawab'], ['avito', 'Avito']];
   var ALIASES = { apartment: 'stay' };
 
   function byId(id) { return document.getElementById(id); }
@@ -434,7 +437,40 @@
         '<span class="scard__body">' + (near ? '<span class="scard__near">' + icon('locate') + esc(ui('nearest')) + '</span>' : '') +
           '<span class="scard__name" dir="ltr">' + esc(s.name) + '</span>' +
           '<span class="scard__place">' + esc(placeLine(s)) + '</span>' + factPills(s, 3) + '</span>' +
-        '<span class="scard__go" aria-hidden="true">' + icon('go', 'flip-rtl') + '</span></a></article>';
+        '<span class="scard__go" aria-hidden="true">' + icon('go', 'flip-rtl') + '</span></a>' +
+      '<a class="scard__book" href="#book.' + esc(s.id) + '" data-open="book">' + icon('calendar') + '<span>' + esc(ui('book')) + '</span></a></article>';
+  }
+
+  /* Booking: each place's links on the booking sites (content/brand.js → book), and in direct
+     with the host on WhatsApp, a message ready with the place's name */
+  function raw(key) { var dict = UI[state.lang] || UI.en || {}; return dict[key] != null ? dict[key] : ((UI.en || {})[key] || ''); }
+  function bookCard(s) {
+    var links = s.book || {};
+    var ph = s.cover ? { src: s.cover } : s.photo ? photoFor({ photo: s.photo }, s.city) : null;
+    var on = function (site) { return fill(raw('bookOn').replace(/\{stay\}/g, s.name).replace(/\{site\}/g, site)); };
+    var sites = BOOK_SITES.filter(function (b) { return /^https:\/\//.test(links[b[0]] || ''); }).map(function (b) {
+      return '<a class="bsite"' + ext(links[b[0]]) + ' aria-label="' + esc(on(b[1])) + '"><span dir="ltr">' + esc(b[1]) + '</span>' + icon('go', 'flip-rtl') + '</a>';
+    }).join('');
+    var direct = '<a class="bsite bsite--direct"' + ext(waLink(fill(raw('bookDirectMsg').replace(/\{stay\}/g, s.name)))) +
+      ' aria-label="' + esc(on('WhatsApp')) + '">' + icon('chat') + '<span>' + esc(ui('bookDirect')) + '</span></a>';
+    return '<article class="bcard rise" id="book-' + esc(s.id) + '"' + tintStyle(s.tint) + '>' +
+      '<div class="bcard__head"><span class="art' + (ph ? ' art--photo' : '') + '">' + icon(s.icon || 'house') + (ph ? photoImg(ph, '96px') : '') + '</span>' +
+      '<span class="bcard__text"><span class="scard__name" dir="ltr">' + esc(s.name) + '</span><span class="scard__place">' + esc(placeLine(s)) + '</span></span></div>' +
+      '<div class="bcard__sites">' + sites + direct + '</div></article>';
+  }
+  function viewBook() {
+    return '<p class="s-lead rise"' + d(0) + '>' + esc(ui('bookIntro')) + '</p>' + CITIES.map(function (c, ci) {
+      var list = staysIn(c.id);
+      return list.length ? subhead(tr(c.name), ci + 1) + '<div class="bcards">' + list.map(bookCard).join('') + '</div>' : '';
+    }).join('');
+  }
+  // From a place's card: its own booking card, brought into view
+  function showBookCard(id) {
+    var card = id && byId('book-' + id.replace(/[^a-z0-9-]/gi, ''));
+    if (!card) return;
+    document.querySelectorAll('.bcard.is-target').forEach(function (c) { c.classList.remove('is-target'); });
+    card.classList.add('is-target');
+    window.setTimeout(function () { card.scrollIntoView({ block: 'center', behavior: reducedMotion() ? 'auto' : 'smooth' }); }, 350);
   }
 
   function sortedStays(list) {
@@ -772,8 +808,8 @@
 
   function sectionMeta(id) {
     var m = SECTIONS[id] || SPECIAL[id];
-    // The home screen only opens city pages; the rest needs a place
-    return MODE === 'home' && (!m || (m.type !== 'city' && id !== 'credits')) ? null : m;
+    // The home screen only opens city pages, the credits and booking; the rest needs a place
+    return MODE === 'home' && (!m || (m.type !== 'city' && id !== 'credits' && id !== 'book')) ? null : m;
   }
 
   function openSheet(id) {
@@ -854,7 +890,8 @@
     }
     if (state.current !== h.sid) openSheet(h.sid);
     else if (sectionMeta(h.sid).type === 'city') renderSheet(h.sid, true); // re-sorted by distance
-    if (h.iid) openModal(h.sid + '.' + h.iid);
+    if (h.sid === 'book') { closeModal(); showBookCard(h.iid); }
+    else if (h.iid) openModal(h.sid + '.' + h.iid);
     else closeModal();
   }
 
@@ -871,6 +908,7 @@
     else if (id === 'location') { title = ui('locationTitle'); kicker = STAY.name; html = viewLocation(); }
     else if (id === 'favorites') { title = ui('favsTitle'); kicker = cityName(STAY.city); html = viewFavorites(); }
     else if (id === 'credits') { title = ui('photoCredits'); kicker = STAY ? cityName(STAY.city) : BRAND.name; html = viewCredits(); }
+    else if (id === 'book') { title = ui('bookTitle'); kicker = BRAND.name; html = viewBook(); }
     else {
       title = tr(meta.title);
       kicker = (BRAND.stayGroup || []).indexOf(id) > -1 ? STAY.name : cityName(STAY.city);
@@ -878,7 +916,7 @@
       html = view(meta, id);
       if (meta.type === 'routes') extra = '<div class="band__meta"><span class="pill">' + icon('sun') + '<span>' + esc(ui('sunsetToday')) + ' ' + esc(fmtTime(todaysSunset())) + '</span></span></div>';
     }
-    var cover = meta.type === 'city' ? coverFor(id) : !STAY || id === 'credits' ? null :
+    var cover = meta.type === 'city' ? coverFor(id) : !STAY || id === 'credits' || id === 'book' ? null :
       coverFor(STAY.city, id) || (id === 'location' ? coverFor(STAY.city) : null);
     els.band.innerHTML = '<header class="band' + (cover ? ' band--photo' : '') + '"' + tintStyle(meta.tint) + '>' +
       '<span class="band__art" aria-hidden="true">' + icon(meta.icon) + '</span>' +
