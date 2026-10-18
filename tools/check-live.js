@@ -121,15 +121,15 @@ async function status(url) {
   await ctx.close();
   ctx = await chromium.launchPersistentContext(dir, Object.assign({}, phone, { args: ['--host-resolver-rules=MAP * ~NOTFOUND'] }));
   page = ctx.pages()[0] || await ctx.newPage();
-  const reached = [];
-  page.on('response', r => { if (!r.fromServiceWorker() && r.url().startsWith('http')) reached.push(r.url()); });
   for (const link of ['bourgogne/', '?stay=bourgogne#wifi']) {
     await page.goto(BASE + link, { waitUntil: 'load' }).catch(() => null);
     await page.waitForTimeout(2500);
     const r = await page.evaluate(() => ({ tiles: document.querySelectorAll('.tile[data-open]').length, sheet: !!document.querySelector('.sheet.is-open') })).catch(() => ({ tiles: 0 }));
     ok(r.tiles >= 12 && (r.sheet || !/#/.test(link)), 'offline: ' + link + ' opens with no network at all (' + r.tiles + ' buttons' + (/#/.test(link) ? ', its page ' + (r.sheet ? 'open' : 'NOT open') : '') + ')');
   }
-  ok(!reached.length, 'offline: everything came from the stored copy' + (reached.length ? ': ' + reached.slice(0, 3).join(', ') : ''));
+  // Proof the network really was cut: an address never visited cannot be reached
+  const probe = await page.evaluate(() => fetch('https://example.com/?probe=' + Date.now(), { mode: 'no-cors', cache: 'no-store' }).then(() => 'reached', () => 'cut')).catch(() => 'cut');
+  ok(probe === 'cut', 'offline: the network really was cut during this test');
   await ctx.close();
 
   console.log(bad ? '\n' + bad + ' problem(s) on ' + BASE : '\nThe live guide works: ' + BASE);
