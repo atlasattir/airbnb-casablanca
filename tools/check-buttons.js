@@ -71,19 +71,25 @@ async function tapAll(ctx, label, url, results) {
   const fresh = async () => {
     const open = () => page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await open().catch(open);
+    // Polled on a timer: animation frames may not come for a page in the background
     await page.waitForFunction(() => document.documentElement.classList.contains('is-ready') && document.querySelector('.tile, .city-chip'),
-      null, { timeout: 30000 }).catch(() => {});
+      null, { timeout: 30000, polling: 250 }).catch(() => {});
     await page.waitForTimeout(1100);
   };
+  const t0 = Date.now();
+  let n = 0;
+  const add = r => { results.push(r); n++; };
   await fresh();
   const count = await page.evaluate(`(${reachable})(${JSON.stringify(SEL)}).length`);
   for (let i = 0; i < count; i++) {
+    // One screen never holds up the rest: past 6 minutes, say so and move on
+    if (Date.now() - t0 > 360000) { add({ ok: false, where: label, how: 'screen stopped after 6 minutes (' + i + ' of ' + count + ' taps done)' }); break; }
     const h = await page.evaluateHandle(`(${reachable})(${JSON.stringify(SEL)})[${i}]`);
     const el = h.asElement();
     if (!el) { await fresh(); continue; }
     const d = await el.evaluate(describe);
     const where = label + ' › ' + (d.label || d.attrs || d.tag);
-    if (/^(tel|mailto|sms):/.test(d.href)) { results.push({ ok: true, where, how: 'phone/mail link' }); continue; }
+    if (/^(tel|mailto|sms):/.test(d.href)) { add({ ok: true, where, how: 'phone/mail link' }); continue; }
     const before = await page.evaluate(signature);
     const pages = ctx.pages().length;
     let err = '';
@@ -99,7 +105,7 @@ async function tapAll(ctx, label, url, results) {
       else if (await page.evaluate(signature).catch(() => 'navigated') !== before) how = 'changes the screen';
     }
     if (!err && !how && d.on) how = 'already selected / already on that page';
-    results.push({ ok: !err && !!how, where, how: err || how || 'DOES NOTHING', attrs: d.attrs });
+    add({ ok: !err && !!how, where, how: err || how || 'DOES NOTHING', attrs: d.attrs });
     for (const p of ctx.pages()) if (p !== page) await p.close().catch(() => {});
     if (how === 'changes the screen' || err) await fresh();
   }
@@ -112,9 +118,10 @@ async function tapAll(ctx, label, url, results) {
     await page.touchscreen.tap(box.x, box.y);
     await page.waitForTimeout(1500);
     const shut = await page.evaluate(signature) !== before;
-    results.push({ ok: shut, where: label + ' › tap outside the card', how: shut ? 'changes the screen' : 'DOES NOTHING' });
+    add({ ok: shut, where: label + ' › tap outside the card', how: shut ? 'changes the screen' : 'DOES NOTHING' });
   }
   await page.close();
+  console.log('  ' + label + ': ' + n + ' taps in ' + Math.round((Date.now() - t0) / 1000) + ' s');
 }
 
 (async () => {
