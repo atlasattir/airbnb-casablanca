@@ -254,6 +254,23 @@
   "url": "https://commons.wikimedia.org/wiki/File:Almiralll04.jpg",
   "w": 1280
  },
+ "casablanca/hassan2": {
+  "auto": false,
+  "by": "OussamaHamama",
+  "file": "File:Whispers of Gold - Hassan II Mosque at Dusk.jpg",
+  "h": 853,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Whispers of Gold - Hassan II Mosque at Dusk.jpg\"], \"search\": null}",
+  "sha1": "9651740f2fd32b5a514ad82e600aa32376cffc20",
+  "sm": "assets/img/photos/casablanca/whispers-of-gold-hassan-ii-mosque-at-dusk-965174-sm.jpg?v=9651740f",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/whispers-of-gold-hassan-ii-mosque-at-dusk-965174.jpg?v=9651740f",
+  "title": "Whispers of Gold - Hassan II Mosque at Dusk",
+  "url": "https://commons.wikimedia.org/wiki/File:Whispers_of_Gold_-_Hassan_II_Mosque_at_Dusk.jpg",
+  "w": 1280
+ },
  "casablanca/holybrunch": {
   "auto": true,
   "by": "Andy Li",
@@ -440,6 +457,23 @@
   "title": "Morocco Mall",
   "url": "https://commons.wikimedia.org/wiki/File:Morocco_Mall.jpg",
   "w": 961
+ },
+ "casablanca/mosque-night": {
+  "auto": false,
+  "by": "Jamal jalalll4",
+  "file": "File:نور رمضان فوق الموج.jpg",
+  "h": 1280,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:\\u0646\\u0648\\u0631 \\u0631\\u0645\\u0636\\u0627\\u0646 \\u0641\\u0648\\u0642 \\u0627\\u0644\\u0645\\u0648\\u062c.jpg\"], \"search\": null}",
+  "sha1": "dc04dc5f12abff052fd65eadb4dd2a23eab0d65a",
+  "sm": "assets/img/photos/casablanca/photo-dc04dc-sm.jpg?v=dc04dc5f",
+  "smw": 512,
+  "src": "assets/img/photos/casablanca/photo-dc04dc.jpg?v=dc04dc5f",
+  "title": "نور رمضان فوق الموج",
+  "url": "https://commons.wikimedia.org/wiki/File:%D9%86%D9%88%D8%B1_%D8%B1%D9%85%D8%B6%D8%A7%D9%86_%D9%81%D9%88%D9%82_%D8%A7%D9%84%D9%85%D9%88%D8%AC.jpg",
+  "w": 1025
  },
  "casablanca/night-downtown": {
   "auto": false,
