@@ -1808,8 +1808,7 @@ main { position: relative; z-index: 1; }
   justify-content: center;
 }
 
-/* Tapping the dimmed page closes the card. The pointer is what makes it work on iPhones: Safari
-   only sends a tap on a plain area to the page when that area looks clickable */
+/* Tapping the dimmed page closes the card (its own listener in app.js; the pointer says so too) */
 .modal__scrim {
   position: absolute;
   inset: 0;

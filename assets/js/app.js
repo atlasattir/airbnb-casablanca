@@ -1449,6 +1449,10 @@
   });
 
   els.back.addEventListener('click', goBack);
+  // The dimmed page around a card closes it. Its own listener rather than the page-wide one:
+  // an iPhone sends a tap on a plain area only to an element that listens for it
+  var scrim = els.modal && els.modal.querySelector('.modal__scrim');
+  if (scrim) scrim.addEventListener('click', modalBack);
   if (els.locate) els.locate.addEventListener('click', locate);
 
   byId('theme-btn').addEventListener('click', function () {
