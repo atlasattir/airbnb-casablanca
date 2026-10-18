@@ -76,7 +76,7 @@ Le script vérifie chaque fichier auprès de Commons et **refuse** : les licence
 
 Hors connexion, le guide montre les photos déjà vues (et celles de la ville qu’il a gardées pour plus tard) ; une photo jamais chargée laisse place à l’illustration dessinée.
 
-Pas de photos trouvées sur Google, Instagram ou les sites des restaurants : seulement les vôtres, celles que l’établissement vous autorise à publier (ajoutez alors `image: 'assets/img/places/<id>.jpg'` à l’adresse dans le fichier de la ville), ou des photos sous licence libre.
+Pas de photos trouvées sur Google, Instagram ou les sites des restaurants : seulement les vôtres, celles que l’établissement vous autorise à publier, ou des photos sous licence libre. Une photo publiée par l’établissement lui-même (la galerie d’un hôtel), avec son autorisation écrite : *Actions* → *Permitted photos* avec l’adresse de sa page donne des planches numérotées (branche `photos-permitted`) ; mettez ensuite dans `tools/photos.json` `"permitted": {"url": "<l’image>", "page": "<sa page>", "by": "<l’établissement>"}` : elle est créditée « Photo · <établissement> · © », avec le lien vers sa page.
 
 ## Les films
 

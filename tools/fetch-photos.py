@@ -24,6 +24,11 @@ The wish list is tools/photos.json. For each place of a city guide (by its id):
     "nofop":    true when the host accepts a building Commons flags for Morocco's lack of
                 freedom of panorama (the photo itself stays free and credited); only that
                 flag is waived, never a deletion request, a copyright violation or a licence
+    "permitted": instead of Commons, a photo the establishment publishes itself and has
+                allowed the guide to use: {"url": the image, "page": where it is published,
+                "by": who to credit}. Shown as "Photo · <by> · ©" with a link to the page.
+                Only the establishment's own site (never Google, Instagram or a guest's
+                photo), and only with its permission, written down by the host.
 "_city" names the place whose photo is the city's picture on the home page,
 "_covers" the photo of each section's tile and header (section id: place id).
 To take a photo down, delete the place's entry (or empty its "files").
@@ -37,6 +42,7 @@ What was chosen is kept in tools/photos.lock.json (commit it with the photos):
 a second run reuses those choices and only fetches what changed.
 """
 import argparse
+import hashlib
 import html
 import io
 import json
@@ -58,6 +64,7 @@ IMG_DIR = 'assets/img/photos'
 API = 'https://commons.wikimedia.org/w/api.php'
 # Wikimedia asks every tool to name itself
 UA = 'DarnaCollectionGuide/1.0 (https://github.com/atlasattir/airbnb-casablanca; photo fetcher)'
+BROWSER_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
 LARGE, SMALL = 1280, 640
 META = 'Artist|Attribution|LicenseShortName|LicenseUrl|UsageTerms|ObjectName|Assessments|Restrictions|NonFree|DeletionReason'
 # Commons' own warnings that a file may not stay (or may not be usable in Morocco)
@@ -69,10 +76,10 @@ FILE_PROPS = {'prop': 'imageinfo|templates', 'iiprop': 'url|size|mime|sha1|extme
 CTX = ssl.create_default_context(cafile=os.environ.get('SSL_CERT_FILE') or os.environ.get('REQUESTS_CA_BUNDLE') or None)
 
 
-def get(url, tries=5):
+def get(url, tries=5, ua=UA):
     for i in range(tries):
         try:
-            req = urllib.request.Request(url, headers={'User-Agent': UA})
+            req = urllib.request.Request(url, headers={'User-Agent': ua})
             with urllib.request.urlopen(req, timeout=60, context=CTX) as r:
                 return r.read()
         except urllib.error.HTTPError as e:
@@ -244,7 +251,7 @@ def thumb_of(page):
 
 def selection(item):
     """What decides which file is chosen and how it is cut (pos and illustr only change how it shows)."""
-    keys = ('files', 'category', 'search') + tuple(k for k in ('crop', 'nofop') if item.get(k))  # without them: as before
+    keys = ('files', 'category', 'search') + tuple(k for k in ('crop', 'nofop', 'permitted') if item.get(k))  # without them: as before
     return json.dumps({k: item.get(k) for k in keys}, sort_keys=True)
 
 
@@ -348,6 +355,28 @@ def main():
     titles = sorted({t for *_, item, _, _, keep in todo for t in ([keep] if keep else []) + item.get('files', [])})
     print('%d places to fetch, %d files to look up' % (len(todo), len(titles)))
     by_file, errors = {}, []  # one download per file, even when two places share it
+    # Photos used with the establishment's permission: from its own site, not Commons
+    for key, city, iid, item, sel, prev, keep in [t for t in todo if t[3].get('permitted')]:
+        todo.remove((key, city, iid, item, sel, prev, keep))
+        pm = item['permitted']
+        try:
+            if not (pm.get('url') and pm.get('page') and pm.get('by')):
+                raise ValueError('"permitted" needs its url, page and by')
+            raw = get(pm['url'], ua=BROWSER_UA)  # an establishment's site, not Wikimedia: as a browser asks
+            v = hashlib.sha1(raw).hexdigest()[:8] + ('c' if item.get('crop') else '')
+            base = '%s/%s/%s-%s' % (IMG_DIR, city, slug('File:' + iid + '.jpg'), v[:6]) + ('-crop' if item.get('crop') else '')
+            sizes = save_sizes(raw, base, item.get('crop'))
+            lock[key] = {'file': pm['url'], 'by': pm['by'], 'lic': '©', 'url': pm['page'], 'title': pm.get('title', ''),
+                         'src': base + '.jpg?v=' + v, 'sm': base + '-sm.jpg?v=' + v, 'w': sizes['lg'][0][0], 'h': sizes['lg'][0][1],
+                         'smw': sizes['-sm'][0][0], 'sel': sel, 'auto': False, 'notes': ['with permission']}
+            print('  + %-34s %s  (with permission, %d KB + %d KB)' % (key, pm['by'], sizes['lg'][1] // 1024, sizes['-sm'][1] // 1024))
+        except Exception as err:
+            errors.append('%s: %s' % (key, err))
+            print('  ! %-34s %s%s' % (key, err, '  (keeps its previous photo)' if prev.get('src') else ''))
+            if prev:
+                lock[key] = prev
+        write_lock(lock)
+
     try:
         pages = info(titles) if titles else {}
     except Exception as e:  # Commons out of reach: change nothing, only tidy up (removed places)
