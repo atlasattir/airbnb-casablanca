@@ -27,12 +27,15 @@ fp.FILE_PROPS['iiurlwidth'] = '360'  # small thumbnails are enough to choose
 PER_PLACE, PER_SHEET, TW, TH = 6, 8, 300, 200
 
 
-def candidates(item):
+def candidates(item, refused=None):
     seen, out = set(), []
 
     def add(pages, how):
         for p in pages:
-            if p['title'] in seen or fp.usable(p, item.get('nofop')):
+            why = '' if p['title'] in seen else fp.usable(p, item.get('nofop'))
+            if why and refused is not None and len(refused) < 30:
+                refused.append({'file': p['title'], 'why': why})
+            if p['title'] in seen or why:
                 continue
             seen.add(p['title'])
             out.append((how, p))
@@ -91,10 +94,13 @@ def main():
         if not item:
             print('  ? %s is not in photos.json' % key)
             continue
-        found = candidates(item)
+        refused = []
+        found = candidates(item, refused)
         report[key] = [{'n': n + 1, 'file': p['title'], 'how': how, 'by': fp.clean(fp.meta(p, 'Attribution')) or fp.clean(fp.meta(p, 'Artist')),
                         'lic': fp.clean(fp.meta(p, 'LicenseShortName')), 'size': '%dx%d' % (p['imageinfo'][0]['width'], p['imageinfo'][0]['height'])}
                        for n, (how, p) in enumerate(found)]
+        if refused:  # what was found but cannot be used, and why
+            report[key + ' (refused)'] = refused
         thumbs = []
         for how, p in found:
             try:
