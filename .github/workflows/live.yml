@@ -1,0 +1,20 @@
+# Opens the live guide (GitHub Pages) as a guest's phone does: every file online, the latest
+# version, every place and page, the map buttons, offline mode (tools/check-live.js).
+# Run it by hand after a change has gone live: GitHub → Actions → Live check → Run workflow.
+name: Live check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: A browser
+        run: npm install --no-save playwright@1.47.0 && npx playwright install --with-deps chromium
+      - run: node tools/check-live.js
