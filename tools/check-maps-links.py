@@ -7,7 +7,9 @@ content/stays/<id>.js) still opens a Google Maps place, close to the area the gu
 
 It prints only whether each link works and how far its pin is from the place's area in
 content/brand.js, never the pin itself: the logs of a public repository are public.
-Needs node (to read the content files) and access to maps.app.goo.gl.
+Needs node (to read the content files) and access to maps.app.goo.gl; with Playwright
+installed, a link that leaves no pin in its address is also opened in a real browser, the
+way a guest's phone without the Google Maps app would show it.
 """
 import json
 import math
@@ -54,6 +56,25 @@ def pin(url):
     return None
 
 
+def in_browser(url):
+    """Where the Google Maps website ends up once its page has run (None without Playwright)."""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return None
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        page = b.new_page(locale='fr-FR', viewport={'width': 1280, 'height': 800})
+        page.goto(url, wait_until='domcontentloaded', timeout=60000)
+        for _ in range(40):  # up to 20 s for the map to settle on what was shared
+            page.wait_for_timeout(500)
+            if '/maps/place/' in page.url or '/maps/search/' in page.url:
+                break
+        final = page.url
+        b.close()
+    return final
+
+
 def main():
     stays = json.loads(subprocess.check_output(['node', '-e', READ, ROOT], text=True))
     bad = 0
@@ -69,6 +90,11 @@ def main():
             print('✗ %-12s the link does not open: %s' % (s['id'], e))
             bad += 1
             continue
+        how = ''
+        if not pin(final):
+            seen = in_browser(s['url'])
+            if seen:
+                final, how = seen, ' (once the page has loaded)'
         kind = ('a place' if '/maps/place/' in final else 'a search' if '/maps/search/' in final
                 else 'directions' if '/maps/dir/' in final else 'a map' if '/maps' in final else None)
         where = pin(final)
@@ -83,8 +109,8 @@ def main():
         d = km((s['lat'], s['lng']), where)
         ok = d <= FAR_KM
         bad += not ok
-        print('%s %-12s opens %s in Google Maps, %.1f km from the area shown in the guide%s'
-              % ('✓' if ok else '✗', s['id'], kind, d, '' if ok else ': check the link'))
+        print('%s %-12s opens %s in Google Maps%s, %.1f km from the area shown in the guide%s'
+              % ('✓' if ok else '✗', s['id'], kind, how, d, '' if ok else ': check the link'))
     print('\n%d link(s) to fix' % bad if bad else '\nEvery link works')
     sys.exit(1 if bad else 0)
 
