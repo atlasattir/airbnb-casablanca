@@ -851,21 +851,21 @@
   "url": "https://commons.wikimedia.org/wiki/File:Caleches_in_Marrakech_(2844987439).jpg",
   "w": 1280
  },
- "marrakech/caleche-family": {
+ "marrakech/carousel": {
   "auto": false,
-  "by": "mwanasimba from La Réunion",
-  "file": "File:Caleche in Marrakech (2902168814).jpg",
+  "by": "Jebulon",
+  "file": "File:ManègeLR1.jpg",
   "h": 960,
-  "lic": "CC BY-SA 2.0",
-  "licUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
   "notes": [],
-  "sel": "{\"category\": null, \"files\": [\"File:Caleche in Marrakech (2902168814).jpg\"], \"search\": null}",
-  "sha1": "63c9086c37839eea091a315d4b53a49a16a54637",
-  "sm": "assets/img/photos/marrakech/caleche-in-marrakech-2902168814-63c908-sm.jpg?v=63c9086c",
+  "sel": "{\"category\": null, \"files\": [\"File:Man\\u00e8geLR1.jpg\"], \"search\": null}",
+  "sha1": "88753f757970738221cc6c27f35318b6cfd99834",
+  "sm": "assets/img/photos/marrakech/manegelr1-88753f-sm.jpg?v=88753f75",
   "smw": 640,
-  "src": "assets/img/photos/marrakech/caleche-in-marrakech-2902168814-63c908.jpg?v=63c9086c",
-  "title": "Caleche in Marrakech (2902168814)",
-  "url": "https://commons.wikimedia.org/wiki/File:Caleche_in_Marrakech_(2902168814).jpg",
+  "src": "assets/img/photos/marrakech/manegelr1-88753f.jpg?v=88753f75",
+  "title": "ManègeLR1",
+  "url": "https://commons.wikimedia.org/wiki/File:Man%C3%A8geLR1.jpg",
   "w": 1280
  },
  "marrakech/cyberpark": {
@@ -1036,6 +1036,23 @@
   "src": "assets/img/photos/marrakech/koutoubia-mosque-marrakech-morocco-174c99.jpg?v=174c9928",
   "title": "Koutoubia Mosque,Marrakech,Morocco",
   "url": "https://commons.wikimedia.org/wiki/File:Koutoubia_Mosque,Marrakech,Morocco.jpg",
+  "w": 1280
+ },
+ "marrakech/koutoubia-palms": {
+  "auto": false,
+  "by": "Baca12",
+  "file": "File:Mosquée de la Koutoubia - marakesh.jpg",
+  "h": 960,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Mosqu\\u00e9e de la Koutoubia - marakesh.jpg\"], \"search\": null}",
+  "sha1": "6eb2a1998d15df369015432e02b85aeb297bedc9",
+  "sm": "assets/img/photos/marrakech/mosquee-de-la-koutoubia-marakesh-6eb2a1-sm.jpg?v=6eb2a199",
+  "smw": 640,
+  "src": "assets/img/photos/marrakech/mosquee-de-la-koutoubia-marakesh-6eb2a1.jpg?v=6eb2a199",
+  "title": "Mosquée de la Koutoubia - marakesh",
+  "url": "https://commons.wikimedia.org/wiki/File:Mosqu%C3%A9e_de_la_Koutoubia_-_marakesh.jpg",
   "w": 1280
  },
  "marrakech/le-jardin": {
@@ -1786,6 +1803,23 @@
   "url": "https://commons.wikimedia.org/wiki/File:Sunbeds_with_Umbrellas_Ixia_Beach_Rodos_Palace_Hotel_Ialysos_Rhodes_14_August_2025.jpg",
   "w": 1280
  },
+ "morocco/bell": {
+  "auto": false,
+  "by": "Koreller",
+  "file": "File:Bell in yellow.jpg",
+  "h": 853,
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:Bell in yellow.jpg\"], \"search\": null}",
+  "sha1": "bf6a5e0c89fbdeb8f8f6081c53aa36123d8bb0f3",
+  "sm": "assets/img/photos/morocco/bell-in-yellow-bf6a5e-sm.jpg?v=bf6a5e0c",
+  "smw": 640,
+  "src": "assets/img/photos/morocco/bell-in-yellow-bf6a5e.jpg?v=bf6a5e0c",
+  "title": "Bell in yellow",
+  "url": "https://commons.wikimedia.org/wiki/File:Bell_in_yellow.jpg",
+  "w": 1280
+ },
  "morocco/breakfast": {
   "auto": false,
   "by": "Lucyin",
@@ -1956,23 +1990,6 @@
   "url": "https://commons.wikimedia.org/wiki/File:A_key_is_shown_inserted_into_a_lock.jpg",
   "w": 855
  },
- "morocco/luggage": {
-  "auto": false,
-  "by": "Shixart1985",
-  "file": "File:Travelers with luggage arrive at hotel entrance while suitcase waits on pavement.jpg",
-  "h": 853,
-  "lic": "CC BY 2.0",
-  "licUrl": "https://creativecommons.org/licenses/by/2.0",
-  "notes": [],
-  "sel": "{\"category\": null, \"files\": [\"File:Travelers with luggage arrive at hotel entrance while suitcase waits on pavement.jpg\"], \"search\": null}",
-  "sha1": "36768d822089074efc7bb1541b4f8ea7e2bdea6b",
-  "sm": "assets/img/photos/morocco/travelers-with-luggage-arrive-at-hotel-entrance-36768d-sm.jpg?v=36768d82",
-  "smw": 640,
-  "src": "assets/img/photos/morocco/travelers-with-luggage-arrive-at-hotel-entrance-36768d.jpg?v=36768d82",
-  "title": "Travelers with luggage arrive at hotel entrance while suitcase waits on pavement",
-  "url": "https://commons.wikimedia.org/wiki/File:Travelers_with_luggage_arrive_at_hotel_entrance_while_suitcase_waits_on_pavement.jpg",
-  "w": 1280
- },
  "morocco/mall": {
   "auto": false,
   "by": "*angys*",
@@ -2109,22 +2126,22 @@
   "url": "https://commons.wikimedia.org/wiki/File:Farm_to_Table_Cooking_Class_Fez.jpg",
   "w": 780
  },
- "morocco/washing-machine": {
+ "morocco/tap": {
   "auto": false,
-  "by": "Arsham 2011",
-  "file": "File:Washing machine new.png",
-  "h": 842,
-  "lic": "CC BY 4.0",
-  "licUrl": "https://creativecommons.org/licenses/by/4.0",
+  "by": "Vien Hoang",
+  "file": "File:Tap-gb0fe5d2cc 1920.jpg",
+  "h": 1280,
+  "lic": "CC0",
+  "licUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
   "notes": [],
-  "sel": "{\"category\": null, \"files\": [\"File:Washing machine new.png\"], \"search\": null}",
-  "sha1": "3f4bbdaa6dfdd1d97e3cc76fcc12790529253cd4",
-  "sm": "assets/img/photos/morocco/washing-machine-new-3f4bbd-sm.jpg?v=3f4bbdaa",
-  "smw": 547,
-  "src": "assets/img/photos/morocco/washing-machine-new-3f4bbd.jpg?v=3f4bbdaa",
-  "title": "Washing machine new",
-  "url": "https://commons.wikimedia.org/wiki/File:Washing_machine_new.png",
-  "w": 720
+  "sel": "{\"category\": null, \"files\": [\"File:Tap-gb0fe5d2cc 1920.jpg\"], \"search\": null}",
+  "sha1": "8108bc8562e015c26f99207d8ed526f8934cf8a8",
+  "sm": "assets/img/photos/morocco/tap-gb0fe5d2cc-1920-8108bc-sm.jpg?v=8108bc85",
+  "smw": 476,
+  "src": "assets/img/photos/morocco/tap-gb0fe5d2cc-1920-8108bc.jpg?v=8108bc85",
+  "title": "Tap-gb0fe5d2cc 1920",
+  "url": "https://commons.wikimedia.org/wiki/File:Tap-gb0fe5d2cc_1920.jpg",
+  "w": 952
  },
  "morocco/waterpark": {
   "auto": false,
