@@ -130,6 +130,8 @@ Pour les villes (`content/cities/<ville>.js`) :
 
 ## Vérifier avant d’envoyer un lien
 
+**Les liens Google Maps des logements** (`mapsUrl`, bouton « Localisation ») : GitHub → *Actions* → **Maps links** → *Run workflow* ouvre chaque lien comme un téléphone sans l’application Google Maps et dit s’il mène bien à un lieu, et à combien de kilomètres du quartier indiqué dans le guide (jamais le point exact : les journaux d’un dépôt public sont publics). À relancer après avoir changé un lien. Tous les boutons de carte sont des liens Google Maps : sur Android (Samsung compris) et sur iPhone avec l’application Google Maps, ils ouvrent l’application et sa navigation ; sans l’application (iPhone, Huawei sans services Google), ils ouvrent le site Google Maps, qui montre le lieu et l’itinéraire mais pas le guidage vocal. Les itinéraires « depuis le logement » partent de la position du voyageur (sa porte quand il part).
+
 `node tools/check-content.js` vérifie que tout se charge, que chaque logement a sa ville, sa page et son lien court, que les quatre langues ont les mêmes textes, que chaque photo existe et est créditée, et que le mode hors connexion a tous ses fichiers. GitHub la lance aussi à chaque envoi (onglet *Actions* → *Check*) : une croix rouge sur un envoi veut dire qu’un logement risque de ne pas s’ouvrir.
 
 Un lien mal tapé (une majuscule, une faute, un caractère en trop) mène quand même au bon guide, ou à l’accueil pour choisir : c’est le rôle de `404.html`. Si vous passez à votre propre nom de domaine, changez sa ligne `base` en `'/'`.
