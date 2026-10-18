@@ -51,7 +51,10 @@ self.addEventListener('activate', function (event) {
 });
 
 function store(request, response) {
-  if (response && (response.ok || response.type === 'opaque')) {
+  // Never a redirect. A page answered by a redirect reaches here as 'opaqueredirect' (status 0, not
+  // ok) and is passed on to the browser, which follows it. A file fetched through one (redirected)
+  // would hold the old address, and browsers refuse it for a page: it would break the guide offline.
+  if (response && !response.redirected && (response.ok || response.type === 'opaque')) {
     var copy = response.clone();
     caches.open(VERSION).then(function (cache) { cache.put(request, copy); });
   }

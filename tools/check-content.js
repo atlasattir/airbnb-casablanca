@@ -100,6 +100,21 @@ for (const [id, c] of Object.entries(C.cities || {})) {
   else if (c.film && typeof c.film === 'object') checkFilm(c.film, 'content/cities/' + id + '.js');
 }
 
+// The site's address: its own domain once Settings → Pages has saved one (GitHub writes it in CNAME),
+// else github.io. Link previews (og:url, og:image: crawlers run no script) and the links sent to
+// guests must carry it, and 404.html must not write the site's folder by hand
+const cname = fs.existsSync(path.join(ROOT, 'CNAME')) ? fs.readFileSync(path.join(ROOT, 'CNAME'), 'utf8').trim() : '';
+const SITE = cname ? 'https://' + cname + '/' : 'https://atlasattir.github.io/airbnb-casablanca/';
+for (const dir of [''].concat((B.stays || []).map(s => s.id + '/'))) {
+  const page = fs.readFileSync(path.join(ROOT, dir, 'index.html'), 'utf8');
+  const og = k => (new RegExp('property="og:' + k + '" content="([^"]*)"').exec(page) || [])[1];
+  if (og('url') !== SITE + dir) fail(dir + 'index.html: og:url should be ' + SITE + dir);
+  if (og('image') !== SITE + 'assets/img/share.jpg') fail(dir + 'index.html: og:image should be ' + SITE + 'assets/img/share.jpg');
+}
+const messages = fs.readFileSync(path.join(ROOT, 'docs/messages.md'), 'utf8');
+for (const s of B.stays || []) if (messages.indexOf('`' + SITE + s.id + '/`') < 0) fail('docs/messages.md: the link of ' + s.id + ' should be ' + SITE + s.id + '/');
+if (/var base = '\/[^']+\/'/.test(fs.readFileSync(path.join(ROOT, '404.html'), 'utf8'))) fail('404.html: the site\'s folder is written by hand (it changes with the domain)');
+
 if (errors.length) { console.error('✗ ' + errors.length + ' problem(s):\n  ' + errors.join('\n  ')); process.exit(1); }
 console.log('✓ ' + (B.stays || []).length + ' places, ' + keys.length + ' texts × 4 languages, ' +
   Object.values(C.photos || {}).reduce((n, a) => n + Object.keys(a).filter(k => k[0] !== '_').length, 0) + ' photos: all good');

@@ -261,6 +261,7 @@
 
       <button id="print" type="button">Imprimer la carte</button>
       <small>Dans la fenêtre d’impression, choisissez le format A6 et une échelle de 100 %.</small>
+      <small id="temp-address" hidden>Adresse provisoire (github.io) : le QR code contient l’adresse du guide. Imprimez les cartes une fois le guide passé sur son propre domaine.</small>
     </section>
 
     <article class="card" aria-label="Aperçu de la carte">
@@ -309,7 +310,9 @@
       }
 
       // The guide lives in the same folder as this card; each place has its short link <id>/
-      var base = /^https?:/.test(window.location.protocol) ? new URL('./', window.location.href).href : '';
+      // Always https: a card printed from an http:// page would carry an http:// QR code
+      var base = /^https?:/.test(window.location.protocol) ? new URL('./', window.location.href).href.replace(/^http:\/\/(?!localhost\b|127\.0\.0\.1\b)/, 'https://') : '';
+      byId('temp-address').hidden = !/\.github\.io$/i.test(window.location.hostname);
       var fields = { stay: byId('f-stay'), url: byId('f-url'), net: byId('f-net'), pass: byId('f-pass') };
       var pre = (/[?&]stay=([a-z0-9-]+)/.exec(window.location.search) || [])[1];
       fields.stay.innerHTML = stays.map(function (s) {

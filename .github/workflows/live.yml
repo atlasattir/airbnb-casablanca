@@ -7,6 +7,11 @@ name: Live check
 
 on:
   workflow_dispatch:
+    inputs:
+      base:
+        description: 'Address to check (empty: the guide''s own domain from CNAME, else github.io)'
+        required: false
+        default: ''
 
 jobs:
   pages:
@@ -20,7 +25,9 @@ jobs:
       - name: A browser
         run: npm install --no-save playwright@1.47.0 && npx playwright install --with-deps chromium
       - name: Files, pages, map buttons, offline
-        run: node tools/check-live.js
+        env:
+          BASE: ${{ inputs.base }}
+        run: node tools/check-live.js "$BASE"
 
   buttons:
     runs-on: ubuntu-latest
@@ -38,4 +45,6 @@ jobs:
       - name: A browser
         run: npm install --no-save playwright@1.47.0 && npx playwright install --with-deps ${{ matrix.engine }}
       - name: Every button
-        run: node tools/check-buttons.js https://atlasattir.github.io/airbnb-casablanca/ ${{ matrix.engine }} ${{ matrix.slice }}/8
+        env:
+          BASE: ${{ inputs.base }}
+        run: node tools/check-buttons.js "$BASE" ${{ matrix.engine }} ${{ matrix.slice }}/8

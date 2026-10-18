@@ -12,7 +12,9 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const pw = require('playwright');
 const ROOT = path.join(__dirname, '..');
-const BASE = (process.argv[2] || 'https://atlasattir.github.io/airbnb-casablanca/').replace(/\/?$/, '/');
+// The guide's address: its own domain once Settings → Pages has saved one (GitHub writes it in CNAME), else github.io
+const CNAME = fs.existsSync(path.join(ROOT, 'CNAME')) ? fs.readFileSync(path.join(ROOT, 'CNAME'), 'utf8').trim() : '';
+const BASE = (process.argv[2] || (CNAME ? 'https://' + CNAME + '/' : 'https://atlasattir.github.io/airbnb-casablanca/')).replace(/\/?$/, '/');
 const ENGINE = process.argv[3] || 'chromium';
 const [SLICE, SLICES] = (process.argv[4] || '1/1').split('/').map(Number);
 const DEVICE = ENGINE === 'webkit' ? 'iPhone 13' : 'Galaxy S9+';
@@ -116,6 +118,9 @@ async function tapAll(ctx, label, url, results) {
 }
 
 (async () => {
+  // The guide's own hosts, never stubbed: BASE's, and the domain github.io sends to once it has one
+  const OWN = new Set(['localhost', '127.0.0.1', new URL(BASE).hostname]);
+  await fetch(BASE).then(r => OWN.add(new URL(r.url).hostname), () => { /* offline: BASE only */ });
   const browser = await pw[ENGINE].launch();
   const states = [['home', '']];
   for (const c of ['casablanca', 'marrakech', 'martil']) states.push(['home #' + c, '#' + c]);
@@ -137,7 +142,7 @@ async function tapAll(ctx, label, url, results) {
   await Promise.all(Array.from({ length: lanes }, async (_, lane) => {
     const ctx = await browser.newContext(Object.assign({}, pw.devices[DEVICE], { locale: 'fr-FR', serviceWorkers: 'block',
       permissions: ['geolocation'], geolocation: { latitude: 33.589, longitude: -7.632 } }));
-    await ctx.route(/^https?:\/\/(?!([^/]*\.)?github\.io|localhost|127\.0\.0\.1)[^/]+\/.*/, r => {
+    await ctx.route(u => /^https?:$/.test(u.protocol) && !OWN.has(u.hostname) && !/(^|\.)github\.io$/.test(u.hostname), r => {
       const t = r.request().resourceType();
       if (t === 'document') return r.fulfill({ status: 200, contentType: 'text/html', body: '<title>outside</title>ok' });
       return r.continue();

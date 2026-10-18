@@ -169,7 +169,16 @@ Ensuite, chaque modification envoyée sur cette branche met le site à jour auto
 
 Autres options gratuites : Netlify (glissez le dossier sur [app.netlify.com/drop](https://app.netlify.com/drop)), Vercel ou Cloudflare Pages (importez le dépôt, sans commande de build).
 
-Plus tard, vous pourrez relier votre propre nom de domaine (Settings → Pages → Custom domain). Pensez alors à changer les deux adresses `og:image` et `og:url` en haut de `index.html` : ce sont elles qui affichent l’image d’aperçu quand le lien est partagé sur WhatsApp ou Airbnb.
+### Le nom de domaine (darnacollection.ma)
+
+Le guide marche à l’adresse github.io comme à la racine d’un domaine. Pour relier darnacollection.ma :
+
+1. Chez le registraire (CAP CONNECT), zone DNS du .ma : supprimez les enregistrements A, AAAA et CNAME par défaut sur `@` et `www` (et toute redirection web), gardez les MX et TXT, puis ajoutez 4 enregistrements A sur `@` : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, et un CNAME `www` → `atlasattir.github.io`.
+2. GitHub → photo → **Settings** (du compte) → **Pages** → **Add a domain** → `darnacollection.ma` : ajoutez chez le registraire l’enregistrement TXT affiché, puis **Verify**. Gardez-le toujours.
+3. Quand **Actions → Domain check** montre les bons enregistrements, le domaine est enregistré pour le site (fichier `CNAME` à la racine de la branche, en même temps que les adresses `og:url`/`og:image` et les liens de `docs/messages.md`, que `tools/check-content.js` vérifie). Ne supprimez jamais ce fichier ; récupérez-le (`git pull`) avant tout envoi.
+4. Dès que la case est disponible (jusqu’à 24 h) : dépôt → **Settings** → **Pages** → cochez **Enforce HTTPS**.
+
+L’ancienne adresse github.io renvoie alors vers la même page du domaine (cartes QR déjà imprimées, messages déjà envoyés). darnacollection.com ne peut pas être ajouté à GitHub Pages (un seul domaine par site) : sa redirection 301 vers darnacollection.ma se règle chez Cloudflare (gratuit), avec une règle de redirection.
 
 ## Une fois en ligne
 

@@ -10,7 +10,9 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const { chromium, devices } = require('playwright');
 const ROOT = path.join(__dirname, '..');
-const BASE = (process.argv[2] || 'https://atlasattir.github.io/airbnb-casablanca/').replace(/\/?$/, '/');
+// The guide's address: its own domain once Settings → Pages has saved one (GitHub writes it in CNAME), else github.io
+const CNAME = fs.existsSync(path.join(ROOT, 'CNAME')) ? fs.readFileSync(path.join(ROOT, 'CNAME'), 'utf8').trim() : '';
+const BASE = (process.argv[2] || (CNAME ? 'https://' + CNAME + '/' : 'https://atlasattir.github.io/airbnb-casablanca/')).replace(/\/?$/, '/');
 
 const win = vm.createContext({});
 win.window = win;
@@ -33,6 +35,10 @@ async function status(url) {
 }
 
 (async () => {
+  // Where the guide answers in the end (github.io sends to its own domain once it has one)
+  const LIVE = await fetch(BASE).then(r => r.url.replace(/[^/]*$/, ''), () => BASE);
+  if (LIVE !== BASE) console.log('· ' + BASE + ' now answers at ' + LIVE);
+
   // 1. Every file the guide needs is online, and the version online is the latest one
   const files = new Set(['', 'index.html', 'manifest.webmanifest', 'sw.js', 'assets/css/style.css', 'assets/js/app.js', 'assets/js/icons.js']);
   for (const all of Object.values(C.photos)) {
@@ -60,7 +66,7 @@ async function status(url) {
     const page = await ctx.newPage();
     const errors = [], broken = new Set();
     page.on('pageerror', e => errors.push(e.message));
-    page.on('response', r => { if (r.url().startsWith(BASE) && r.status() >= 400) broken.add(r.url().slice(BASE.length) + ' ' + r.status()); });
+    page.on('response', r => { if (r.url().startsWith(LIVE) && r.status() >= 400) broken.add(r.url().slice(LIVE.length) + ' ' + r.status()); });
     await page.goto(BASE, { waitUntil: 'load' });
     await page.waitForTimeout(4000);
     const home = await page.evaluate(() => ({ chips: document.querySelectorAll('.city-chip').length, film: document.querySelector('.stage').classList.contains('has-video') }));
