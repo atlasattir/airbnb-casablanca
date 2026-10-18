@@ -18,7 +18,7 @@
  *
  * Itinerary stops may carry rel: minutes before (negative) or after today's
  * sunset; the app then shows the real time for the day instead of 'time'.
- * fromHome: the route starts at the guest's own address.
+ * fromHome: the route starts at the guest's door (Google Maps starts from where they are).
  *
  * Prices and opening hours change: check each place before publishing,
  * then update the "checked" date. Last full check: 2026-10.

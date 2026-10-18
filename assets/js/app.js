@@ -351,12 +351,14 @@
 
   function routeUrl(r) {
     var pts = r.stops.filter(function (s) { return s.maps; }).map(function (s) { return s.maps; });
-    var origin = r.fromHome ? aptQuery() : pts.shift();
-    var dest = pts.pop() || origin;
+    // From home: no origin, so Google starts from where the guest is, their own door when they
+    // set off (the area's name would start the walk from the middle of the neighbourhood)
+    var origin = r.fromHome ? '' : pts.shift();
+    var dest = pts.pop() || origin || aptQuery();
     // Google Maps in a phone's browser takes at most 3 stops in between: keep 3, evenly spread
     // (each stop of the timeline keeps its own arrow)
     if (pts.length > 3) pts = [pts[0], pts[Math.floor(pts.length / 2)], pts[pts.length - 1]];
-    var url = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(origin) + '&destination=' + encodeURIComponent(dest);
+    var url = 'https://www.google.com/maps/dir/?api=1' + (origin ? '&origin=' + encodeURIComponent(origin) : '') + '&destination=' + encodeURIComponent(dest);
     if (pts.length) url += '&waypoints=' + pts.map(encodeURIComponent).join('%7C');
     if (r.mode) url += '&travelmode=' + r.mode;
     return url;
