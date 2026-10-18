@@ -1,0 +1,18 @@
+# Checks each place's "Localisation" button: the host's Google Maps link still opens a
+# place, near the area the guide shows (tools/check-maps-links.py).
+# Run it by hand: GitHub → Actions → Maps links → Run workflow, and after changing a mapsUrl.
+name: Maps links
+
+on:
+  workflow_dispatch:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python3 tools/check-maps-links.py
