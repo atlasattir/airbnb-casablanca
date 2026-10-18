@@ -56,7 +56,10 @@ CASA.icons = {
   rating: '<path d="m12 3.75 2.55 5.2 5.7.85-4.12 4.03.97 5.7L12 16.84l-5.1 2.69.97-5.7L3.75 9.8l5.7-.85z"/>',
 
   /* places */
-  minaret: '<path d="M10 21V8.5h4V21"/><path d="M9 8.5h6"/><path d="M10.75 8.5V6h2.5v2.5"/><path d="M12 6V2.75"/><path d="M4.5 21h15"/><path d="M11 12.5h2M11 16.5h2"/>',
+  // A mosque (square minaret, domed hall, crescent): the minaret alone looked like an antenna
+  minaret: '<path d="M2.75 21h18.5"/><path d="M4.25 21V8.25h3.5V21"/><path d="M4.75 8.25V6.5h2.5v1.75"/><path d="M6 6.5V5"/><path d="M5.25 11.5h1.5"/>' +
+    '<path d="M10 21v-7h10v7"/><path d="M10.6 14a4.4 4.4 0 0 1 8.8 0"/><path d="M15 9.6V8.5"/><path d="M15.75 5.35a1.4 1.4 0 1 0 0 2.3"/>' +
+    '<path d="M13.5 21v-2.25a1.5 1.5 0 0 1 3 0V21"/>',
   lighthouse: '<path d="M9 21l1.2-12h3.6L15 21"/><path d="M9.5 9h5"/><path d="M10.5 9V6.5h3V9"/><path d="M12 6.5V4.25"/><path d="M4 7l4 1.25M20 7l-4 1.25"/><path d="M6 21h12"/><path d="M9.8 13h4.4M9.45 17h5.1"/>',
   gate: '<path d="M4.5 21V6.5h15V21"/><path d="M4.5 6.5V4h2v2.5M9 6.5V4h2v2.5M13 6.5V4h2v2.5M17.5 6.5V4h2v2.5"/><path d="M9 21v-5.5a3 3 0 0 1 6 0V21"/>',
   cathedral: '<path d="M6 21V10.5l6-6 6 6V21"/><path d="M12 4.5V1.75M10.75 3h2.5"/><path d="M10 21v-3.5a2 2 0 0 1 4 0V21"/><circle cx="12" cy="11.25" r="1.6"/><path d="M3.5 21h17"/>',
