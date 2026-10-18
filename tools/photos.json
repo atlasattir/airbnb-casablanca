@@ -277,7 +277,7 @@
       "cafes": "cafe-terrace-view",
       "souks": "haddadine",
       "experiences": "balloons",
-      "family": "caleche-family",
+      "family": "carousel",
       "itineraries": "jemaa",
       "transport": "taxis"
     },
@@ -296,6 +296,11 @@
         "File:Koutoubia_mosque_of_Marrakech.jpg"
       ],
       "category": "Category:Koutoubia_Mosque"
+    },
+    "koutoubia-palms": {
+      "files": [
+        "File:Mosquée de la Koutoubia - marakesh.jpg"
+      ]
     },
     "ben-youssef": {
       "files": [
@@ -487,10 +492,11 @@
         "File:Ciel d'Afrique,luchtballon in marrakech, globo en marrakech, ballonfährt marrakesch, luftballon marrakeschballonvaart in marrakech,.JPG"
       ]
     },
-    "caleche-family": {
+    "carousel": {
       "files": [
-        "File:Caleche in Marrakech (2902168814).jpg"
-      ]
+        "File:ManègeLR1.jpg"
+      ],
+      "illustr": true
     },
     "taxis": {
       "files": [
@@ -707,9 +713,9 @@
     "_covers": {
       "wifi": "wifi",
       "stay": "keys",
-      "house": "washing-machine",
+      "house": "tap",
       "nearby": "grocery",
-      "services": "luggage",
+      "services": "bell",
       "assistance": "pharmacy",
       "favorites": "heart",
       "location": "map-pin"
@@ -826,9 +832,9 @@
         "File:A key is shown inserted into a lock.jpg"
       ]
     },
-    "washing-machine": {
+    "tap": {
       "files": [
-        "File:Washing machine new.png"
+        "File:Tap-gb0fe5d2cc 1920.jpg"
       ],
       "illustr": true
     },
@@ -837,9 +843,9 @@
         "File:Grocery store in Medina Rabat 09.jpg"
       ]
     },
-    "luggage": {
+    "bell": {
       "files": [
-        "File:Travelers with luggage arrive at hotel entrance while suitcase waits on pavement.jpg"
+        "File:Bell in yellow.jpg"
       ],
       "illustr": true
     },
