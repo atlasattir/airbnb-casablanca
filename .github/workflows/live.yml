@@ -1,6 +1,6 @@
 # Opens the live guide (GitHub Pages) as a guest's phone does: every file online, the latest
-# version, every place and page, the map buttons, offline mode (tools/check-live.js), then taps
-# every button of every page, in Safari's engine (iPhone) and Chrome's (Android)
+# version, every place and page, the map buttons, offline mode (tools/check-live.js), and taps
+# every button of every page, in Safari's engine (iPhone) and Chrome's (Android), side by side
 # (tools/check-buttons.js). Run it by hand after a change has gone live:
 # GitHub → Actions → Live check → Run workflow.
 name: Live check
@@ -9,21 +9,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  live:
+  pages:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Browsers (Chrome's and Safari's engines)
-        run: npm install --no-save playwright@1.47.0 && npx playwright install --with-deps chromium webkit
+      - name: A browser
+        run: npm install --no-save playwright@1.47.0 && npx playwright install --with-deps chromium
       - name: Files, pages, map buttons, offline
         run: node tools/check-live.js
-      - name: Every button, iPhone (Safari's engine)
-        if: always()
-        run: node tools/check-buttons.js https://atlasattir.github.io/airbnb-casablanca/ webkit
-      - name: Every button, Android (Chrome's engine)
-        if: always()
-        run: node tools/check-buttons.js https://atlasattir.github.io/airbnb-casablanca/ chromium
+
+  buttons:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [webkit, chromium]   # iPhone (Safari's engine), Android (Chrome's)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: A browser
+        run: npm install --no-save playwright@1.47.0 && npx playwright install --with-deps ${{ matrix.engine }}
+      - name: Every button
+        run: node tools/check-buttons.js https://atlasattir.github.io/airbnb-casablanca/ ${{ matrix.engine }}
