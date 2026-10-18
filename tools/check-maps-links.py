@@ -61,6 +61,7 @@ def in_browser(url):
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
+        print('  (no Playwright here: links are only followed, not opened in a browser)')
         return None
     with sync_playwright() as p:
         b = p.chromium.launch()
