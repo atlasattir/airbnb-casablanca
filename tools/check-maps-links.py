@@ -73,8 +73,11 @@ def main():
                 else 'directions' if '/maps/dir/' in final else 'a map' if '/maps' in final else None)
         where = pin(final)
         if not kind or not where:
-            print('✗ %-12s opens something else than a Google Maps place (HTTP %s, %s)'
-                  % (s['id'], status, re.sub(r'[?#].*', '', final).split('/')[2]))
+            # Say what it opens, by its shape only: the page and the names of its parameters
+            path = re.sub(r'[?#].*', '', final).split('/', 3)
+            names = sorted(set(re.findall(r'[?&]([a-z_]+)=', final)))
+            print('✗ %-12s opens %s/%s (parameters: %s), not a Google Maps place with a pin'
+                  % (s['id'], path[2], (path[3] if len(path) > 3 else '').split('/')[0], ', '.join(names) or 'none'))
             bad += 1
             continue
         d = km((s['lat'], s['lng']), where)
