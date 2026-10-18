@@ -19,10 +19,11 @@
       var path = window.location.pathname;
       var base = /\.github\.io$/i.test(window.location.hostname) ? '/' + (path.split('/')[1] || '') + '/' : '/';
       var rest = path.indexOf(base) === 0 ? path.slice(base.length) : path.replace(/^\//, '');
-      rest = rest.replace(/^airbnb-casablanca\//i, ''); // the old github.io folder, typed after the new domain
+      rest = rest.replace(/^airbnb-casablanca(\/|$)/i, ''); // the old github.io folder, typed after the new domain
       var id = rest.split('/')[0] || '';
       try { id = decodeURIComponent(id); } catch (e) { /* a stray % */ }
       id = id.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
+      if (!id || /^[a-z0-9-]*html?$/.test(id)) id = (/[?&]stay=([a-z0-9-]+)/i.exec(window.location.search) || [])[1] || ''; // a page name, or ?stay= kept
       var to = base + (id ? '?stay=' + id : '') + window.location.hash;
       document.getElementById('home').href = base;
       if (to !== path + window.location.search + window.location.hash) window.location.replace(to);

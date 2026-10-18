@@ -12,7 +12,7 @@ const { chromium, devices } = require('playwright');
 const ROOT = path.join(__dirname, '..');
 // The guide's address: its own domain once Settings → Pages has saved one (GitHub writes it in CNAME), else github.io
 const CNAME = fs.existsSync(path.join(ROOT, 'CNAME')) ? fs.readFileSync(path.join(ROOT, 'CNAME'), 'utf8').trim() : '';
-const BASE = (process.argv[2] || (CNAME ? 'https://' + CNAME + '/' : 'https://atlasattir.github.io/airbnb-casablanca/')).replace(/\/?$/, '/');
+const BASE = (process.argv[2] || (CNAME ? 'https://' + CNAME + '/' : 'https://atlasattir.github.io/airbnb-casablanca/')).replace(/^(?!https?:\/\/)/i, 'https://').replace(/\/?$/, '/');
 
 const win = vm.createContext({});
 win.window = win;
@@ -106,19 +106,31 @@ async function status(url) {
     await ctx.close();
   }
 
-  // 3. Offline: after one visit through the short link, the place opens without network
-  const ctx = await browser.newContext(Object.assign({}, devices['iPhone 13'], { locale: 'fr-FR' }));
-  const page = await ctx.newPage();
+  // 3. Offline, for real: one visit through the short link, then the same browser again with no
+  // network at all (setOffline would leave the service worker's own requests online)
+  await browser.close();
+  const phone = Object.assign({}, devices['iPhone 13'], { locale: 'fr-FR' });
+  delete phone.defaultBrowserType;
+  const dir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'darna-offline-'));
+  let ctx = await chromium.launchPersistentContext(dir, phone);
+  let page = ctx.pages()[0] || await ctx.newPage();
   await page.goto(BASE + 'bourgogne/', { waitUntil: 'load' });
   await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.controller, null, { timeout: 30000 }).catch(() => null);
   await page.reload({ waitUntil: 'load' });
   await page.waitForTimeout(4000);
-  await ctx.setOffline(true);
-  await page.reload({ waitUntil: 'load' }).catch(() => null);
-  await page.waitForTimeout(2500);
-  const offline = await page.evaluate(() => document.querySelectorAll('.tile[data-open]').length).catch(() => 0);
-  ok(offline >= 12, 'offline: bourgogne/ opens without network (' + offline + ' buttons)');
-  await browser.close();
+  await ctx.close();
+  ctx = await chromium.launchPersistentContext(dir, Object.assign({}, phone, { args: ['--host-resolver-rules=MAP * ~NOTFOUND'] }));
+  page = ctx.pages()[0] || await ctx.newPage();
+  const reached = [];
+  page.on('response', r => { if (!r.fromServiceWorker() && r.url().startsWith('http')) reached.push(r.url()); });
+  for (const link of ['bourgogne/', '?stay=bourgogne#wifi']) {
+    await page.goto(BASE + link, { waitUntil: 'load' }).catch(() => null);
+    await page.waitForTimeout(2500);
+    const r = await page.evaluate(() => ({ tiles: document.querySelectorAll('.tile[data-open]').length, sheet: !!document.querySelector('.sheet.is-open') })).catch(() => ({ tiles: 0 }));
+    ok(r.tiles >= 12 && (r.sheet || !/#/.test(link)), 'offline: ' + link + ' opens with no network at all (' + r.tiles + ' buttons' + (/#/.test(link) ? ', its page ' + (r.sheet ? 'open' : 'NOT open') : '') + ')');
+  }
+  ok(!reached.length, 'offline: everything came from the stored copy' + (reached.length ? ': ' + reached.slice(0, 3).join(', ') : ''));
+  await ctx.close();
 
   console.log(bad ? '\n' + bad + ' problem(s) on ' + BASE : '\nThe live guide works: ' + BASE);
   process.exit(bad ? 1 : 0);

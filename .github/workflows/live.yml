@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       base:
-        description: 'Address to check (empty: the guide''s own domain from CNAME, else github.io)'
+        description: 'Address to check, e.g. https://atlasattir.github.io/airbnb-casablanca/ (empty: the guide''s own domain from CNAME, else github.io)'
         required: false
         default: ''
 

@@ -14,7 +14,7 @@ const pw = require('playwright');
 const ROOT = path.join(__dirname, '..');
 // The guide's address: its own domain once Settings → Pages has saved one (GitHub writes it in CNAME), else github.io
 const CNAME = fs.existsSync(path.join(ROOT, 'CNAME')) ? fs.readFileSync(path.join(ROOT, 'CNAME'), 'utf8').trim() : '';
-const BASE = (process.argv[2] || (CNAME ? 'https://' + CNAME + '/' : 'https://atlasattir.github.io/airbnb-casablanca/')).replace(/\/?$/, '/');
+const BASE = (process.argv[2] || (CNAME ? 'https://' + CNAME + '/' : 'https://atlasattir.github.io/airbnb-casablanca/')).replace(/^(?!https?:\/\/)/i, 'https://').replace(/\/?$/, '/');
 const ENGINE = process.argv[3] || 'chromium';
 const [SLICE, SLICES] = (process.argv[4] || '1/1').split('/').map(Number);
 const DEVICE = ENGINE === 'webkit' ? 'iPhone 13' : 'Galaxy S9+';

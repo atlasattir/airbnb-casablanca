@@ -14,7 +14,7 @@ todo=0
 ok() { echo "✓ $*"; }
 no() { echo "✗ $*"; todo=$((todo + 1)); }
 info() { echo "· $*"; }
-q() { dig +short "$2" "$1" @1.1.1.1 | grep -v '^;' | sort | tr '\n' ' ' | sed 's/ $//'; }
+q() { dig +short "$2" "$1" "@${3:-1.1.1.1}" ${4:-} 2>/dev/null | grep -v '^;' | sort | tr '\n' ' ' | sed 's/ $//'; }
 # Where an address answers: "status location", or "error N" when curl cannot connect (60 = certificate)
 hit() {
   local out rc
@@ -35,7 +35,10 @@ for d in "$DOMAIN" "$ALIAS"; do
     else no "$d: no DNS servers found (registry answer: ${status:-none})"; fi
   fi
   # The registration's public facts only (registrar, status, servers, dates), never the owner's details
-  whois "$d" 2>/dev/null | grep -iE '^ *(registrar|domain status|status|name server|nserver|creat|expir|registry expiry)[^:]*:' |
+  facts=$(whois "$d" 2>/dev/null)
+  echo "$facts" | grep -iE '^ *(domain )?status:' | grep -qiE 'hold|pending|inactive|suspend|redemption' &&
+    no "$d: the registry holds or suspends it (ID check for a .ma, e-mail verification for a .com?)"
+  echo "$facts" | grep -iE '^ *(registrar|domain status|status|name server|nserver|creat|expir|registry expiry)[^:]*:' |
     grep -viE 'registrant|admin|tech|bill|email|phone|fax|street|city|postal|abuse|url|whois server|iana' | sed 's/^ */    /' | sort -u | head -12
 done
 
@@ -46,6 +49,14 @@ a=$(q "$DOMAIN" A)
 aaaa=$(q "$DOMAIN" AAAA)
 [ "$aaaa" = "$GH_AAAA" ] && ok "$DOMAIN IPv6 points to GitHub Pages (4 AAAA records)" ||
   { [ -z "$aaaa" ] && info "$DOMAIN has no AAAA (IPv6) records: optional, add GitHub's four if the DNS panel allows" || no "$DOMAIN AAAA records: $aaaa (should be $GH_AAAA, or none)"; }
+# The same answer everywhere: three public resolvers and the domain's own servers (guests'
+# operators keep an older answer for a while: switch only once this is green, and some hours later)
+odd=''
+for r in 1.1.1.1 8.8.8.8 9.9.9.9 $(q "$DOMAIN" NS); do
+  case "$r" in *.) v=$(q "$DOMAIN" A "$r" +norecurse) ;; *) v=$(q "$DOMAIN" A "$r") ;; esac
+  [ "$v" = "$GH_A" ] || odd="$odd ${r%.}=${v:-none}"
+done
+[ -z "$odd" ] && ok "every resolver and $DOMAIN's own servers give GitHub's addresses" || no "not the same answer everywhere yet:$odd"
 www=$(q "www.$DOMAIN" CNAME)
 [ "$www" = "atlasattir.github.io." ] && ok "www.$DOMAIN points to atlasattir.github.io" || no "www.$DOMAIN: ${www:-no CNAME} (should be a CNAME to atlasattir.github.io)"
 caa=$(q "$DOMAIN" CAA)
@@ -67,6 +78,12 @@ expect() { # address, expected location
   local r; r=$(hit "$1")
   if [ "${r%% *}" = 301 ] && [ "${r#* }" = "$2" ]; then ok "$1 → 301 → $2"; else no "$1 answers $r (should be 301 → $2)"; fi
 }
+echo
+echo "— $ALIAS (redirects to $DOMAIN)"
+ds=$(q "$ALIAS" DS a.gtld-servers.net +norecurse)
+[ -n "$ds" ] && info "$ALIAS has DNSSEC (DS record): turn it off at the registrar before moving it to Cloudflare"
+case "$(q "$ALIAS" NS)" in *cloudflare.com*) ok "$ALIAS is on Cloudflare" ;; *) info "$ALIAS is not on Cloudflare yet" ;; esac
+
 echo
 echo "— redirects"
 expect "http://$DOMAIN/bourgogne/?from=qr" "https://$DOMAIN/bourgogne/?from=qr"

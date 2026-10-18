@@ -134,7 +134,7 @@ Pour les villes (`content/cities/<ville>.js`) :
 
 `node tools/check-content.js` vérifie que tout se charge, que chaque logement a sa ville, sa page et son lien court, que les quatre langues ont les mêmes textes, que chaque photo existe et est créditée, et que le mode hors connexion a tous ses fichiers. GitHub la lance aussi à chaque envoi (onglet *Actions* → *Check*) : une croix rouge sur un envoi veut dire qu’un logement risque de ne pas s’ouvrir.
 
-Un lien mal tapé (une majuscule, une faute, un caractère en trop) mène quand même au bon guide, ou à l’accueil pour choisir : c’est le rôle de `404.html`. Si vous passez à votre propre nom de domaine, changez sa ligne `base` en `'/'`.
+Un lien mal tapé (une majuscule, une faute, un caractère en trop) mène quand même au bon guide, ou à l’accueil pour choisir : c’est le rôle de `404.html`, qui marche aux deux adresses (github.io et le domaine).
 
 ## Téléphones et navigateurs
 
@@ -171,14 +171,19 @@ Autres options gratuites : Netlify (glissez le dossier sur [app.netlify.com/drop
 
 ### Le nom de domaine (darnacollection.ma)
 
-Le guide marche à l’adresse github.io comme à la racine d’un domaine. Pour relier darnacollection.ma :
+Le guide marche à l’adresse github.io comme à la racine d’un domaine. Pour relier darnacollection.ma, dans cet ordre :
 
-1. Chez le registraire (CAP CONNECT), zone DNS du .ma : supprimez les enregistrements A, AAAA et CNAME par défaut sur `@` et `www` (et toute redirection web), gardez les MX et TXT, puis ajoutez 4 enregistrements A sur `@` : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, et un CNAME `www` → `atlasattir.github.io`.
-2. GitHub → photo → **Settings** (du compte) → **Pages** → **Add a domain** → `darnacollection.ma` : ajoutez chez le registraire l’enregistrement TXT affiché, puis **Verify**. Gardez-le toujours.
-3. Quand **Actions → Domain check** montre les bons enregistrements, le domaine est enregistré pour le site (fichier `CNAME` à la racine de la branche, en même temps que les adresses `og:url`/`og:image` et les liens de `docs/messages.md`, que `tools/check-content.js` vérifie). Ne supprimez jamais ce fichier ; récupérez-le (`git pull`) avant tout envoi.
-4. Dès que la case est disponible (jusqu’à 24 h) : dépôt → **Settings** → **Pages** → cochez **Enforce HTTPS**.
+0. **Avant tout** : chez CAP CONNECT, faites la vérification d’identité du .ma (CIN, passeport, ou documents de la société), exigée par l’ANRT ; sans elle le .ma n’est pas activé, ou peut être suspendu. Pour le .com, cliquez le lien de l’e-mail « verification » reçu (vérifiez les spams) : sans ce clic sous 15 jours, le .com est suspendu.
+1. https://github.com/settings/pages (dans le navigateur) → **Add a domain** → `darnacollection.ma` → **Add domain** : GitHub montre un enregistrement TXT. Laissez la page ouverte.
+2. CAP CONNECT → Domaines → darnacollection.ma → **Gestion de la zone DNS** (créez-la si on vous le propose ; pas de « configuration rapide »). Supprimez seulement les lignes A, AAAA et CNAME dont l’hôte est `@`, `www` ou `*`, et toute redirection web ; ne touchez ni NS ni SOA, gardez MX et TXT. Ajoutez : le TXT de GitHub (hôte `_github-pages-challenge-atlasattir`, la valeur copiée) ; 4 lignes A, hôte `@` : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` ; 1 ligne CNAME, hôte `www`, valeur `atlasattir.github.io.` (TTL 3600 si on vous le demande). Si le type AAAA existe, ajoutez aussi `2606:50c0:8000::153` à `2606:50c0:8003::153`.
+3. Quelques heures plus tard : https://github.com/settings/pages → ⋯ → **Continue verifying** → **Verify**.
+4. **Actions → Domain check** : quand il montre les bons enregistrements partout, attendez encore quelques heures (les anciennes réponses restent en mémoire chez les opérateurs), puis choisissez une heure calme (la nuit, pas un jour d’arrivée) pour la bascule : dépôt → **Settings → Pages → Custom domain** → `darnacollection.ma` → **Save**. GitHub ajoute un fichier `CNAME` à la branche ; dans la foulée, un envoi change les adresses `og:url`/`og:image` et les liens de `docs/messages.md` (`tools/check-content.js` les vérifie). Ne supprimez jamais ce fichier, récupérez-le (`git pull`) avant tout envoi et ne forcez jamais un envoi.
+5. Dès que la case est disponible (souvent quelques minutes, jusqu’à 24 h) : **Enforce HTTPS**. Si au bout d’une heure le certificat n’est toujours pas prêt : **Remove**, retapez le domaine, **Save** (une seule fois).
+6. **Seulement quand Domain check est entièrement vert** : remplacez les liens des messages Airbnb par ceux de darnacollection.ma, puis imprimez les cartes depuis https://darnacollection.ma/card.html.
 
-L’ancienne adresse github.io renvoie alors vers la même page du domaine (cartes QR déjà imprimées, messages déjà envoyés). darnacollection.com ne peut pas être ajouté à GitHub Pages (un seul domaine par site) : sa redirection 301 vers darnacollection.ma se règle chez Cloudflare (gratuit), avec une règle de redirection.
+L’ancienne adresse github.io renvoie alors vers la même page du domaine (cartes QR déjà imprimées, messages déjà envoyés). Les favoris enregistrés et une icône ajoutée à l’écran d’accueil depuis github.io ne passent pas au nouveau domaine : il suffit de la rajouter. **Revenir en arrière** : Settings → Pages → **Remove** ; github.io sert de nouveau le guide en une ou deux minutes.
+
+darnacollection.com ne peut pas être ajouté à GitHub Pages (un seul domaine par site) : sa redirection 301 vers darnacollection.ma se règle chez Cloudflare (gratuit) : ajoutez le domaine (offre Free), deux enregistrements A `@` et `www` → `192.0.2.1` en mode « Proxied », les deux serveurs de noms Cloudflare chez CAP CONNECT (cases 3 et 4 vides ; pas de DNSSEC), puis **Rules → Redirect Rule** : *All incoming requests*, type *Dynamic*, expression `concat("https://darnacollection.ma", http.request.uri.path)`, code 301, *Preserve query string* coché. Laissez « Always Use HTTPS » désactivé.
 
 ## Une fois en ligne
 

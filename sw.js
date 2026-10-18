@@ -54,7 +54,10 @@ function store(request, response) {
   // Never a redirect. A page answered by a redirect reaches here as 'opaqueredirect' (status 0, not
   // ok) and is passed on to the browser, which follows it. A file fetched through one (redirected)
   // would hold the old address, and browsers refuse it for a page: it would break the guide offline.
-  if (response && !response.redirected && (response.ok || response.type === 'opaque')) {
+  // Opaque (unreadable) answers only for other sites' files, the fonts: one of our own photos
+  // comes back opaque only when it was sent elsewhere, and that copy breaks later reads.
+  var own = new URL(request.url).origin === self.location.origin;
+  if (response && !response.redirected && ((response.ok && response.type !== 'opaque') || (response.type === 'opaque' && !own))) {
     var copy = response.clone();
     caches.open(VERSION).then(function (cache) { cache.put(request, copy); });
   }
@@ -94,7 +97,8 @@ self.addEventListener('fetch', function (event) {
             // A page never stored: a place's link (…/pestana/) opens its guide; anything else, the home.
             // (index.html must be served at the site's root, or its relative paths break.)
             var scope = new URL(self.registration.scope);
-            var rest = url.pathname.slice(scope.pathname.length);
+            // (the github.io folder, typed after the domain, is dropped)
+            var rest = url.pathname.slice(scope.pathname.length).replace(/^airbnb-casablanca(\/|$)/i, '');
             var id = /^([a-z0-9-]+)\/?$/i.exec(rest);
             return Response.redirect(scope.href + (id ? '?stay=' + id[1].toLowerCase() : ''), 302);
           });
