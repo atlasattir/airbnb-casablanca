@@ -1420,7 +1420,17 @@
     if (map && wantsMapsApp()) { e.preventDefault(); openMapsApp(map.href); return; }
     var t = e.target.closest && e.target.closest('[data-open],[data-locate],[data-open-detail],[data-modal-close],[data-lang],[data-fav],[data-chip],[data-copy],[data-taxi],[data-tab],[data-check],[data-howto]');
     if (!t) return;
-    if (t.hasAttribute('data-open')) { stepIn(t.getAttribute('href')); return; }
+    if (t.hasAttribute('data-open')) {
+      // The dock's button of the page already open answers too: back to its top, else closes it
+      if (t.closest('.dock') && window.location.hash === t.getAttribute('href')) {
+        e.preventDefault();
+        if (els.scroll.scrollTop > 40) els.scroll.scrollTo({ top: 0, behavior: reducedMotion() ? 'auto' : 'smooth' });
+        else goBack();
+        return;
+      }
+      stepIn(t.getAttribute('href'));
+      return;
+    }
     if (t.hasAttribute('data-locate')) { locate(); return; }
     if (t.hasAttribute('data-open-detail')) { stepIn(t.getAttribute('href')); return; }
     if (t.hasAttribute('data-modal-close')) { modalBack(); return; }

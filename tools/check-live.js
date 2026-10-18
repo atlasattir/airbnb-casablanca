@@ -22,11 +22,14 @@ for (const s of STAYS) { load('content/cities/' + s.city + '.js'); load('content
 let bad = 0;
 const ok = (c, m) => { console.log((c ? '✓ ' : '✗ ') + m); if (!c) bad++; };
 
+// A file's status, asked again on a passing server error (GitHub Pages answers 503 now and then)
 async function status(url) {
-  for (let i = 0; i < 3; i++) {
-    try { const r = await fetch(url, { method: 'HEAD' }); return r.status; } catch (e) { await new Promise(r => setTimeout(r, 1500)); }
+  let last = 0;
+  for (let i = 0; i < 4; i++) {
+    try { last = (await fetch(url, { method: 'HEAD' })).status; if (last < 500) return last; } catch (e) { last = 0; }
+    await new Promise(r => setTimeout(r, 1500 * (i + 1)));
   }
-  return 0;
+  return last;
 }
 
 (async () => {
