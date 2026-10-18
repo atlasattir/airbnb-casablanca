@@ -1,0 +1,19 @@
+# Checks darnacollection.ma (and the .com that redirects to it) from outside: DNS, HTTPS, and that
+# www, http, the old github.io link and the .com all send guests to the same page on the domain
+# (tools/check-domain.sh). Run it by hand after a change at the registrar or in Settings → Pages:
+# GitHub → Actions → Domain check → Run workflow.
+name: Domain check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  domain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: DNS, HTTPS and redirects
+        run: |
+          command -v dig >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq dnsutils; }
+          bash tools/check-domain.sh
