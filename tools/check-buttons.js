@@ -156,6 +156,10 @@ async function tapAll(ctx, label, url, results) {
   await Promise.all(Array.from({ length: lanes }, async (_, lane) => {
     const ctx = await browser.newContext(Object.assign({}, pw.devices[DEVICE], { locale: 'fr-FR', serviceWorkers: 'block',
       permissions: ['geolocation'], geolocation: { latitude: 33.589, longitude: -7.632 } }));
+    // WebKit on the test machines decodes the film without a graphics card, which slows every tap on
+    // the screens where it plays (an iPhone decodes it in hardware): it gets the still instead. The
+    // film itself is checked in Chrome's engine and by tools/check-live.js
+    if (ENGINE === 'webkit') await ctx.route(/\.(mp4|webm)(\?|$)/i, r => r.abort());
     await ctx.route(u => /^https?:$/.test(u.protocol) && !OWN.has(u.hostname) && !/(^|\.)github\.io$/.test(u.hostname), r => {
       const t = r.request().resourceType();
       if (t === 'document') return r.fulfill({ status: 200, contentType: 'text/html', body: '<title>outside</title>ok' });
