@@ -560,6 +560,23 @@
   "url": "https://commons.wikimedia.org/wiki/File:Entrance_to_Rick%E2%80%99s_Caf%C3%A9_in_Casablanca.jpg",
   "w": 1024
  },
+ "casablanca/sacrecoeur": {
+  "auto": false,
+  "by": "Sandra Cohen-Rose and Colin Rose from Montreal, Canada",
+  "file": "File:Église du Sacré-Coeur, Casablanca (5507016000).jpg",
+  "h": 960,
+  "lic": "CC BY-SA 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "notes": [],
+  "sel": "{\"category\": null, \"files\": [\"File:\\u00c9glise du Sacr\\u00e9-Coeur, Casablanca (5507016000).jpg\", \"File:\\u00c9glise du Sacr\\u00e9-Coeur, Casablanca (5506420199).jpg\"], \"nofop\": true, \"search\": null}",
+  "sha1": "307c1156bd33387e72f14bf5bfbd1f539f7dd019",
+  "sm": "assets/img/photos/casablanca/eglise-du-sacre-coeur-casablanca-5507016000-307c11-sm.jpg?v=307c1156",
+  "smw": 640,
+  "src": "assets/img/photos/casablanca/eglise-du-sacre-coeur-casablanca-5507016000-307c11.jpg?v=307c1156",
+  "title": "Église du Sacré-Coeur, Casablanca (5507016000)",
+  "url": "https://commons.wikimedia.org/wiki/File:%C3%89glise_du_Sacr%C3%A9-Coeur,_Casablanca_(5507016000).jpg",
+  "w": 1280
+ },
  "casablanca/sidiabderrahmane": {
   "auto": false,
   "by": "Bernard Gagnon",
