@@ -3,7 +3,8 @@
  * Taps every button of the guide, on every page of the home and of each place (cards,
  * routes, details, top bar, dock), as a guest's finger would, and reports any tap that does
  * nothing (no new page, no change on screen, nothing saved) or that something else covers.
- *     node tools/check-buttons.js [https://…/airbnb-casablanca/] [chromium|webkit]
+ *     node tools/check-buttons.js [https://…/airbnb-casablanca/] [chromium|webkit] [k/n]
+ *     (k/n: only the k-th of n slices of the screens, to share the work between machines)
  *     (GitHub → Actions → Live check runs it on the published guide; needs Playwright)
  * Taps on external links (Google Maps, WhatsApp, Commons) are answered here, never sent on.
  */
@@ -13,6 +14,7 @@ const pw = require('playwright');
 const ROOT = path.join(__dirname, '..');
 const BASE = (process.argv[2] || 'https://atlasattir.github.io/airbnb-casablanca/').replace(/\/?$/, '/');
 const ENGINE = process.argv[3] || 'chromium';
+const [SLICE, SLICES] = (process.argv[4] || '1/1').split('/').map(Number);
 const DEVICE = ENGINE === 'webkit' ? 'iPhone 13' : 'Galaxy S9+';
 
 const win = vm.createContext({});
@@ -111,8 +113,8 @@ async function tapAll(ctx, label, url, results) {
     }
     for (const sid of ['wifi', 'stay', 'house', 'nearby', 'services', 'assistance', 'transport']) states.push([s.id + ' #' + sid, st + '#' + sid]);
   }
-  const uniq = [...new Map(states.map(s => [s[1], s])).values()];
-  console.log(ENGINE + ' (' + DEVICE + '): ' + uniq.length + ' screens to go through on ' + BASE);
+  const uniq = [...new Map(states.map(s => [s[1], s])).values()].filter((s, i) => i % SLICES === SLICE - 1);
+  console.log(ENGINE + ' (' + DEVICE + '): ' + uniq.length + ' screens to go through on ' + BASE + (SLICES > 1 ? ' (slice ' + SLICE + ' of ' + SLICES + ')' : ''));
   const results = [];
   const lanes = 6;
   await Promise.all(Array.from({ length: lanes }, async (_, lane) => {
