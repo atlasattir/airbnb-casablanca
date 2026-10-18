@@ -67,9 +67,9 @@ def in_browser(url):
         b = p.chromium.launch()
         page = b.new_page(locale='fr-FR', viewport={'width': 1280, 'height': 800})
         page.goto(url, wait_until='domcontentloaded', timeout=60000)
-        for _ in range(40):  # up to 20 s for the map to settle on what was shared
+        for _ in range(60):  # up to 30 s for the map to settle on what was shared, pin included
             page.wait_for_timeout(500)
-            if '/maps/place/' in page.url or '/maps/search/' in page.url:
+            if ('/maps/place/' in page.url or '/maps/search/' in page.url) and pin(page.url):
                 break
         final = page.url
         b.close()
@@ -103,8 +103,8 @@ def main():
             # Say what it opens, by its shape only: the page and the names of its parameters
             path = re.sub(r'[?#].*', '', final).split('/', 3)
             names = sorted(set(re.findall(r'[?&]([a-z_]+)=', final)))
-            print('✗ %-12s opens %s/%s (parameters: %s), not a Google Maps place with a pin'
-                  % (s['id'], path[2], (path[3] if len(path) > 3 else '').split('/')[0], ', '.join(names) or 'none'))
+            print('✗ %-12s opens %s/%s%s (parameters: %s), not a Google Maps place with a pin'
+                  % (s['id'], path[2], '/'.join((path[3] if len(path) > 3 else '').split('/')[:2]), how, ', '.join(names) or 'none'))
             bad += 1
             continue
         d = km((s['lat'], s['lng']), where)
