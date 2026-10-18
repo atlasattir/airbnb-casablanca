@@ -1,0 +1,47 @@
+# Photos an establishment publishes itself (a hotel's own gallery, the host's own listing), for
+# places whose owners allowed the guide to use them: numbered contact sheets on the branch
+# "photos-permitted" (tools/permitted-candidates.js). Only sheets and addresses, no photos.
+# GitHub → Actions → Permitted photos → Run workflow, with the pages separated by |.
+name: Permitted photos
+
+on:
+  workflow_dispatch:
+    inputs:
+      pages:
+        description: 'Pages or image addresses, separated by |'
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+concurrency: permitted
+
+jobs:
+  sheets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: A browser
+        run: npm install --no-save playwright@1.47.0 && npx playwright install --with-deps chromium
+      - name: Contact sheets
+        env:
+          PAGES: ${{ inputs.pages }}
+        run: |
+          IFS='|' read -r -a LIST <<< "$PAGES"
+          node tools/permitted-candidates.js "$RUNNER_TEMP/permitted" "${LIST[@]}"
+      - name: Push to the branch photos-permitted
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch --orphan photos-permitted
+          git rm -rq --cached . || true
+          git clean -fdxq
+          cp -r "$RUNNER_TEMP/permitted"/. .
+          git add -A
+          git commit -qm 'Permitted photos: contact sheets to choose from'
+          git push --force origin photos-permitted
