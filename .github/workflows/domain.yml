@@ -15,5 +15,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: DNS, HTTPS and redirects
         run: |
-          command -v dig >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq dnsutils; }
+          command -v dig >/dev/null && command -v whois >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq dnsutils whois; }
           bash tools/check-domain.sh

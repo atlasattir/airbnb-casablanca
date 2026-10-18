@@ -24,7 +24,19 @@ hit() {
 
 for d in "$DOMAIN" "$ALIAS"; do
   ns=$(q "$d" NS)
-  if [ -n "$ns" ]; then info "$d: DNS hosted by $ns"; else no "$d: no DNS servers found (domain not active yet?)"; fi
+  if [ -n "$ns" ]; then info "$d: DNS hosted by $ns"; else
+    # What the registry itself says: the servers it sends visitors to (or none: not registered/active)
+    tld=$(dig +short NS "${d##*.}." @1.1.1.1 | head -1)
+    deleg=$(dig +norecurse NS "$d" "@$tld" 2>/dev/null)
+    status=$(echo "$deleg" | sed -n 's/.*status: \([A-Z]*\).*/\1/p' | head -1)
+    servers=$(echo "$deleg" | awk '$4 == "NS" { print $5 }' | sort -u | tr '\n' ' ')
+    if [ "$status" = NXDOMAIN ]; then no "$d: the registry does not know it (not registered, or not activated yet)"
+    elif [ -n "$servers" ]; then no "$d: the registry sends visitors to ${servers}but they do not answer (set up the DNS zone at the registrar)"
+    else no "$d: no DNS servers found (registry answer: ${status:-none})"; fi
+  fi
+  # The registration's public facts only (registrar, status, servers, dates), never the owner's details
+  whois "$d" 2>/dev/null | grep -iE '^ *(registrar|domain status|status|name server|nserver|creat|expir|registry expiry)[^:]*:' |
+    grep -viE 'registrant|admin|tech|bill|email|phone|fax|street|city|postal|abuse|url|whois server|iana' | sed 's/^ */    /' | sort -u | head -12
 done
 
 echo
