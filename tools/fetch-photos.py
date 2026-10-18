@@ -21,6 +21,9 @@ The wish list is tools/photos.json. For each place of a city guide (by its id):
                 optional: [0, 0, 1, 0.88] cuts off the bottom (a date printed by the camera)
     "illustr":  true when the picture shows the kind of thing, not the place
                 itself (a dish for a restaurant): shown as "Illustration"
+    "nofop":    true when the host accepts a building Commons flags for Morocco's lack of
+                freedom of panorama (the photo itself stays free and credited); only that
+                flag is waived, never a deletion request, a copyright violation or a licence
 "_city" names the place whose photo is the city's picture on the home page,
 "_covers" the photo of each section's tile and header (section id: place id).
 To take a photo down, delete the place's entry (or empty its "files").
@@ -142,8 +145,8 @@ def meta(page, key):
     return (page['imageinfo'][0].get('extmetadata', {}).get(key) or {}).get('value', '')
 
 
-def usable(page):
-    """Why a file cannot be used, or '' when it can."""
+def usable(page, nofop=False):
+    """Why a file cannot be used, or '' when it can (nofop: the host accepts Morocco's FoP flag)."""
     ii = page['imageinfo'][0]
     lic = clean(meta(page, 'LicenseShortName'))
     if ii.get('mime') not in ('image/jpeg', 'image/png', 'image/webp', 'image/tiff'):
@@ -157,6 +160,7 @@ def usable(page):
     if clean(meta(page, 'DeletionReason')):
         return 'nominated for deletion on Commons'
     flags = [t['title'].split(':', 1)[1] for t in page.get('templates', [])]
+    flags = [f for f in flags if not (nofop and f == 'NoFoP-Morocco')]
     if flags:
         return 'Commons warns: ' + ', '.join(flags)
     if lic.lower().startswith('cc by') and not (clean(meta(page, 'Attribution')) or clean(meta(page, 'Artist'))):
@@ -240,7 +244,7 @@ def thumb_of(page):
 
 def selection(item):
     """What decides which file is chosen and how it is cut (pos and illustr only change how it shows)."""
-    keys = ('files', 'category', 'search') + (('crop',) if item.get('crop') else ())  # without a crop: as before
+    keys = ('files', 'category', 'search') + tuple(k for k in ('crop', 'nofop') if item.get(k))  # without them: as before
     return json.dumps({k: item.get(k) for k in keys}, sort_keys=True)
 
 
@@ -356,7 +360,7 @@ def main():
         try:
             for t in ([keep] if keep else []) + [t for t in item.get('files', []) if t != keep]:
                 p = pages.get(t)
-                why = 'not found' if not p else usable(p)
+                why = 'not found' if not p else usable(p, item.get('nofop'))
                 if why:
                     notes.append('%s: %s' % (t, why))
                     continue
@@ -372,7 +376,7 @@ def main():
                 except Exception as e:
                     notes.append('%s: %s' % (arg, e))
                     continue
-                cands = [p for p in found if not usable(p)]
+                cands = [p for p in found if not usable(p, item.get('nofop'))]
                 if cands:
                     chosen, auto = best(cands, how), True
             if not chosen:

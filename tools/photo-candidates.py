@@ -5,6 +5,7 @@ Shows the free photos Commons offers for places still without one, to choose fro
     python3 tools/photo-candidates.py out/                          # every place of photos.json without a photo
     python3 tools/photo-candidates.py out/ casablanca/aindiab morocco/door
     python3 tools/photo-candidates.py out/ "search:Martil beach" "category:Category:Martil"   # any search
+    python3 tools/photo-candidates.py out/ "nofop:search:Hassan II Mosque"   # with the FoP flag waived
 
 For each place it looks at its "files", "category" and "search" (tools/photos.json),
 keeps what fetch-photos.py would accept (free licence, no identifiable people, no
@@ -31,7 +32,7 @@ def candidates(item):
 
     def add(pages, how):
         for p in pages:
-            if p['title'] in seen or fp.usable(p):
+            if p['title'] in seen or fp.usable(p, item.get('nofop')):
                 continue
             seen.add(p['title'])
             out.append((how, p))
@@ -77,11 +78,16 @@ def main():
                              if not i.startswith('_') and not lock.get(c + '/' + i, {}).get('src')]
     rows, report = [], {}
     for key in keys:
+        nofop = key.startswith('nofop:')  # the host accepts Morocco's freedom-of-panorama flag here
+        if nofop:
+            key = key[len('nofop:'):]
         city, _, iid = key.partition('/')
         item = wanted.get(city, {}).get(iid)
         if key.startswith(('search:', 'category:')):  # not a place of photos.json: just a search, to choose from
             how, _, q = key.partition(':')
             item = {how: q}
+        if item and nofop:
+            item = dict(item, nofop=True)
         if not item:
             print('  ? %s is not in photos.json' % key)
             continue
