@@ -16,6 +16,9 @@ const BASE = (process.argv[2] || 'https://atlasattir.github.io/airbnb-casablanca
 const ENGINE = process.argv[3] || 'chromium';
 const [SLICE, SLICES] = (process.argv[4] || '1/1').split('/').map(Number);
 const DEVICE = ENGINE === 'webkit' ? 'iPhone 13' : 'Galaxy S9+';
+// Phones side by side: WebKit draws without a graphics card on the test machines, six at once
+// starve it (taps landing seconds late), so it gets two
+const LANES = +(process.env.LANES || (ENGINE === 'webkit' ? 2 : 6));
 
 const win = vm.createContext({});
 win.window = win;
@@ -60,7 +63,11 @@ function signature() {
 
 async function tapAll(ctx, label, url, results) {
   const page = await ctx.newPage();
-  const fresh = async () => { await page.goto(url, { waitUntil: 'load' }); await page.waitForTimeout(1100); };
+  // Asked again once: a late tap from the screen before can still be navigating away
+  const fresh = async () => {
+    await page.goto(url, { waitUntil: 'load', timeout: 60000 }).catch(() => page.goto(url, { waitUntil: 'load', timeout: 60000 }));
+    await page.waitForTimeout(1100);
+  };
   await fresh();
   const count = await page.evaluate(`(${reachable})(${JSON.stringify(SEL)}).length`);
   for (let i = 0; i < count; i++) {
@@ -73,11 +80,13 @@ async function tapAll(ctx, label, url, results) {
     const before = await page.evaluate(signature);
     const pages = ctx.pages().length;
     let err = '';
-    try { await el.tap({ timeout: 2500 }); } catch (e) {
-      err = /intercepts pointer events|obscured|covered/.test(e.message) ? 'covered by another element: ' + ((/<[^>]+>/.exec(e.message.split('intercepts')[0].split('\n').reverse().find(l => /</.test(l)) || '') || [''])[0]).slice(0, 80) : 'cannot be tapped: ' + e.message.split('\n')[0].slice(0, 100);
+    try { await el.tap({ timeout: 10000 }); } catch (e) {
+      // Why, from Playwright's log: the last thing it was waiting for (not stable, not visible…)
+      const why = e.message.replace(/\x1b\[[0-9;]*m/g, '').split('\n').map(l => l.replace(/^\s*-\s*/, '').trim()).filter(l => l && !/^(retrying|waiting \d+ms|Call log|attempting|=+)/.test(l)).pop() || '';
+      err = /intercepts pointer events|obscured|covered/.test(e.message) ? 'covered by another element: ' + ((/<[^>]+>/.exec(e.message.split('intercepts')[0].split('\n').reverse().find(l => /</.test(l)) || '') || [''])[0]).slice(0, 80) : 'cannot be tapped: ' + why.slice(0, 100);
     }
     let how = '';
-    for (let t = 0; t < 12 && !err && !how; t++) {
+    for (let t = 0; t < 20 && !err && !how; t++) {
       await page.waitForTimeout(150);
       if (ctx.pages().length > pages) how = 'opens a new tab';
       else if (await page.evaluate(signature).catch(() => 'navigated') !== before) how = 'changes the screen';
@@ -88,10 +97,13 @@ async function tapAll(ctx, label, url, results) {
     if (how === 'changes the screen' || err) await fresh();
   }
   if (await page.$('.modal.is-open')) {
+    // Once the card has finished sliding up: above it is the dimmed page
+    await page.waitForFunction(() => { const p = document.querySelector('.modal__panel'), t = p && p.getBoundingClientRect().top;
+      const still = t === window.__panelTop; window.__panelTop = t; return still; }, null, { polling: 200, timeout: 10000 }).catch(() => {});
     const before = await page.evaluate(signature);
     const box = await page.evaluate(() => { const p = document.querySelector('.modal__panel').getBoundingClientRect(); return { x: innerWidth / 2, y: Math.max(8, p.top / 2) }; });
     await page.touchscreen.tap(box.x, box.y);
-    await page.waitForTimeout(900);
+    await page.waitForTimeout(1500);
     const shut = await page.evaluate(signature) !== before;
     results.push({ ok: shut, where: label + ' › tap outside the card', how: shut ? 'changes the screen' : 'DOES NOTHING' });
   }
@@ -116,7 +128,7 @@ async function tapAll(ctx, label, url, results) {
   const uniq = [...new Map(states.map(s => [s[1], s])).values()].filter((s, i) => i % SLICES === SLICE - 1);
   console.log(ENGINE + ' (' + DEVICE + '): ' + uniq.length + ' screens to go through on ' + BASE + (SLICES > 1 ? ' (slice ' + SLICE + ' of ' + SLICES + ')' : ''));
   const results = [];
-  const lanes = 6;
+  const lanes = LANES;
   await Promise.all(Array.from({ length: lanes }, async (_, lane) => {
     const ctx = await browser.newContext(Object.assign({}, pw.devices[DEVICE], { locale: 'fr-FR', serviceWorkers: 'block',
       permissions: ['geolocation'], geolocation: { latitude: 33.589, longitude: -7.632 } }));
