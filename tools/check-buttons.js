@@ -166,7 +166,12 @@ async function tapAll(ctx, label, url, results) {
       return r.continue();
     });
     for (let i = lane; i < uniq.length; i += lanes) {
-      try { await tapAll(ctx, uniq[i][0], BASE + uniq[i][1], results); } catch (e) { results.push({ ok: false, where: uniq[i][0], how: 'screen failed: ' + e.message.split('\n')[0] }); }
+      // A hard stop too: a page that hangs (a call that never returns) would otherwise hold the lane
+      let timer;
+      const stuck = new Promise((_, no) => { timer = setTimeout(() => no(new Error('no answer for 8 minutes')), 480000); });
+      try { await Promise.race([tapAll(ctx, uniq[i][0], BASE + uniq[i][1], results), stuck]); } catch (e) { results.push({ ok: false, where: uniq[i][0], how: 'screen failed: ' + e.message.split('\n')[0] }); }
+      clearTimeout(timer);
+      if (/8 minutes/.test((results[results.length - 1] || {}).how || '')) for (const p of ctx.pages()) await p.close({ runBeforeUnload: false }).catch(() => {});
     }
     await ctx.close();
   }));
